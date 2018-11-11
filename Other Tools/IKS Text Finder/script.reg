@@ -1,0 +1,10 @@
+Windows Registry Editor Version 5.00
+
+[HKEY_CLASSES_ROOT\Directory\shell\Run IKS Text Finder]
+@="&Run IKS Text Finder here"
+"Icon"="%SystemRoot%\\System32\\shell32.dll,71"
+
+[HKEY_CLASSES_ROOT\Directory\shell\Run IKS Text Finder\command]
+@="\\C:\\Users\\User\\Desktop\\TEXT FINDER\\IKS Text Finder\\script.bat\" \"%CD%\""
+@="C:\\Users\\User\\Desktop\\TEXT FINDER\\IKS Text Finder\\script.bat \"%V%\""
+

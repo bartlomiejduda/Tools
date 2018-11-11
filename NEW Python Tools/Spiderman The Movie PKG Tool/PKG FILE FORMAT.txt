@@ -1,0 +1,20 @@
+Spiderman: The movie PKG archive file format
+
+\\ HEADER
+4 bytes - number of all folders
+4 bytes - number of all files
+4 bytes - size of all files after unpack
+
+\\CATALOGS
+64 bytes - name + \x00 + padding
+4 bytes - number of id numbers (1008/4=252)
+X * 4 bytes -  id number (252*4 = 1008)
+
+\\FILE LIST
+48 bytes:
+40 bytes - name + \x00 + padding
+4 bytes - size of file
+4 bytes - relative adress from the end of filelist
+
+//FILES
+x * file_size - data
