@@ -1,0 +1,660 @@
+<?xml version="1.0" encoding="utf-8"?>
+<CheatTable CheatEngineTableVersion="27">
+  <CheatEntries>
+    <CheatEntry>
+      <ID>4</ID>
+      <Description>"Cheats"</Description>
+      <LastState Value="" Activated="1" RealAddress="00000000"/>
+      <Color>FF0000</Color>
+      <GroupHeader>1</GroupHeader>
+      <Hotkeys>
+        <Hotkey>
+          <Action>Toggle Activation</Action>
+          <Keys>
+            <Key>17</Key>
+            <Key>65</Key>
+          </Keys>
+          <ID>0</ID>
+        </Hotkey>
+      </Hotkeys>
+      <CheatEntries>
+        <CheatEntry>
+          <ID>67</ID>
+          <Description>"Infinite Ammo Script"</Description>
+          <LastState Activated="1"/>
+          <Color>FF0000</Color>
+          <VariableType>Auto Assembler Script</VariableType>
+          <AssemblerScript>[ENABLE]
+alloc(newmem,2048)
+label(returnhere)
+label(originalcode)
+label(exit)
+
+newmem:
+
+inc ebp
+originalcode:
+//dec ebp
+call OVERLAY.EXE+2B080
+
+exit:
+jmp returnhere
+
+"OVERLAY.EXE"+C93EB:
+jmp newmem
+nop
+returnhere:
+
+
+ 
+[DISABLE]
+dealloc(newmem)
+"OVERLAY.EXE"+C93EB:
+dec ebp
+call OVERLAY.EXE+2B080
+//Alt: db 4D E8 8F 1C F6 FF
+
+</AssemblerScript>
+          <Hotkeys>
+            <Hotkey>
+              <Action>Toggle Activation</Action>
+              <Keys>
+                <Key>17</Key>
+                <Key>71</Key>
+              </Keys>
+              <ID>0</ID>
+            </Hotkey>
+          </Hotkeys>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>52</ID>
+          <Description>"Infinite Ammo Script 2"</Description>
+          <LastState Activated="1"/>
+          <Color>FF0000</Color>
+          <VariableType>Auto Assembler Script</VariableType>
+          <AssemblerScript>[ENABLE]
+//code from here to '[DISABLE]' will be used to enable the cheat
+alloc(newmem,2048)
+label(returnhere)
+label(originalcode)
+label(exit)
+
+newmem: //this is allocated memory, you have read,write,execute access
+//place your code here
+
+originalcode:
+mov [esi+eax+04],15
+mov esi,[ecx+000001D8]
+
+exit:
+jmp returnhere
+
+"OVERLAY.EXE"+46EE:
+jmp newmem
+nop
+nop
+nop
+nop
+nop
+returnhere:
+
+
+ 
+ 
+[DISABLE]
+//code from here till the end of the code will be used to disable the cheat
+dealloc(newmem)
+"OVERLAY.EXE"+46EE:
+mov [esi+eax+04],ebx
+mov esi,[ecx+000001D8]
+//Alt: db 89 5C 06 04 8B B1 D8 01 00 00
+</AssemblerScript>
+          <Hotkeys>
+            <Hotkey>
+              <Action>Toggle Activation</Action>
+              <Keys>
+                <Key>17</Key>
+                <Key>71</Key>
+              </Keys>
+              <ID>0</ID>
+            </Hotkey>
+          </Hotkeys>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>3</ID>
+          <Description>"Infinite Grenades Script"</Description>
+          <LastState Activated="1"/>
+          <Color>FF0000</Color>
+          <VariableType>Auto Assembler Script</VariableType>
+          <AssemblerScript>[ENABLE]
+//code from here to '[DISABLE]' will be used to enable the cheat
+alloc(newmem,2048)
+label(returnhere)
+label(originalcode)
+label(exit)
+
+newmem: //this is allocated memory, you have read,write,execute access
+//place your code here
+
+originalcode:
+mov ecx,21
+cmp ecx,ebx
+
+exit:
+jmp returnhere
+
+"OVERLAY.EXE"+C42D4:
+jmp newmem
+nop
+returnhere:
+
+
+ 
+ 
+[DISABLE]
+//code from here till the end of the code will be used to disable the cheat
+dealloc(newmem)
+"OVERLAY.EXE"+C42D4:
+mov ecx,[ecx+edx+04]
+cmp ecx,ebx
+//Alt: db 8B 4C 11 04 3B CB
+</AssemblerScript>
+          <Hotkeys>
+            <Hotkey>
+              <Action>Toggle Activation</Action>
+              <Keys>
+                <Key>17</Key>
+                <Key>72</Key>
+              </Keys>
+              <ID>0</ID>
+            </Hotkey>
+          </Hotkeys>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>50</ID>
+          <Description>"Infinite Grenades Script 2"</Description>
+          <LastState Activated="1"/>
+          <Color>FF0000</Color>
+          <VariableType>Auto Assembler Script</VariableType>
+          <AssemblerScript>[ENABLE]
+//code from here to '[DISABLE]' will be used to enable the cheat
+alloc(newmem,2048)
+label(returnhere)
+label(originalcode)
+label(exit)
+
+newmem: //this is allocated memory, you have read,write,execute access
+//place your code here
+
+originalcode:
+mov [esi+eax+04],13
+mov esi,[ecx+000001E0]
+
+exit:
+jmp returnhere
+
+"OVERLAY.EXE"+472A:
+jmp newmem
+nop
+nop
+nop
+nop
+nop
+returnhere:
+
+
+ 
+ 
+[DISABLE]
+//code from here till the end of the code will be used to disable the cheat
+dealloc(newmem)
+"OVERLAY.EXE"+472A:
+mov [esi+eax+04],ebx
+mov esi,[ecx+000001E0]
+//Alt: db 89 5C 06 04 8B B1 E0 01 00 00
+</AssemblerScript>
+          <Hotkeys>
+            <Hotkey>
+              <Action>Toggle Activation</Action>
+              <Keys>
+                <Key>17</Key>
+                <Key>72</Key>
+              </Keys>
+              <ID>0</ID>
+            </Hotkey>
+          </Hotkeys>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>12</ID>
+          <Description>"Infinite Timer Script"</Description>
+          <LastState Activated="1"/>
+          <Color>FF0000</Color>
+          <VariableType>Auto Assembler Script</VariableType>
+          <AssemblerScript>[ENABLE]
+//code from here to '[DISABLE]' will be used to enable the cheat
+alloc(newmem,2048)
+label(returnhere)
+label(originalcode)
+label(exit)
+
+newmem: //this is allocated memory, you have read,write,execute access
+//place your code here
+
+originalcode:
+mov edx,[esp+10]
+mov [esi+20],4283AD14
+
+exit:
+jmp returnhere
+
+"OVERLAY.EXE"+91FF0:
+jmp newmem
+nop
+nop
+returnhere:
+
+
+ 
+ 
+[DISABLE]
+//code from here till the end of the code will be used to disable the cheat
+dealloc(newmem)
+"OVERLAY.EXE"+91FF0:
+mov edx,[esp+10]
+mov [esi+20],edx
+//Alt: db 8B 54 24 10 89 56 20
+</AssemblerScript>
+          <Hotkeys>
+            <Hotkey>
+              <Action>Toggle Activation</Action>
+              <Keys>
+                <Key>17</Key>
+                <Key>74</Key>
+              </Keys>
+              <ID>0</ID>
+            </Hotkey>
+          </Hotkeys>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>53</ID>
+          <Description>"Infinite Armor Script"</Description>
+          <LastState Activated="1"/>
+          <Color>FF0000</Color>
+          <VariableType>Auto Assembler Script</VariableType>
+          <AssemblerScript>[ENABLE]
+//code from here to '[DISABLE]' will be used to enable the cheat
+alloc(newmem,2048)
+label(returnhere)
+label(originalcode)
+label(exit)
+
+newmem: //this is allocated memory, you have read,write,execute access
+//place your code here
+
+originalcode:
+fadd dword ptr [esi+000000A0]
+
+exit:
+jmp returnhere
+
+"OVERLAY.EXE"+2E4C:
+jmp newmem
+nop
+returnhere:
+
+
+ 
+ 
+[DISABLE]
+//code from here till the end of the code will be used to disable the cheat
+dealloc(newmem)
+"OVERLAY.EXE"+2E4C:
+fsubr dword ptr [esi+000000A0]
+//Alt: db D8 AE A0 00 00 00
+</AssemblerScript>
+          <Hotkeys>
+            <Hotkey>
+              <Action>Toggle Activation</Action>
+              <Keys>
+                <Key>17</Key>
+                <Key>75</Key>
+              </Keys>
+              <ID>0</ID>
+            </Hotkey>
+          </Hotkeys>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>62</ID>
+          <Description>"Infinite Armor Script 2"</Description>
+          <LastState Activated="1"/>
+          <Color>FF0000</Color>
+          <VariableType>Auto Assembler Script</VariableType>
+          <AssemblerScript>[ENABLE]
+//code from here to '[DISABLE]' will be used to enable the cheat
+alloc(newmem,2048)
+label(returnhere)
+label(originalcode)
+label(exit)
+
+newmem: //this is allocated memory, you have read,write,execute access
+//place your code here
+
+originalcode:
+//fsubr dword ptr [esi+000000A0]
+
+exit:
+jmp returnhere
+
+"OVERLAY.EXE"+2DEC:
+jmp newmem
+nop
+returnhere:
+
+
+ 
+ 
+[DISABLE]
+//code from here till the end of the code will be used to disable the cheat
+dealloc(newmem)
+"OVERLAY.EXE"+2DEC:
+fsubr dword ptr [esi+000000A0]
+//Alt: db D8 AE A0 00 00 00
+</AssemblerScript>
+          <Hotkeys>
+            <Hotkey>
+              <Action>Toggle Activation</Action>
+              <Keys>
+                <Key>17</Key>
+                <Key>75</Key>
+              </Keys>
+              <ID>0</ID>
+            </Hotkey>
+          </Hotkeys>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>63</ID>
+          <Description>"Infinite Armor Script 3"</Description>
+          <LastState Activated="1"/>
+          <Color>FF0000</Color>
+          <VariableType>Auto Assembler Script</VariableType>
+          <AssemblerScript>[ENABLE]
+//code from here to '[DISABLE]' will be used to enable the cheat
+alloc(newmem,2048)
+label(returnhere)
+label(originalcode)
+label(exit)
+
+newmem: //this is allocated memory, you have read,write,execute access
+//place your code here
+
+originalcode:
+//fdivr dword ptr [esp+08]
+jmp OVERLAY.EXE+2DEC
+
+exit:
+jmp returnhere
+
+"OVERLAY.EXE"+2DE2:
+jmp newmem
+nop
+returnhere:
+
+
+ 
+ 
+[DISABLE]
+//code from here till the end of the code will be used to disable the cheat
+dealloc(newmem)
+"OVERLAY.EXE"+2DE2:
+fdivr dword ptr [esp+08]
+jmp OVERLAY.EXE+2DEC
+//Alt: db D8 7C 24 08 EB 04
+</AssemblerScript>
+          <Hotkeys>
+            <Hotkey>
+              <Action>Toggle Activation</Action>
+              <Keys>
+                <Key>17</Key>
+                <Key>75</Key>
+              </Keys>
+              <ID>0</ID>
+            </Hotkey>
+          </Hotkeys>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>55</ID>
+          <Description>"Infinite Life Script (also enemies)"</Description>
+          <LastState/>
+          <Color>FF0000</Color>
+          <VariableType>Auto Assembler Script</VariableType>
+          <AssemblerScript>[ENABLE]
+//code from here to '[DISABLE]' will be used to enable the cheat
+alloc(newmem,2048)
+label(returnhere)
+label(originalcode)
+label(exit)
+
+newmem: //this is allocated memory, you have read,write,execute access
+//place your code here
+
+originalcode:
+//fadd dword ptr [esi+000000A8]
+
+exit:
+jmp returnhere
+
+"OVERLAY.EXE"+28AD3:
+jmp newmem
+nop
+returnhere:
+
+
+ 
+ 
+[DISABLE]
+//code from here till the end of the code will be used to disable the cheat
+dealloc(newmem)
+"OVERLAY.EXE"+28AD3:
+fsubr dword ptr [esi+000000A8]
+//Alt: db D8 AE A8 00 00 00
+</AssemblerScript>
+          <Hotkeys>
+            <Hotkey>
+              <Action>Toggle Activation</Action>
+              <Keys>
+                <Key>17</Key>
+                <Key>76</Key>
+              </Keys>
+              <ID>0</ID>
+            </Hotkey>
+          </Hotkeys>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>64</ID>
+          <Description>"Infinite Life Script 2 (also enemies)"</Description>
+          <LastState/>
+          <Color>FF0000</Color>
+          <VariableType>Auto Assembler Script</VariableType>
+          <AssemblerScript>[ENABLE]
+//code from here to '[DISABLE]' will be used to enable the cheat
+alloc(newmem,2048)
+label(returnhere)
+label(originalcode)
+label(exit)
+
+newmem: //this is allocated memory, you have read,write,execute access
+//place your code here
+
+originalcode:
+//fdivr dword ptr [esp+08]
+jmp OVERLAY.EXE+28AD3
+
+exit:
+jmp returnhere
+
+"OVERLAY.EXE"+28AC9:
+jmp newmem
+nop
+returnhere:
+
+
+ 
+ 
+[DISABLE]
+//code from here till the end of the code will be used to disable the cheat
+dealloc(newmem)
+"OVERLAY.EXE"+28AC9:
+fdivr dword ptr [esp+08]
+jmp OVERLAY.EXE+28AD3
+//Alt: db D8 7C 24 08 EB 04
+</AssemblerScript>
+          <Hotkeys>
+            <Hotkey>
+              <Action>Toggle Activation</Action>
+              <Keys>
+                <Key>17</Key>
+                <Key>76</Key>
+              </Keys>
+              <ID>0</ID>
+            </Hotkey>
+          </Hotkeys>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>69</ID>
+          <Description>"Infinite Bazooka"</Description>
+          <LastState Activated="1"/>
+          <Color>FF0000</Color>
+          <VariableType>Auto Assembler Script</VariableType>
+          <AssemblerScript>[ENABLE]
+alloc(newmem,2048)
+label(returnhere)
+label(originalcode)
+label(exit)
+
+newmem:
+
+inc ebx
+originalcode:
+//dec ebx
+call OVERLAY.EXE+2B080
+
+exit:
+jmp returnhere
+
+"OVERLAY.EXE"+C59C6:
+jmp newmem
+nop
+returnhere:
+
+
+ 
+ 
+[DISABLE]
+dealloc(newmem)
+"OVERLAY.EXE"+C59C6:
+dec ebx
+call OVERLAY.EXE+2B080
+//Alt: db 4B E8 B4 56 F6 FF
+
+</AssemblerScript>
+          <Hotkeys>
+            <Hotkey>
+              <Action>Toggle Activation</Action>
+              <Keys>
+                <Key>17</Key>
+                <Key>66</Key>
+              </Keys>
+              <ID>0</ID>
+            </Hotkey>
+          </Hotkeys>
+        </CheatEntry>
+      </CheatEntries>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>60</ID>
+      <Description>"Values"</Description>
+      <LastState Value="" RealAddress="00000000"/>
+      <Color>FF00FF</Color>
+      <GroupHeader>1</GroupHeader>
+      <CheatEntries>
+        <CheatEntry>
+          <ID>56</ID>
+          <Description>"Life Value"</Description>
+          <Color>FF00FF</Color>
+          <VariableType>Float</VariableType>
+          <Address>"OVERLAY.EXE"+00015A60</Address>
+          <Offsets>
+            <Offset>A8</Offset>
+            <Offset>70</Offset>
+            <Offset>98</Offset>
+            <Offset>78</Offset>
+          </Offsets>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>11</ID>
+          <Description>"Timer Value"</Description>
+          <Color>FF00FF</Color>
+          <VariableType>Float</VariableType>
+          <Address>"OVERLAY.EXE"+00015A60</Address>
+          <Offsets>
+            <Offset>20</Offset>
+            <Offset>AC</Offset>
+            <Offset>3C</Offset>
+            <Offset>20</Offset>
+            <Offset>68</Offset>
+          </Offsets>
+        </CheatEntry>
+      </CheatEntries>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>66</ID>
+      <Description>"OLD"</Description>
+      <LastState Value="" RealAddress="00000000"/>
+      <Color>808080</Color>
+      <GroupHeader>1</GroupHeader>
+      <CheatEntries>
+        <CheatEntry>
+          <ID>1</ID>
+          <Description>"Infinite Ammo Script_old"</Description>
+          <LastState/>
+          <Color>808080</Color>
+          <VariableType>Auto Assembler Script</VariableType>
+          <AssemblerScript>[ENABLE]
+//code from here to '[DISABLE]' will be used to enable the cheat
+alloc(newmem,2048)
+label(returnhere)
+label(originalcode)
+label(exit)
+
+newmem: //this is allocated memory, you have read,write,execute access
+//place your code here
+
+originalcode:
+mov [eax+edx+04],28 //41
+test esi,esi
+
+exit:
+jmp returnhere
+
+"OVERLAY.EXE"+C93FA:
+jmp newmem
+nop
+returnhere:
+
+
+ 
+ 
+[DISABLE]
+//code from here till the end of the code will be used to disable the cheat
+dealloc(newmem)
+"OVERLAY.EXE"+C93FA:
+mov [eax+edx+04],ebp
+test esi,esi
+//Alt: db 89 6C 10 04 85 F6
+</AssemblerScript>
+        </CheatEntry>
+      </CheatEntries>
+    </CheatEntry>
+  </CheatEntries>
+  <UserdefinedSymbols/>
+</CheatTable>
