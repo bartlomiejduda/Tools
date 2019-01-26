@@ -2,9 +2,39 @@
 <CheatTable CheatEngineTableVersion="27">
   <CheatEntries>
     <CheatEntry>
+      <ID>71</ID>
+      <Description>"Description"</Description>
+      <LastState Value="" RealAddress="00000000"/>
+      <Color>0080FF</Color>
+      <GroupHeader>1</GroupHeader>
+      <CheatEntries>
+        <CheatEntry>
+          <ID>70</ID>
+          <Description>"Author: Ikskoks"</Description>
+          <LastState Value="" RealAddress="00000000"/>
+          <Color>0080FF</Color>
+          <GroupHeader>1</GroupHeader>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>72</ID>
+          <Description>"If you like my cheats, please consider visiting my site https://ikskoks.pl/ "</Description>
+          <LastState Value="" RealAddress="00000000"/>
+          <Color>0080FF</Color>
+          <GroupHeader>1</GroupHeader>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>73</ID>
+          <Description>"and fanpage https://www.facebook.com/ikskoks/"</Description>
+          <LastState Value="" RealAddress="00000000"/>
+          <Color>0080FF</Color>
+          <GroupHeader>1</GroupHeader>
+        </CheatEntry>
+      </CheatEntries>
+    </CheatEntry>
+    <CheatEntry>
       <ID>4</ID>
       <Description>"Cheats"</Description>
-      <LastState Value="" Activated="1" RealAddress="00000000"/>
+      <LastState Value="" RealAddress="00000000"/>
       <Color>FF0000</Color>
       <GroupHeader>1</GroupHeader>
       <Hotkeys>
@@ -568,6 +598,60 @@ call OVERLAY.EXE+2B080
             </Hotkey>
           </Hotkeys>
         </CheatEntry>
+        <CheatEntry>
+          <ID>101</ID>
+          <Description>"Infinite Bazooka (Nical)"</Description>
+          <LastState Activated="1"/>
+          <Color>FF0000</Color>
+          <VariableType>Auto Assembler Script</VariableType>
+          <AssemblerScript>[ENABLE]
+alloc(newmem,2048)
+label(returnhere)
+label(originalcode)
+label(exit)
+
+newmem:
+
+originalcode:
+inc edx
+//dec edx
+shl eax,04
+mov [eax+ecx+04],edx
+
+exit:
+jmp returnhere
+
+"OVERLAY.EXE"+C5434:
+jmp newmem
+nop
+nop
+nop
+returnhere:
+
+
+
+ 
+ 
+[DISABLE]
+dealloc(newmem)
+"OVERLAY.EXE"+C5434:
+dec edx
+shl eax,04
+mov [eax+ecx+04],edx
+//Alt: db 4A C1 E0 04 89 54 08 04
+
+</AssemblerScript>
+          <Hotkeys>
+            <Hotkey>
+              <Action>Toggle Activation</Action>
+              <Keys>
+                <Key>17</Key>
+                <Key>66</Key>
+              </Keys>
+              <ID>0</ID>
+            </Hotkey>
+          </Hotkeys>
+        </CheatEntry>
       </CheatEntries>
     </CheatEntry>
     <CheatEntry>
@@ -579,7 +663,7 @@ call OVERLAY.EXE+2B080
       <CheatEntries>
         <CheatEntry>
           <ID>56</ID>
-          <Description>"Life Value"</Description>
+          <Description>"Life Value (Training)"</Description>
           <Color>FF00FF</Color>
           <VariableType>Float</VariableType>
           <Address>"OVERLAY.EXE"+00015A60</Address>
@@ -592,7 +676,7 @@ call OVERLAY.EXE+2B080
         </CheatEntry>
         <CheatEntry>
           <ID>11</ID>
-          <Description>"Timer Value"</Description>
+          <Description>"Timer Value (Training)"</Description>
           <Color>FF00FF</Color>
           <VariableType>Float</VariableType>
           <Address>"OVERLAY.EXE"+00015A60</Address>
