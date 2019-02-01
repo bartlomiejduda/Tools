@@ -1,0 +1,14 @@
+* CT Special Forces Fire for Effect Cheats *
+
+Author: Ikskoks
+Game: CT Special Forces Fire for Effect
+Game version: Steam
+
+Hotkeys:
+CTRL+A - activate all cheats
+CTRL+G - infinite ammo
+CTRL+H - infinite grenades
+CTRL+J - infinite timer
+CTRL+K - infinite armor
+CTRL+L - infinite life
+CTRL+B - infinite bazooka
