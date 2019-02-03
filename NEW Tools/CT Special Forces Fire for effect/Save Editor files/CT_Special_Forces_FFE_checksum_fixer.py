@@ -23,10 +23,6 @@ def four_bytes_to_int(bytes4):
     #print 'bytes4: ' + int_to_hex_string(res_bytes)
     return res_bytes
 
-def small_int_to_ascii(input_int):
-    res_ascii = char(input_int)
-    return res_ascii
-
 def split_every(n, s):
     return [ s[i:i+n] for i in xrange(0, len(s), n) ]
 
@@ -74,11 +70,7 @@ def generate_checksum(save_file_path, checksum_offset, overlay_exe_path, overlay
         checksum_fin_formatted = format_checksum(checksum_fin)
         print "Formatted checksum: " + checksum_fin_formatted
         return checksum_fin_formatted
- 
-
-def string_to_hexstring(input_string):
-    hex_out = hex('0x' + input_string + 'L')
-    return hex_out    
+  
 
 def fix_checksum(input_checksum, checksum_offset, save_file_path): #fix checksum in ".SAV" save file after it was earlier generated in generate_checksum function
     Save_file = open(save_file_path, 'r+b')

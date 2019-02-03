@@ -1,0 +1,73 @@
+﻿// CT Special Forces Fire for effect
+// Save file (.sav) file format
+//Specification has been created by Bartlomiej Duda
+
+
+//HEADER
+4 bytes - magic (\x15\x3B\x00\x00)
+4 bytes (float) - time played (hours)
+4 bytes (float) - time played (minutes) //but as seconds in hex
+8 bytes (string) - save name with \x00 padding
+
+//Missions block
+4 bytes - unknown
+4 bytes - unknown
+4 bytes - number of unlocked missions (0-26)
+	//by setting this to 26, you can also unlock
+	//all entries in "Thesis Data Base"
+4 bytes - current mission (0-26)
+1 byte - unknown
+26 bytes - medals unlocked in mission (1 byte per mission)
+	//01 - bronze
+	//02 - silver
+	//03 - silver and bronze
+	//04 - gold
+	//05 - gold and bronze
+	//06 - gold and silver
+	//07 - gold, silver and bronze
+	//08 - emblem
+	//09 - emblem and bronze
+	//0A - emblem and silver
+	//0B - emblem, bronze and silver
+	//0C - emblem and gold
+	//0D - emblem, gold and bronze
+	//0E - emblem, gold and silver
+	//0F - emblem, gold, silver and bronze
+
+24 bytes - unknown
+
+//Options block
+4 bytes - music volume (0-16)
+4 bytes - FX volume (0-16)
+4 bytes - dialogues volume (0-16)
+9 bytes - unknown
+1 byte (boolean) - auto lock
+1 byte (boolean) - invert x
+1 byte (boolean) - invert y
+4 bytes (booleans) - cheat modes activation (1 byte per cheat mode)
+	//mode 1 - health regeneration
+	//mode 2 - energy regeneration
+	//mode 3 - weapons 1 infinite
+	//mode 4 - weapons 2 infinite
+5 bytes - unknown
+1 byte - language
+	//00 - no language
+	//01 - english
+	//02 - french
+	//03 - italian
+	//04 - german
+	//05 - spanish
+	//?? - dutch
+
+
+number_of_entries *
+{
+  //for entry
+  x bytes - entry
+  48 bytes - padding
+}
+
+
+
+//FOOTER
+4 bytes - checksum
