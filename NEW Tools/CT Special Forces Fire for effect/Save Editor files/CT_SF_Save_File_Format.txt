@@ -34,9 +34,12 @@
 	//0E - emblem, gold and silver
 	//0F - emblem, gold, silver and bronze
 
-24 bytes - unknown
+21 bytes - unknown
 
 //Options block
+4 bytes - video format
+	//00 - format 4:3
+	//01 - format 16:9
 4 bytes - music volume (0-16)
 4 bytes - FX volume (0-16)
 4 bytes - dialogues volume (0-16)
@@ -54,16 +57,15 @@
 	//00 - no language
 	//01 - english
 	//02 - french
-	//03 - italian
+	//03 - spanish
 	//04 - german
-	//05 - spanish
-	//?? - dutch
+	//05 - italian
 
 
 number_of_entries *
 {
   //for entry
-  x bytes - entry
+  x bytes - entry data
   48 bytes - padding
 }
 
