@@ -1,0 +1,9 @@
+// CT Special Forces Fire for effect
+// SDX audio file (.sdx) description
+// Document has been created by Bartlomiej Duda
+
+
+Data type: PCM 16-bit
+Sample rate: 32000 Hz
+
+Tool used to extract: Awave studio v11.3
