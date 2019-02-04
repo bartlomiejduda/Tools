@@ -7,3 +7,36 @@ Data type: PCM 16-bit
 Sample rate: 32000 Hz
 
 Tool used to extract: Awave studio v11.3
+
+
+
+// HEADER
+4 bytes - magic (\xEA\x03\x00\x00)
+4 bytes - number of entries
+8 bytes - identifier/description
+4 bytes - unknown
+
+
+//ENTRY TABLE
+number_of_entries *
+{
+   //16 bytes per entry
+   2 bytes - sample rate in Hz
+   2 bytes - sample frequency
+   2 bytes - small header offset
+   2 bytes - unknown (increasing value)
+   4 bytes - sample size
+   4 bytes - unknown
+}
+
+
+//DATA
+number_of_entries *
+{
+   x bytes - small header
+   x bytes - padding
+   x bytes - audio data
+}
+
+
+
