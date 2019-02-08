@@ -1,0 +1,15 @@
+﻿// Crazy Taxi
+// JPK file (.jpk) description
+// Document has been created by Bartlomiej Duda
+
+
+//HEADER
+char (4 bytes) - magic ("Jdds" or "Jpng")
+uint32 (4 bytes) - offset of the next texture block (from the end of the header) / texture size
+uint32 (4 bytes) - unknown (/x20 or /x00)
+uint32 (4 bytes) - width
+uint32 (4 bytes) - height
+uint32 (4 bytes) - unknown (zeroes)
+
+//FILE DATA
+x bytes - file data (DDS/PNG Texture)

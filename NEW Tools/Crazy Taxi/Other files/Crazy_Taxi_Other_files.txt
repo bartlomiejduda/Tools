@@ -1,0 +1,17 @@
+// Crazy Taxi
+// Description of the other files
+// Document has been created by Bartlomiej Duda
+
+
+
+AFS Archives - use AFS Explorer 3.7 for unpacking
+
+WPU Shaders - compiled with "Microsoft (R) HLSL Shader Compiler"
+There is a source code on github for this compiler. 
+Should make easier to reverse engineer file format
+
+ADX sounds - CRI sound files
+There are external documents with detailed description of those files.
+No need to copy-paste. I'll just leave links here. ;)
+https://wiki.multimedia.cx/index.php/CRI_ADX_file
+https://wiki.multimedia.cx/index.php/CRI_ADX_ADPCM
