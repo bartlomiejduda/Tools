@@ -1,0 +1,60 @@
+// Teenage Mutant Ninja Turtles 2003 PC game
+// Short info about files from TMNT 2003
+// Document has been created by Bartlomiej Duda
+
+
+
+# AFS archives and DAT files #
+Example files: TMNT.DAT, voice.afs
+Can be opened and modified in AFS Explorer 3.7
+DAT files in main folder are just AFS archives with changed extension
+
+# TXD texture files #
+Example files: db_6_15.txd, turtles.txd
+Can be viewed in TextureFinder 2.1
+
+# SFD Movie files #
+Example files: SP_02.sfd, S6_S11.sfd
+Can be played in Media Player Classic
+
+# Fonts #
+Font images are in bmp files, Example files: font.bmp, fontm.bmp
+Font data is stored in met file, Example file: font.met
+
+// font.met file structure
+1st line - metric title
+2nd line - font images filenames
+3rd line - unknown
+number_of_characters *
+{
+number - ascii number (32-127)
+number - left end of the character (in pixels)
+number - top end of the character (in pixels)
+number - right end of the character (in pixels)
+number - bottom end of the character (in pixels)
+# - separator
+'char' - character
+}
+
+# dat files #
+Example files: scene12c.dat, scene68a.dat
+Scene files extracted from AFS archives
+They are containing texts for levels
+
+#Save dat files #
+Example file: SaveGame.dat
+They are located at
+c:\Users\User\AppData\Local\VirtualStore\Program Files (x86)\KONAMI\Teenage Mutant Ninja Turtles\
+by default
+
+# dff files #
+Example files: car5_d.dff, train.dff
+Possible model files
+
+#anm files #
+Example files: mic_00_w_SelectEnbu.anm, rap_00_w_SelectEnbu.anm
+Possible animation files
+
+# pac files #
+Example files: GangB.pac, end_leo_2.pac
+Propably some game logic or animation
