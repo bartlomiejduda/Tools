@@ -1,0 +1,196 @@
+<?xml version="1.0" encoding="utf-8"?>
+<CheatTable CheatEngineTableVersion="27">
+  <CheatEntries>
+    <CheatEntry>
+      <ID>30</ID>
+      <Description>"Description"</Description>
+      <LastState Value="" RealAddress="00000000"/>
+      <Color>0080FF</Color>
+      <GroupHeader>1</GroupHeader>
+      <CheatEntries>
+        <CheatEntry>
+          <ID>31</ID>
+          <Description>"Author: Ikskoks"</Description>
+          <LastState Value="" RealAddress="00000000"/>
+          <Color>0080FF</Color>
+          <GroupHeader>1</GroupHeader>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>32</ID>
+          <Description>"If you like my cheats, please consider visiting my site https://ikskoks.pl/ "</Description>
+          <LastState Value="" RealAddress="00000000"/>
+          <Color>0080FF</Color>
+          <GroupHeader>1</GroupHeader>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>33</ID>
+          <Description>"and fanpage https://www.facebook.com/ikskoks/"</Description>
+          <LastState Value="" RealAddress="00000000"/>
+          <Color>0080FF</Color>
+          <GroupHeader>1</GroupHeader>
+        </CheatEntry>
+      </CheatEntries>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>27</ID>
+      <Description>"Cheats (CTRL+A)"</Description>
+      <Options moActivateChildrenAsWell="1" moDeactivateChildrenAsWell="1"/>
+      <LastState Value="" RealAddress="00000000"/>
+      <Color>FF0000</Color>
+      <GroupHeader>1</GroupHeader>
+      <Hotkeys>
+        <Hotkey>
+          <Action>Toggle Activation</Action>
+          <Keys>
+            <Key>17</Key>
+            <Key>65</Key>
+          </Keys>
+          <ID>0</ID>
+        </Hotkey>
+      </Hotkeys>
+      <CheatEntries>
+        <CheatEntry>
+          <ID>26</ID>
+          <Description>"Infinite Throwing Stars (CTRL+G)"</Description>
+          <LastState/>
+          <Color>FF0000</Color>
+          <VariableType>Auto Assembler Script</VariableType>
+          <AssemblerScript>[ENABLE]
+alloc(newmem,2048)
+label(returnhere)
+label(originalcode)
+label(exit)
+
+newmem:
+mov [eax],0F
+
+originalcode:
+//mov [eax],ecx
+call TMNT.EXE+4C73
+
+exit:
+jmp returnhere
+
+"TMNT.EXE"+32326:
+jmp newmem
+nop
+nop
+returnhere:
+
+
+ 
+ 
+[DISABLE]
+dealloc(newmem)
+"TMNT.EXE"+32326:
+mov [eax],ecx
+call TMNT.EXE+4C73
+//Alt: db 89 08 E8 46 29 FD FF
+
+
+
+</AssemblerScript>
+          <Hotkeys>
+            <Hotkey>
+              <Action>Toggle Activation</Action>
+              <Keys>
+                <Key>17</Key>
+                <Key>71</Key>
+              </Keys>
+              <ID>0</ID>
+            </Hotkey>
+          </Hotkeys>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>25</ID>
+          <Description>"Freeze Life Bar (CTRL+H)"</Description>
+          <Color>FF0000</Color>
+          <VariableType>4 Bytes</VariableType>
+          <Address>"TMNT.EXE"+0020A438</Address>
+          <Offsets>
+            <Offset>188</Offset>
+            <Offset>60</Offset>
+            <Offset>8</Offset>
+            <Offset>40</Offset>
+          </Offsets>
+          <Hotkeys>
+            <Hotkey>
+              <Action>Toggle Activation</Action>
+              <Keys>
+                <Key>17</Key>
+                <Key>72</Key>
+              </Keys>
+              <Value>200</Value>
+              <ID>0</ID>
+            </Hotkey>
+          </Hotkeys>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>29</ID>
+          <Description>"Score x10 (CTRL+J)"</Description>
+          <LastState/>
+          <Color>FF0000</Color>
+          <VariableType>Auto Assembler Script</VariableType>
+          <AssemblerScript>[ENABLE]
+alloc(newmem,2048)
+label(returnhere)
+label(originalcode)
+label(exit)
+
+newmem:
+
+originalcode:
+mov ecx,[esp+10]
+
+add ecx, ecx
+add ecx, ecx
+add ecx, ecx
+add ecx, ecx
+add ecx, ecx
+add ecx, ecx
+add ecx, ecx
+add ecx, ecx
+add ecx, ecx
+
+
+add [eax+5C],ecx
+
+exit:
+jmp returnhere
+
+"TMNT.EXE"+19A9D:
+jmp newmem
+nop
+nop
+returnhere:
+
+
+
+ 
+ 
+[DISABLE]
+dealloc(newmem)
+"TMNT.EXE"+19A9D:
+mov ecx,[esp+10]
+add [eax+5C],ecx
+//Alt: db 8B 4C 24 10 01 48 5C
+
+
+
+</AssemblerScript>
+          <Hotkeys>
+            <Hotkey>
+              <Action>Toggle Activation</Action>
+              <Keys>
+                <Key>17</Key>
+                <Key>74</Key>
+              </Keys>
+              <ID>0</ID>
+            </Hotkey>
+          </Hotkeys>
+        </CheatEntry>
+      </CheatEntries>
+    </CheatEntry>
+  </CheatEntries>
+  <UserdefinedSymbols/>
+</CheatTable>

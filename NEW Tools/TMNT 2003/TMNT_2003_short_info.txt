@@ -17,6 +17,10 @@ Can be viewed in TextureFinder 2.1
 Example files: SP_02.sfd, S6_S11.sfd
 Can be played in Media Player Classic
 
+# ADX Audio files #
+Example files: M_02G.adx
+Can be played in Media Player Classic
+
 # Fonts #
 Font images are in bmp files, Example files: font.bmp, fontm.bmp
 Font data is stored in met file, Example file: font.met
@@ -51,7 +55,7 @@ by default
 Example files: car5_d.dff, train.dff
 Possible model files
 
-#anm files #
+# anm files #
 Example files: mic_00_w_SelectEnbu.anm, rap_00_w_SelectEnbu.anm
 Possible animation files
 
