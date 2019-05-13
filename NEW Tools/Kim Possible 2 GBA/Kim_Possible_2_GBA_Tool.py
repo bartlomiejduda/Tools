@@ -9,6 +9,7 @@
 # v1.3   11.05.2019  Bartlomiej Duda
 # v1.4   12.05.2019  Bartlomiej Duda
 # v1.5   12.05.2019  Bartlomiej Duda
+# v1.6   13.05.2019  Bartlomiej Duda
 
 import argparse
 import os
@@ -117,7 +118,11 @@ def convert_text_to_bytes(input_text): #returns bytes to import
 	#input_text = re.sub('<.*>', conv_my_replace, input_text)    #ex. <06>  --> 06
     return hex_bytes
     
-
+def count_bytes(input_byte_string):
+    counter = 0
+    for char in input_byte_string:
+        counter += 1
+    return counter
     
 def get_char_name(input_ident): #using dictionary to get game char names
     try:
@@ -207,11 +212,7 @@ def text_export(input_gba_file, output_file_path, output_reimport_file_path):
 
     print("All texts extracted!")
  
-def count_bytes(input_byte_string):
-    counter = 0
-    for char in input_byte_string:
-        counter += 1
-    return counter
+
 
 def text_import(input_gba_file, text_file_path, reimport_file_path):
 	
@@ -241,18 +242,39 @@ def text_import(input_gba_file, text_file_path, reimport_file_path):
 	base_text_offset = 7237979
 	base_pointer_array_offset = 7260511
 	num_of_pointers = 492	
+	first_pointer_val = 32392
 	
 	curr_offset = base_text_offset
+	new_str_size = 0
+	str_sizes_arr = []
 	for i in range(num_of_pointers):
 	    gba_file_out.seek(curr_offset)
-	    print('curr_offset: ' + str(curr_offset))
+	    #print('curr_offset: ' + str(curr_offset))
 	    bytes_identifiers = convert_text_to_bytes(identifier_arr[i])
 	    gba_file_out.write(bytes_identifiers)
 	    curr_offset += count_bytes(bytes_identifiers)
 	    #print('add1: ' + str(count_bytes(bytes_identifiers)))
-	    bytes_string = convert_text_to_bytes(string_arr[i])
+	    bytes_string = convert_text_to_bytes(string_arr[i]) + bytes.fromhex('FFFE')
 	    gba_file_out.write(bytes_string)
 	    curr_offset += count_bytes(bytes_string)
+	    
+	    new_str_size += count_bytes(bytes_identifiers) + count_bytes(bytes_string)
+	    str_sizes_arr.append(new_str_size)
+	    new_str_size = 0
+	
+	curr_offset = base_pointer_array_offset   
+	add_offset_val = 0
+	curr_point_val = first_pointer_val
+	for i in range(num_of_pointers):
+	    gba_file_out.seek(curr_offset + 1)
+	    curr_point_val += add_offset_val
+	    print('curr_point_val: ' + str(curr_point_val))
+	    point = struct.Struct("<H").pack(curr_point_val)
+	    
+	    gba_file_out.write(point)
+	    add_offset_val = str_sizes_arr[i]
+	    curr_offset += 4
+	    
 	    
 	    #gba_file.read(1)
 	    #curr_offset = gba_file.tell() - 1
