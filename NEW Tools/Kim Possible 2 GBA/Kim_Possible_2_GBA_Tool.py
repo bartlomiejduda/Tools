@@ -25,6 +25,7 @@ import shutil
 from tempfile import mkstemp
 from shutil import move
 from os import remove, close
+from textwrap import wrap
 
 mapping_dictionary = {"41": "a",    "42": "b",    "43": "c",    "44": "d",    "45": "e",
                       "46": "f",    "47": "g",    "48": "h",    "49": "i",    "4A": "j",
@@ -41,12 +42,14 @@ mapping_dictionary = {"41": "a",    "42": "b",    "43": "c",    "44": "d",    "4
                       "3A": "Z",
                       
                       "FFFC": " ",  "FFFE": "",   "07": "'",    "0C": ",",    "0E": ".",
-                      "1F": "?"
+                      "1F": "?",
                       
-                      #"01": "!",    "03": "03",   "06": "06",   "0D": "-",   "10": "10",   
-                      #"11": "11",   "12": "12",   "13": "13",   "14": "14",  "15": "15",
-                      #"1A": ":",   "16": "16",   "17": "17",
-                      #"64": "64",   "71": "71",   "80": "80",   "B3": "B3",    "B4": "B4"
+                      "01": "!",    "1A": ":",    "0D": "-",    "63": "ç",    "02": "\"",
+                      "06": "&",    "5D": "©",    "10": "0",    "11": "1",    "12": "2",
+                      "13": "3",    "14": "4",    "15": "5",    "16": "6",    "17": "7",
+                      "18": "8",    "19": "9",    "08": "(",    "09": ")",    
+                      "64": "é",    "67": "è"
+                      
                       
                       }
 
@@ -65,6 +68,9 @@ def convert_byte_to_text(input_byte): #using dictionary to get proper characters
         result = mapping_dictionary[input_byte]
         return result
     except:
+        return "<" + str(input_byte) + ">"
+    
+def convert_byte_to_text_short(input_byte): #using dictionary to get proper characters 
         return "<" + str(input_byte) + ">"
 
 
@@ -108,14 +114,6 @@ def convert_text_to_bytes(input_text): #returns bytes to import
         hex_byte = bytes.fromhex(hex_item)
         hex_bytes += hex_byte
 	
-        #for key, val in rev_mapping_dictionary.items():              #ex. 'a'   --> 41
-            #if key == "" or key == " ":
-                #continue
-	    ##print('key: ' + key + ' val: ' + val)
-            #result_text += char.replace(key, "\\" + val + " ")
-	    #print('input_text: ' + input_text)
-	    
-	#input_text = re.sub('<.*>', conv_my_replace, input_text)    #ex. <06>  --> 06
     return hex_bytes
     
 def count_bytes(input_byte_string):
@@ -178,15 +176,27 @@ def text_export(input_gba_file, output_file_path, output_reimport_file_path):
             if byte == "FF":
                 byte2 = gba_file.read(1).hex().upper()
                 if byte2 == "FE": #end of the string
-                    s_string += convert_byte_to_text(byte + byte2)
+                    s_string += (byte + byte2)
                     #print("s_string: " + s_string)
                     break
                 elif byte2 == "FC": #this is space
-                    s_string += convert_byte_to_text(byte + byte2) #space has 2 chars
+                    s_string += (byte + byte2) #space has 2 chars
                     
             else:
-                s_string += convert_byte_to_text(byte)
-        string_array.append(s_string)
+                s_string += (byte)
+		
+        temp = ""
+        temp2 = ""
+        temp_arr = wrap(s_string[0:18], 2)
+        for item in temp_arr: #convert identifiers
+                temp += convert_byte_to_text_short(item)
+        temp_arr = wrap(s_string[18:], 2)
+        for item2 in temp_arr: #convert text
+                temp2 += convert_byte_to_text(item2)
+        
+        str_to_app = temp + temp2.replace('<FF><FC>', " ").replace('<FF><FE>', "")
+        print('str_to_app: ' + str(str_to_app))
+        string_array.append(str_to_app)
     
     for n_string in string_array: #formatting strings for translating process
         t_string = n_string[36:]
@@ -274,16 +284,6 @@ def text_import(input_gba_file, text_file_path, reimport_file_path):
 	    gba_file_out.write(point)
 	    add_offset_val = str_sizes_arr[i]
 	    curr_offset += 4
-	    
-	    
-	    #gba_file.read(1)
-	    #curr_offset = gba_file.tell() - 1
-	    
-	    #curr_offset += (gba_file.tell() - curr_offset)
-	    #print('roznica: ' + str(gba_file.tell() - curr_offset))
-	    #print(convert_text_to_bytes(string_arr[i]))
-	    #print(string_arr[i])
-	    
 	    
 	
 	gba_file.close()
