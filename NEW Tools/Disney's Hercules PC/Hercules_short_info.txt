@@ -1,0 +1,34 @@
+// Disney's Hercules PC game
+// Short info about files from Hercules 
+// Document has been created by Bartlomiej Duda
+
+
+# Ver    Date        Name
+# v1.0   01.06.2019  Bartlomiej Duda
+
+
+# Music files #
+Example files: Track02.ogg
+All music is in one standard ogg file in "\Disney Hercules Action Game\MUSIC"
+It can be played by VLC media player or any other ogg player.
+
+# Video files #
+Example files: 1.ETV, 2.ETV, 3.ETV
+All video files are \Disney Hercules Action Game\VIDDATA
+Format  description here -> https://wiki.multimedia.cx/index.php?title=ETV
+There is probably no tool available for conversion of this file.
+
+
+# Main archive #  
+Example files: HERCULES.FS
+One archive cantaining all data from this game.
+
+File format:
+// file info (1024 records)
+4 bytes - File Hash
+4 bytes - File Offset
+4 bytes - File Length
+
+// for each file 
+x bytes - File Data
+
