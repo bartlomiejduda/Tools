@@ -79,14 +79,14 @@ def unpack_FS(input_FS_file_path, output_folder_path):
     FS_file = open(input_FS_file_path, 'rb')
     
     
-    for i in range(1023): #reading data from FS archive
+    for i in range(821): #reading data from FS archive
       
       fs_hash = struct.unpack('<I', FS_file.read(4))[0]
       fs_file_offset = struct.unpack('<I', FS_file.read(4))[0]
       fs_file_length = struct.unpack('<I', FS_file.read(4))[0]
       
       fs_file_path = output_folder_path + find_name(fs_hash).lstrip('M:').lstrip('m:').rstrip('\n')
-      print(str(i) + ") Hash: " + format_hash(fs_hash) + "File path: " + "AA" + fs_file_path + "BB")
+      print(str(i+1) + ") Hash: " + format_hash(fs_hash) + " File path: " + fs_file_path)
       
       return_offset = FS_file.tell()
       FS_file.seek(fs_file_offset)
