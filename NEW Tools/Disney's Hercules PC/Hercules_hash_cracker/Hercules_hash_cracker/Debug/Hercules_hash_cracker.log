@@ -1,5 +1,6 @@
-﻿  Hercules_hash_cracker.cpp
-c:\users\arek\desktop\hercules_hash_cracker\hercules_hash_cracker\hercules_hash_cracker.cpp(141): warning C4018: '>=': signed/unsigned mismatch
-c:\users\arek\desktop\hercules_hash_cracker\hercules_hash_cracker\hercules_hash_cracker.cpp(245): warning C4244: 'initializing': conversion from 'unsigned __int64' to 'unsigned long', possible loss of data
-c:\users\arek\desktop\hercules_hash_cracker\hercules_hash_cracker\hercules_hash_cracker.cpp(247): warning C4244: 'initializing': conversion from 'unsigned __int64' to 'unsigned long', possible loss of data
-  Hercules_hash_cracker.vcxproj -> C:\Users\Arek\Desktop\Hercules_hash_cracker\Debug\Hercules_hash_cracker.exe
+﻿  pch.cpp
+  Hercules_hash_cracker.cpp
+c:\users\arek\tools\new tools\disney's hercules pc\hercules_hash_cracker\hercules_hash_cracker\hercules_hash_cracker.cpp(141): warning C4018: '>=': signed/unsigned mismatch
+c:\users\arek\tools\new tools\disney's hercules pc\hercules_hash_cracker\hercules_hash_cracker\hercules_hash_cracker.cpp(247): warning C4244: 'initializing': conversion from 'unsigned __int64' to 'unsigned long', possible loss of data
+c:\users\arek\tools\new tools\disney's hercules pc\hercules_hash_cracker\hercules_hash_cracker\hercules_hash_cracker.cpp(249): warning C4244: 'initializing': conversion from 'unsigned __int64' to 'unsigned long', possible loss of data
+  Hercules_hash_cracker.vcxproj -> C:\Users\Arek\Tools\NEW Tools\Disney's Hercules PC\Hercules_hash_cracker\Debug\Hercules_hash_cracker.exe
