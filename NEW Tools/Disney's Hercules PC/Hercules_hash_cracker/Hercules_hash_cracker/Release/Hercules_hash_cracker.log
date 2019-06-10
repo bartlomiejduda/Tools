@@ -1,0 +1,10 @@
+﻿  Hercules_hash_cracker.cpp
+c:\users\arek\desktop\hercules_hash_cracker\hercules_hash_cracker\hercules_hash_cracker.cpp(141): warning C4018: '>=': signed/unsigned mismatch
+c:\users\arek\desktop\hercules_hash_cracker\hercules_hash_cracker\hercules_hash_cracker.cpp(246): warning C4244: 'initializing': conversion from 'unsigned __int64' to 'unsigned long', possible loss of data
+c:\users\arek\desktop\hercules_hash_cracker\hercules_hash_cracker\hercules_hash_cracker.cpp(248): warning C4244: 'initializing': conversion from 'unsigned __int64' to 'unsigned long', possible loss of data
+  Generating code
+  2 of 374 functions ( 0.5%) were compiled, the rest were copied from previous compilation.
+    0 functions were new in current compilation
+    0 functions had inline decision re-evaluated but remain unchanged
+  Finished generating code
+  Hercules_hash_cracker.vcxproj -> C:\Users\Arek\Desktop\Hercules_hash_cracker\Release\Hercules_hash_cracker.exe

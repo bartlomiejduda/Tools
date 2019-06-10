@@ -1,0 +1,338 @@
+
+
+
+
+
+08/06/2019 17:19:27 LOG MAIN_010 Starting Hercules Hash Cracker
+08/06/2019 17:19:27 LOG INIT_CRACK_010 End of loop, len: 1
+08/06/2019 17:19:27 LOG INIT_CRACK_010 End of loop, len: 2
+08/06/2019 17:19:27 LOG INIT_CRACK_010 End of loop, len: 3
+08/06/2019 17:19:28 LOG INIT_CRACK_010 End of loop, len: 4
+08/06/2019 17:19:30 LOG INIT_CRACK_010 End of loop, len: 5
+08/06/2019 17:19:37 LOG LOG_TO_CONSOLE_010 Time elapsed: 10.0058 Curr_word: .a_dbd Word_count: 171794
+08/06/2019 17:19:45 LOG INIT_CRACK_010 End of loop, len: 6
+08/06/2019 17:19:47 LOG LOG_TO_CONSOLE_010 Time elapsed: 20.0122 Curr_word: abdb_f_ Word_count: 345605
+08/06/2019 17:19:57 LOG LOG_TO_CONSOLE_010 Time elapsed: 30.0207 Curr_word: a_.\dba Word_count: 515343
+08/06/2019 17:20:07 LOG LOG_TO_CONSOLE_010 Time elapsed: 40.0321 Curr_word: bd_cd__ Word_count: 685886
+08/06/2019 17:20:17 LOG LOG_TO_CONSOLE_010 Time elapsed: 50.0423 Curr_word: cbaa.af Word_count: 856911
+08/06/2019 17:20:27 LOG LOG_TO_CONSOLE_010 Time elapsed: 60.0507 Curr_word: c_b_.\a Word_count: 1027951
+
+
+
+
+
+09/06/2019 01:11:12 LOG MAIN_010 Starting Hercules Hash Cracker
+09/06/2019 01:11:12 LOG INIT_CRACK_010 End of loop, len: 1
+09/06/2019 01:11:12 LOG INIT_CRACK_010 End of loop, len: 2
+09/06/2019 01:11:12 LOG INIT_CRACK_010 End of loop, len: 3
+09/06/2019 01:11:13 LOG INIT_CRACK_010 End of loop, len: 4
+09/06/2019 01:11:14 LOG INIT_CRACK_010 End of loop, len: 5
+09/06/2019 01:11:22 LOG LOG_TO_CONSOLE_010 Time elapsed: 10 Curr_word: .c_afc Word_count: 179841
+09/06/2019 01:11:29 LOG INIT_CRACK_010 End of loop, len: 6
+09/06/2019 01:11:32 LOG LOG_TO_CONSOLE_010 Time elapsed: 20.0084 Curr_word: ab_\b\\ Word_count: 359605
+
+
+
+
+
+09/06/2019 01:20:06 LOG MAIN_010 Starting Hercules Hash Cracker
+09/06/2019 01:20:06 LOG INIT_CRACK_010 End of loop, len: 1
+09/06/2019 01:20:06 LOG INIT_CRACK_010 End of loop, len: 2
+09/06/2019 01:20:06 LOG INIT_CRACK_010 End of loop, len: 3
+09/06/2019 01:20:06 LOG INIT_CRACK_010 End of loop, len: 4
+09/06/2019 01:20:08 LOG INIT_CRACK_010 End of loop, len: 5
+
+
+
+
+
+09/06/2019 01:20:24 LOG MAIN_010 Starting Hercules Hash Cracker
+09/06/2019 01:20:24 LOG INIT_CRACK_010 End of loop, len: 1
+09/06/2019 01:20:24 LOG INIT_CRACK_010 End of loop, len: 2
+09/06/2019 01:20:24 LOG INIT_CRACK_010 End of loop, len: 3
+09/06/2019 01:20:24 LOG INIT_CRACK_010 End of loop, len: 4
+09/06/2019 01:20:26 LOG INIT_CRACK_010 End of loop, len: 5
+09/06/2019 01:20:34 LOG LOG_TO_CONSOLE_010 Time elapsed: 10.0106 Curr_word: .c\fab Word_count: 179720 Word speed: 17303\s
+
+09/06/2019 01:20:41 LOG INIT_CRACK_010 End of loop, len: 6
+09/06/2019 01:20:44 LOG LOG_TO_CONSOLE_010 Time elapsed: 20.0239 Curr_word: ab_bf\f Word_count: 357943 Word speed: 17303\s
+
+09/06/2019 01:20:54 LOG LOG_TO_CONSOLE_010 Time elapsed: 30.0374 Curr_word: afafafb Word_count: 532609 Word speed: 17303\s
+
+09/06/2019 01:21:04 LOG LOG_TO_CONSOLE_010 Time elapsed: 40.0508 Curr_word: b.dda_c Word_count: 706682 Word speed: 17303\s
+
+09/06/2019 01:21:14 LOG LOG_TO_CONSOLE_010 Time elapsed: 50.0643 Curr_word: cb\ffd\ Word_count: 881189 Word speed: 17303\s
+
+09/06/2019 01:21:24 LOG LOG_TO_CONSOLE_010 Time elapsed: 60.0795 Curr_word: cfa._da Word_count: 1055711 Word speed: 17303\s
+
+09/06/2019 01:21:34 LOG LOG_TO_CONSOLE_010 Time elapsed: 70.1007 Curr_word: d.daf\\ Word_count: 1229876 Word speed: 17303\s
+
+09/06/2019 01:21:44 LOG LOG_TO_CONSOLE_010 Time elapsed: 80.1191 Curr_word: .b\\cbb Word_count: 1404112 Word speed: 17303\s
+
+09/06/2019 01:21:54 LOG LOG_TO_CONSOLE_010 Time elapsed: 90.1412 Curr_word: .fabad. Word_count: 1578084 Word speed: 17303\s
+
+09/06/2019 01:22:04 LOG LOG_TO_CONSOLE_010 Time elapsed: 100.159 Curr_word: \.c._b\ Word_count: 1752021 Word speed: 17303\s
+
+09/06/2019 01:22:14 LOG LOG_TO_CONSOLE_010 Time elapsed: 110.18 Curr_word: _b..\fd Word_count: 1924035 Word speed: 17303\s
+
+09/06/2019 01:22:24 LOG LOG_TO_CONSOLE_010 Time elapsed: 120.2 Curr_word: ____abc Word_count: 2096721 Word speed: 17303\s
+
+09/06/2019 01:22:34 LOG LOG_TO_CONSOLE_010 Time elapsed: 130.221 Curr_word: f.bc\.b Word_count: 2271145 Word speed: 17303\s
+
+
+
+
+
+
+09/06/2019 01:23:15 LOG MAIN_010 Starting Hercules Hash Cracker
+09/06/2019 01:23:15 LOG INIT_CRACK_010 End of loop, len: 1
+09/06/2019 01:23:15 LOG INIT_CRACK_010 End of loop, len: 2
+09/06/2019 01:23:15 LOG INIT_CRACK_010 End of loop, len: 3
+09/06/2019 01:23:15 LOG INIT_CRACK_010 End of loop, len: 4
+09/06/2019 01:23:17 LOG INIT_CRACK_010 End of loop, len: 5
+
+
+
+
+
+09/06/2019 01:23:42 LOG MAIN_010 Starting Hercules Hash Cracker
+09/06/2019 01:23:42 LOG INIT_CRACK_010 End of loop, len: 1
+09/06/2019 01:23:42 LOG INIT_CRACK_010 End of loop, len: 2
+09/06/2019 01:23:42 LOG INIT_CRACK_010 End of loop, len: 3
+09/06/2019 01:23:42 LOG INIT_CRACK_010 End of loop, len: 4
+09/06/2019 01:23:44 LOG INIT_CRACK_010 End of loop, len: 5
+09/06/2019 01:23:52 LOG LOG_TO_CONSOLE_010 Time_elapsed: 10.0101 Curr_word: .c_c._ Word_count: 179949 Word speed: 17030\s
+09/06/2019 01:23:59 LOG INIT_CRACK_010 End of loop, len: 6
+09/06/2019 01:24:02 LOG LOG_TO_CONSOLE_010 Time_elapsed: 20.0234 Curr_word: ab_abb\ Word_count: 357013 Word speed: 17030\s
+09/06/2019 01:24:12 LOG LOG_TO_CONSOLE_010 Time_elapsed: 30.0369 Curr_word: afabad_ Word_count: 529509 Word speed: 17030\s
+09/06/2019 01:24:22 LOG LOG_TO_CONSOLE_010 Time_elapsed: 40.0522 Curr_word: b.cccdb Word_count: 702176 Word speed: 17030\s
+09/06/2019 01:24:32 LOG LOG_TO_CONSOLE_010 Time_elapsed: 50.0659 Curr_word: cb.dc.b Word_count: 874728 Word speed: 17030\s
+09/06/2019 01:24:42 LOG LOG_TO_CONSOLE_010 Time_elapsed: 60.0816 Curr_word: c___f_c Word_count: 1048634 Word speed: 17030\s
+
+
+
+
+
+09/06/2019 01:27:34 LOG MAIN_010 Starting Hercules Hash Cracker
+
+
+
+
+
+09/06/2019 01:29:03 LOG MAIN_010 Starting Hercules Hash Cracker
+
+
+
+
+
+09/06/2019 01:30:29 LOG MAIN_010 Starting Hercules Hash Cracker
+09/06/2019 01:30:29 LOG CHECK_HASH_010 Hash cracked! h_hash: 6040170 s_hash: 6040170 str: M:\GRAFIX\CHOP\SRC1\ALIEN2\Zeus\ANIMPSX.BIN
+
+
+
+
+
+09/06/2019 01:31:51 LOG MAIN_010 Starting Hercules Hash Cracker
+09/06/2019 01:31:51 LOG CHECK_HASH_010 Hash cracked! h_hash: 6040170 s_hash: 6040170 str: M:\GRAFIX\CHOP\SRC1\ALIEN2\Zeus\ANIMPSX.BIN
+
+
+
+
+
+09/06/2019 01:32:41 LOG MAIN_010 Starting Hercules Hash Cracker
+09/06/2019 01:32:41 LOG CHECK_HASH_010 Hash cracked! h_hash: 6040170 s_hash: 6040170 str: M:\GRAFIX\CHOP\SRC1\ALIEN2\Zeus\ANIMPSX.BIN
+09/06/2019 01:32:42 LOG MAIN_020 Hercules Hash Cracker STOP
+
+
+
+
+
+09/06/2019 01:33:54 LOG MAIN_010 Starting Hercules Hash Cracker
+09/06/2019 01:33:54 LOG CHECK_HASH_010 Hash cracked! h_hash: 6040170 s_hash: 6040170 str: M:\GRAFIX\CHOP\SRC1\ALIEN2\Zeus\ANIMPSX.BIN
+09/06/2019 01:33:55 LOG MAIN_020 Hercules Hash Cracker STOP
+
+
+
+
+
+09/06/2019 01:34:33 LOG MAIN_010 Starting Hercules Hash Cracker
+09/06/2019 01:34:33 LOG CHECK_HASH_010 Hash cracked! h_hash: 6040170 s_hash: 6040170 str: M:\GRAFIX\CHOP\SRC1\ALIEN2\Zeus\ANIMPSX.BIN
+09/06/2019 01:34:34 LOG MAIN_020 Hercules Hash Cracker STOP
+
+
+
+
+
+09/06/2019 01:35:55 LOG MAIN_010 Starting Hercules Hash Cracker
+09/06/2019 01:35:55 LOG CHECK_HASH_010 Hash cracked! h_hash: 6040170 s_hash: 6040170 str: M:\GRAFIX\CHOP\SRC1\ALIEN2\Zeus\ANIMPSX.BIN
+09/06/2019 01:35:56 LOG MAIN_020 Hercules Hash Cracker STOP
+
+
+
+
+
+09/06/2019 01:38:00 LOG MAIN_010 Starting Hercules Hash Cracker
+09/06/2019 01:38:00 LOG CHECK_HASH_010 Hash cracked! h_hash: 6040170 s_hash: 6040170 str: M:\GRAFIX\CHOP\SRC1\ALIEN2\Zeus\ANIMPSX.BIN
+09/06/2019 01:38:01 LOG MAIN_020 Hercules Hash Cracker STOP
+
+
+
+
+
+09/06/2019 01:39:04 LOG MAIN_010 Starting Hercules Hash Cracker
+09/06/2019 01:39:04 LOG CHECK_HASH_010 Hash cracked! h_hash: 6040170 s_hash: 6040170 str: M:\GRAFIX\CHOP\SRC1\ALIEN2\Zeus\ANIMPSX.BIN
+09/06/2019 01:39:05 LOG MAIN_020 Hercules Hash Cracker STOP
+
+
+
+
+
+09/06/2019 01:39:28 LOG MAIN_010 Starting Hercules Hash Cracker
+09/06/2019 01:39:28 LOG CHECK_HASH_010 Hash cracked! h_hash: 6040170 s_hash: 6040170 str: M:\GRAFIX\CHOP\SRC1\ALIEN2\Zeus\ANIMPSX.BIN
+09/06/2019 01:39:29 LOG MAIN_020 Hercules Hash Cracker STOP
+
+
+
+
+
+09/06/2019 01:39:53 LOG MAIN_010 Starting Hercules Hash Cracker
+09/06/2019 01:39:53 LOG INIT_CRACK_010 End of loop, len: 1
+09/06/2019 01:39:53 LOG INIT_CRACK_010 End of loop, len: 2
+09/06/2019 01:39:53 LOG INIT_CRACK_010 End of loop, len: 3
+09/06/2019 01:39:53 LOG INIT_CRACK_010 End of loop, len: 4
+09/06/2019 01:39:55 LOG INIT_CRACK_010 End of loop, len: 5
+
+
+
+
+
+09/06/2019 01:40:15 LOG MAIN_010 Starting Hercules Hash Cracker
+09/06/2019 01:40:15 LOG CHECK_HASH_010 Hash cracked! h_hash: 6040170 s_hash: 6040170 str: M:\GRAFIX\CHOP\SRC1\ALIEN2\Zeus\ANIMPSX.BIN
+09/06/2019 01:40:16 LOG MAIN_020 Hercules Hash Cracker STOP
+
+
+
+
+
+09/06/2019 01:41:07 LOG MAIN_010 Starting Hercules Hash Cracker
+09/06/2019 01:41:07 LOG CHECK_HASH_010 Hash cracked! h_hash: 6040170 s_hash: 6040170 str: M:\GRAFIX\CHOP\SRC1\ALIEN2\Zeus\ANIMPSX.BIN
+09/06/2019 01:41:08 LOG MAIN_020 Hercules Hash Cracker STOP
+
+
+
+
+
+09/06/2019 01:46:54 LOG MAIN_010 Starting Hercules Hash Cracker
+09/06/2019 01:46:54 LOG INIT_CRACK_010 End of loop, len: 1
+09/06/2019 01:46:55 LOG INIT_CRACK_010 End of loop, len: 2
+09/06/2019 01:46:55 LOG INIT_CRACK_010 End of loop, len: 3
+09/06/2019 01:46:55 LOG INIT_CRACK_010 End of loop, len: 4
+09/06/2019 01:46:55 LOG INIT_CRACK_010 End of loop, len: 5
+09/06/2019 01:46:56 LOG INIT_CRACK_010 End of loop, len: 6
+
+
+
+
+
+09/06/2019 01:47:38 LOG MAIN_010 Starting Hercules Hash Cracker
+09/06/2019 01:47:38 LOG INIT_CRACK_010 End of loop, len: 1
+09/06/2019 01:47:38 LOG INIT_CRACK_010 End of loop, len: 2
+09/06/2019 01:47:38 LOG INIT_CRACK_010 End of loop, len: 3
+09/06/2019 01:47:38 LOG INIT_CRACK_010 End of loop, len: 4
+09/06/2019 01:47:38 LOG INIT_CRACK_010 End of loop, len: 5
+09/06/2019 01:47:39 LOG INIT_CRACK_010 End of loop, len: 6
+
+
+
+
+
+09/06/2019 01:48:12 LOG MAIN_010 Starting Hercules Hash Cracker
+09/06/2019 01:48:12 LOG INIT_CRACK_010 End of loop, len: 1
+09/06/2019 01:48:12 LOG INIT_CRACK_010 End of loop, len: 2
+09/06/2019 01:48:12 LOG INIT_CRACK_010 End of loop, len: 3
+09/06/2019 01:48:12 LOG INIT_CRACK_010 End of loop, len: 4
+09/06/2019 01:48:12 LOG INIT_CRACK_010 End of loop, len: 5
+09/06/2019 01:48:13 LOG INIT_CRACK_010 End of loop, len: 6
+
+
+
+
+
+09/06/2019 01:49:41 LOG MAIN_010 Starting Hercules Hash Cracker
+09/06/2019 01:49:41 LOG INIT_CRACK_010 End of loop, len: 1
+09/06/2019 01:49:41 LOG INIT_CRACK_010 End of loop, len: 2
+09/06/2019 01:49:41 LOG INIT_CRACK_010 End of loop, len: 3
+09/06/2019 01:49:41 LOG INIT_CRACK_010 End of loop, len: 4
+09/06/2019 01:49:41 LOG INIT_CRACK_010 End of loop, len: 5
+09/06/2019 01:49:42 LOG INIT_CRACK_010 End of loop, len: 6
+
+
+
+
+
+09/06/2019 01:49:55 LOG MAIN_010 Starting Hercules Hash Cracker
+09/06/2019 01:49:55 LOG INIT_CRACK_010 End of loop, len: 1
+09/06/2019 01:49:55 LOG INIT_CRACK_010 End of loop, len: 2
+09/06/2019 01:49:55 LOG INIT_CRACK_010 End of loop, len: 3
+09/06/2019 01:49:55 LOG INIT_CRACK_010 End of loop, len: 4
+09/06/2019 01:49:57 LOG INIT_CRACK_010 End of loop, len: 5
+
+
+
+
+
+09/06/2019 01:50:06 LOG MAIN_010 Starting Hercules Hash Cracker
+09/06/2019 01:50:06 LOG INIT_CRACK_010 End of loop, len: 1
+09/06/2019 01:50:06 LOG INIT_CRACK_010 End of loop, len: 2
+09/06/2019 01:50:06 LOG INIT_CRACK_010 End of loop, len: 3
+09/06/2019 01:50:06 LOG INIT_CRACK_010 End of loop, len: 4
+09/06/2019 01:50:06 LOG INIT_CRACK_010 End of loop, len: 5
+09/06/2019 01:50:07 LOG INIT_CRACK_010 End of loop, len: 6
+
+
+
+
+
+09/06/2019 02:00:53 LOG MAIN_010 Starting Hercules Hash Cracker
+09/06/2019 02:00:53 LOG INIT_CRACK_010 End of loop, len: 1
+09/06/2019 02:00:53 LOG INIT_CRACK_010 End of loop, len: 2
+09/06/2019 02:00:53 LOG INIT_CRACK_010 End of loop, len: 3
+09/06/2019 02:00:53 LOG INIT_CRACK_010 End of loop, len: 4
+09/06/2019 02:00:54 LOG INIT_CRACK_010 End of loop, len: 5
+09/06/2019 02:00:55 LOG INIT_CRACK_010 End of loop, len: 6
+
+
+
+
+
+09/06/2019 02:02:05 LOG MAIN_010 Starting Hercules Hash Cracker
+09/06/2019 02:02:06 LOG INIT_CRACK_010 End of loop, len: 1
+09/06/2019 02:02:06 LOG INIT_CRACK_010 End of loop, len: 2
+09/06/2019 02:02:06 LOG INIT_CRACK_010 End of loop, len: 3
+09/06/2019 02:02:06 LOG INIT_CRACK_010 End of loop, len: 4
+09/06/2019 02:02:06 LOG INIT_CRACK_010 End of loop, len: 5
+09/06/2019 02:02:07 LOG INIT_CRACK_010 End of loop, len: 6
+
+
+
+
+
+09/06/2019 02:02:26 LOG MAIN_010 Starting Hercules Hash Cracker
+09/06/2019 02:02:27 LOG INIT_CRACK_010 End of loop, len: 1
+09/06/2019 02:02:27 LOG INIT_CRACK_010 End of loop, len: 2
+09/06/2019 02:02:27 LOG INIT_CRACK_010 End of loop, len: 3
+09/06/2019 02:02:27 LOG INIT_CRACK_010 End of loop, len: 4
+09/06/2019 02:02:27 LOG INIT_CRACK_010 End of loop, len: 5
+09/06/2019 02:02:28 LOG INIT_CRACK_010 End of loop, len: 6
+09/06/2019 02:02:36 LOG LOG_TO_CONSOLE_010 Time_elapsed: 10.0078 Curr_word: fc._cbc Word_count: 2219729 Word speed: 0\s
+
+
+
+
+
+09/06/2019 02:03:35 LOG MAIN_010 Starting Hercules Hash Cracker
+09/06/2019 02:03:35 LOG INIT_CRACK_010 End of loop, len: 1
+09/06/2019 02:03:35 LOG INIT_CRACK_010 End of loop, len: 2
+09/06/2019 02:03:35 LOG INIT_CRACK_010 End of loop, len: 3
+09/06/2019 02:03:35 LOG INIT_CRACK_010 End of loop, len: 4
+09/06/2019 02:03:37 LOG INIT_CRACK_010 End of loop, len: 5
