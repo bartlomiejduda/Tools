@@ -24,11 +24,45 @@ Example files: HERCULES.FS
 One archive cantaining all data from this game.
 
 File format:
-// file info (1024 records)
+// file info (821 records)
 4 bytes - File Hash
 4 bytes - File Offset
 4 bytes - File Length
 
+x bytes - padding
+
 // for each file 
 x bytes - File Data
+
+
+
+
+
+## Files inside HERCULES.FS archive ##
+
+# Demo files #
+Example files: DEMO.DAT, DEMO1_1.DAT, DEMO1_2.DAT
+Path: \HERCULES_OUT\DEMO
+Some binary demo files
+
+# ANIMPSX.BIN files #
+Example files: ANIMPSX.BIN
+Signature: 69312E34 / i1.4
+Compressed game data file. Actual data starts around offset 5000.
+
+# TGA files #
+Example files: CHEAT.TGA, MENUb.TGA, SEQ1.TGA
+Path: \HERCULES_OUT\GRAFIX\MOVIE\SCREENS
+Standard TGA files, but they are vertically flipped
+
+# Map BIN files #
+Example files: MAP_PSX.BIN
+Path: \HERCULES_OUT\GRAFIX\MAPS
+Possible map binary data
+
+# Map CIF files
+Example files: map_psx.cif
+Path: \HERCULES_OUT\GRAFIX\MAPS
+Probably standard cif files --> https://pl.wikipedia.org/wiki/Crystallographic_Information_File
+
 
