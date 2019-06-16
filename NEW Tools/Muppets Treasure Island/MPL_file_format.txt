@@ -1,0 +1,55 @@
+﻿// Muppets Treasure Island PC game
+// Short info about MPL file format
+// Document has been created by Bartlomiej Duda
+
+
+# Ver    Date        Name
+# v1.0   16.06.2019  Bartlomiej Duda
+
+
+
+//header
+40 bytes - ?
+4 bytes - ?
+4 bytes - size of the stream table
+4 bytes - number of streams
+4 bytes - ?
+
+//stream table (34 bytes per entry)
+number of streams *
+{
+   26 bytes - stream type
+   4 bytes - stream size
+   4 bytes - stream offset?
+}
+
+
+//???
+4 bytes - ?
+4 bytes - ?
+2 bytes - size of string
+x bytes - string ("Startup segment")
+2 bytes - size of string
+x bytes - string ("BIGDEMOWIN:MUPPETS:DEMO:")
+...
+x bytes - string ("Macintosh 8bit")
+
+
+//file list (big endian)
+4 bytes - ?
+2 bytes - filename length
+1 byte - /x00
+4 bytes - ?
+4 bytes - file size
+2 bytes - ?
+x bytes - filename
+
+
+
+//data
+number of file list entries *
+{
+   x bytes - data
+}
+
+
