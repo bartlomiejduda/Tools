@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 
 # Tested on Python 3.7.3
+# This tool should be used with C12 Final Resistance PAL SCES_03364
 
 # Ver    Date        Name
 # v1.0   29.06.2019  Bartlomiej Duda
@@ -21,6 +22,7 @@ import shutil
 from tempfile import mkstemp
 from shutil import move
 from os import remove, close
+from PIL import Image #need to install pillow for this!
 
 
 
@@ -170,6 +172,75 @@ def text_in(input_MWD_file, input_txt_file, text_start_offset, text_end_offset):
     txt_file.close()
     MWD_file_new.close()
     print("C12 text in has been finished.")    
+    
+
+def from16(p):
+	return ((p & 0x1f) << 3, (p >> 2) & 0xf8, (p >> 7) & 0xf8, p >> 15)
+    
+def texture_export(input_MWD_file, output_folder): #modified code for texture export published by torn338 on MediEvil Boards  (still not fully working)
+    MWD_file = open(input_MWD_file, 'rb')
+    d = MWD_file.read()
+    
+    i = -1
+    while True:
+	    i = d.find(b"2GRV", i + 1)
+	    if i == -1:
+		    break
+    
+	    si = i
+	    print ("graphics chunk @ %#x" % si)
+    
+	    i += 4
+	    num_img, off_img, num_stuff, off_stuff = struct.unpack("<4I", d[i:i + 4 * 4])
+    
+	    print ("\t%d images @ offset %#x" % (num_img, off_img))
+    
+	    i += 4 * 4
+    
+	    unk_x, unk_y, width, height, offset, whatever1, clut, texpage, whatever2 = struct.unpack("<2H2HII2HI", d[i+(num_img-1)*24:i+num_img*24])
+	    pal_off = si + offset + width * 2 * height
+	    print ("\tpal off @ %#x" % pal_off)
+    
+	    for n in range(num_img):
+		    unk_x, unk_y, width, height, offset, whatever1, texpage, clut, whatever2, whatever3 = struct.unpack("<2H2HIHHHHI", d[i:i+24])
+		    mode = (texpage >> 7) & 3
+    
+		    if mode == 0:
+			    assert clut
+			    width *= 4
+		    elif mode == 1:
+			    assert clut
+			    width *= 2
+		    elif mode == 2:
+			    assert not clut
+		    else:
+			    assert False, "weird mode"
+    
+		    #print ("\t\timage @ offset %#x: %dx%dpx, mode %d, VRAM pos? (%d, %d), CLUT? %#x, texpage? %#x, extra %08x:%08x" % (offset, width, height, mode, unk_x, unk_y, clut, texpage, whatever1, whatever2))
+    
+		    i += 24
+    
+		    im = Image.new("RGBA", (width, height))
+		    imd = im.load()
+		    pn = 0
+		    soffset = si + offset
+		    for y in range(height):
+			    for x in range(width):
+				    if mode == 0:
+					    pi = pal_off + ((d[soffset + (pn >> 1)] >> ((x & 1) * 4)) & 0xf) * 2
+				    elif mode == 1:
+					    pi = pal_off + d[soffset + pn] * 2
+				    elif mode == 2:
+					    pi = soffset + (pn << 1)
+    
+				    r, g, b, a = from16(struct.unpack("<H", d[pi:pi + 2])[0])
+				    imd[x, y] = (r, g, b)
+    
+				    pn += 1
+    
+		    im.save(p_output_folder + "img-%d-%03d.png" % (si, n))  
+		    
+    print("Texture export has been finished.")
 
 #TEXT EXPORT (converts TXT to INI)
 #p_input_textfile_path = 'C:\\Users\\Arek\\Desktop\\C12_FILES\\out_PAL.txt'   
@@ -179,9 +250,9 @@ def text_in(input_MWD_file, input_txt_file, text_start_offset, text_end_offset):
 
 
 #TEXT IMPORT (converts INI to TXT)
-#p_input_INI_file = 'C:\\Users\\Arek\\Spolszczenia\\C12_Final_Resistance_OmegaT\\target\\C12_tekst_OUT.ini'  
-#p_output_TXT_file = 'C:\\Users\\Arek\\Spolszczenia\\C12_Final_Resistance_OmegaT\\target\\C12_tekst_OUT.txt'
-#text_import(p_input_INI_file, p_output_TXT_file)
+p_input_INI_file = 'C:\\Users\\Arek\\Spolszczenia\\C12_Final_Resistance_OmegaT\\target\\C12_tekst_OUT.ini'  
+p_output_TXT_file = 'C:\\Users\\Arek\\Spolszczenia\\C12_Final_Resistance_OmegaT\\target\\C12_tekst_OUT.txt'
+text_import(p_input_INI_file, p_output_TXT_file)
 
 
 #TEXT OUT (copies text from PROJFILE.MWD to TXT file)
@@ -193,8 +264,14 @@ def text_in(input_MWD_file, input_txt_file, text_start_offset, text_end_offset):
 
 
 #TEXT IN (copies text from TXT file to PROJFILE.MWD)
-p_input_MWD_file = 'C:\\Users\\Arek\\Desktop\\C12_FILES\\PROJFILE.MWD'
-p_input_txt_file = 'C:\\Users\\Arek\\Desktop\\C12_FILES\\out_PAL.txt'
-p_text_start_offset = 489472 
-p_text_end_offset = 555657
-text_in(p_input_MWD_file, p_input_txt_file, p_text_start_offset, p_text_end_offset)
+#p_input_MWD_file = 'C:\\Users\\Arek\\Desktop\\C12_FILES\\PROJFILE.MWD'
+#p_input_txt_file = 'C:\\Users\\Arek\\Desktop\\C12_FILES\\out_PAL.txt'
+#p_text_start_offset = 489472 
+#p_text_end_offset = 555657
+#text_in(p_input_MWD_file, p_input_txt_file, p_text_start_offset, p_text_end_offset)
+
+
+#TEXTURE EXPORT (exports textures from PROJFILE.MWD)
+#p_input_MWD_file = 'C:\\Users\\Arek\\Desktop\\C12_FILES\\PROJFILE.MWD'
+#p_output_folder = 'C:\\Users\\Arek\\Desktop\\C12_FILES\\TEXTURE_OUT\\'
+#texture_export(p_input_MWD_file, p_output_folder)
