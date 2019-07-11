@@ -129,9 +129,42 @@ def text_in(input_MWD_file, input_txt_file, text_start_offset, text_end_offset):
     print ("Starting C12 text in...")
     
     MWD_file = open(input_MWD_file, 'rb')
-    txt_file = open(output_txt_file, 'rb') 
+    txt_file = open(input_txt_file, 'rb') 
     MWD_file_new = open(input_MWD_file + '_NEW', 'wb+')
     
+    
+    MWD_txt_len = text_end_offset - text_start_offset
+    txt_len = os.stat(input_txt_file).st_size
+    padding_flag = -1
+    
+    if txt_len > MWD_txt_len:
+        print("ERROR 01! TXT LENGTH IS BIGGER THAN MWD TXT LENGTH!")
+        print("TXT file length is " + str(txt_len) + " and allowed text length is " + str(MWD_txt_len) + ". I'm aborting!")
+        MWD_file.close()
+        txt_file.close()
+        MWD_file_new.close()        
+        return
+    elif txt_len < MWD_txt_len:
+        print("TXT length is shorter than MWD txt length. I'm using padding to fill the gap.")
+        padding_flag = 1
+    else:
+        print("TXT length is OK.")
+        
+    
+    data1 = MWD_file.read(text_start_offset)
+    MWD_file.seek(text_end_offset)
+    data2 = MWD_file.read()
+    
+    MWD_file_new.write(data1)
+    txt_data = txt_file.read()
+    MWD_file_new.write(txt_data)
+    
+    if padding_flag == 1:
+        padding_len = MWD_txt_len - txt_len
+        for i in range(padding_len):
+            MWD_file_new.write(b'\x00')
+            
+    MWD_file_new.write(data2)
     
     MWD_file.close()
     txt_file.close()
@@ -161,7 +194,7 @@ def text_in(input_MWD_file, input_txt_file, text_start_offset, text_end_offset):
 
 #TEXT IN (copies text from TXT file to PROJFILE.MWD)
 p_input_MWD_file = 'C:\\Users\\Arek\\Desktop\\C12_FILES\\PROJFILE.MWD'
-p_input_txt_file = 'C:\\Users\\Arek\\Desktop\\C12_FILES\\out.txt'
+p_input_txt_file = 'C:\\Users\\Arek\\Desktop\\C12_FILES\\out_PAL.txt'
 p_text_start_offset = 489472 
 p_text_end_offset = 555657
 text_in(p_input_MWD_file, p_input_txt_file, p_text_start_offset, p_text_end_offset)
