@@ -1,0 +1,18 @@
+﻿# Ver    Date          Name
+# v1.0   04.07.2019    Bartlomiej Duda
+# v1.1   11.07.2019    Bartlomiej Duda
+
+
+//text NTSC
+489472 - beg
+556352 - end 
+66880  - len
+
+//text PAL
+489472 - beg
+555657 - end 
+66185  - len
+
+
+
+TODO...

@@ -1,0 +1,8 @@
+﻿
+# Ver    Date          Name
+# v1.0   04.07.2019    Bartlomiej Duda
+
+
+Entrance gate code: red, green, blue and yellow
+Satelite code: 297
+Mall code: red, green, red, blue
