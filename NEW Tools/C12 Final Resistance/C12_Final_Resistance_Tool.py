@@ -6,6 +6,7 @@
 # Ver    Date        Name
 # v1.0   29.06.2019  Bartlomiej Duda
 # v1.1   11.07.2019  Bartlomiej Duda
+# v1.2   12.07.2019  Bartlomiej Duda
 
 
 import argparse
@@ -63,7 +64,7 @@ def text_import(input_textfile_path, output_textfile_path):
     print ("Starting C12 text import...")
     
     ini_file = open(input_textfile_path, 'rt')
-    txt_file = open(output_textfile_path, 'wt+')   
+    txt_file = open(output_textfile_path, 'wb+')   
     
     lines_arr = []
     
@@ -75,34 +76,61 @@ def text_import(input_textfile_path, output_textfile_path):
         #if ident == '23:1210:':
             #string = '=' + string
             
-        string = (
-              string.replace('Ż', '\xC1') #Ż --> 
-                    .replace('Ó', '\xD3') #Ó --> 
-                    .replace('Ł', '\xDC') #Ł --> 
-                    .replace('Ć', '\xD6') #Ć --> 
-                    .replace('Ę', '\xC9') #Ę --> 
-                    .replace('Ś', '\xDA') #Ś --> 
-                    .replace('Ą', '\xC4') #Ą --> 
-                    .replace('Ź', '\xCB') #Ź --> 
-                    #.replace('Ń', '\xD1') #Ń --> 
+        #string = (
+              #string.replace('Ż', '\xC1') #Ż 
+                    #.replace('Ó', '\xD3') #Ó 
+                    #.replace('Ł', '\xCA') #Ł 
+                    #.replace('Ć', '\xD2') #Ć 
+                    #.replace('Ę', '\xC9') #Ę 
+                    #.replace('Ś', '\xDA') #Ś 
+                    #.replace('Ą', '\xC0') #Ą 
+                    #.replace('Ź', '\xC8') #Ź 
+                    #.replace('Ń', '\xDB') #Ń 
                     
                     
-                    .replace('ż', '\xE1') #ż --> 
-                    .replace('ó', '\xF3') #ó --> 
-                    .replace('ł', '\xFC') #ł --> 
-                    .replace('ć', '\xF6') #ć --> 
-                    .replace('ę', '\xE9') #ę --> 
-                    .replace('ś', '\xFA') #ś --> 
-                    .replace('ą', '\xE4') #ą --> 
-                    .replace('ź', '\xEB') #ź --> 
-                   # .replace('ń', '\xF1') #ń -->   
+                    #.replace('ż', '\xE1') #ż 
+                    #.replace('ó', '\xF3') #ó 
+                    #.replace('ł', '\xEA') #ł 
+                    #.replace('ć', '\xF2') #ć  
+                    #.replace('ę', '\xE9') #ę 
+                    #.replace('ś', '\xFA') #ś 
+                    #.replace('ą', '\xE0') #ą 
+                    #.replace('ź', '\xE8') #ź 
+                    #.replace('ń', '\XFB') #ń  
 
-                    )
+                    #)
             
         lines_arr.append(ident + string)    
         
     for line in lines_arr:
-        txt_file.write(line)
+	
+        line_bt = line.encode('utf-8')
+        line_bt = (
+	     line_bt.replace(b'\xC5\xBB', b'\xC1') #Ż 
+	            .replace(b'\xC3\x93', b'\xD3') #Ó 
+	            .replace(b'\xC5\x81', b'\xCA') #Ł 
+	            .replace(b'\xC4\x86', b'\xD2') #Ć 
+	            .replace(b'\xC4\x98', b'\xC9') #Ę 
+	            .replace(b'\xC5\x9A', b'\xDA') #Ś 
+	            .replace(b'\xC4\x84', b'\xC0') #Ą 
+	            .replace(b'\xC5\xB9', b'\xC8') #Ź 
+	            .replace(b'\xC5\x83', b'\xDB') #Ń 
+	            
+	            
+	            .replace(b'\xC5\xBC', b'\xE1') #ż 
+	            .replace(b'\xC3\xB3', b'\xF3') #ó 
+	            .replace(b'\xC5\x82', b'\xEA') #ł 
+	            .replace(b'\xC4\x87', b'\xF2') #ć  
+	            .replace(b'\xC4\x99', b'\xE9') #ę 
+	            .replace(b'\xC5\x9B', b'\xFA') #ś 
+	            .replace(b'\xC4\x85', b'\xE0') #ą 
+	            .replace(b'\xC5\xBA', b'\xE8') #ź 
+	            .replace(b'\xC5\x84', b'\xFB') #ń  
+	            
+	            .replace(b'\x5B\x53\x74\x72\x69\x6E\x67\x54\x61\x62\x6C\x65\x5D\x0A', b'\x5B\x53\x74\x72\x69\x6E\x67\x54\x61\x62\x6C\x65\x5D\x0D\x0A') #[StringTable]
+
+	            )	
+        txt_file.write(line_bt)
         
         
     ini_file.close()
@@ -250,9 +278,9 @@ def texture_export(input_MWD_file, output_folder): #modified code for texture ex
 
 
 #TEXT IMPORT (converts INI to TXT)
-p_input_INI_file = 'C:\\Users\\Arek\\Spolszczenia\\C12_Final_Resistance_OmegaT\\target\\C12_tekst_OUT.ini'  
-p_output_TXT_file = 'C:\\Users\\Arek\\Spolszczenia\\C12_Final_Resistance_OmegaT\\target\\C12_tekst_OUT.txt'
-text_import(p_input_INI_file, p_output_TXT_file)
+#p_input_INI_file = 'C:\\Users\\Arek\\Spolszczenia\\C12_Final_Resistance_OmegaT\\target\\out_PAL.ini'  
+#p_output_TXT_file = 'C:\\Users\\Arek\\Spolszczenia\\C12_Final_Resistance_OmegaT\\target\\out_PAL.txt'
+#text_import(p_input_INI_file, p_output_TXT_file)
 
 
 #TEXT OUT (copies text from PROJFILE.MWD to TXT file)
@@ -264,11 +292,11 @@ text_import(p_input_INI_file, p_output_TXT_file)
 
 
 #TEXT IN (copies text from TXT file to PROJFILE.MWD)
-#p_input_MWD_file = 'C:\\Users\\Arek\\Desktop\\C12_FILES\\PROJFILE.MWD'
-#p_input_txt_file = 'C:\\Users\\Arek\\Desktop\\C12_FILES\\out_PAL.txt'
-#p_text_start_offset = 489472 
-#p_text_end_offset = 555657
-#text_in(p_input_MWD_file, p_input_txt_file, p_text_start_offset, p_text_end_offset)
+p_input_MWD_file = 'C:\\Users\\Arek\\Desktop\\C12_FILES\\PROJFILE.MWD'
+p_input_txt_file = 'C:\\Users\\Arek\\Spolszczenia\\C12_Final_Resistance_OmegaT\\target\\out_PAL.txt'
+p_text_start_offset = 489472 
+p_text_end_offset = 555657
+text_in(p_input_MWD_file, p_input_txt_file, p_text_start_offset, p_text_end_offset)
 
 
 #TEXTURE EXPORT (exports textures from PROJFILE.MWD)
