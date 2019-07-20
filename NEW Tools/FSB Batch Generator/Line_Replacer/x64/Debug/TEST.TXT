@@ -1,0 +1,3 @@
+<filename>ccccc.wav</filename>
+<filename>ccccc.wav</filename>
+<othertag>../dialogi_koncowe/barman/voice.en.chapter08.dialogue_bartender_03.01.snd_0_PL.wav</othertag>
