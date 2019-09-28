@@ -1,0 +1,29 @@
+﻿
+//HEADER
+3 bytes - "FAC" magic
+1 byte - font height
+1 byte - TopDec
+1 byte - space width
+2 bytes - num_of_chars
+2 bytes - num_of_special_chars
+
+
+//CHARACTER TABLE
+num_of_chars * 
+{
+   2 bytes - character
+   1 byte - width
+   1 byte - height
+   1 byte - position X
+   1 byte - position Y
+   1 byte - position base
+}
+
+//SPECIAL CHARACTER TABLE (can be optional)
+num_of_special_chars *
+{
+   2 bytes - special character
+   1 byte - width
+   1 byte - height
+   1 byte - position base
+}
