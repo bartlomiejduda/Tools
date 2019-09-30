@@ -7,6 +7,7 @@
 # v1.0   27.09.2019  Bartlomiej Duda
 # v1.1   28.09.2019  Bartlomiej Duda
 # v1.2   29.09.2019  Bartlomiej Duda
+# v1.3   30.09.2019  Bartlomiej Duda
 
 
 
@@ -26,7 +27,8 @@ from shutil import move
 from os import remove, close
 import tkinter as tk
 from tkinter import ttk
-from TableLib.TableLib import *
+from tkinter import messagebox
+from tkintertable import TableCanvas, TableModel, Preferences
 
 
 
@@ -97,6 +99,9 @@ def font_load(p_input_fontfile_path):
 
 def donothing():
     print("Do nothing")
+    
+def get_preview():
+    messagebox.showinfo("Info", "No preview available")
     
 def about_window(self):
         t = tk.Toplevel(self)
@@ -192,7 +197,7 @@ h_numofspchars_text.configure(state='disabled', bg='light grey')
 #button = tk.Button(frame, text="Get W", font=40, command=lambda: get_w(entry.get()))
 #button.place(relx=0.7, relheight=1, relwidth=0.3)
 
-character_frame = tk.Frame(root, bg='#80c1ff', bd=10)
+character_frame = tk.Frame(root, bg='light blue', bd=10)
 character_frame.place(relx=0.01, rely=0.35, relwidth=0.98, relheight=0.3)
 
 ch_label = tk.Label(character_frame, text="Character table")
@@ -204,58 +209,36 @@ ch_button_add.place(relwidth=0.15, height=20, relx=0.4)
 ch_button_delete = tk.Button(character_frame, text="Delete")
 ch_button_delete.place(relwidth=0.15, height=20, relx=0.6)
 
-ch_button_preview = tk.Button(character_frame, text="Preview")
+ch_button_preview = tk.Button(character_frame, text="Preview", command=lambda: get_preview())
 ch_button_preview.place(relwidth=0.15, height=20, relx=0.8)
 
 
 
-#hscrollbar = tk.Scrollbar(character_frame, orient = tk.HORIZONTAL)
-#vscrollbar = tk.ttk.Scrollbar(character_frame, orient = tk.VERTICAL)
-
-#ch_table_canvas = tk.Canvas(character_frame, bg='yellow', bd=10, highlightthickness=0, scrollregion=(0,0,500,500),
-                           #yscrollcommand = vscrollbar.set,
-                           #xscrollcommand = hscrollbar.set)                           
-#ch_table_canvas.place(relx=0.01, rely=0.2, relwidth=0.99, relheight=0.7)
-
-#character_frame.update_idletasks()
-#ch_table_canvas.config(scrollregion=canvas.bbox("all"))
-
-##character_frame.config(width=30,height=30)
-##ch_table_canvas.config(width=30,height=30)
-
-#vscrollbar.config(command = ch_table_canvas.yview)
-#hscrollbar.config(command = ch_table_canvas.xview)
-
-##hscrollbar.pack(side=tk.BOTTOM, fill=tk.X, expand=tk.TRUE)
-##vscrollbar.pack(side=tk.RIGHT, fill=tk.Y,  expand=tk.FALSE)
 
 
-#t_num_rows = 15
-#t_num_columns = 9
-#cells = [[tk.Text() for j in range(t_num_columns)] for i in range(t_num_rows)]
-#for i in range(t_num_rows): #Rows
-    #for j in range(t_num_columns): #Columns
-        #cells[i][j] = tk.Text(character_frame)
-        #cells[i][j].grid(row=i, column=j, padx=1, pady=1, sticky='news')
-        #cells[i][j].insert("end-1c", "i=" + str(i) + ", j=" + str(j))
-  
-  
-        
-ch_table_frame = tk.Frame(character_frame, bg='yellow', bd=10)                         
-ch_table_frame.place(relx=0.01, rely=0.2, relwidth=0.99, relheight=0.8)        
-        
-table = Table(ch_table_frame, ["column A", "column B", "column C"], column_minwidths=[200, None, None])
-table.pack(fill=X)
 
-table.set_data([[1,2,3],[4,5,6], [7,8,9], [10,11,12], [13,14,15],[15,16,18], [19,20,21]])
-table.cell(0,0, " a fdas fasd fasdf asdf asdfasdf asdf asdfa sdfas asd sadf ")
+ch_frame = tk.Frame(character_frame, bg='orange')
+ch_frame.place(relx=0.01, rely=0.2, relwidth=0.99, relheight=0.84)
 
-table.insert_row([22,23,24])
-table.insert_row([25,26,27])
+model = TableModel()
+table = TableCanvas(ch_frame, model=model)
 
-#root.update()
-#root.geometry("%sx%s"%(root.winfo_reqwidth(),250))        
-        
+#table = TableCanvas(ch_frame)
+table.show()
+#table.deleteRow()
+
+
+data = {
+        'rec1': {'Character': "A", 'Width': 5, 'Height': 11, 'PositionX': 55, 'PositionY': 67, 'Position Base': 10},
+        'rec2': {'Character': "B", 'Width': 6, 'Height': 12, 'PositionX': 82, 'PositionY': 94, 'Position Base': 9}
+       } 
+
+model = table.model
+model.importDict(data) 
+table.adjustColumnWidths()
+table.redraw()
+
+#table.showtablePrefs()
 
 
 root.mainloop()
