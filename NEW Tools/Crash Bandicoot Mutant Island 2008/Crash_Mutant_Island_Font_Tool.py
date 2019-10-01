@@ -222,20 +222,30 @@ ch_frame.place(relx=0.01, rely=0.2, relwidth=0.99, relheight=0.84)
 
 model = TableModel()
 table = TableCanvas(ch_frame, model=model)
-
-#table = TableCanvas(ch_frame)
 table.show()
-#table.deleteRow()
+
 
 
 data = {
-        'rec1': {'Character': "A", 'Width': 5, 'Height': 11, 'PositionX': 55, 'PositionY': 67, 'Position Base': 10},
+        'rec1': {'Character': "A", 'Width': None, 'Height': 11, 'PositionX': 55, 'PositionY': 67, 'Position Base': 10},
         'rec2': {'Character': "B", 'Width': 6, 'Height': 12, 'PositionX': 82, 'PositionY': 94, 'Position Base': 9}
+       } 
+
+data = {
+        'rec1': {'Character': None, 'Width': None, 'Height': None, 'PositionX': None, 'PositionY': None, 'Position Base': None}
        } 
 
 model = table.model
 model.importDict(data) 
+
+
+
 table.adjustColumnWidths()
+table.autoResizeColumns()
+try:
+    table.resizeColumn(5, 130) #Position Base
+except:
+    print("Couldn't resize column!")
 table.redraw()
 
 #table.showtablePrefs()
