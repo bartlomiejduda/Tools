@@ -8,6 +8,7 @@
 # v1.1   28.09.2019  Bartlomiej Duda
 # v1.2   29.09.2019  Bartlomiej Duda
 # v1.3   30.09.2019  Bartlomiej Duda
+# v1.4   01.10.2019  Bartlomiej Duda
 
 
 
@@ -31,12 +32,16 @@ from tkinter import messagebox
 from tkintertable import TableCanvas, TableModel, Preferences
 
 
+header_dict = {}
+char_dict = {}
+sp_char_dict = {}
+font_loaded_flag = False
 
 def font_load(p_input_fontfile_path):
     print ("Starting Crash Java font load...")
-
+    
     font_file = open(p_input_fontfile_path, 'rb')
-    log_file = open("out_log.txt", "wt+")
+    #log_file = open("out_log.txt", "wt+")
     
     
     #read header
@@ -49,9 +54,16 @@ def font_load(p_input_fontfile_path):
     header_string = ( "magic: " + str(magic) + " FontHeight: " + str(FontHeight) +
                       " TopDec: " + str(TopDec) + " SpaceWidth: " + str(SpaceWidth) +
                       " num_chars: " + str(num_chars) + " num_sp_chars: " + str(num_special_chars) )
-    print(header_string)
+    #print(header_string)
     
-  
+    header_dict['Magic'] = magic
+    header_dict['Font height'] = FontHeight
+    header_dict['TopDec'] = TopDec
+    header_dict['Space width'] = SpaceWidth
+    header_dict['num_chars'] = num_chars
+    header_dict['num_special_chars'] = num_special_chars
+    
+    
     for i in range(num_chars): #read character table
         current_offset = font_file.tell()
         character = struct.unpack('>H', font_file.read(2))[0]
@@ -66,6 +78,17 @@ def font_load(p_input_fontfile_path):
               " is_special: " + str(is_special_char) + " curr_offset: " + str(current_offset) )
         #print(log_string)
         #log_file.write(log_string + '\n')
+        
+        row_char_dict = {}
+        row_char_dict['Character'] = str(chr(character))
+        row_char_dict['Width'] = width
+        row_char_dict['Height'] = height
+        row_char_dict['PositionX'] = posX
+        row_char_dict['PositionY'] = posY
+        row_char_dict['Position Base'] = posBase
+        row_char_dict['Is_special_char'] = is_special_char
+        char_dict['rec' + str(i+1)] = row_char_dict    
+              
     
     n = 0
     for j in range(num_special_chars): #read special character table
@@ -89,13 +112,11 @@ def font_load(p_input_fontfile_path):
               " is_special: " + str(is_special_char) + " curr_offset: " + str(current_offset) + '\n' + loop_string_all)  
         #print(log_string)
     
-    log_file.close()
+    #log_file.close()
     font_file.close()
     print("Ending Crash Java font load...")
 
-#FONT LOAD
-#p_input_fontfile_path = 'C:\\Users\\Adam\\Desktop\\CRASH_JAVA_FILES\\Font_nb_0'   
-#font_load(p_input_fontfile_path)
+
 
 def donothing():
     print("Do nothing")
@@ -134,22 +155,7 @@ try:
 except:
     print("Icon not loaded!")
 
-menubar = tk.Menu(root)
 
-filemenu = tk.Menu(menubar, tearoff=0)
-filemenu.add_command(label="Open", command=donothing)
-filemenu.add_command(label="Save", command=donothing)
-filemenu.add_command(label="Save as...", command=donothing)
-filemenu.add_command(label="Close", command=donothing)
-filemenu.add_separator()
-filemenu.add_command(label="Exit", command=root.destroy)
-menubar.add_cascade(label="File", menu=filemenu)
-
-helpmenu = tk.Menu(menubar, tearoff=0)
-helpmenu.add_command(label="About...", command=lambda: about_window(root))
-menubar.add_cascade(label="Help", menu=helpmenu)
-
-root.config(menu=menubar)
 
 
 canvas = tk.Canvas(root, height=WINDOW_HEIGHT, width=WINDOW_WIDTH)
@@ -194,20 +200,11 @@ h_numofspchars_text = tk.Text(header_frame, font=40)
 h_numofspchars_text.place(rely= 0.6, relx= 0.7, relwidth=0.15, height=20)
 h_numofspchars_text.configure(state='disabled', bg='light grey')
 
-#button = tk.Button(frame, text="Get W", font=40, command=lambda: get_w(entry.get()))
-#button.place(relx=0.7, relheight=1, relwidth=0.3)
-
 character_frame = tk.Frame(root, bg='light blue', bd=10)
 character_frame.place(relx=0.01, rely=0.35, relwidth=0.98, relheight=0.3)
 
 ch_label = tk.Label(character_frame, text="Character table")
 ch_label.place(relwidth=0.15, height=20)
-
-ch_button_add = tk.Button(character_frame, text="Add")
-ch_button_add.place(relwidth=0.15, height=20, relx=0.4)
-
-ch_button_delete = tk.Button(character_frame, text="Delete")
-ch_button_delete.place(relwidth=0.15, height=20, relx=0.6)
 
 ch_button_preview = tk.Button(character_frame, text="Preview", command=lambda: get_preview())
 ch_button_preview.place(relwidth=0.15, height=20, relx=0.8)
@@ -226,29 +223,68 @@ table.show()
 
 
 
-data = {
-        'rec1': {'Character': "A", 'Width': None, 'Height': 11, 'PositionX': 55, 'PositionY': 67, 'Position Base': 10},
-        'rec2': {'Character': "B", 'Width': 6, 'Height': 12, 'PositionX': 82, 'PositionY': 94, 'Position Base': 9}
+
+
+
+def open_font():
+    p_input_fontfile_path = 'C:\\Users\\Adam\\Desktop\\CRASH_JAVA_FILES\\Font_nb_0'   
+    font_load(p_input_fontfile_path)
+    
+    h_magic_text.configure(state='normal')
+    h_magic_text.delete(1.0,"end-1c")
+    h_magic_text.insert("end-1c", header_dict.get('Magic'))
+    h_magic_text.configure(state='disabled')
+    
+    
+    model = table.model
+    model.importDict(char_dict) 
+
+    sys.stdout.flush()
+    table.redraw()
+    
+#open_font()
+
+
+char_dict = {
+        'rec1': {'Character': None, 'Width': None, 'Height': None, 'PositionX': None, 'PositionY': None, 'Position Base': None, 'Is_special_char': None}
        } 
 
-data = {
-        'rec1': {'Character': None, 'Width': None, 'Height': None, 'PositionX': None, 'PositionY': None, 'Position Base': None}
-       } 
 
 model = table.model
-model.importDict(data) 
-
+model.importDict(char_dict)  
 
 
 table.adjustColumnWidths()
 table.autoResizeColumns()
 try:
     table.resizeColumn(5, 130) #Position Base
+    table.resizeColumn(6, 150) #Is_special_char
 except:
     print("Couldn't resize column!")
 table.redraw()
 
 #table.showtablePrefs()
+
+
+
+
+
+menubar = tk.Menu(root)
+
+filemenu = tk.Menu(menubar, tearoff=0)
+filemenu.add_command(label="Open", command=lambda: open_font())
+filemenu.add_command(label="Save", command=donothing)
+filemenu.add_command(label="Save as...", command=donothing)
+filemenu.add_command(label="Close", command=donothing)
+filemenu.add_separator()
+filemenu.add_command(label="Exit", command=root.destroy)
+menubar.add_cascade(label="File", menu=filemenu)
+
+helpmenu = tk.Menu(menubar, tearoff=0)
+helpmenu.add_command(label="About...", command=lambda: about_window(root))
+menubar.add_cascade(label="Help", menu=helpmenu)
+
+root.config(menu=menubar)
 
 
 root.mainloop()
