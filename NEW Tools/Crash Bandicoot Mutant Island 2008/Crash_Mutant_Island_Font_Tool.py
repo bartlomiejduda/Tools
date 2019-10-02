@@ -10,6 +10,7 @@
 # v1.3   30.09.2019  Bartlomiej Duda
 # v1.4   01.10.2019  Bartlomiej Duda
 # v1.5   02.10.2019  Bartlomiej Duda
+# v1.6   03.10.2019  Bartlomiej Duda
 
 
 
@@ -100,18 +101,29 @@ def font_load(p_input_fontfile_path):
         posBase = struct.unpack('>B', font_file.read(1))[0]
         is_special_char = n
         loop_string_all = ""
-        for i in range(2):
+        for k in range(2):
             index = struct.unpack('>H', font_file.read(2))[0]
             XOffset = struct.unpack('>B', font_file.read(1))[0]
             YOffset = struct.unpack('>B', font_file.read(1))[0]
             n += 1
-            loop_string = ( "index: " + str(index) + " XOffset: " + str(XOffset) + " YOffset: " + str(YOffset) + '\n')
+            loop_string = ( "index: " + str(index) + " XOffset: " + str(XOffset) + " YOffset: " + str(YOffset) + '; ')
             loop_string_all += loop_string
-        
+                    
         log_string = (str(j+1) + ") sp_char: " + str(chr(special_character)) + " width: " + str(width) + 
               " height: " + str(height) + " posBase: " + str(posBase) + 
               " is_special: " + str(is_special_char) + " curr_offset: " + str(current_offset) + '\n' + loop_string_all)  
         #print(log_string)
+        
+        sp_row_char_dict = {}
+        sp_row_char_dict['Special character'] = str(chr(special_character))
+        sp_row_char_dict['Width'] = width
+        sp_row_char_dict['Height'] = height
+        sp_row_char_dict['Position Base'] = posBase
+        sp_row_char_dict['Is_special_char'] = is_special_char
+        sp_row_char_dict['loop_string_all'] = loop_string_all
+        sp_char_dict['rec' + str(j+1)] = sp_row_char_dict   
+        
+        
     
     #log_file.close()
     font_file.close()
@@ -161,7 +173,7 @@ except:
 canvas = tk.Canvas(root, height=WINDOW_HEIGHT, width=WINDOW_WIDTH)
 canvas.pack()
 
-header_frame = tk.Frame(root, bg='#90d1af', bd=5)
+header_frame = tk.Frame(root, bg='light blue', bd=5)
 header_frame.place(relx=0.01, rely=0.01, relwidth=0.98, relheight=0.3)
 
 h_label = tk.Label(header_frame, text="Header")
@@ -203,8 +215,14 @@ h_numofspchars_text.configure(state='disabled', bg='light grey')
 character_frame = tk.Frame(root, bg='light blue', bd=10)
 character_frame.place(relx=0.01, rely=0.35, relwidth=0.98, relheight=0.3)
 
+sp_character_frame = tk.Frame(root, bg='light blue', bd=10)
+sp_character_frame.place(relx=0.01, rely=0.7, relwidth=0.98, relheight=0.28)
+
 ch_label = tk.Label(character_frame, text="Character table")
 ch_label.place(relwidth=0.15, height=20)
+
+sp_ch_label = tk.Label(sp_character_frame, text="Special character table")
+sp_ch_label.place(relwidth=0.2, height=20)
 
 ch_button_add = tk.Button(character_frame, text="Add", command=lambda: b_add_row())
 ch_button_add.place(relwidth=0.15, height=20, relx=0.4)
@@ -220,22 +238,62 @@ ch_button_preview.place(relwidth=0.15, height=20, relx=0.8)
 
 
 
-ch_frame = tk.Frame(character_frame, bg='orange')
+ch_frame = tk.Frame(character_frame, bg='light blue')
 ch_frame.place(relx=0.01, rely=0.2, relwidth=0.99, relheight=0.84)
+
+sp_ch_frame = tk.Frame(sp_character_frame, bg='light blue')
+sp_ch_frame.place(relx=0.01, rely=0.2, relwidth=0.99, relheight=0.84)
 
 model = TableModel()
 table = TableCanvas(ch_frame, model=model)
 table.show()
 
+model2 = TableModel()
+table2 = TableCanvas(sp_ch_frame, model=model2)
+table2.show()
+
 
 def b_add_row():
-    print("b_add_row")
+    try:
+        num_ch = int(h_numofchars_text.get("1.0","end-1c"))
+        num_ch += 1
+        print("num_ch: " + str(num_ch))
+        h_numofchars_text.configure(state='normal')
+        h_numofchars_text.delete(1.0,"end-1c")
+        h_numofchars_text.insert("end-1c", num_ch) 
+        h_numofchars_text.configure(state='disabled')        
+    except Exception as e:
+        print("Add row error: " + str(e))
     table.addRow()
     sys.stdout.flush()
     table.redraw()    
     
 def b_delete_row():
-    print("b_delete_row")
+    count_rows = len(table.multiplerowlist)
+    if count_rows > 1:
+        rows = table.multiplerowlist
+        table.model.deleteRows(rows)
+        table.clearSelected()
+        table.setSelectedRow(0)    
+    else:
+        row = table.getSelectedRow()
+        table.model.deleteRow(row)
+        table.setSelectedRow(row-1)
+        table.clearSelected()  
+    try:
+        num_ch = int(h_numofchars_text.get("1.0","end-1c"))
+        num_ch -= count_rows
+        print("num_ch: " + str(num_ch))
+        h_numofchars_text.configure(state='normal')
+        h_numofchars_text.delete(1.0,"end-1c")
+        h_numofchars_text.insert("end-1c", num_ch) 
+        h_numofchars_text.configure(state='disabled')        
+    except Exception as e:
+        print("Add row error: " + str(e))    
+
+
+    sys.stdout.flush()
+    table.redraw()     
 
 
 
@@ -267,44 +325,43 @@ def open_font():
     h_numofspchars_text.insert("end-1c", header_dict.get('num_special_chars'))     
     h_numofspchars_text.configure(state='disabled')
     
-    
-    
-    #header_dict['Magic'] = magic
-    #header_dict['Font height'] = FontHeight
-    #header_dict['TopDec'] = TopDec
-    #header_dict['Space width'] = SpaceWidth
-    #header_dict['num_chars'] = num_chars
-    #header_dict['num_special_chars'] = num_special_chars    
-    
-    
     model = table.model
+    model.deleteRows()
     model.importDict(char_dict) 
+    
+    model2 = table2.model
+    model2.deleteRows()
+    model2.importDict(sp_char_dict)    
+    #table2.adjustColumnWidths()
+    #table2.autoResizeColumns()
 
     sys.stdout.flush()
     table.redraw()
+    table2.redraw()
     
-#open_font()
 
-
-char_dict = {
-        'rec1': {'Character': None, 'Width': None, 'Height': None, 'PositionX': None, 'PositionY': None, 'Position Base': None, 'Is_special_char': None}
-       } 
-
+char_dict = {'rec1': {'Character': None, 'Width': None, 'Height': None, 'PositionX': None, 'PositionY': None, 'Position Base': None, 'Is_special_char': None} } 
+sp_char_dict = {'rec1': {'Special character': None, 'Width': None, 'Height': None, 'Position Base': None, 'Is_special_char': None, 'loop_string_all': None} } 
 
 model = table.model
 model.importDict(char_dict)  
 
+model2 = table2.model
+model2.importDict(sp_char_dict)  
 
-table.adjustColumnWidths()
-table.autoResizeColumns()
+
 try:
     table.resizeColumn(5, 130) #Position Base
     table.resizeColumn(6, 150) #Is_special_char
+    table2.resizeColumn(0, 150) #Special character
+    table2.resizeColumn(3, 150) #Position Base
+    table2.resizeColumn(4, 150) #Is_special_char
+    table2.resizeColumn(5, 550) #loop_string_all
 except:
-    print("Couldn't resize column!")
+    print("Couldn't resize columns!")
 table.redraw()
 
-#table.showtablePrefs()
+
 
 
 
