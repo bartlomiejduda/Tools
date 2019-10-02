@@ -9,6 +9,7 @@
 # v1.2   29.09.2019  Bartlomiej Duda
 # v1.3   30.09.2019  Bartlomiej Duda
 # v1.4   01.10.2019  Bartlomiej Duda
+# v1.5   02.10.2019  Bartlomiej Duda
 
 
 
@@ -157,7 +158,6 @@ except:
 
 
 
-
 canvas = tk.Canvas(root, height=WINDOW_HEIGHT, width=WINDOW_WIDTH)
 canvas.pack()
 
@@ -180,8 +180,8 @@ h_fontheight_text.place(rely= 0.45, relx= 0.2, relwidth=0.15, height=20)
 
 h_topdec_label = tk.Label(header_frame, text="TopDec:") 
 h_topdec_label.place(rely= 0.6, relwidth=0.15, height=20)
-h_topdec_entry = tk.Text(header_frame, font=40)
-h_topdec_entry.place(rely= 0.6, relx= 0.2, relwidth=0.15, height=20)
+h_topdec_text = tk.Text(header_frame, font=40)
+h_topdec_text.place(rely= 0.6, relx= 0.2, relwidth=0.15, height=20)
 
 h_spacewidth_label = tk.Label(header_frame, text="Space width:") 
 h_spacewidth_label.place(rely= 0.3, relx=0.4, relwidth=0.25, height=20)
@@ -206,6 +206,12 @@ character_frame.place(relx=0.01, rely=0.35, relwidth=0.98, relheight=0.3)
 ch_label = tk.Label(character_frame, text="Character table")
 ch_label.place(relwidth=0.15, height=20)
 
+ch_button_add = tk.Button(character_frame, text="Add", command=lambda: b_add_row())
+ch_button_add.place(relwidth=0.15, height=20, relx=0.4)
+
+ch_button_delete = tk.Button(character_frame, text="Delete", command=lambda: b_delete_row())
+ch_button_delete.place(relwidth=0.15, height=20, relx=0.6)
+
 ch_button_preview = tk.Button(character_frame, text="Preview", command=lambda: get_preview())
 ch_button_preview.place(relwidth=0.15, height=20, relx=0.8)
 
@@ -222,18 +228,53 @@ table = TableCanvas(ch_frame, model=model)
 table.show()
 
 
-
+def b_add_row():
+    print("b_add_row")
+    table.addRow()
+    sys.stdout.flush()
+    table.redraw()    
+    
+def b_delete_row():
+    print("b_delete_row")
 
 
 
 def open_font():
-    p_input_fontfile_path = 'C:\\Users\\Adam\\Desktop\\CRASH_JAVA_FILES\\Font_nb_0'   
+    p_input_fontfile_path = 'C:\\Users\\Adam\\Desktop\\CRASH_JAVA_FILES\\Font_nb_0'
     font_load(p_input_fontfile_path)
     
     h_magic_text.configure(state='normal')
     h_magic_text.delete(1.0,"end-1c")
     h_magic_text.insert("end-1c", header_dict.get('Magic'))
     h_magic_text.configure(state='disabled')
+    
+    h_fontheight_text.delete(1.0,"end-1c")
+    h_fontheight_text.insert("end-1c", header_dict.get('Font height'))
+    
+    h_topdec_text.delete(1.0,"end-1c")
+    h_topdec_text.insert("end-1c", header_dict.get('TopDec'))   
+    
+    h_spacewidth_text.delete(1.0,"end-1c")
+    h_spacewidth_text.insert("end-1c", header_dict.get('Space width'))    
+    
+    h_numofchars_text.configure(state='normal')
+    h_numofchars_text.delete(1.0,"end-1c")
+    h_numofchars_text.insert("end-1c", header_dict.get('num_chars')) 
+    h_numofchars_text.configure(state='disabled')
+    
+    h_numofspchars_text.configure(state='normal')
+    h_numofspchars_text.delete(1.0,"end-1c")
+    h_numofspchars_text.insert("end-1c", header_dict.get('num_special_chars'))     
+    h_numofspchars_text.configure(state='disabled')
+    
+    
+    
+    #header_dict['Magic'] = magic
+    #header_dict['Font height'] = FontHeight
+    #header_dict['TopDec'] = TopDec
+    #header_dict['Space width'] = SpaceWidth
+    #header_dict['num_chars'] = num_chars
+    #header_dict['num_special_chars'] = num_special_chars    
     
     
     model = table.model
