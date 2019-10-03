@@ -11,6 +11,7 @@
 # v1.4   01.10.2019  Bartlomiej Duda
 # v1.5   02.10.2019  Bartlomiej Duda
 # v1.6   03.10.2019  Bartlomiej Duda
+# v1.7   03.10.2019  Bartlomiej Duda
 
 
 
@@ -32,6 +33,8 @@ import tkinter as tk
 from tkinter import ttk
 from tkinter import messagebox
 from tkintertable import TableCanvas, TableModel, Preferences
+from tkinter import filedialog
+import traceback
 
 
 header_dict = {}
@@ -154,6 +157,7 @@ def about_window(self):
         
         l = tk.Label(t, text=a_text)
         l.pack(side="top", fill="both", padx=10, pady=10)
+
 
 
 WINDOW_HEIGHT = 500
@@ -300,6 +304,7 @@ def b_delete_row():
 def open_font():
     p_input_fontfile_path = 'C:\\Users\\Adam\\Desktop\\CRASH_JAVA_FILES\\Font_nb_0'
     font_load(p_input_fontfile_path)
+    font_loaded_flag = True
     
     h_magic_text.configure(state='normal')
     h_magic_text.delete(1.0,"end-1c")
@@ -332,13 +337,114 @@ def open_font():
     model2 = table2.model
     model2.deleteRows()
     model2.importDict(sp_char_dict)    
-    #table2.adjustColumnWidths()
-    #table2.autoResizeColumns()
+    
+    if font_loaded_flag == True:
+        filemenu.entryconfig(1, state="normal") #Save
+        filemenu.entryconfig(2, state="normal") #Save as
+        filemenu.entryconfig(3, state="normal") #Close        
 
     sys.stdout.flush()
     table.redraw()
     table2.redraw()
+
+def close_font():
+    font_loaded_flag = False
     
+    h_magic_text.configure(state='normal')
+    h_magic_text.delete(1.0,"end-1c")
+    h_magic_text.configure(state='disabled')
+    
+    h_fontheight_text.delete(1.0,"end-1c")
+    
+    h_topdec_text.delete(1.0,"end-1c") 
+    
+    h_spacewidth_text.delete(1.0,"end-1c")   
+    
+    h_numofchars_text.configure(state='normal')
+    h_numofchars_text.delete(1.0,"end-1c")
+    h_numofchars_text.configure(state='disabled')
+    
+    h_numofspchars_text.configure(state='normal')
+    h_numofspchars_text.delete(1.0,"end-1c")   
+    h_numofspchars_text.configure(state='disabled')   
+    
+    model = table.model
+    model.deleteRows()
+    
+    model2 = table2.model
+    model2.deleteRows()  
+    
+    if font_loaded_flag == False:
+        filemenu.entryconfig(1, state="disabled") #Save
+        filemenu.entryconfig(2, state="disabled") #Save as
+        filemenu.entryconfig(3, state="disabled") #Close        
+
+    sys.stdout.flush()
+    table.redraw()
+    table2.redraw()    
+    
+def save_as_font():
+
+    #data validation
+    try:
+        fkt = "MAGIC"
+        magic_t = h_magic_text.get("1.0","end-1c").rstrip('\n').encode()
+        fkt = "FONT HEIGHT"
+        font_height_i = int(h_fontheight_text.get("1.0","end-1c").rstrip('\n'))
+        fkt = "TOP DEC"
+        top_dec_i = int(h_topdec_text.get("1.0","end-1c").rstrip('\n'))
+        fkt = "SPACE WIDTH"
+        space_width_i = int(h_spacewidth_text.get("1.0","end-1c").rstrip('\n'))
+        fkt = "NUM OF CHARS"
+        num_of_chars_i = int(h_numofchars_text.get("1.0","end-1c").rstrip('\n'))
+        fkt = "NUM OF SPECIAL CHARS"
+        num_of_sp_chars_i = int(h_numofspchars_text.get("1.0","end-1c").rstrip('\n'))
+        
+        fkt = "CHARACTER TABLE"
+        fkt_row = ""
+        fkt_col = ""
+        value = None
+        count_rows = model.getRowCount()
+        data = table.model.data
+        cols = table.model.columnNames  
+        for col in cols:
+            fkt_col = col
+            for i in range(count_rows):
+                fkt_row = i+1
+                value = data[model.getRecName(i)][col]
+                if col == 'Character':
+                    if len(str(value)) != 1:
+                        print("Val: " + str(value) + " Len: " + str(len(value)))
+                        raise Exception
+                else:
+                    temp_i = int(value)
+                #print("data[rec" + str(i+1) + "][" + col + "] = " + str(value))
+        sys.stdout.flush()
+        
+        
+    except Exception as e:
+        if fkt == "CHARACTER TABLE":
+            err_string = ("Couldn't validate " + fkt + ". Please input correct data.\n"
+                          "Incorrect value in column \"" + str(fkt_col) + "\" and row \"" + str(fkt_row) + "\".")
+        else:
+            err_string = ("Couldn't validate " + fkt + " field in header section. Please input correct data." )
+                          
+        traceback.print_exc()
+        print("fkt = " + str(fkt) + " fkt_col = " + str(fkt_col) + " fkt_row = " + str(fkt_row) + " value = " + str(value) + " len_value = " + str(len(str(value))))
+        sys.stdout.flush()
+        messagebox.showerror("ERROR", err_string)
+        return
+    
+    
+    root.filename =  filedialog.asksaveasfilename(initialdir = ".",title = "Save Crash font file", initialfile="Font_nb_0")
+    print (root.filename)
+    sys.stdout.flush()
+    
+    if root.filename != '':
+        font_file = open(root.filename, 'wb+')
+        font_file.write(struct.Struct("3s").pack(magic_t))
+            
+        font_file.close()
 
 char_dict = {'rec1': {'Character': None, 'Width': None, 'Height': None, 'PositionX': None, 'PositionY': None, 'Position Base': None, 'Is_special_char': None} } 
 sp_char_dict = {'rec1': {'Special character': None, 'Width': None, 'Height': None, 'Position Base': None, 'Is_special_char': None, 'loop_string_all': None} } 
@@ -372,8 +478,8 @@ menubar = tk.Menu(root)
 filemenu = tk.Menu(menubar, tearoff=0)
 filemenu.add_command(label="Open", command=lambda: open_font())
 filemenu.add_command(label="Save", command=donothing)
-filemenu.add_command(label="Save as...", command=donothing)
-filemenu.add_command(label="Close", command=donothing)
+filemenu.add_command(label="Save as...", command=lambda: save_as_font())
+filemenu.add_command(label="Close", command=lambda: close_font())
 filemenu.add_separator()
 filemenu.add_command(label="Exit", command=root.destroy)
 menubar.add_cascade(label="File", menu=filemenu)
@@ -381,6 +487,11 @@ menubar.add_cascade(label="File", menu=filemenu)
 helpmenu = tk.Menu(menubar, tearoff=0)
 helpmenu.add_command(label="About...", command=lambda: about_window(root))
 menubar.add_cascade(label="Help", menu=helpmenu)
+
+
+filemenu.entryconfig(1, state="disabled") #Save
+filemenu.entryconfig(2, state="disabled") #Save as
+filemenu.entryconfig(3, state="disabled") #Close
 
 root.config(menu=menubar)
 
