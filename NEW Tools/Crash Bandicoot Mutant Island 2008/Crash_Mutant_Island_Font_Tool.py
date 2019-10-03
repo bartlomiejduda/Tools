@@ -13,6 +13,7 @@
 # v1.6   03.10.2019  Bartlomiej Duda
 # v1.7   03.10.2019  Bartlomiej Duda
 # v1.8   03.10.2019  Bartlomiej Duda
+# v1.9   04.10.2019  Bartlomiej Duda
 
 
 
@@ -36,7 +37,7 @@ from tkinter import messagebox
 from tkintertable import TableCanvas, TableModel, Preferences
 from tkinter import filedialog
 import traceback
-
+from PIL import Image, ImageTk  #"pip install Pillow" for this!
 
 
 
@@ -236,7 +237,7 @@ ch_button_add.place(relwidth=0.15, height=20, relx=0.4)
 ch_button_delete = tk.Button(character_frame, text="Delete", command=lambda: b_delete_row())
 ch_button_delete.place(relwidth=0.15, height=20, relx=0.6)
 
-ch_button_preview = tk.Button(character_frame, text="Preview", command=lambda: get_preview())
+ch_button_preview = tk.Button(character_frame, text="Preview", command=lambda: get_preview(root))
 ch_button_preview.place(relwidth=0.15, height=20, relx=0.8)
 
 
@@ -263,7 +264,7 @@ def b_add_row():
     try:
         num_ch = int(h_numofchars_text.get("1.0","end-1c"))
         num_ch += 1
-        print("num_ch: " + str(num_ch))
+        #print("num_ch: " + str(num_ch))
         h_numofchars_text.configure(state='normal')
         h_numofchars_text.delete(1.0,"end-1c")
         h_numofchars_text.insert("end-1c", num_ch) 
@@ -289,7 +290,7 @@ def b_delete_row():
     try:
         num_ch = int(h_numofchars_text.get("1.0","end-1c"))
         num_ch -= count_rows
-        print("num_ch: " + str(num_ch))
+        #print("num_ch: " + str(num_ch))
         h_numofchars_text.configure(state='normal')
         h_numofchars_text.delete(1.0,"end-1c")
         h_numofchars_text.insert("end-1c", num_ch) 
@@ -302,19 +303,35 @@ def b_delete_row():
     table.redraw()     
 
 
-def get_preview():
+def get_preview(self):
     global font_loaded_flag
     if font_loaded_flag == False:
         messagebox.showinfo("Info", "No preview available")
     else:
         try:
-            font_file_png = open(global_font_path, 'rb')
-            print("PNG open...")
+            #font_file_png = open(global_font_path + '.png', 'rb')
+            png_file_path = str(global_font_path + ".png")
+            print("PNG open..." + png_file_path)
             
-            font_file_png.close()
+            t = tk.Toplevel(self)
+            t.wm_title("Preview")
+            
+            
+            #image = Image.open(global_font_path + '.png')
+            #image = image.resize((250, 250), Image.ANTIALIAS)            
+            #image.save("temp.png")
+            
+            font_image_png = ImageTk.PhotoImage(Image.open(png_file_path))  
+            l = tk.Label(t, text="Font preview", compound='top', image=font_image_png, bg='black')  
+            #l['text'] = "Font preview"
+            #l['image'] = font_image_png
+            #l.place(relheight=1, relwidth=1, relx=0, rely=0)
+            l.pack()
+            #font_file_png.close()
         except:
             messagebox.showinfo("Info", "Couldn't load preview!")
             traceback.print_exc()
+        finally:
             sys.stdout.flush()
 
 
