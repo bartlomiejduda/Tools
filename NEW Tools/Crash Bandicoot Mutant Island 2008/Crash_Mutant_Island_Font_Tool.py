@@ -12,6 +12,7 @@
 # v1.5   02.10.2019  Bartlomiej Duda
 # v1.6   03.10.2019  Bartlomiej Duda
 # v1.7   03.10.2019  Bartlomiej Duda
+# v1.8   03.10.2019  Bartlomiej Duda
 
 
 
@@ -37,9 +38,12 @@ from tkinter import filedialog
 import traceback
 
 
+
+
 header_dict = {}
 char_dict = {}
 sp_char_dict = {}
+global_font_path = ""
 font_loaded_flag = False
 
 def font_load(p_input_fontfile_path):
@@ -137,8 +141,7 @@ def font_load(p_input_fontfile_path):
 def donothing():
     print("Do nothing")
     
-def get_preview():
-    messagebox.showinfo("Info", "No preview available")
+
     
 def about_window(self):
         t = tk.Toplevel(self)
@@ -171,7 +174,6 @@ try:
     root.iconbitmap('favicon.ico')
 except:
     print("Icon not loaded!")
-
 
 
 canvas = tk.Canvas(root, height=WINDOW_HEIGHT, width=WINDOW_WIDTH)
@@ -300,10 +302,28 @@ def b_delete_row():
     table.redraw()     
 
 
+def get_preview():
+    global font_loaded_flag
+    if font_loaded_flag == False:
+        messagebox.showinfo("Info", "No preview available")
+    else:
+        try:
+            font_file_png = open(global_font_path, 'rb')
+            print("PNG open...")
+            
+            font_file_png.close()
+        except:
+            messagebox.showinfo("Info", "Couldn't load preview!")
+            traceback.print_exc()
+            sys.stdout.flush()
+
 
 def open_font():
     p_input_fontfile_path = 'C:\\Users\\Adam\\Desktop\\CRASH_JAVA_FILES\\Font_nb_0'
+    global global_font_path
+    global_font_path = p_input_fontfile_path
     font_load(p_input_fontfile_path)
+    global font_loaded_flag
     font_loaded_flag = True
     
     h_magic_text.configure(state='normal')
@@ -348,6 +368,7 @@ def open_font():
     table2.redraw()
 
 def close_font():
+    global font_loaded_flag
     font_loaded_flag = False
     
     h_magic_text.configure(state='normal')
@@ -387,23 +408,33 @@ def save_as_font():
 
     #data validation
     try:
+        fkt_row = ""
+        fkt_col = ""  
+        value = None
         fkt = "MAGIC"
         magic_t = h_magic_text.get("1.0","end-1c").rstrip('\n').encode()
         fkt = "FONT HEIGHT"
         font_height_i = int(h_fontheight_text.get("1.0","end-1c").rstrip('\n'))
+        if font_height_i < 0 or font_height_i > 255:
+            raise Exception
         fkt = "TOP DEC"
         top_dec_i = int(h_topdec_text.get("1.0","end-1c").rstrip('\n'))
+        if top_dec_i < 0 or top_dec_i > 255:
+            raise Exception        
         fkt = "SPACE WIDTH"
         space_width_i = int(h_spacewidth_text.get("1.0","end-1c").rstrip('\n'))
+        if space_width_i < 0 or space_width_i > 255:
+            raise Exception 
         fkt = "NUM OF CHARS"
         num_of_chars_i = int(h_numofchars_text.get("1.0","end-1c").rstrip('\n'))
+        if num_of_chars_i < 0 or num_of_chars_i > 255:
+            raise Exception 
         fkt = "NUM OF SPECIAL CHARS"
         num_of_sp_chars_i = int(h_numofspchars_text.get("1.0","end-1c").rstrip('\n'))
+        if num_of_sp_chars_i < 0 or num_of_sp_chars_i > 255:
+            raise Exception         
         
         fkt = "CHARACTER TABLE"
-        fkt_row = ""
-        fkt_col = ""
-        value = None
         count_rows = model.getRowCount()
         data = table.model.data
         cols = table.model.columnNames  
@@ -418,6 +449,9 @@ def save_as_font():
                         raise Exception
                 else:
                     temp_i = int(value)
+                    if col != 'Is_special_char':
+                        if temp_i < 0:
+                            raise Exception
                 #print("data[rec" + str(i+1) + "][" + col + "] = " + str(value))
         sys.stdout.flush()
         
