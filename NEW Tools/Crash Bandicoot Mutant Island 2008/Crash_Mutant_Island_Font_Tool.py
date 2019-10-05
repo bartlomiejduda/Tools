@@ -313,35 +313,42 @@ def get_preview(self):
         try:
             png_file_path = str(global_font_path + ".png")
             print("PNG open... " + png_file_path)
+            RESIZE_PARAM = 4
+            
             
             t = tk.Toplevel(self, bg='grey')
             t.wm_title("Preview")
-            #t.geometry('500x500')
             
             image = Image.open(png_file_path)
-            image = image.resize((250, 250), Image.ANTIALIAS)            
+            [imageSizeWidth, imageSizeHeight] = image.size
+            image = image.resize((RESIZE_PARAM*imageSizeWidth, RESIZE_PARAM*imageSizeHeight), Image.ANTIALIAS)            
             image.save("temp.png")
             
-            l = tk.Label(t, text="Font preview", compound='top', bg='black', fg='white')  
-            l.font_image_png = ImageTk.PhotoImage(file="temp.png")  
-            l['image'] = l.font_image_png
-            #l.pack(side = "bottom", fill = "both", expand = "yes")
-            #l.place(relx=0, rely=0, relwidth=1, relheight=1)
+            data = table.model.data
+            p_row = table.getSelectedRow()
+            p_row_name = model.getRecName(p_row)
+            
+            p_height = data[p_row_name]['Height']
+            p_width = data[p_row_name]['Width']
+            p_posX = data[p_row_name]['PositionX']
+            p_posY = data[p_row_name]['PositionY']
+            
+            print("H: " + str(p_height) + " W: " + str(p_width) + " posX: " + str(p_posX) + " posY: " + str(p_posY) )
+            
+            
+            prev_canvas = tk.Canvas(t, bg='black', bd=0, highlightthickness=0, relief='ridge')
+            prev_canvas.font_image_png = ImageTk.PhotoImage(file="temp.png")
+            prev_canvas.create_image(0, 0, image=prev_canvas.font_image_png, anchor='nw')
+            
+            posX_2 = (p_posX + p_width)*RESIZE_PARAM
+            posY_2 = (p_posY + p_height)*RESIZE_PARAM
+            prev_canvas.create_rectangle(RESIZE_PARAM*p_posX, RESIZE_PARAM*p_posY, posX_2, posY_2, outline='red')
+            prev_canvas.config(width=prev_canvas.font_image_png.width(), height=prev_canvas.font_image_png.height())
+            prev_canvas.pack()
             
 
             
-            prev_canvas = tk.Canvas(t, bg='orange')
-            #prev_canvas.place(x=0, y=0, width=150, height=300)
-            #prev_canvas.pack
-            prev_canvas.font_image_png = ImageTk.PhotoImage(file="temp.png")
-            prev_canvas.create_image(50, 70, image=prev_canvas.font_image_png, anchor='nw')
-            prev_canvas.create_rectangle(50, 25, 150, 75)
-            prev_canvas.pack()
-            
-            selection_frame = tk.Frame(prev_canvas, bg='light blue')
-            #selection_frame.place(relx=0, rely=0, width=50, height=90)
-            
-            #os.remove("temp.png")
+            os.remove("temp.png")
             
         except:
             messagebox.showinfo("Info", "Couldn't load preview!")
