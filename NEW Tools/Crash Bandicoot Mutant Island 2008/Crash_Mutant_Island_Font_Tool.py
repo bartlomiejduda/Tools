@@ -15,6 +15,7 @@
 # v1.8   03.10.2019  Bartlomiej Duda
 # v1.9   04.10.2019  Bartlomiej Duda
 # v1.10  05.10.2019  Bartlomiej Duda
+# v1.11  05.10.2019  Bartlomiej Duda
 
 
 
@@ -313,8 +314,9 @@ def get_preview(self):
             png_file_path = str(global_font_path + ".png")
             print("PNG open... " + png_file_path)
             
-            t = tk.Toplevel(self)
+            t = tk.Toplevel(self, bg='grey')
             t.wm_title("Preview")
+            #t.geometry('500x500')
             
             image = Image.open(png_file_path)
             image = image.resize((250, 250), Image.ANTIALIAS)            
@@ -323,8 +325,24 @@ def get_preview(self):
             l = tk.Label(t, text="Font preview", compound='top', bg='black', fg='white')  
             l.font_image_png = ImageTk.PhotoImage(file="temp.png")  
             l['image'] = l.font_image_png
-            l.pack(side = "bottom", fill = "both", expand = "yes")
-            os.remove("temp.png")
+            #l.pack(side = "bottom", fill = "both", expand = "yes")
+            #l.place(relx=0, rely=0, relwidth=1, relheight=1)
+            
+
+            
+            prev_canvas = tk.Canvas(t, bg='orange')
+            #prev_canvas.place(x=0, y=0, width=150, height=300)
+            #prev_canvas.pack
+            prev_canvas.font_image_png = ImageTk.PhotoImage(file="temp.png")
+            prev_canvas.create_image(50, 70, image=prev_canvas.font_image_png, anchor='nw')
+            prev_canvas.create_rectangle(50, 25, 150, 75)
+            prev_canvas.pack()
+            
+            selection_frame = tk.Frame(prev_canvas, bg='light blue')
+            #selection_frame.place(relx=0, rely=0, width=50, height=90)
+            
+            #os.remove("temp.png")
+            
         except:
             messagebox.showinfo("Info", "Couldn't load preview!")
             traceback.print_exc()
