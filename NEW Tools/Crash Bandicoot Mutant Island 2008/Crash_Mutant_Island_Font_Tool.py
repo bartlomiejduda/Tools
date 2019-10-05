@@ -14,6 +14,7 @@
 # v1.7   03.10.2019  Bartlomiej Duda
 # v1.8   03.10.2019  Bartlomiej Duda
 # v1.9   04.10.2019  Bartlomiej Duda
+# v1.10  05.10.2019  Bartlomiej Duda
 
 
 
@@ -172,7 +173,7 @@ root = tk.Tk("Crash Mutant Island Font Tool", "Crash Mutant Island Font Tool")
 root.winfo_toplevel().title("Crash Mutant Island Font Tool")
 
 try:
-    root.iconbitmap('favicon.ico')
+    root.iconbitmap('crash_f_icon.ico')
 except:
     print("Icon not loaded!")
 
@@ -309,25 +310,21 @@ def get_preview(self):
         messagebox.showinfo("Info", "No preview available")
     else:
         try:
-            #font_file_png = open(global_font_path + '.png', 'rb')
             png_file_path = str(global_font_path + ".png")
-            print("PNG open..." + png_file_path)
+            print("PNG open... " + png_file_path)
             
             t = tk.Toplevel(self)
             t.wm_title("Preview")
             
+            image = Image.open(png_file_path)
+            image = image.resize((250, 250), Image.ANTIALIAS)            
+            image.save("temp.png")
             
-            #image = Image.open(global_font_path + '.png')
-            #image = image.resize((250, 250), Image.ANTIALIAS)            
-            #image.save("temp.png")
-            
-            font_image_png = ImageTk.PhotoImage(Image.open(png_file_path))  
-            l = tk.Label(t, text="Font preview", compound='top', image=font_image_png, bg='black')  
-            #l['text'] = "Font preview"
-            #l['image'] = font_image_png
-            #l.place(relheight=1, relwidth=1, relx=0, rely=0)
-            l.pack()
-            #font_file_png.close()
+            l = tk.Label(t, text="Font preview", compound='top', bg='black', fg='white')  
+            l.font_image_png = ImageTk.PhotoImage(file="temp.png")  
+            l['image'] = l.font_image_png
+            l.pack(side = "bottom", fill = "both", expand = "yes")
+            os.remove("temp.png")
         except:
             messagebox.showinfo("Info", "Couldn't load preview!")
             traceback.print_exc()
