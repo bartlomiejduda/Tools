@@ -17,8 +17,9 @@
 # v1.10  05.10.2019  Bartlomiej Duda
 # v1.11  05.10.2019  Bartlomiej Duda
 # v1.12  06.10.2019  Bartlomiej Duda
+# v1.13  07.10.2019  Bartlomiej Duda
 
-VERSION_NUM = "v1.12"
+VERSION_NUM = "v1.13"
 
 
 
@@ -50,6 +51,7 @@ char_dict = {}
 sp_char_dict = {}
 global_font_path = ""
 font_loaded_flag = False
+special_char_data = None
 
 def font_load(p_input_fontfile_path):
     print ("Starting Crash Java font load...")
@@ -60,6 +62,8 @@ def font_load(p_input_fontfile_path):
     
     #read header
     magic = struct.unpack('3s', font_file.read(3))[0]
+    if str(magic.decode("utf-8")) != "FAC":
+        return -1
     FontHeight = struct.unpack('>B', font_file.read(1))[0]
     TopDec = struct.unpack('>B', font_file.read(1))[0]
     SpaceWidth = struct.unpack('>B', font_file.read(1))[0]
@@ -105,6 +109,7 @@ def font_load(p_input_fontfile_path):
               
     
     n = 0
+    back_offset = font_file.tell()
     for j in range(num_special_chars): #read special character table
         current_offset = font_file.tell()
         special_character = struct.unpack('>H', font_file.read(2))[0]
@@ -135,11 +140,14 @@ def font_load(p_input_fontfile_path):
         sp_row_char_dict['loop_string_all'] = loop_string_all
         sp_char_dict['rec' + str(j+1)] = sp_row_char_dict   
         
-        
+    font_file.seek(back_offset)
+    global special_char_data
+    special_char_data = font_file.read()
     
     #log_file.close()
     font_file.close()
     print("Ending Crash Java font load...")
+    return 0
 
 
 
@@ -330,8 +338,11 @@ def b_delete_row():
     sys.stdout.flush()
          
 
+class PNG_Exception(Exception):
+    pass    
 
 def get_preview(self):
+    prev_window_init = False
     global font_loaded_flag
     if font_loaded_flag == False:
         messagebox.showinfo("Info", "No preview available")
@@ -344,9 +355,16 @@ def get_preview(self):
             RESIZE_PARAM = zoom_var_f
             
             t = tk.Toplevel(self, bg='grey')
+            prev_window_init = True
             t.wm_title("Preview")
             
-            image = Image.open(png_file_path)
+        
+            
+            try:
+                image = Image.open(png_file_path)
+            except:
+                t.destroy()
+                raise PNG_Exception
             [imageSizeWidth, imageSizeHeight] = image.size
             image = image.resize((RESIZE_PARAM*imageSizeWidth, RESIZE_PARAM*imageSizeHeight), Image.ANTIALIAS)            
             image.save("temp.png")
@@ -376,8 +394,17 @@ def get_preview(self):
 
             
             os.remove("temp.png")
+        
+        except PNG_Exception:
+            err_msg = ( "Couldn't load PNG font image!\n"
+                        "Please put it in the same folder as\n"
+                        "font file and try again." )
+            messagebox.showinfo("Info", err_msg)
+            traceback.print_exc()            
             
         except:
+            if prev_window_init == True:
+                t.destroy()
             messagebox.showinfo("Info", "Couldn't load preview!")
             traceback.print_exc()
         finally:
@@ -385,10 +412,27 @@ def get_preview(self):
 
 
 def open_font():
-    p_input_fontfile_path = 'C:\\Users\\Adam\\Desktop\\CRASH_JAVA_FILES\\Font_nb_0'
+    #p_input_fontfile_path = 'C:\\Users\\Adam\\Desktop\\CRASH_JAVA_FILES\\Font_nb_0'
+    p_input_fontfile_path =  filedialog.askopenfilename(initialdir = ".",title = "Select file")
+    print ("Opening font file... " + p_input_fontfile_path)   
+    
+    if p_input_fontfile_path == '':
+        print("No font file to open...")
+        sys.stdout.flush()
+        return
+    
+    
     global global_font_path
     global_font_path = p_input_fontfile_path
-    font_load(p_input_fontfile_path)
+    load_res = font_load(p_input_fontfile_path)
+    if load_res != 0:
+        sys.stdout.flush()
+        err_string = ( "This is not a proper Crash Mutant Island Font file!\n"
+                       "Please choose proper font file." )
+        messagebox.showerror("ERROR", err_string) 
+        return
+    
+    
     global font_loaded_flag
     font_loaded_flag = True
     
@@ -544,12 +588,56 @@ def save_as_font():
     if root.filename != '':
         font_file = open(root.filename, 'wb+')
         print("Saving font data to " + str(root.filename) )
-        font_file.write(struct.Struct("3s").pack(magic_t))
-        font_file.write(struct.Struct(">B").pack(font_height_i))
-        font_file.write(struct.Struct(">B").pack(top_dec_i))
-        font_file.write(struct.Struct(">B").pack(space_width_i))
-        font_file.write(struct.Struct(">H").pack(num_of_chars_i))
-        font_file.write(struct.Struct(">H").pack(num_of_sp_chars_i))
+        
+        try:
+            #header
+            fkt = "HEADER WRITE"
+            font_file.write(struct.Struct("3s").pack(magic_t))
+            font_file.write(struct.Struct(">B").pack(font_height_i))
+            font_file.write(struct.Struct(">B").pack(top_dec_i))
+            font_file.write(struct.Struct(">B").pack(space_width_i))
+            font_file.write(struct.Struct(">H").pack(num_of_chars_i))
+            font_file.write(struct.Struct(">H").pack(num_of_sp_chars_i))
+            
+            #character table
+            fkt_row = 0
+            fkt_col = ""
+            fkt = "CHARACTER TABLE WRITE"
+            count_rows = model.getRowCount()
+            data = table.model.data  
+            for i in range(count_rows):
+                fkt_row = i+1
+                fkt_col = "Character"
+                value = data[model.getRecName(i)]['Character']
+                font_file.write(struct.Struct(">H").pack(ord(value)))
+                fkt_col = "Width"
+                value = data[model.getRecName(i)]['Width']
+                font_file.write(struct.Struct(">B").pack(int(value)))
+                fkt_col = "Height"
+                value = data[model.getRecName(i)]['Height']
+                font_file.write(struct.Struct(">B").pack(int(value)))  
+                fkt_col = "PositionX"
+                value = data[model.getRecName(i)]['PositionX']
+                font_file.write(struct.Struct(">B").pack(int(value)))  
+                fkt_col = "PositionY"
+                value = data[model.getRecName(i)]['PositionY']
+                font_file.write(struct.Struct(">B").pack(int(value))) 
+                fkt_col = "Position Base"
+                value = data[model.getRecName(i)]['Position Base']
+                font_file.write(struct.Struct(">B").pack(int(value)))                                
+                     
+                     
+            #special character table  
+            fkt = "SPECIAL CHARACTER TABLE WRITE"
+            font_file.write(special_char_data)            
+                    
+        except:
+            err_string = ( "Error occured in section " + str(fkt) + ".\n" )
+            if fkt == "CHARACTER TABLE WRITE":
+                err_string += ( "Row number: " + str(fkt_row) + "\n" )
+                err_string += ( "Column: " + str(fkt_col) + "\n" )
+            messagebox.showerror("ERROR", err_string)
+            traceback.print_exc()
         
         
         sys.stdout.flush()    
