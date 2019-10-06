@@ -1306,7 +1306,7 @@ class TableCanvas(Canvas):
                         "Paste" : lambda : self.pasteCell(rows, cols),
                         "Fill Down" : lambda : self.fillDown(rows, cols),
                         "Fill Right" : lambda : self.fillAcross(cols, rows),
-                        "Add Row(s)" : lambda : self.addRows(),
+                        #"Add Row(s)" : lambda : self.addRows(),
                         "Delete Row(s)" : lambda : self.deleteRow(),
                         "View Record" : lambda : self.getRecordInfo(row),
                         "Clear Data" : lambda : self.deleteCells(rows, cols),
@@ -1326,7 +1326,8 @@ class TableCanvas(Canvas):
 
         main = ["Set Fill Color","Set Text Color","Copy", "Paste", "Fill Down","Fill Right",
                 "Clear Data"]
-        general = ["Select All", "Add Row(s)" , "Delete Row(s)", "Auto Fit Columns", "Filter Records", "Preferences"]
+        #general = ["Select All", "Add Row(s)" , "Delete Row(s)", "Auto Fit Columns", "Filter Records", "Preferences"]
+        general = ["Select All", "Auto Fit Columns", "Filter Records", "Preferences"]
         filecommands = ['New','Load','Save','Import text','Export csv']
         plotcommands = ['Plot Selected','Plot Options']
 
@@ -2502,8 +2503,8 @@ class ColumnHeader(Canvas):
         popupmenu.add_command(label="Rename Column", command=self.relabel_Column)
         popupmenu.add_command(label="Sort by "+ collabel, command=lambda : self.table.sortTable(currcol))
         popupmenu.add_command(label="Sort by "+ collabel +' (descending)', command=lambda : self.table.sortTable(currcol,reverse=1))
-        popupmenu.add_command(label="Delete This Column", command=self.table.deleteColumn)
-        popupmenu.add_command(label="Add New Column", command=self.table.addColumn)
+        #popupmenu.add_command(label="Delete This Column", command=self.table.deleteColumn)
+        #popupmenu.add_command(label="Add New Column", command=self.table.addColumn)
 
         popupmenu.bind("<FocusOut>", popupFocusOut)
         #self.bind("<Button-3>", popupFocusOut)

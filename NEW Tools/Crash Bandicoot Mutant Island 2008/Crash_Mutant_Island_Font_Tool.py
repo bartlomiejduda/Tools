@@ -16,6 +16,9 @@
 # v1.9   04.10.2019  Bartlomiej Duda
 # v1.10  05.10.2019  Bartlomiej Duda
 # v1.11  05.10.2019  Bartlomiej Duda
+# v1.12  06.10.2019  Bartlomiej Duda
+
+VERSION_NUM = "v1.12"
 
 
 
@@ -34,12 +37,11 @@ from tempfile import mkstemp
 from shutil import move
 from os import remove, close
 import tkinter as tk
-from tkinter import ttk
-from tkinter import messagebox
+from tkinter import messagebox, StringVar, OptionMenu, filedialog, ttk
 from tkintertable import TableCanvas, TableModel, Preferences
-from tkinter import filedialog
 import traceback
 from PIL import Image, ImageTk  #"pip install Pillow" for this!
+import webbrowser
 
 
 
@@ -144,13 +146,20 @@ def font_load(p_input_fontfile_path):
 def donothing():
     print("Do nothing")
     
+def open_manual():
+    filename = "crash_font_tool_manual.html"
+    webbrowser.open('file://' + os.path.realpath(filename))
+    
 
     
 def about_window(self):
         t = tk.Toplevel(self)
         t.wm_title("About")
         
-        a_text = ( "Program has been created\n"
+        a_text = ( "Crash Mutant Island Font Tool\n"
+                   "Version: " + VERSION_NUM + "\n"
+                   "\n"
+                   "Program has been created\n"
                    "by Bartłomiej Duda.\n"
                    "\n"
                    "If you want to support me,\n"
@@ -171,7 +180,7 @@ WINDOW_WIDTH = 800
 
 
 root = tk.Tk("Crash Mutant Island Font Tool", "Crash Mutant Island Font Tool")
-root.winfo_toplevel().title("Crash Mutant Island Font Tool")
+root.winfo_toplevel().title("Crash Mutant Island Font Tool " + VERSION_NUM)
 
 try:
     root.iconbitmap('crash_f_icon.ico')
@@ -222,7 +231,7 @@ h_numofspchars_text.place(rely= 0.6, relx= 0.7, relwidth=0.15, height=20)
 h_numofspchars_text.configure(state='disabled', bg='light grey')
 
 character_frame = tk.Frame(root, bg='light blue', bd=10)
-character_frame.place(relx=0.01, rely=0.35, relwidth=0.98, relheight=0.3)
+character_frame.place(relx=0.01, rely=0.32, relwidth=0.98, relheight=0.37)
 
 sp_character_frame = tk.Frame(root, bg='light blue', bd=10)
 sp_character_frame.place(relx=0.01, rely=0.7, relwidth=0.98, relheight=0.28)
@@ -230,20 +239,22 @@ sp_character_frame.place(relx=0.01, rely=0.7, relwidth=0.98, relheight=0.28)
 ch_label = tk.Label(character_frame, text="Character table")
 ch_label.place(relwidth=0.15, height=20)
 
-sp_ch_label = tk.Label(sp_character_frame, text="Special character table")
-sp_ch_label.place(relwidth=0.2, height=20)
+sp_ch_label = tk.Label(sp_character_frame, text="Special character table (read-only)")
+sp_ch_label.place(relwidth=0.28, height=20)
 
 ch_button_add = tk.Button(character_frame, text="Add", command=lambda: b_add_row())
 ch_button_add.place(relwidth=0.15, height=20, relx=0.4)
 
 ch_button_delete = tk.Button(character_frame, text="Delete", command=lambda: b_delete_row())
-ch_button_delete.place(relwidth=0.15, height=20, relx=0.6)
+ch_button_delete.place(relwidth=0.15, height=20, relx=0.57)
 
 ch_button_preview = tk.Button(character_frame, text="Preview", command=lambda: get_preview(root))
-ch_button_preview.place(relwidth=0.15, height=20, relx=0.8)
+ch_button_preview.place(relwidth=0.15, height=20, relx=0.74)
 
-
-
+zoom_var = StringVar(character_frame)
+zoom_var.set("x1")
+zoom_list = OptionMenu(character_frame, zoom_var, "x1", "x2", "x3", "x4", "x5", "x6", "x7", "x8", "x9", "x10")
+zoom_list.place(relwidth=0.07, height=20, relx=0.9)
 
 
 
@@ -258,51 +269,66 @@ table = TableCanvas(ch_frame, model=model)
 table.show()
 
 model2 = TableModel()
-table2 = TableCanvas(sp_ch_frame, model=model2)
+table2 = TableCanvas(sp_ch_frame, model=model2, read_only=True)
 table2.show()
 
 
 def b_add_row():
-    try:
-        num_ch = int(h_numofchars_text.get("1.0","end-1c"))
-        num_ch += 1
-        #print("num_ch: " + str(num_ch))
-        h_numofchars_text.configure(state='normal')
-        h_numofchars_text.delete(1.0,"end-1c")
-        h_numofchars_text.insert("end-1c", num_ch) 
-        h_numofchars_text.configure(state='disabled')        
-    except Exception as e:
-        print("Add row error: " + str(e))
-    table.addRow()
+    global font_loaded_flag
+    if font_loaded_flag == False:
+        print("Can't add new row! Font is not loaded!")
+    else:
+        try:
+            num_ch = int(h_numofchars_text.get("1.0","end-1c"))
+            num_ch += 1
+            h_numofchars_text.configure(state='normal')
+            h_numofchars_text.delete(1.0,"end-1c")
+            h_numofchars_text.insert("end-1c", num_ch) 
+            h_numofchars_text.configure(state='disabled')        
+        except Exception as e:
+            print("Add row value error: " + str(e))
+            traceback.print_exc()
+            
+        table.addRow()
+        table.redraw()    
     sys.stdout.flush()
-    table.redraw()    
+        
     
 def b_delete_row():
-    count_rows = len(table.multiplerowlist)
-    if count_rows > 1:
-        rows = table.multiplerowlist
-        table.model.deleteRows(rows)
-        table.clearSelected()
-        table.setSelectedRow(0)    
-    else:
-        row = table.getSelectedRow()
-        table.model.deleteRow(row)
-        table.setSelectedRow(row-1)
-        table.clearSelected()  
-    try:
-        num_ch = int(h_numofchars_text.get("1.0","end-1c"))
-        num_ch -= count_rows
-        #print("num_ch: " + str(num_ch))
-        h_numofchars_text.configure(state='normal')
-        h_numofchars_text.delete(1.0,"end-1c")
-        h_numofchars_text.insert("end-1c", num_ch) 
-        h_numofchars_text.configure(state='disabled')        
-    except Exception as e:
-        print("Add row error: " + str(e))    
-
-
+    global font_loaded_flag
+    if font_loaded_flag == False:
+        print("Can't delete rows! Font is not loaded!")
+    else:    
+        try:
+            count_rows = len(table.multiplerowlist)
+            if count_rows > 1:
+                rows = table.multiplerowlist
+                table.model.deleteRows(rows)
+                table.clearSelected()
+                table.setSelectedRow(0)    
+            else:
+                row = table.getSelectedRow()
+                table.model.deleteRow(row)
+                table.setSelectedRow(row-1)
+                table.clearSelected()  
+        except Exception as e:
+            print("Delete row error: " + str(e)) 
+            traceback.print_exc()        
+            
+        try:
+            num_ch = int(h_numofchars_text.get("1.0","end-1c"))
+            num_ch -= count_rows
+            h_numofchars_text.configure(state='normal')
+            h_numofchars_text.delete(1.0,"end-1c")
+            h_numofchars_text.insert("end-1c", num_ch) 
+            h_numofchars_text.configure(state='disabled')        
+        except Exception as e:
+            print("Delete row value error: " + str(e)) 
+            traceback.print_exc()
+    
+        table.redraw()
     sys.stdout.flush()
-    table.redraw()     
+         
 
 
 def get_preview(self):
@@ -313,8 +339,9 @@ def get_preview(self):
         try:
             png_file_path = str(global_font_path + ".png")
             print("PNG open... " + png_file_path)
-            RESIZE_PARAM = 4
             
+            zoom_var_f = int(zoom_var.get().lstrip("x"))
+            RESIZE_PARAM = zoom_var_f
             
             t = tk.Toplevel(self, bg='grey')
             t.wm_title("Preview")
@@ -513,10 +540,19 @@ def save_as_font():
     print (root.filename)
     sys.stdout.flush()
     
+    #saving font data
     if root.filename != '':
         font_file = open(root.filename, 'wb+')
+        print("Saving font data to " + str(root.filename) )
         font_file.write(struct.Struct("3s").pack(magic_t))
-            
+        font_file.write(struct.Struct(">B").pack(font_height_i))
+        font_file.write(struct.Struct(">B").pack(top_dec_i))
+        font_file.write(struct.Struct(">B").pack(space_width_i))
+        font_file.write(struct.Struct(">H").pack(num_of_chars_i))
+        font_file.write(struct.Struct(">H").pack(num_of_sp_chars_i))
+        
+        
+        sys.stdout.flush()    
         font_file.close()
 
 char_dict = {'rec1': {'Character': None, 'Width': None, 'Height': None, 'PositionX': None, 'PositionY': None, 'Position Base': None, 'Is_special_char': None} } 
@@ -558,6 +594,7 @@ filemenu.add_command(label="Exit", command=root.destroy)
 menubar.add_cascade(label="File", menu=filemenu)
 
 helpmenu = tk.Menu(menubar, tearoff=0)
+helpmenu.add_command(label="Manual", command=lambda: open_manual())
 helpmenu.add_command(label="About...", command=lambda: about_window(root))
 menubar.add_cascade(label="Help", menu=helpmenu)
 
