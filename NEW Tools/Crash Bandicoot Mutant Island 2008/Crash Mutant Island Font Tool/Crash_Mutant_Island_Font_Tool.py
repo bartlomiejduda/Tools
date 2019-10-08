@@ -18,8 +18,9 @@
 # v1.11  05.10.2019  Bartlomiej Duda
 # v1.12  06.10.2019  Bartlomiej Duda
 # v1.13  07.10.2019  Bartlomiej Duda
+# v1.14  08.10.2019  Bartlomiej Duda
 
-VERSION_NUM = "v1.13"
+VERSION_NUM = "v1.14"
 
 
 
@@ -38,7 +39,7 @@ from tempfile import mkstemp
 from shutil import move
 from os import remove, close
 import tkinter as tk
-from tkinter import messagebox, StringVar, OptionMenu, filedialog, ttk
+from tkinter import messagebox, StringVar, OptionMenu, filedialog, ttk, Text
 from tkintertable import TableCanvas, TableModel, Preferences
 import traceback
 from PIL import Image, ImageTk  #"pip install Pillow" for this!
@@ -62,7 +63,10 @@ def font_load(p_input_fontfile_path):
     
     #read header
     magic = struct.unpack('3s', font_file.read(3))[0]
-    if str(magic.decode("utf-8")) != "FAC":
+    try:
+        if str(magic.decode("utf-8")) != "FAC":
+            return -1
+    except:
         return -1
     FontHeight = struct.unpack('>B', font_file.read(1))[0]
     TopDec = struct.unpack('>B', font_file.read(1))[0]
@@ -150,15 +154,13 @@ def font_load(p_input_fontfile_path):
     return 0
 
 
-
-def donothing():
-    print("Do nothing")
     
 def open_manual():
     filename = "crash_font_tool_manual.html"
     webbrowser.open('file://' + os.path.realpath(filename))
     
-
+def callback(url):
+    webbrowser.open_new(url)
     
 def about_window(self):
         t = tk.Toplevel(self)
@@ -171,15 +173,23 @@ def about_window(self):
                    "by Bartłomiej Duda.\n"
                    "\n"
                    "If you want to support me,\n"
-                   "you can do it here:\n"
-                   "https://www.paypal.me/kolatek55\n"
-                   "\n"
-                   "If you want to see my other tools,\n"
-                   "go to my github page:\n"
-                   "https://github.com/bartlomiejduda")
+                   "you can do it here:" )        
+        a_text2 = ( "https://www.paypal.me/kolatek55" )
+        a_text3 = ( "\n"
+                    "If you want to see my other tools,\n"
+                    "go to my github page:" )
+        a_text4 = ( "https://github.com/bartlomiejduda" )
         
         l = tk.Label(t, text=a_text)
-        l.pack(side="top", fill="both", padx=10, pady=10)
+        l.pack(side="top", fill="both", padx=10)
+        l2 = tk.Label(t, text=a_text2, fg="blue", cursor="hand2")
+        l2.bind("<Button-1>", lambda e: callback(a_text2))
+        l2.pack(side="top", anchor='n')
+        l3 = tk.Label(t, text=a_text3)
+        l3.pack(side="top", fill="both", padx=10)        
+        l4 = tk.Label(t, text=a_text4, fg="blue", cursor="hand2")
+        l4.bind("<Button-1>", lambda e: callback(a_text4))
+        l4.pack(side="top", anchor='n')    
 
 
 
@@ -278,6 +288,7 @@ table.show()
 
 model2 = TableModel()
 table2 = TableCanvas(sp_ch_frame, model=model2, read_only=True)
+table2.clearSelected()  
 table2.show()
 
 
@@ -351,8 +362,8 @@ def get_preview(self):
             png_file_path = str(global_font_path + ".png")
             print("PNG open... " + png_file_path)
             
-            zoom_var_f = int(zoom_var.get().lstrip("x"))
-            RESIZE_PARAM = zoom_var_f
+            zoom_var_f = zoom_var.get().lstrip("x")
+            RESIZE_PARAM = int(zoom_var_f)
             
             t = tk.Toplevel(self, bg='grey')
             prev_window_init = True
@@ -373,10 +384,10 @@ def get_preview(self):
             p_row = table.getSelectedRow()
             p_row_name = model.getRecName(p_row)
             
-            p_height = data[p_row_name]['Height']
-            p_width = data[p_row_name]['Width']
-            p_posX = data[p_row_name]['PositionX']
-            p_posY = data[p_row_name]['PositionY']
+            p_height = int(data[p_row_name]['Height'])
+            p_width = int(data[p_row_name]['Width'])
+            p_posX = int(data[p_row_name]['PositionX'])
+            p_posY = int(data[p_row_name]['PositionY'])
             
             print("H: " + str(p_height) + " W: " + str(p_width) + " posX: " + str(p_posX) + " posY: " + str(p_posY) )
             
@@ -388,12 +399,14 @@ def get_preview(self):
             posX_2 = (p_posX + p_width)*RESIZE_PARAM
             posY_2 = (p_posY + p_height)*RESIZE_PARAM
             prev_canvas.create_rectangle(RESIZE_PARAM*p_posX, RESIZE_PARAM*p_posY, posX_2, posY_2, outline='red')
+            print("Rectangle params: " + str(int(RESIZE_PARAM*p_posX)) + " " + str(int(RESIZE_PARAM*p_posY)) + " " + str(int(posX_2)) + " " + str(int(posY_2)) )
             prev_canvas.config(width=prev_canvas.font_image_png.width(), height=prev_canvas.font_image_png.height())
             prev_canvas.pack()
             
 
             
             os.remove("temp.png")
+            sys.stdout.flush()
         
         except PNG_Exception:
             err_msg = ( "Couldn't load PNG font image!\n"
@@ -412,8 +425,7 @@ def get_preview(self):
 
 
 def open_font():
-    #p_input_fontfile_path = 'C:\\Users\\Adam\\Desktop\\CRASH_JAVA_FILES\\Font_nb_0'
-    p_input_fontfile_path =  filedialog.askopenfilename(initialdir = ".",title = "Select file")
+    p_input_fontfile_path =  filedialog.askopenfilename(initialdir = ".",title = "Select font file")
     print ("Opening font file... " + p_input_fontfile_path)   
     
     if p_input_fontfile_path == '':
@@ -514,7 +526,7 @@ def close_font():
     table.redraw()
     table2.redraw()    
     
-def save_as_font():
+def save_font(save_mode):
 
     #data validation
     try:
@@ -579,16 +591,16 @@ def save_as_font():
         messagebox.showerror("ERROR", err_string)
         return
     
-    
-    root.filename =  filedialog.asksaveasfilename(initialdir = ".",title = "Save Crash font file", initialfile="Font_nb_0")
-    print (root.filename)
-    sys.stdout.flush()
+    if save_mode == "SAVE_AS":
+        out_font_path =  filedialog.asksaveasfilename(initialdir = ".",title = "Save Crash font file", initialfile="Font_nb_0")
+    else:
+        out_font_path = global_font_path
     
     #saving font data
-    if root.filename != '':
-        font_file = open(root.filename, 'wb+')
-        print("Saving font data to " + str(root.filename) )
-        
+    if out_font_path != '':
+        font_file = open(out_font_path, 'wb+')
+        print("Saving font data to " + str(out_font_path) )
+        sys.stdout.flush()
         try:
             #header
             fkt = "HEADER WRITE"
@@ -674,8 +686,8 @@ menubar = tk.Menu(root)
 
 filemenu = tk.Menu(menubar, tearoff=0)
 filemenu.add_command(label="Open", command=lambda: open_font())
-filemenu.add_command(label="Save", command=donothing)
-filemenu.add_command(label="Save as...", command=lambda: save_as_font())
+filemenu.add_command(label="Save", command=lambda: save_font("SAVE"))
+filemenu.add_command(label="Save as...", command=lambda: save_font("SAVE_AS"))
 filemenu.add_command(label="Close", command=lambda: close_font())
 filemenu.add_separator()
 filemenu.add_command(label="Exit", command=root.destroy)
