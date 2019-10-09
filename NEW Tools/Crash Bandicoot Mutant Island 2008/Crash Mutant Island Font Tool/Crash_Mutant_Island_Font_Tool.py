@@ -19,8 +19,9 @@
 # v1.12  06.10.2019  Bartlomiej Duda
 # v1.13  07.10.2019  Bartlomiej Duda
 # v1.14  08.10.2019  Bartlomiej Duda
+# v1.15  09.10.2019  Bartlomiej Duda
 
-VERSION_NUM = "v1.14"
+VERSION_NUM = "v1.15"
 
 
 
@@ -260,6 +261,9 @@ ch_label.place(relwidth=0.15, height=20)
 sp_ch_label = tk.Label(sp_character_frame, text="Special character table (read-only)")
 sp_ch_label.place(relwidth=0.28, height=20)
 
+ch_button_show_hex = tk.Button(character_frame, text="Show Hex", command=lambda: b_show_hex())
+ch_button_show_hex.place(relwidth=0.1, height=20, relx=0.28)
+
 ch_button_add = tk.Button(character_frame, text="Add", command=lambda: b_add_row())
 ch_button_add.place(relwidth=0.15, height=20, relx=0.4)
 
@@ -290,6 +294,33 @@ model2 = TableModel()
 table2 = TableCanvas(sp_ch_frame, model=model2, read_only=True)
 table2.clearSelected()  
 table2.show()
+
+
+def b_show_hex():
+    global font_loaded_flag
+    if font_loaded_flag == False:
+        print("Can't show hex value! Font is not loaded!") 
+    else:
+        try:
+            data = table.model.data
+            p_row = table.getSelectedRow()
+            p_row_name = model.getRecName(p_row)
+            
+            p_char = str(data[p_row_name]['Character']) 
+            p_char_int = ord(data[p_row_name]['Character'][0])   
+            p_char_hex = hex(p_char_int) 
+            
+            text_hex = ( "Character: " + p_char + "\n"
+                         "Char. as integer: " + str(p_char_int) + "\n"
+                         "Char. as hex: " + str(p_char_hex) )
+            messagebox.showinfo("Info", text_hex)
+            sys.stdout.flush()
+        except:
+            err_string = ( "Error occured during execution of b_show_text function." )
+            messagebox.showerror("ERROR", err_string) 
+            traceback.print_exc()
+            sys.stdout.flush()
+            return            
 
 
 def b_add_row():
