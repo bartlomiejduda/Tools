@@ -1,0 +1,11 @@
+﻿Txts_Packs_Indexes file format
+
+
+1 byte - number_of_language_entries
+
+number_of_language_entries *
+{
+   2 bytes - length of entry
+   x bytes - language entry
+   1 byte - language index
+}

@@ -1,0 +1,14 @@
+﻿Txts_Pack_nb file format
+
+
+//HEADER
+??
+
+
+2 bytes - number_of_texts_in_block
+
+number_of_texts_in_block * 
+{
+   2 bytes - length of the string
+   x bytes - text string
+}
