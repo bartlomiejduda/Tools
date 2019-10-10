@@ -2,12 +2,15 @@
 
 
 //HEADER
-??
+2 bytes - num_of_bytes_to_skip
+x bytes - skipped bytes
 
 
-2 bytes - number_of_texts_in_block
+// TEXT BLOCKS
+2 bytes - short2 (count_start)
+2 bytes - short1 (count_end)
 
-number_of_texts_in_block * 
+short1 *
 {
    2 bytes - length of the string
    x bytes - text string
