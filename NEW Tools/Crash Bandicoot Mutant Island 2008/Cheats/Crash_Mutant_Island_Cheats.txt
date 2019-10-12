@@ -1,0 +1,14 @@
+﻿Crash Mutant Island Cheats
+
+Document created by Bartlomiej Duda
+Creation date: 12.10.2019
+
+
+
+# Immortality cheat #
+1. Make sure that you own a Crash Mutant Island java game
+2. Download JADMaker 1.21
+3. Generate JAD file in JADMaker
+4. Add line "Glu-Cheats-Enable: true" in your JAD file.
+5. Run game in KEmulator or on your phone.
+6. Crash will be now protected from all attacks.
