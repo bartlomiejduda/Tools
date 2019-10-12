@@ -7,26 +7,30 @@
 # v1.0   09.10.2019  Bartlomiej Duda
 # v1.1   10.10.2019  Bartlomiej Duda
 # v1.2   11.10.2019  Bartlomiej Duda
+# v1.3   12.10.2019  Bartlomiej Duda
 
 
-VERSION_NUM = "v1.2"
+VERSION_NUM = "v1.3"
 
 
 import os
 import sys
 import struct
 import tkinter as tk
-from tkinter import messagebox, StringVar, OptionMenu, filedialog, ttk, Text
+from tkinter import messagebox, StringVar, OptionMenu, filedialog, ttk, Text, LabelFrame, Radiobutton
 import webbrowser
 
 
-def open_text():
-    print ("Starting Crash Java text load...")
+current_mode = "M1"
+txtpackfile_path = ""
+txtfile_path = ""
+
+def convert_M1(p_input_textfile_path, p_output_filepath):
+    print ("Starting Crash Java text convert...")
     
     strings_arr = []
-    p_input_textfile_path = "C:\\Users\\Adam\\Desktop\\Txts_Pack_nb_2"
     text_file = open(p_input_textfile_path, 'rb')
-    output_text_file = open("out.txt", 'wb+')
+    output_text_file = open(p_output_filepath, 'wb+')
     
     num_of_bytes_to_skip = struct.unpack('>H', text_file.read(2))[0]
     text_file.read(num_of_bytes_to_skip)
@@ -55,19 +59,22 @@ def open_text():
                             .replace(b"\n", b"<special_str_new_line>")
                            )
             
-            print("f=" + str(f_count) + " s=" + str(s_count) + " i=" + str(i+1) + " string_size = " + str(string_size) + " curr_offset = " + str(curr_offset)  )
-            print(text_string)
+            #print("f=" + str(f_count) + " s=" + str(s_count) + " i=" + str(i+1) + " string_size = " + str(string_size) + " curr_offset = " + str(curr_offset)  )
+            #print(text_string)
             output_text_file.write(text_string)
             output_text_file.write(b"\x0D\x0A")
         
     text_file.close()
     output_text_file.close()
+    print ("Ending Crash Java text convert...")
     
-#open_text()
 
 def open_manual():
     filename = "crash_text_tool_manual.html"
     webbrowser.open('file://' + os.path.realpath(filename))
+    
+def callback(url):
+    webbrowser.open_new(url)
 
 
 def about_window(self):
@@ -100,12 +107,35 @@ def about_window(self):
         l4.pack(side="top", anchor='n')    
 
 
+def b_browse(option):
+    global txtpackfile_path
+    global txtfile_path
+    
+    
+    if option == 1:
+        if current_mode == "M1":
+            txtpackfile_path =  filedialog.askopenfilename(initialdir = ".",title = "Select Txt-Pack file", initialfile="Txts_Pack_nb_0")
+        elif current_mode == "M2":
+            txtpackfile_path =  filedialog.asksaveasfilename(initialdir = ".",title = "Save Txt-Pack file", initialfile="Txts_Pack_nb_0")
+            
+        if txtpackfile_path != '':
+            txt_pack_text.delete(1.0,"end-1c")
+            txt_pack_text.insert("end-1c", txtpackfile_path)             
+            
+            
+    elif option == 2:
+        if current_mode == "M1":
+            txtfile_path = filedialog.asksaveasfilename(initialdir = ".",title = "Save TXT file", initialfile="output.txt")
+        elif current_mode == "M2":
+            txtfile_path = filedialog.askopenfilename(initialdir = ".",title = "Select TXT file", initialfile="output.txt")
+
+        if txtfile_path != '':
+            txt_text.delete(1.0,"end-1c")
+            txt_text.insert("end-1c", txtfile_path)  
 
 
 
-
-
-WINDOW_HEIGHT = 200
+WINDOW_HEIGHT = 230
 WINDOW_WIDTH = 500
 
 
@@ -128,26 +158,82 @@ main_frame.place(relx=0.01, rely=0.01, relwidth=0.98, relheight=0.98)
 
 txt_pack_label = tk.Label(main_frame, text="Txt-Pack filepath")
 txt_pack_label.place(relx=0.01, rely=0.1, relwidth=0.2, height=20)
-txt_pack_text = tk.Text(main_frame, font=40)
-txt_pack_text.place(relx= 0.01, rely= 0.22, relwidth=0.65, height=20)
+txt_pack_text = tk.Text(main_frame, font=("Arial", 10), wrap='none')
+txt_pack_text.place(relx= 0.01, rely= 0.2, relwidth=0.65, height=20)
 txt_pack_button = tk.Button(main_frame, text="Browse", command=lambda: b_browse(1))
-txt_pack_button.place(relx= 0.69, rely= 0.22, relwidth=0.2, height=20)
+txt_pack_button.place(relx= 0.69, rely= 0.2, relwidth=0.2, height=20)
 
 
 txt_label = tk.Label(main_frame, text="TXT filepath")
-txt_label.place(relx=0.01, rely=0.4, relwidth=0.2, height=20)
-txt_text = tk.Text(main_frame, font=40)
-txt_text.place(relx= 0.01, rely= 0.52, relwidth=0.65, height=20)
+txt_label.place(relx=0.01, rely=0.35, relwidth=0.2, height=20)
+txt_text = tk.Text(main_frame, font=("Arial", 10), wrap='none')
+txt_text.place(relx= 0.01, rely= 0.45, relwidth=0.65, height=20)
 txt_button = tk.Button(main_frame, text="Browse", command=lambda: b_browse(2))
-txt_button.place(relx= 0.69, rely= 0.52, relwidth=0.2, height=20)
+txt_button.place(relx= 0.69, rely= 0.45, relwidth=0.2, height=20)
 
 
-convert_to_txt_button = tk.Button(main_frame, text="Convert Txt-Pack to TXT", command=lambda: convert_txt_pack_to_txt())
+class Path_Exception(Exception):
+    pass
+
+def convert():
+    fkt = ""
+    c_txt_pack_path = txt_pack_text.get("1.0","end-1c")
+    c_txt_path = txt_text.get("1.0","end-1c")
+    
+    try: #validation
+        
+        if len(c_txt_pack_path) < 3 or len(c_txt_path) < 3:
+            fkt = "TOO_SHORT"
+            raise Path_Exception
+        
+        if (not os.path.exists(c_txt_pack_path) and current_mode == "M1")  or  (not os.path.exists(c_txt_path) and current_mode == "M2"):
+            fkt = "INV_PATH"
+            raise Path_Exception
+        
+    except Path_Exception:
+        err_msg = ( "Error code: " + fkt + "\n"
+                    "Invalid paths! Please input correct\n"
+                    "paths for Txt-Pack and TXT files.")
+            
+        messagebox.showerror("ERROR", err_msg) 
+        return
+    
+    if current_mode == "M1":
+        try:
+            convert_M1(c_txt_pack_path, c_txt_path)
+            sys.stdout.flush()
+            messagebox.showinfo("Info", "File converted successfully!")
+        except:
+            err_msg = ("Error occurred during conversion from Txt-Pack to TXT!")
+            messagebox.showerror("ERROR", err_msg) 
+    
+    #print("path1: " +  c_txt_pack_path)
+    #print("path2: " + c_txt_path)
+    sys.stdout.flush()
+
+convert_to_txt_button = tk.Button(main_frame, text="Convert Txt-Pack to TXT", command=lambda: convert())
 convert_to_txt_button.place(relx= 0.1, rely= 0.72, relwidth=0.32, height=20)
-convert_to_txt_pack_button = tk.Button(main_frame, text="Convert TXT to Txt-Pack", command=lambda: convert_txt_to_txt_pack())
-convert_to_txt_pack_button.place(relx= 0.5, rely= 0.72, relwidth=0.32, height=20)
 
 
+
+def change_mode(mode_str):
+    global current_mode
+    current_mode = mode_str
+    print("Current mode: " + current_mode)
+    sys.stdout.flush()
+    
+    if current_mode == "M1":
+        convert_to_txt_button['text'] = "Convert Txt-Pack to TXT"
+    elif current_mode == "M2":
+        convert_to_txt_button['text'] = "Convert TXT to Txt-Pack"
+
+mode_frame = LabelFrame(main_frame, text="Select Mode", padx=5, pady=5)
+mode_frame['bg'] = mode_frame.master['bg']
+mode_frame.place(relx= 0.5, rely= 0.6, relwidth=0.28, relheight=0.34)
+v = StringVar()
+v.set("M1")
+radio_b_1 = Radiobutton(mode_frame, text="Txt-Pack to TXT", variable=v, value="M1", bg="light blue", command=lambda: change_mode("M1")).pack()
+radio_b_2 = Radiobutton(mode_frame, text="TXT to Txt-Pack", variable=v, value="M2", bg="light blue", command=lambda: change_mode("M2")).pack()
 
 
 
