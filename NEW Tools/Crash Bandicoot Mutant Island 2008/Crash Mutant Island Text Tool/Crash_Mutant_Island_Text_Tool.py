@@ -8,9 +8,10 @@
 # v1.1   10.10.2019  Bartlomiej Duda
 # v1.2   11.10.2019  Bartlomiej Duda
 # v1.3   12.10.2019  Bartlomiej Duda
+# v1.4   13.10.2019  Bartlomiej Duda
 
 
-VERSION_NUM = "v1.3"
+VERSION_NUM = "v1.4"
 
 
 import os
@@ -19,6 +20,7 @@ import struct
 import tkinter as tk
 from tkinter import messagebox, StringVar, OptionMenu, filedialog, ttk, Text, LabelFrame, Radiobutton
 import webbrowser
+import traceback
 
 
 current_mode = "M1"
@@ -29,18 +31,23 @@ def convert_M1(p_input_textfile_path, p_output_filepath):
     print ("Starting Crash Java text convert...")
     
     strings_arr = []
+    repack_data_arr = []
     text_file = open(p_input_textfile_path, 'rb')
-    output_text_file = open(p_output_filepath, 'wb+')
+    output_text_file = open(p_output_filepath, 'wt+')
     
     num_of_bytes_to_skip = struct.unpack('>H', text_file.read(2))[0]
     text_file.read(num_of_bytes_to_skip)
+    repack_data_arr.append(num_of_bytes_to_skip)
     
     f_count = 0
     s_count = 0
+    repack_data_arr.append(6)
     for j in range(6):
         f_count += 1
         short2_count_start = struct.unpack('>H', text_file.read(2))[0]
-        short1_count_end = struct.unpack('>H', text_file.read(2))[0]        
+        short1_count_end = struct.unpack('>H', text_file.read(2))[0]  
+        repack_data_arr.append(short2_count_start)
+        repack_data_arr.append(short1_count_end)
         for i in range(short1_count_end):
             s_count += 1
             curr_offset = text_file.tell()
@@ -59,15 +66,87 @@ def convert_M1(p_input_textfile_path, p_output_filepath):
                             .replace(b"\n", b"<special_str_new_line>")
                            )
             
-            #print("f=" + str(f_count) + " s=" + str(s_count) + " i=" + str(i+1) + " string_size = " + str(string_size) + " curr_offset = " + str(curr_offset)  )
+            print("f=" + str(f_count) + " s=" + str(s_count) + " i=" + str(i+1) + " string_size = " + str(string_size) + " curr_offset = " + str(curr_offset)  )
             #print(text_string)
-            output_text_file.write(text_string)
-            output_text_file.write(b"\x0D\x0A")
+            #output_text_file.write(text_string)
+            #output_text_file.write(b"\x0D\x0A")
+            
+            #print(text_string)
+            strings_arr.append(text_string.decode("utf-8"))
+            
+    for data_item in repack_data_arr:
+        output_text_file.write(str(data_item) + ';')
+        
+    output_text_file.write('\n')  
+
+    for text_item in strings_arr:
+        output_text_file.write(str(text_item) + '\n')
         
     text_file.close()
     output_text_file.close()
     print ("Ending Crash Java text convert...")
     
+
+def convert_M2(p_input_txtfile_path, p_output_filepath):
+    print ("Starting Crash Java text convert M2...")
+    
+    txt_file = open(p_input_txtfile_path, 'rt')
+    textpack_file = open(p_output_filepath, 'wb+')
+    
+    block_offset_arr = []
+    data_arr = txt_file.readline().split(';')
+    del data_arr[-1]
+    #print(data_arr)
+    
+    num_of_bytes_to_skip = int(data_arr[0])
+    num_of_blocks = int(data_arr[1])
+    
+    textpack_file.write(struct.Struct(">H").pack(num_of_bytes_to_skip))
+    for i in range(num_of_bytes_to_skip):
+        textpack_file.write(struct.Struct(">B").pack(10)) 
+        
+    data_arr = data_arr[2:]
+    
+    for i in range(num_of_blocks):
+        count_start = int(data_arr[0])
+        count_end = int(data_arr[1])
+        del data_arr[0:2]
+        
+        #print("c_start: " + str(count_start) + " c_end: " + str(count_end) )
+        block_offset = textpack_file.tell() - ( (i+1) * 2 )
+        block_offset_arr.append(block_offset)
+        textpack_file.write(struct.Struct(">H").pack(count_start))
+        textpack_file.write(struct.Struct(">H").pack(count_end))
+        for j in range(count_end):
+            text_line = txt_file.readline().rstrip('\n')
+            
+            text_line = ( text_line.encode("utf-8")
+                          .replace(b"<special_str_01>", b"\xef\xbf\xbf\xc0\x80") 
+                          .replace(b"<special_str_03>", b"\xef\xbf\xbf\x03")  
+                          .replace(b"<special_str_04>", b"\xef\xbf\xbf\x04")   
+                          .replace(b"<special_str_05>", b"\xef\xbf\xbf\x05")  
+                          .replace(b"<special_str_06>", b"\xef\xbf\xbf\x06")   
+                          .replace(b"<special_str_08>", b"\xef\xbf\xbf\x08")    
+                          .replace(b"<special_str_LONG>", b"A\xc3\x86\xc3\x82\xc3\x80BC\xc3\x87DE\xc3\x89\xc3\x8a\xc3\x88\xc3\x8bFGHI\xc3\x8e\xc3\x8fJKLMNO\xc5\x92\xc3\x94PQRSTU\xc3\x9b\xc3\x99\xc3\x9c\xc2\xa9\xc2\xae\xe2\x84\xa2\xc3\x80BCDE\xc3\x89\xc3\x88FGHI\xc3\x8cJKLMNO\xc3\x92&lt;&gt;+-,.:()\xc2\xa9\xc2\xae\xe2\x84\xa2\xc3\x84\xc3\x96\xc3\x9c\xc3\x81\xc3\x89\xc3\x8d\xc3\x91\xc3\x93\xc3\x9a")   
+                          .replace(b"<special_str_SHORT>", b"\xc2\xa9")    
+                          .replace(b"<special_str_new_line>", b"\n")                            
+                          )
+            
+            line_size = len(text_line)
+            textpack_file.write(struct.Struct(">H").pack(line_size))
+            textpack_file.write(text_line)
+    
+    del block_offset_arr[0]
+    textpack_file.seek(2)
+    for block_item in block_offset_arr:
+        #print("off = " + str(block_item) )
+        textpack_file.write(struct.Struct(">H").pack(block_item))
+    
+    
+    txt_file.close()
+    textpack_file.close()
+    print ("Ending Crash Java text convert M2...")
+
 
 def open_manual():
     filename = "crash_text_tool_manual.html"
@@ -206,6 +285,19 @@ def convert():
         except:
             err_msg = ("Error occurred during conversion from Txt-Pack to TXT!")
             messagebox.showerror("ERROR", err_msg) 
+            traceback.print_exc()
+            sys.stdout.flush()
+            
+    if current_mode == "M2":
+        try:
+            convert_M2(c_txt_path, c_txt_pack_path)
+            sys.stdout.flush()
+            messagebox.showinfo("Info", "File converted successfully!")
+        except:
+            err_msg = ("Error occurred during conversion from TXT to Txt-Pack!")
+            messagebox.showerror("ERROR", err_msg) 
+            traceback.print_exc()
+            sys.stdout.flush()        
     
     #print("path1: " +  c_txt_pack_path)
     #print("path2: " + c_txt_path)

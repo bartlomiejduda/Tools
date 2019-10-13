@@ -1,17 +1,23 @@
 ﻿Txts_Pack_nb file format
 
 
-//HEADER
-2 bytes - num_of_bytes_to_skip
-x bytes - skipped bytes
+// HEADER
+2 bytes - num_of_bytes_to_skip  // size of the header
+number_of_blocks *
+{
+  2 bytes - offset of the text block
+}
 
 
 // TEXT BLOCKS
-2 bytes - short2 (count_start)
-2 bytes - short1 (count_end)
-
-short1 *
+number_of_blocks *
 {
-   2 bytes - length of the string
-   x bytes - text string
+  2 bytes - short2 (count_start)
+  2 bytes - short1 (count_end) // number of strings in text block
+
+  count_end *
+  {
+     2 bytes - length of the string
+     x bytes - text string
+  }
 }
