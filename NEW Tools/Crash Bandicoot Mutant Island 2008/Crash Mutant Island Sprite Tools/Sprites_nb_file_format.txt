@@ -1,0 +1,11 @@
+﻿Sprites_nb file format
+
+
+// HEADER
+1 byte - magic "\x02"
+
+// BOARDS AND LAYER INFO
+[0] 1 byte - byte2
+[1] 1 byte - byte3
+[2] 1 byte - byte4
+[3] 1 byte - byte5
