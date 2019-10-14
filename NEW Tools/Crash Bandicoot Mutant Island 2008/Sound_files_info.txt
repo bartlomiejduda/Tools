@@ -1,0 +1,14 @@
+Sound files info
+
+Document created by Bartlomiej Duda
+Creation date: 14.10.2019
+
+
+
+Sound files are inside JAR file.
+Files with name a1, a2, a3 etc. are regular MIDI
+files without extension.
+
+To play them, just add extension,
+for example change "a1" to "a1.midi" and open it
+in Winamp or any other midi player.
