@@ -2,10 +2,40 @@
 
 
 // HEADER
-1 byte - magic "\x02"
+1 byte - magic "\x02" or "\x01"
 
 // BOARDS AND LAYER INFO
 [0] 1 byte - byte2
 [1] 1 byte - byte3
-[2] 1 byte - byte4
+[2] 1 byte - byte4  
 [3] 1 byte - byte5
+
+
+// IMAGES INFO?
+byte4 * // j
+{
+   1 byte - byte6  
+   byte6 * // k
+   {
+      1 byte - n
+      10 bytes - sGlobalImagesInfos_
+   }
+}
+
+
+// DATA
+1 byte - byte7
+byte7 *
+{
+   4 bytes - array content
+   1 byte - byte8 // size of array2
+   x bytes - array2 content
+   1 byte - byte9
+   byte9 *
+   {
+      (4 * byte8 + 1) *
+      {
+        x byte - image data
+      }
+   }
+}
