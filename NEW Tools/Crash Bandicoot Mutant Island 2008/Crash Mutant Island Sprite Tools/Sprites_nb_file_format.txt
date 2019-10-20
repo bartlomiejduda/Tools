@@ -18,7 +18,7 @@ byte4 * // j
    byte6 * // k
    {
       1 byte - n
-      10 bytes - sGlobalImagesInfos_
+      8 bytes - sGlobalImagesInfos_ // 2 bytes * 4 loop iterations
    }
 }
 
