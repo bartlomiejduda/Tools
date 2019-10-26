@@ -6,9 +6,10 @@
 # Ver    Date        Name
 # v1.0   20.10.2019  Bartlomiej Duda
 # v1.1   26.10.2019  Bartlomiej Duda
+# v1.2   26.10.2019  Bartlomiej Duda
 
 
-VERSION_NUM = "v1.1"
+VERSION_NUM = "v1.2"
 
 
 import os
@@ -47,24 +48,43 @@ def read_sprite(p_input_spritefile_path):
         for i in range(byte6):
             n = struct.unpack('>B', sprite_file.read(1))[0]
             #print("n: " + str(n) )
-            sGlobalImagesInfos_ = sprite_file.read(8)
-            out_file.write(sGlobalImagesInfos_)
-            out_file.write(b"IKS")
+            #sGlobalImagesInfos_ = sprite_file.read(8)
+            x_pos = struct.unpack('>H', sprite_file.read(2))[0]
+            y_pos = struct.unpack('>H', sprite_file.read(2))[0]
+            width = struct.unpack('>H', sprite_file.read(2))[0]
+            height = struct.unpack('>H', sprite_file.read(2))[0]
+            #out_file.write(sGlobalImagesInfos_)
+            #out_file.write(b"IKS")
+            print("n: " + str(n) + " x_pos: " + str(x_pos) + " y_pos: " + str(y_pos) + " width: " + str(width) + " height: " + str(height) )
     
     
     curr_offset = sprite_file.tell()
-    print( " curr_offset_END: " + str(curr_offset) )        
+    print( " curr_offset_END: " + str(curr_offset) )   
+    
+    
     #animation data read
     byte7 = struct.unpack('>B', sprite_file.read(1))[0]
     print( "byte7: " + str(byte7)  )
-    #for i in range(byte7):
-        #array = sprite_file.read(4)
-        #byte8 = struct.unpack('>B', sprite_file.read(1))[0]
-        #array2 = sprite_file.read(byte8)
-        #byte9 = struct.unpack('>B', sprite_file.read(1))[0]
-        #image_data = sprite_file.read(4*byte8 + 1)
-        #curr_offset = sprite_file.tell()
-        #print( str(i+1) + ") " + "curr_offset: " + str(curr_offset) )
+    for i in range(byte7):
+        array = sprite_file.read(4)
+        byte8 = struct.unpack('>B', sprite_file.read(1))[0]
+        array2 = sprite_file.read(byte8)
+        byte9 = struct.unpack('>B', sprite_file.read(1))[0]
+        im_data_all = b''
+        for j in range(byte9):
+            short1 = struct.unpack('>H', sprite_file.read(2))[0]
+            n6 = 4 * byte8 + 1
+            im_data_line = b''
+            for k in range(n6-1):
+                im_data_byte = sprite_file.read(1)
+                im_data_line += im_data_byte
+            im_data_all += im_data_line
+            curr_offset = sprite_file.tell()
+            print( str(j+1) + ") " + "curr_offset_loop: " + str(curr_offset) + " n6: " + str(n6) + " short1: " + str(short1)  )            
+            
+            
+        curr_offset = sprite_file.tell()
+        print( str(i+1) + ") " + "curr_offset: " + str(curr_offset)+ " len_data: " + str(sys.getsizeof(im_data_all)) )
     
     sprite_file.close()
     out_file.close()
@@ -72,7 +92,7 @@ def read_sprite(p_input_spritefile_path):
     #im_file = open('test.bin', 'rb')
     #im_data = im_file.read()
     #im_file.close()
-    #image = Image.frombytes('1', (8,70), im_data, 'raw')
+    #image = Image.frombytes('RGB', (12,12), im_data_all, 'raw')
     #image.show()
     
     print ("Ending Crash Java sprite read...")
