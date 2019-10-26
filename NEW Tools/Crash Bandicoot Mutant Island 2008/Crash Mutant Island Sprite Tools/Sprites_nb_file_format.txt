@@ -2,12 +2,12 @@
 
 
 // HEADER
-1 byte - magic "\x02" or "\x01"
+1 byte - magic "\x02" or "\x01"  // spritefile_version?
 
 // BOARDS AND LAYER INFO
-[0] 1 byte - byte2
+[0] 1 byte - byte2 // array_size? / id_of_tile_to_draw
 [1] 1 byte - byte3
-[2] 1 byte - byte4  
+[2] 1 byte - byte4  // num_of_sprites?
 [3] 1 byte - byte5
 
 
@@ -15,10 +15,17 @@
 byte4 * // j
 {
    1 byte - byte6  
+   1 byte - info[i][4 + j]
    byte6 * // k
    {
-      1 byte - n
+      1 byte - n/5
       8 bytes - sGlobalImagesInfos_ // 2 bytes * 4 loop iterations
+      {
+         2 bytes - x_pos
+         2 bytes - y_pos
+         2 bytes - width
+         2 bytes - height
+      }
    }
 }
 
