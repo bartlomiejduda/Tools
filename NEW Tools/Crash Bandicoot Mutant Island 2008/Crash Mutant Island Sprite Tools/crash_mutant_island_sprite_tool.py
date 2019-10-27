@@ -7,9 +7,10 @@
 # v1.0   20.10.2019  Bartlomiej Duda
 # v1.1   26.10.2019  Bartlomiej Duda
 # v1.2   26.10.2019  Bartlomiej Duda
+# v1.3   27.10.2019  Bartlomiej Duda
 
 
-VERSION_NUM = "v1.2"
+VERSION_NUM = "v1.3"
 
 
 import os
@@ -20,7 +21,7 @@ from PIL import Image
 
 
 
-def read_sprite(p_input_spritefile_path):
+def read_sprite(p_input_spritefile_path, p_output_folder):
     print ("Starting Crash Java sprite read...")
     sprite_file = open(p_input_spritefile_path, 'rb')
     
@@ -61,12 +62,20 @@ def read_sprite(p_input_spritefile_path):
     curr_offset = sprite_file.tell()
     print( " curr_offset_END: " + str(curr_offset) )   
     
+    if not os.path.exists(p_output_folder):
+        os.mkdir(p_output_folder)
     
     #animation data read
     byte7 = struct.unpack('>B', sprite_file.read(1))[0]
     print( "byte7: " + str(byte7)  )
     for i in range(byte7):
-        array = sprite_file.read(4)
+        #array = sprite_file.read(4)
+        array = []
+        array.append(struct.unpack('>B', sprite_file.read(1))[0])
+        array.append(struct.unpack('>B', sprite_file.read(1))[0])
+        array.append(struct.unpack('>B', sprite_file.read(1))[0])
+        array.append(struct.unpack('>B', sprite_file.read(1))[0])
+        
         byte8 = struct.unpack('>B', sprite_file.read(1))[0]
         array2 = sprite_file.read(byte8)
         byte9 = struct.unpack('>B', sprite_file.read(1))[0]
@@ -75,16 +84,31 @@ def read_sprite(p_input_spritefile_path):
             short1 = struct.unpack('>H', sprite_file.read(2))[0]
             n6 = 4 * byte8 + 1
             im_data_line = b''
+            data_read_off_start = sprite_file.tell()
             for k in range(n6-1):
                 im_data_byte = sprite_file.read(1)
                 im_data_line += im_data_byte
             im_data_all += im_data_line
             curr_offset = sprite_file.tell()
-            print( str(j+1) + ") " + "curr_offset_loop: " + str(curr_offset) + " n6: " + str(n6) + " short1: " + str(short1)  )            
-            
+            data_read_off_end = sprite_file.tell()
+            #print( str(j+1) + ") " + "curr_offset_loop: " + str(curr_offset) + " n6: " + str(n6) + " short1: " + str(short1)  )
+            print( str(j+1) + ") " + "off_start: " + str(data_read_off_start) + " off_end: " + str(data_read_off_end) )
+        
+        image = Image.frombytes('L', (1,1), im_data_all, 'raw')  
+        im_save_path = p_output_folder + '\\' + str(i) + '.png'
+        #print("im_save_path: " + im_save_path)
+        image.save(im_save_path)
             
         curr_offset = sprite_file.tell()
-        print( str(i+1) + ") " + "curr_offset: " + str(curr_offset)+ " len_data: " + str(sys.getsizeof(im_data_all)) )
+        print( str(i+1) + ") " + "curr_offset: " + str(curr_offset) 
+               + " a[0]: " + str(array[0]) 
+               + " a[1]: " + str(array[1]) 
+               + " a[2]: " + str(array[2]) 
+               + " a[3]: " + str(array[3]) 
+               + " byte8: " + str(byte8)
+               + " byte9: " + str(byte9)
+               
+               )    #+ " len_data: " + str(sys.getsizeof(im_data_all)) )
     
     sprite_file.close()
     out_file.close()
@@ -100,4 +124,5 @@ def read_sprite(p_input_spritefile_path):
     
 
 input_spritefile_path = "C:\\Users\\Adam\\Desktop\\Sprites_nb_5"
-read_sprite(input_spritefile_path)
+output_folder = "C:\\Users\\Adam\\Desktop\\Sprites_nb_5_out"
+read_sprite(input_spritefile_path, output_folder)
