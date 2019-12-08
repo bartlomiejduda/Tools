@@ -1,0 +1,550 @@
+<?xml version="1.0" encoding="utf-8"?>
+<CheatTable CheatEngineTableVersion="29">
+  <CheatEntries>
+    <CheatEntry>
+      <ID>2</ID>
+      <Description>"[X] &lt;== Sacred Gold v2.28 ASE Steam Script v1.0 AOB"</Description>
+      <Options moHideChildren="1" moDeactivateChildrenAsWell="1"/>
+      <LastState/>
+      <Color>FF0000</Color>
+      <VariableType>Auto Assembler Script</VariableType>
+      <AssemblerScript>{
+===========================================
+ Game Title    : Sacred Gold
+ Game Version  : 2.28 ASE
+ Game Sponsor  : Myself
+ Process Name  : Sacred.exe
+ Relevant Info : old 32bits/data not aligned/RPG
+ Script Version: 1.0 AOB
+ CE Version    : 6.6
+ Release date  : 27-Mar-2017
+ Author        : Recifense
+ History:
+ 01-Mar-2013: First Release
+ 27-Mar-2017: Release for version 2.28 (Steam)
+ Features:
+ - God Mode
+ - Minimum Gold
+ - Quick XP
+ - Some Pointers
+===========================================
+}
+
+//=========================================
+// Checking CE version
+{$lua}
+  if(getCEVersion() &lt; 6.5) then
+    ShowMessage('Sorry. CE version should be 6.5 or above')
+  end
+{$asm}
+
+//=========================================
+// Checking Selected Process
+{$lua}
+  if(process == nil) then
+    ShowMessage('No process was selected')
+  elseif (process ~= "Sacred.exe") then
+    ShowMessage('Error. Expected Process = Sacred.exe')
+  end
+{$asm}
+
+//=========================================
+// Definitions
+define(LUDO,"Sacred.exe")
+
+//=========================================
+// Constants used in the script (that can be changed)
+define(ctCE65,(float)6.6)
+
+//=========================================
+[ENABLE]
+//=========================================
+//LuaCall(CheckVersion())
+//=========================================
+// Check if script is compatible to this game version
+// If false the script will not be loaded
+
+AOBScanModule(MOPH,Sacred.exe,39 98 d8 04 00 00 ?? ?? 50 8b cd e8 ?? ?? ?? ?? 84 c0 ?? ?? 8b)
+AOBScanModule(GDMD,Sacred.exe,89 85 30 01 00 00 8b 85 2c 01 00 00 8b 8d 30 01 00 00 3b c8 ??)
+AOBScanModule(MOPG,Sacred.exe,8b 84 24 94 00 00 00 33 db 3b c3 ?? ?? 8b 4f 46 81 f9 ff ff ff)
+AOBScanModule(MOPX,Sacred.exe,03 c6 3b f7 89 43 0c 0f 8e ?? ?? ?? ?? 8b 43 04 83 78 0c 10 0f)
+
+//=========================================
+alloc(MyCode,4096,$process)
+//=========================================
+// Declaration section
+label(_MonPlayerHero)
+label(_BackMPH)
+label(_ExitMPH)
+label(_GodMode)
+label(_BackGMD)
+label(_ExitGMD)
+label(_MonPlayerGold)
+label(_BackMPG)
+label(_ExitMPG)
+label(_MonPlayerXP)
+label(_BackMPX)
+label(_ExitMPX)
+
+label(iEnableGMD)
+label(iEnableMPG)
+label(iEnableMPX)
+
+label(pHero)
+
+//=========================================
+// Registering Symbols
+registersymbol(MyCode)
+registersymbol(iEnableGMD)
+registersymbol(iEnableMPG)
+registersymbol(iEnableMPX)
+registersymbol(pHero)
+
+registersymbol(MOPH)
+registersymbol(GDMD)
+registersymbol(MOPG)
+registersymbol(MOPX)
+
+//=========================================
+MyCode:
+//=========================================
+// All the time (check if dead)
+_MonPlayerHero:
+ mov [pHero],eax
+
+_ExitMPH:
+ cmp [eax+000004D8],ebx            // Original code (cHP)
+ jmp _BackMPH                      // Back to main code
+
+//=========================================
+// During Combat (HP)
+_GodMode:
+ cmp dword ptr [iEnableGMD],0
+ je _ExitGMD                       // Jump if feature is disabled
+
+ mov ecx,[ebp+04]
+ cmp ecx,[pHero]
+ jne _ExitGMD
+
+ cmp eax,[ebp+0000012c]
+ jns _ExitGMD
+
+ mov eax,[ebp+0000012c]
+
+_ExitGMD:
+ mov [ebp+00000130],eax            // Original code (set cHP)
+ jmp _BackGMD                      // Back to main code
+
+//=========================================
+// When updating gold
+_MonPlayerGold:
+ cmp dword ptr [iEnableMPG],0
+ je _ExitMPG                       // Jump if feature is disabled
+
+ mov eax,[edi+04]
+ cmp eax,[pHero]
+ jne _ExitMPG
+
+ mov eax,#100000
+ cmp eax,[edi+46]
+ js _ExitMPG
+
+ mov eax,#10000
+ cmp [esp+00000094],eax
+ jns _ExitMPG
+
+ mov [esp+00000094],eax
+
+_ExitMPG:
+ mov eax,[esp+00000094]            // Original code (get value2Badded)
+ jmp _BackMPG                      // Back to main code
+
+//=========================================
+// When updating XP
+_MonPlayerXP:
+ push eax
+
+ cmp dword ptr [iEnableMPX],0
+ je _ExitMPX                       // Jump if feature is disabled
+
+ mov eax,[ebx+04]
+ cmp eax,[pHero]
+ jne _ExitMPX
+
+ movzx eax,word ptr [eax+000003fe]
+ imul eax,eax,#100
+
+ cmp esi,eax
+ jns _ExitMPX
+
+ mov esi,eax
+
+_ExitMPX:
+ pop eax
+
+ add eax,esi                       // Original code
+ cmp esi,edi                       // Original code
+ mov [ebx+0C],eax                  // Original code (upd XP)
+ jmp _BackMPX                      // Back to main code
+
+//=========================================
+ db '=========================================&gt;'
+ db 'CE6.6 Script by Recifense 032717'
+//=========================================
+// Variables
+iEnableGMD:
+ dd 0
+iEnableMPG:
+ dd 0
+iEnableMPX:
+ dd 0
+pHero:
+ dd MyCode
+
+//=========================================
+// Hacking Points
+MOPH:
+ jmp _MonPlayerHero
+ nop
+_BackMPH:
+
+GDMD:
+ jmp _GodMode
+ nop
+_BackGMD:
+
+MOPG:
+ jmp _MonPlayerGold
+ nop
+ nop
+_BackMPG:
+
+MOPX:
+ jmp _MonPlayerXP
+ nop
+ nop
+_BackMPX:
+
+//=========================================
+// Script for Restoring Original Codes
+[DISABLE]
+MOPH:
+// cmp [eax+000004D8],ebx
+ db 39 98 d8 04 00 00
+
+GDMD:
+// mov [ebp+00000130],eax
+ db 89 85 30 01 00 00
+
+MOPG:
+// mov eax,[esp+00000094]
+ db 8b 84 24 94 00 00 00
+
+MOPX:
+// add eax,esi
+// cmp esi,edi
+// mov [ebx+0C],eax
+ db 03 c6 3b f7 89 43 0c
+
+//=========================================
+// Unregistering Symbols
+unregistersymbol(MyCode)
+unregistersymbol(iEnableGMD)
+unregistersymbol(iEnableMPG)
+unregistersymbol(iEnableMPX)
+unregistersymbol(pHero)
+
+unregistersymbol(MOPH)
+unregistersymbol(GDMD)
+unregistersymbol(MOPG)
+unregistersymbol(MOPX)
+
+//=========================================
+dealloc(MyCode)
+//============= Scripts End ===============
+
+// ****************************************
+// NOTES
+// ****************************************
+{
+}
+</AssemblerScript>
+      <CheatEntries>
+        <CheatEntry>
+          <ID>98</ID>
+          <Description>"[X] &lt;== God Mode ----------------------------------&gt; (HK: CTRL+Home / CTRL+End)"</Description>
+          <LastState/>
+          <Color>008000</Color>
+          <VariableType>Auto Assembler Script</VariableType>
+          <AssemblerScript>[enable]
+define(test,LUDO)
+
+{$LUA}
+writeInteger("iEnableGMD",1)
+getAddressList().getMemoryRecordByID(98).Color=0x0008000
+{$ASM}
+
+[disable]
+{$LUA}
+writeInteger("iEnableGMD",0)
+getAddressList().getMemoryRecordByID(98).Color=0x0c08000
+{$ASM}
+
+</AssemblerScript>
+          <Hotkeys>
+            <Hotkey>
+              <Action>Activate</Action>
+              <Keys>
+                <Key>17</Key>
+                <Key>36</Key>
+              </Keys>
+              <ID>0</ID>
+            </Hotkey>
+            <Hotkey>
+              <Action>Deactivate</Action>
+              <Keys>
+                <Key>17</Key>
+                <Key>35</Key>
+              </Keys>
+              <ID>1</ID>
+            </Hotkey>
+          </Hotkeys>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>229</ID>
+          <Description>"[X] &lt;== Minimum Gold Pick ------------------------&gt; (HK: CTRL+Home / CTRL+End)"</Description>
+          <LastState/>
+          <Color>008000</Color>
+          <VariableType>Auto Assembler Script</VariableType>
+          <AssemblerScript>[enable]
+define(test,LUDO)
+
+{$LUA}
+writeInteger("iEnableMPG",1)
+getAddressList().getMemoryRecordByID(229).Color=0x0008000
+{$ASM}
+
+[disable]
+{$LUA}
+writeInteger("iEnableMPG",0)
+getAddressList().getMemoryRecordByID(229).Color=0x0c08000
+{$ASM}
+
+</AssemblerScript>
+          <Hotkeys>
+            <Hotkey>
+              <Action>Activate</Action>
+              <Keys>
+                <Key>17</Key>
+                <Key>36</Key>
+              </Keys>
+              <ID>0</ID>
+            </Hotkey>
+            <Hotkey>
+              <Action>Deactivate</Action>
+              <Keys>
+                <Key>17</Key>
+                <Key>35</Key>
+              </Keys>
+              <ID>1</ID>
+            </Hotkey>
+          </Hotkeys>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>230</ID>
+          <Description>"[X] &lt;== Minimum XP per Kill  -----------------------&gt; (HK: CTRL+Home / CTRL+End)"</Description>
+          <LastState/>
+          <Color>008000</Color>
+          <VariableType>Auto Assembler Script</VariableType>
+          <AssemblerScript>[enable]
+define(test,LUDO)
+
+{$LUA}
+writeInteger("iEnableMPX",1)
+getAddressList().getMemoryRecordByID(230).Color=0x0008000
+{$ASM}
+
+[disable]
+{$LUA}
+writeInteger("iEnableMPX",0)
+getAddressList().getMemoryRecordByID(230).Color=0x0c08000
+{$ASM}
+
+</AssemblerScript>
+          <Hotkeys>
+            <Hotkey>
+              <Action>Activate</Action>
+              <Keys>
+                <Key>17</Key>
+                <Key>36</Key>
+              </Keys>
+              <ID>0</ID>
+            </Hotkey>
+            <Hotkey>
+              <Action>Deactivate</Action>
+              <Keys>
+                <Key>17</Key>
+                <Key>35</Key>
+              </Keys>
+              <ID>1</ID>
+            </Hotkey>
+          </Hotkeys>
+        </CheatEntry>
+      </CheatEntries>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>259</ID>
+      <Description>"INFINITE SKILLS"</Description>
+      <LastState/>
+      <Color>FF8000</Color>
+      <VariableType>Auto Assembler Script</VariableType>
+      <AssemblerScript>[ENABLE]
+//code from here to '[DISABLE]' will be used to enable the cheat
+alloc(newmem,2048)
+label(returnhere)
+label(originalcode)
+label(exit)
+
+newmem: //this is allocated memory, you have read,write,execute access
+//place your code here
+
+originalcode:
+add eax,ebx
+mov [edi+42],ax
+
+exit:
+jmp returnhere
+
+"Sacred.exe"+18253E:
+jmp newmem
+nop
+returnhere:
+
+
+
+ 
+ 
+[DISABLE]
+//code from here till the end of the code will be used to disable the cheat
+dealloc(newmem)
+"Sacred.exe"+18253E:
+sub eax,ebx
+mov [edi+42],ax
+//Alt: db 01 D8 66 89 47 42
+</AssemblerScript>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>263</ID>
+      <Description>"INFINITE ATTRIBUTES"</Description>
+      <LastState/>
+      <Color>FF8000</Color>
+      <VariableType>Auto Assembler Script</VariableType>
+      <AssemblerScript>[ENABLE]
+//code from here to '[DISABLE]' will be used to enable the cheat
+alloc(newmem,2048)
+label(returnhere)
+label(originalcode)
+label(exit)
+
+newmem: //this is allocated memory, you have read,write,execute access
+//place your code here
+
+originalcode:
+add dl,al
+mov [ecx],dl
+jmp Sacred.exe+1A0472
+
+exit:
+jmp returnhere
+
+"Sacred.exe"+1A045B:
+jmp newmem
+nop
+returnhere:
+
+
+ 
+ 
+[DISABLE]
+//code from here till the end of the code will be used to disable the cheat
+dealloc(newmem)
+"Sacred.exe"+1A045B:
+sub dl,al
+mov [ecx],dl
+jmp Sacred.exe+1A0472
+//Alt: db 2A D0 88 11 EB 11
+</AssemblerScript>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>264</ID>
+      <Description>"Info"</Description>
+      <LastState Value="" RealAddress="00000000"/>
+      <Color>0080FF</Color>
+      <GroupHeader>1</GroupHeader>
+      <CheatEntries>
+        <CheatEntry>
+          <ID>265</ID>
+          <Description>"CT created by Recifense"</Description>
+          <LastState Value="" RealAddress="00000000"/>
+          <Color>0080FF</Color>
+          <GroupHeader>1</GroupHeader>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>266</ID>
+          <Description>"CT enhanced by Bartlomiej Duda (Ikskoks)"</Description>
+          <LastState Value="" RealAddress="00000000"/>
+          <Color>0080FF</Color>
+          <GroupHeader>1</GroupHeader>
+        </CheatEntry>
+      </CheatEntries>
+    </CheatEntry>
+  </CheatEntries>
+  <UserdefinedSymbols>
+    <SymbolEntry>
+      <Name>Recifense</Name>
+      <Address>20170327</Address>
+    </SymbolEntry>
+  </UserdefinedSymbols>
+  <Comments>===========================================
+ Game Title    : Sacred Gold
+ Game Version  : 2.28 ASE
+ Game Sponsor  : Myself
+ Process Name  : Sacred.exe
+ Relevant Info : old 32bits/data not aligned/RPG
+ Script Version: 1.0 AOB
+ CE Version    : 6.6
+ Release date  : 27-Mar-2017
+ Author        : Recifense
+ History:
+ 01-Mar-2013: First Release
+ 27-Mar-2017: Release for version 2.28 (Steam)
+ Features:
+ - God Mode          [1]
+ - Minimum Gold      [2]
+ - Quick XP          [3]
+===========================================
+[1] For player's Hero/Heroine only;
+[2] Gold will increase in amount of 10000 util it is greater than 100000;
+[3] XP will increase in amount of 100 x Hero/Heroine level;
+===========================================
+[USAGE]
+ - Run CE 6.5 or greater;
+ - Run the GAME;
+ - Load game process "AoK HD.exe" via CE;
+ - Load this Table;
+ - Activate the main script  by clicking on its box [X];
+ - Now Activate the script of each cheat you want to use;
+ - Go back to the game and have fun.
+===========================================
+HOTKEYS:
+- Look at each table entry
+===========================================
+[WARNING]
+- This table is meant to be used in single player games.
+===========================================
+[INFO]
+Tested on Win10 64bits
+===========================================
+Cheers!
+</Comments>
+</CheatTable>
