@@ -1,0 +1,764 @@
+<?xml version="1.0" encoding="utf-8"?>
+<CheatTable CheatEngineTableVersion="29">
+  <CheatEntries>
+    <CheatEntry>
+      <ID>42</ID>
+      <Description>"Info"</Description>
+      <LastState Value="" RealAddress="00000000"/>
+      <Color>0080FF</Color>
+      <GroupHeader>1</GroupHeader>
+      <CheatEntries>
+        <CheatEntry>
+          <ID>43</ID>
+          <Description>"Cheat table made by Bartlomiej Duda (Ikskoks)"</Description>
+          <LastState Value="" RealAddress="00000000"/>
+          <Color>0080FF</Color>
+          <GroupHeader>1</GroupHeader>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>44</ID>
+          <Description>"Cheat table version: 1.1"</Description>
+          <LastState Value="" RealAddress="00000000"/>
+          <Color>0080FF</Color>
+          <GroupHeader>1</GroupHeader>
+        </CheatEntry>
+      </CheatEntries>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>41</ID>
+      <Description>"CHEATS (CTRL+A)"</Description>
+      <Options moActivateChildrenAsWell="1" moDeactivateChildrenAsWell="1"/>
+      <LastState Value="" Activated="1" RealAddress="00000000"/>
+      <Color>FF8000</Color>
+      <GroupHeader>1</GroupHeader>
+      <Hotkeys>
+        <Hotkey>
+          <Action>Toggle Activation</Action>
+          <Keys>
+            <Key>17</Key>
+            <Key>65</Key>
+          </Keys>
+          <ID>0</ID>
+          <ActivateSound TTS="EN">Activated</ActivateSound>
+          <DeactivateSound TTS="EN">Deactivated</DeactivateSound>
+        </Hotkey>
+      </Hotkeys>
+      <CheatEntries>
+        <CheatEntry>
+          <ID>9</ID>
+          <Description>"Money +100000"</Description>
+          <LastState Activated="1"/>
+          <Color>FF8000</Color>
+          <VariableType>Auto Assembler Script</VariableType>
+          <AssemblerScript>[ENABLE]
+//code from here to '[DISABLE]' will be used to enable the cheat
+alloc(newmem,2048)
+label(returnhere)
+label(originalcode)
+label(exit)
+
+newmem: //this is allocated memory, you have read,write,execute access
+//place your code here
+
+originalcode:
+add edx,(int)100000
+mov [eax+00002090],edx
+
+exit:
+jmp returnhere
+
+"Scrap.exe"+B8F5C:
+jmp newmem
+nop 3
+returnhere:
+
+
+ 
+ 
+[DISABLE]
+//code from here till the end of the code will be used to disable the cheat
+dealloc(newmem)
+"Scrap.exe"+B8F5C:
+add edx,esi
+mov [eax+00002090],edx
+//Alt: db 03 D6 89 90 90 20 00 00
+</AssemblerScript>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>26</ID>
+          <Description>"Infinite energy"</Description>
+          <Options moHideChildren="1" moActivateChildrenAsWell="1" moDeactivateChildrenAsWell="1"/>
+          <LastState Value="" Activated="1" RealAddress="00000000"/>
+          <Color>FF8000</Color>
+          <GroupHeader>1</GroupHeader>
+          <CheatEntries>
+            <CheatEntry>
+              <ID>24</ID>
+              <Description>"nop1"</Description>
+              <LastState Activated="1"/>
+              <VariableType>Auto Assembler Script</VariableType>
+              <AssemblerScript>[ENABLE]
+//code from here to '[DISABLE]' will be used to enable the cheat
+alloc(newmem,2048)
+label(returnhere)
+label(originalcode)
+label(exit)
+
+newmem: //this is allocated memory, you have read,write,execute access
+//place your code here
+
+originalcode:
+nop
+
+exit:
+jmp returnhere
+
+"Scrap.exe"+CE9EE:
+jmp newmem
+nop
+returnhere:
+
+
+ 
+ 
+[DISABLE]
+//code from here till the end of the code will be used to disable the cheat
+dealloc(newmem)
+"Scrap.exe"+CE9EE:
+fld dword ptr [Scrap.exe+38D4D0]
+//Alt: db D9 05 D0 D4 78 00
+</AssemblerScript>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>25</ID>
+              <Description>"nop2"</Description>
+              <LastState Activated="1"/>
+              <VariableType>Auto Assembler Script</VariableType>
+              <AssemblerScript>[ENABLE]
+//code from here to '[DISABLE]' will be used to enable the cheat
+alloc(newmem,2048)
+label(returnhere)
+label(originalcode)
+label(exit)
+
+newmem: //this is allocated memory, you have read,write,execute access
+//place your code here
+
+originalcode:
+nop
+
+exit:
+jmp returnhere
+
+"Scrap.exe"+CE9F4:
+jmp newmem
+nop 5
+returnhere:
+
+
+ 
+ 
+[DISABLE]
+//code from here till the end of the code will be used to disable the cheat
+dealloc(newmem)
+"Scrap.exe"+CE9F4:
+fsub dword ptr [esp+04]
+fstp dword ptr [ecx+00000674]
+//Alt: db D8 64 24 04 D9 99 74 06 00 00
+</AssemblerScript>
+            </CheatEntry>
+          </CheatEntries>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>32</ID>
+          <Description>"Invisible to cops"</Description>
+          <Options moHideChildren="1" moActivateChildrenAsWell="1" moDeactivateChildrenAsWell="1"/>
+          <LastState Value="" Activated="1" RealAddress="00000000"/>
+          <Color>FF8000</Color>
+          <GroupHeader>1</GroupHeader>
+          <CheatEntries>
+            <CheatEntry>
+              <ID>30</ID>
+              <Description>"Invisible to cops 1"</Description>
+              <LastState Activated="1"/>
+              <VariableType>Auto Assembler Script</VariableType>
+              <AssemblerScript>[ENABLE]
+//code from here to '[DISABLE]' will be used to enable the cheat
+alloc(newmem,2048)
+label(returnhere)
+label(originalcode)
+label(exit)
+
+newmem: //this is allocated memory, you have read,write,execute access
+//place your code here
+
+originalcode:
+//mov [esi+04],eax
+fnstsw ax
+
+exit:
+jmp returnhere
+
+"Scrap.exe"+1A374E:
+jmp newmem
+returnhere:
+
+
+ 
+ 
+[DISABLE]
+//code from here till the end of the code will be used to disable the cheat
+dealloc(newmem)
+"Scrap.exe"+1A374E:
+mov [esi+04],eax
+fnstsw ax
+//Alt: db 89 46 04 DF E0
+</AssemblerScript>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>31</ID>
+              <Description>"Invisible to cops 2"</Description>
+              <LastState Activated="1"/>
+              <VariableType>Auto Assembler Script</VariableType>
+              <AssemblerScript>[ENABLE]
+//code from here to '[DISABLE]' will be used to enable the cheat
+alloc(newmem,2048)
+label(returnhere)
+label(originalcode)
+label(exit)
+
+newmem: //this is allocated memory, you have read,write,execute access
+//place your code here
+
+originalcode:
+//mov [esi+04],3F800000
+
+exit:
+jmp returnhere
+
+"Scrap.exe"+1A378A:
+jmp newmem
+nop 2
+returnhere:
+
+
+ 
+ 
+[DISABLE]
+//code from here till the end of the code will be used to disable the cheat
+dealloc(newmem)
+"Scrap.exe"+1A378A:
+mov [esi+04],3F800000
+//Alt: db C7 46 04 00 00 80 3F
+</AssemblerScript>
+            </CheatEntry>
+          </CheatEntries>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>37</ID>
+          <Description>"Infinite ship weapons + enemies won't attack you"</Description>
+          <LastState Activated="1"/>
+          <Color>FF8000</Color>
+          <VariableType>Auto Assembler Script</VariableType>
+          <AssemblerScript>[ENABLE]
+//code from here to '[DISABLE]' will be used to enable the cheat
+alloc(newmem,2048)
+label(returnhere)
+label(originalcode)
+label(exit)
+
+newmem: //this is allocated memory, you have read,write,execute access
+//place your code here
+
+originalcode:
+//fld dword ptr [esp+08]
+//fstp dword ptr [ecx+eax*4]
+
+exit:
+jmp returnhere
+
+"Scrap.exe"+AFDC2:
+jmp newmem
+nop 2
+returnhere:
+
+
+ 
+ 
+[DISABLE]
+//code from here till the end of the code will be used to disable the cheat
+dealloc(newmem)
+"Scrap.exe"+AFDC2:
+fld dword ptr [esp+08]
+fstp dword ptr [ecx+eax*4]
+//Alt: db D9 44 24 08 D9 1C 81
+</AssemblerScript>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>48</ID>
+          <Description>"Ship weapon damage x20"</Description>
+          <Options moHideChildren="1" moActivateChildrenAsWell="1" moDeactivateChildrenAsWell="1"/>
+          <LastState Value="" Activated="1" RealAddress="00000000"/>
+          <Color>FF8000</Color>
+          <GroupHeader>1</GroupHeader>
+          <CheatEntries>
+            <CheatEntry>
+              <ID>40</ID>
+              <Description>"Default weapon damage x20"</Description>
+              <LastState Activated="1"/>
+              <Color>000000</Color>
+              <VariableType>Auto Assembler Script</VariableType>
+              <AssemblerScript>[ENABLE]
+//code from here to '[DISABLE]' will be used to enable the cheat
+alloc(newmem,2048)
+label(returnhere)
+label(originalcode)
+label(exit)
+
+newmem: //this is allocated memory, you have read,write,execute access
+//place your code here
+
+originalcode:
+sub edx,ecx
+sub edx,ecx
+sub edx,ecx
+sub edx,ecx
+sub edx,ecx
+sub edx,ecx
+sub edx,ecx
+sub edx,ecx
+sub edx,ecx
+sub edx,ecx
+sub edx,ecx
+sub edx,ecx
+sub edx,ecx
+sub edx,ecx
+sub edx,ecx
+sub edx,ecx
+sub edx,ecx
+sub edx,ecx
+sub edx,ecx
+sub edx,ecx
+mov [eax+00000298],edx
+
+exit:
+jmp returnhere
+
+"Scrap.exe"+87C74:
+jmp newmem
+nop 3
+returnhere:
+
+
+ 
+ 
+[DISABLE]
+//code from here till the end of the code will be used to disable the cheat
+dealloc(newmem)
+"Scrap.exe"+87C74:
+sub edx,ecx
+mov [eax+00000298],edx
+//Alt: db 2B D1 89 90 98 02 00 00
+</AssemblerScript>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>47</ID>
+              <Description>"ATPC damage x20"</Description>
+              <LastState Activated="1"/>
+              <VariableType>Auto Assembler Script</VariableType>
+              <AssemblerScript>[ENABLE]
+//code from here to '[DISABLE]' will be used to enable the cheat
+alloc(newmem,2048)
+label(returnhere)
+label(originalcode)
+label(exit)
+
+newmem: //this is allocated memory, you have read,write,execute access
+//place your code here
+
+originalcode:
+sub [esi+00000298],edi
+sub [esi+00000298],edi
+sub [esi+00000298],edi
+sub [esi+00000298],edi
+sub [esi+00000298],edi
+sub [esi+00000298],edi
+sub [esi+00000298],edi
+sub [esi+00000298],edi
+sub [esi+00000298],edi
+sub [esi+00000298],edi
+sub [esi+00000298],edi
+sub [esi+00000298],edi
+sub [esi+00000298],edi
+sub [esi+00000298],edi
+sub [esi+00000298],edi
+sub [esi+00000298],edi
+sub [esi+00000298],edi
+sub [esi+00000298],edi
+sub [esi+00000298],edi
+sub [esi+00000298],edi
+
+exit:
+jmp returnhere
+
+"Scrap.exe"+7D422:
+jmp newmem
+nop
+returnhere:
+
+
+ 
+ 
+[DISABLE]
+//code from here till the end of the code will be used to disable the cheat
+dealloc(newmem)
+"Scrap.exe"+7D422:
+sub [esi+00000298],edi
+//Alt: db 29 BE 98 02 00 00
+</AssemblerScript>
+            </CheatEntry>
+          </CheatEntries>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>50</ID>
+          <Description>"Timer Stop"</Description>
+          <LastState Activated="1"/>
+          <Color>FF8000</Color>
+          <VariableType>Auto Assembler Script</VariableType>
+          <AssemblerScript>[ENABLE]
+//code from here to '[DISABLE]' will be used to enable the cheat
+alloc(newmem,2048)
+label(returnhere)
+label(originalcode)
+label(exit)
+
+newmem: //this is allocated memory, you have read,write,execute access
+//place your code here
+
+originalcode:
+//mov [ebp+10],ecx
+fld dword ptr [Scrap.exe+41AFDC]
+
+exit:
+jmp returnhere
+
+"Scrap.exe"+11E476:
+jmp newmem
+nop 4
+returnhere:
+
+
+ 
+ 
+[DISABLE]
+//code from here till the end of the code will be used to disable the cheat
+dealloc(newmem)
+"Scrap.exe"+11E476:
+mov [ebp+10],ecx
+fld dword ptr [Scrap.exe+41AFDC]
+//Alt: db 89 4D 10 D9 05 DC AF 81 00
+</AssemblerScript>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>54</ID>
+          <Description>"Enemies can't heal themselves"</Description>
+          <LastState Activated="1"/>
+          <Color>FF8000</Color>
+          <VariableType>Auto Assembler Script</VariableType>
+          <AssemblerScript>[ENABLE]
+//code from here to '[DISABLE]' will be used to enable the cheat
+alloc(newmem,2048)
+label(returnhere)
+label(originalcode)
+label(exit)
+
+newmem: //this is allocated memory, you have read,write,execute access
+//place your code here
+
+originalcode:
+//mov [esi+00000298],eax
+
+exit:
+jmp returnhere
+
+"Scrap.exe"+91A17:
+jmp newmem
+nop
+returnhere:
+
+
+ 
+ 
+[DISABLE]
+//code from here till the end of the code will be used to disable the cheat
+dealloc(newmem)
+"Scrap.exe"+91A17:
+mov [esi+00000298],eax
+//Alt: db 89 86 98 02 00 00
+</AssemblerScript>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>58</ID>
+          <Description>"Data meter won't fill up"</Description>
+          <Options moHideChildren="1" moActivateChildrenAsWell="1" moDeactivateChildrenAsWell="1"/>
+          <LastState Value="" Activated="1" RealAddress="00000000"/>
+          <Color>FF8000</Color>
+          <GroupHeader>1</GroupHeader>
+          <CheatEntries>
+            <CheatEntry>
+              <ID>56</ID>
+              <Description>"datameter1"</Description>
+              <LastState Activated="1"/>
+              <VariableType>Auto Assembler Script</VariableType>
+              <AssemblerScript>[ENABLE]
+//code from here to '[DISABLE]' will be used to enable the cheat
+alloc(newmem,2048)
+label(returnhere)
+label(originalcode)
+label(exit)
+
+newmem: //this is allocated memory, you have read,write,execute access
+//place your code here
+
+originalcode:
+//fadd dword ptr [Scrap.exe+4162D8]
+
+exit:
+jmp returnhere
+
+"Scrap.exe"+FC76D:
+jmp newmem
+nop
+returnhere:
+
+
+ 
+ 
+[DISABLE]
+//code from here till the end of the code will be used to disable the cheat
+dealloc(newmem)
+"Scrap.exe"+FC76D:
+fadd dword ptr [Scrap.exe+4162D8]
+//Alt: db D8 05 D8 62 81 00
+</AssemblerScript>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>57</ID>
+              <Description>"datameter2"</Description>
+              <LastState Activated="1"/>
+              <VariableType>Auto Assembler Script</VariableType>
+              <AssemblerScript>[ENABLE]
+//code from here to '[DISABLE]' will be used to enable the cheat
+alloc(newmem,2048)
+label(returnhere)
+label(originalcode)
+label(exit)
+
+newmem: //this is allocated memory, you have read,write,execute access
+//place your code here
+
+originalcode:
+//fst dword ptr [Scrap.exe+4162D8]
+
+exit:
+jmp returnhere
+
+"Scrap.exe"+FC773:
+jmp newmem
+nop
+returnhere:
+
+
+ 
+ 
+[DISABLE]
+//code from here till the end of the code will be used to disable the cheat
+dealloc(newmem)
+"Scrap.exe"+FC773:
+fst dword ptr [Scrap.exe+4162D8]
+//Alt: db D9 15 D8 62 81 00
+</AssemblerScript>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>60</ID>
+              <Description>"datameter3"</Description>
+              <LastState Activated="1"/>
+              <VariableType>Auto Assembler Script</VariableType>
+              <AssemblerScript>[ENABLE]
+//code from here to '[DISABLE]' will be used to enable the cheat
+alloc(newmem,2048)
+label(returnhere)
+label(originalcode)
+label(exit)
+
+newmem: //this is allocated memory, you have read,write,execute access
+//place your code here
+
+originalcode:
+//mov [Scrap.exe+4162D8],ecx
+
+exit:
+jmp returnhere
+
+"Scrap.exe"+FC7CA:
+jmp newmem
+nop
+returnhere:
+
+
+ 
+ 
+[DISABLE]
+//code from here till the end of the code will be used to disable the cheat
+dealloc(newmem)
+"Scrap.exe"+FC7CA:
+mov [Scrap.exe+4162D8],ecx
+//Alt: db 89 0D D8 62 81 00
+</AssemblerScript>
+            </CheatEntry>
+          </CheatEntries>
+        </CheatEntry>
+      </CheatEntries>
+    </CheatEntry>
+  </CheatEntries>
+  <CheatCodes>
+    <CodeEntry>
+      <Description>aaa1</Description>
+      <AddressString>Scrap.exe+AF08E</AddressString>
+      <Before>
+        <Byte>8D</Byte>
+        <Byte>0C</Byte>
+        <Byte>91</Byte>
+        <Byte>D8</Byte>
+        <Byte>01</Byte>
+      </Before>
+      <Actual>
+        <Byte>D9</Byte>
+        <Byte>19</Byte>
+      </Actual>
+      <After>
+        <Byte>8B</Byte>
+        <Byte>0D</Byte>
+        <Byte>04</Byte>
+        <Byte>0B</Byte>
+        <Byte>80</Byte>
+      </After>
+    </CodeEntry>
+    <CodeEntry>
+      <Description>2</Description>
+      <AddressString>Scrap.exe+AF08C</AddressString>
+      <Before>
+        <Byte>48</Byte>
+        <Byte>08</Byte>
+        <Byte>8D</Byte>
+        <Byte>0C</Byte>
+        <Byte>91</Byte>
+      </Before>
+      <Actual>
+        <Byte>D8</Byte>
+        <Byte>01</Byte>
+      </Actual>
+      <After>
+        <Byte>90</Byte>
+        <Byte>90</Byte>
+        <Byte>8B</Byte>
+        <Byte>0D</Byte>
+        <Byte>04</Byte>
+      </After>
+    </CodeEntry>
+    <CodeEntry>
+      <Description>3</Description>
+      <AddressString>Scrap.exe+AF089</AddressString>
+      <Before>
+        <Byte>24</Byte>
+        <Byte>1C</Byte>
+        <Byte>D8</Byte>
+        <Byte>48</Byte>
+        <Byte>08</Byte>
+      </Before>
+      <Actual>
+        <Byte>8D</Byte>
+        <Byte>0C</Byte>
+        <Byte>91</Byte>
+      </Actual>
+      <After>
+        <Byte>90</Byte>
+        <Byte>90</Byte>
+        <Byte>90</Byte>
+        <Byte>90</Byte>
+        <Byte>8B</Byte>
+      </After>
+    </CodeEntry>
+    <CodeEntry>
+      <Description>4</Description>
+      <AddressString>Scrap.exe+AF086</AddressString>
+      <Before>
+        <Byte>20</Byte>
+        <Byte>D9</Byte>
+        <Byte>44</Byte>
+        <Byte>24</Byte>
+        <Byte>1C</Byte>
+      </Before>
+      <Actual>
+        <Byte>D8</Byte>
+        <Byte>48</Byte>
+        <Byte>08</Byte>
+      </Actual>
+      <After>
+        <Byte>90</Byte>
+        <Byte>90</Byte>
+        <Byte>90</Byte>
+        <Byte>90</Byte>
+        <Byte>90</Byte>
+      </After>
+    </CodeEntry>
+    <CodeEntry>
+      <Description>5</Description>
+      <AddressString>Scrap.exe+AF082</AddressString>
+      <Before>
+        <Byte>01</Byte>
+        <Byte>CC</Byte>
+        <Byte>8B</Byte>
+        <Byte>4E</Byte>
+        <Byte>20</Byte>
+      </Before>
+      <Actual>
+        <Byte>D9</Byte>
+        <Byte>44</Byte>
+        <Byte>24</Byte>
+        <Byte>1C</Byte>
+      </Actual>
+      <After>
+        <Byte>90</Byte>
+        <Byte>90</Byte>
+        <Byte>90</Byte>
+        <Byte>90</Byte>
+        <Byte>90</Byte>
+      </After>
+    </CodeEntry>
+    <CodeEntry>
+      <Description>5</Description>
+      <AddressString>Scrap.exe+AF07F</AddressString>
+      <Before>
+        <Byte>03</Byte>
+        <Byte>C7</Byte>
+        <Byte>EB</Byte>
+        <Byte>01</Byte>
+        <Byte>CC</Byte>
+      </Before>
+      <Actual>
+        <Byte>8B</Byte>
+        <Byte>4E</Byte>
+        <Byte>20</Byte>
+      </Actual>
+      <After>
+        <Byte>90</Byte>
+        <Byte>90</Byte>
+        <Byte>90</Byte>
+        <Byte>90</Byte>
+        <Byte>90</Byte>
+      </After>
+    </CodeEntry>
+  </CheatCodes>
+  <UserdefinedSymbols/>
+</CheatTable>
