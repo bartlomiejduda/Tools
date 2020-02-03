@@ -8,9 +8,10 @@
 # v1.1   26.10.2019  Bartlomiej Duda
 # v1.2   26.10.2019  Bartlomiej Duda
 # v1.3   27.10.2019  Bartlomiej Duda
+# v1.4   03.02.2020  Bartlomiej Duda
 
 
-VERSION_NUM = "v1.3"
+VERSION_NUM = "v1.4"
 
 
 import os
@@ -18,6 +19,44 @@ import sys
 import struct
 import traceback
 from PIL import Image
+
+
+
+def read_palettes(p_input_palette_filepath):
+    print("Starting Crash Java palette read...")
+    palette_file = open(p_input_palette_filepath, 'rb')
+    
+    num_of_palettes = struct.unpack('>B', palette_file.read(1))[0]
+    palette_arr = []
+    
+    for i in range(num_of_palettes):
+        palette_size = struct.unpack('>H', palette_file.read(2))[0]
+        palette_block = palette_file.read(palette_size)
+        palette_arr.append(palette_block)
+        #print("Curr_offset: " + str(palette_file.tell())  )
+        
+    palette_file.close()    
+    print("Ending Crash Java palette read...")
+    
+    
+def read_styles(p_input_stylefile_filepath):
+    print("Starting Crash Java style read...")
+    style_file = open(p_input_stylefile_filepath, 'rb')
+    
+    num_of_styles = struct.unpack('>B', style_file.read(1))[0]
+    style_list_arr = []
+
+    for i in range(num_of_styles):
+        style_arr = []
+        read2_val = struct.unpack('>B', style_file.read(1))[0]
+        for i in range(read2_val):
+            style_size = struct.unpack('>B', style_file.read(1))[0]
+            style_block = style_file.read(5 * style_size)
+            style_arr.append(style_block)
+            print("Curr_offset: " + str(style_file.tell())  )
+        
+    style_file.close()    
+    print("Ending Crash Java style read...")    
 
 
 
@@ -123,6 +162,15 @@ def read_sprite(p_input_spritefile_path, p_output_folder):
     
     
 
-input_spritefile_path = "C:\\Users\\Adam\\Desktop\\Sprites_nb_5"
-output_folder = "C:\\Users\\Adam\\Desktop\\Sprites_nb_5_out"
-read_sprite(input_spritefile_path, output_folder)
+#input_spritefile_path = "C:\\Users\\Adam\\Desktop\\Sprites_nb_5"
+#output_folder = "C:\\Users\\Adam\\Desktop\\Sprites_nb_5_out"
+#read_sprite(input_spritefile_path, output_folder)
+
+
+
+#p_input_palette_filepath = "C:\\Users\\Arek\\Desktop\\Boards_Palettes.bin"
+#read_palettes(p_input_palette_filepath)
+
+
+p_input_stylefile_filepath = "C:\\Users\\Arek\\Desktop\\Boards_Styles_Datas.bin"
+read_styles(p_input_stylefile_filepath)

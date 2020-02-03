@@ -1,0 +1,15 @@
+Document created by Bartlomiej Duda
+Creation date: 03.02.2020
+
+
+// Boards_Palettes.bin
+
+
+1 byte - num_of_palettes
+
+
+num_of_palettes * 
+{
+   2 bytes - palette size
+   x bytes - palette data
+}

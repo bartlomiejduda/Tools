@@ -1,0 +1,18 @@
+Document created by Bartlomiej Duda
+Creation date: 03.02.2020
+
+
+// Boards_Styles_Datas.bin
+
+1 byte - num_of_styles
+
+num_of_styles *
+{
+  1 byte - read2_val //array dimension
+  read2_val *
+  {
+    1 byte - read3_val  //style size?
+    5*read3_val bytes - style_data
+  }
+
+}
