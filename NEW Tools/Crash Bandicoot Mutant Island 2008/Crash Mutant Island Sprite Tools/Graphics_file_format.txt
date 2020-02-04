@@ -1,0 +1,21 @@
+Document created by Bartlomiej Duda
+Creation date: 04.02.2020
+
+
+// Graphics files without extension
+// inside JAR file
+// for example "119", "09", "58" etc.
+
+
+1 byte - number_of_graphics
+
+number_of_graphics *
+{
+  4 bytes - graphics_offset
+}
+
+number_of_graphics *
+{
+  2 bytes - graphics_offset
+  x bytes - graphics_data
+}

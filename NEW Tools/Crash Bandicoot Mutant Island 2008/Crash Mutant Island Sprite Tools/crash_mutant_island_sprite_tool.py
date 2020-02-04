@@ -9,6 +9,7 @@
 # v1.2   26.10.2019  Bartlomiej Duda
 # v1.3   27.10.2019  Bartlomiej Duda
 # v1.4   03.02.2020  Bartlomiej Duda
+# v1.5   04.02.2020  Bartlomiej Duda
 
 
 VERSION_NUM = "v1.4"
@@ -57,6 +58,26 @@ def read_styles(p_input_stylefile_filepath):
         
     style_file.close()    
     print("Ending Crash Java style read...")    
+
+
+#119
+def read_graphics(p_input_graphicsfile_filepath):
+    print("Starting Crash Java graphics read...")
+    graphics_file = open(p_input_graphicsfile_filepath, 'rb')   
+    num_of_graphics = struct.unpack('>B', graphics_file.read(1))[0]
+    graphics_offsets_arr = []
+    graphics_data_arr = []
+    for i in range(num_of_graphics):
+        gr_offset = struct.unpack('>i', graphics_file.read(4))[0]
+        graphics_offsets_arr.append(gr_offset)
+    for i in range(num_of_graphics):
+        gr_size = struct.unpack('>H', graphics_file.read(2))[0]
+        gr_block = graphics_file.read(gr_size)
+        graphics_data_arr.append(gr_block)
+        print("Curr_offset: " + str(graphics_file.tell())  )
+        
+    graphics_file.close()    
+    print("Ending Crash Java graphics read...")        
 
 
 
@@ -172,5 +193,8 @@ def read_sprite(p_input_spritefile_path, p_output_folder):
 #read_palettes(p_input_palette_filepath)
 
 
-p_input_stylefile_filepath = "C:\\Users\\Arek\\Desktop\\Boards_Styles_Datas.bin"
-read_styles(p_input_stylefile_filepath)
+#p_input_stylefile_filepath = "C:\\Users\\Arek\\Desktop\\Boards_Styles_Datas.bin"
+#read_styles(p_input_stylefile_filepath)
+
+p_input_graphicsfile_filepath = "C:\\Users\\Arek\\Desktop\\119"
+read_graphics(p_input_graphicsfile_filepath)
