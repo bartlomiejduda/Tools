@@ -1,0 +1,16 @@
+Document created by Bartlomiej Duda
+Creation date: 05.02.2020
+
+
+// TRAD_xxxx.loc file format
+
+
+4 bytes - size of the header
+4 bytes - number of text strings
+x bytes - header
+
+num_of_strings *
+{
+  2 bytes - length of the string
+  x bytes - string
+}

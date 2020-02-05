@@ -1,0 +1,20 @@
+Document created by Bartlomiej Duda
+Creation date: 05.02.2020
+
+
+// Save file format
+// settek_1.rms file (KEmulator file in "rms" folder)
+
+
+4 bytes - current language
+4 bytes - current keymap
+4 bytes - selected timer
+4 bytes - game difficulty
+4 bytes - battle rounds
+4 bytes - current language 2
+1 byte - is music enabled
+1 byte - is FX enabled
+1 byte - is force mode new
+1 byte - is custom mode new
+1 byte - is vibration enabled
+1 byte - is custom mode data saved
