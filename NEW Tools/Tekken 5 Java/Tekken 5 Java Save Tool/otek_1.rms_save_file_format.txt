@@ -1,0 +1,25 @@
+Document created by Bartlomiej Duda
+Creation date: 05.02.2020
+
+
+// Save file format
+// otek_1.rms file (KEmulator file in "rms" folder)
+
+
+
+2 bytes - version   // should be "1"
+
+
+
+//64 bytes in total
+num_of_fighters *  // always 8
+{
+  num_of_outfits *  // always 8
+  {
+    1 byte - reward fighter outfit status
+  }
+}
+
+
+4 bytes - reward unlocked success
+4 bytes - reward money
