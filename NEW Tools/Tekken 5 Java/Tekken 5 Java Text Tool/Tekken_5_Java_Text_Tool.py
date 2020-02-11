@@ -1,26 +1,22 @@
 # -*- coding: utf-8 -*-
 
 # Tested on Python 3.8.0
-# This tool should be used with Tekken 5 Java game
+# This tool should be used with Tekken Mobile Java game
 
 # Ver    Date        Name
 # v0.1   05.02.2020  Bartlomiej Duda
 # v0.2   08.02.2020  Bartlomiej Duda
 # v0.3   09.02.2020  Bartlomiej Duda
+# v0.4   10.02.2020  Bartlomiej Duda
 
 
 
-VERSION_NUM = "v0.3"
+VERSION_NUM = "v0.4"
 
 
 import os
 import sys
 import struct
-import tkinter as tk
-from tkinter import messagebox, StringVar, OptionMenu, filedialog, ttk, Text, LabelFrame, Radiobutton
-import webbrowser
-import traceback
-import stat
 
 
 
@@ -31,7 +27,7 @@ def bd_logger(in_str):
 
 
 def read_loc(p_input_loc_filepath, p_out_filepath):
-    bd_logger("Starting Tekken 5 loc read...")
+    bd_logger("Starting Tekken Mobile loc read...")
     loc_file = open(p_input_loc_filepath, 'rb') 
     out_file = open(p_out_filepath, 'wt+') 
     str_arr = []
@@ -55,14 +51,14 @@ def read_loc(p_input_loc_filepath, p_out_filepath):
                        )
         out_file.write("\n")
 
-    print("Offset: " + str(loc_file.tell()))
+    #print("Offset: " + str(loc_file.tell()))
     
-    bd_logger("Ending Tekken 5 loc read...")
+    bd_logger("Ending Tekken Mobile loc read...")
     
 
 
 def write_loc(p_input_ini_filepath, p_loc_out_filepath):
-    bd_logger("Starting Tekken 5 loc write...")
+    bd_logger("Starting Tekken Mobile loc write...")
     loc_file = open(p_loc_out_filepath, 'rb') 
     ini_file = open(p_input_ini_filepath, 'rt', encoding="utf-8")  #  windows-1250 or utf-8
     
@@ -80,31 +76,58 @@ def write_loc(p_input_ini_filepath, p_loc_out_filepath):
         #print(str(cnt) + ") " + line)
     ini_file.close()
     
-    loc_file = open(p_loc_out_filepath + "temp111", 'wb+') 
+    loc_file = open(p_loc_out_filepath + "_NEW", 'wb+') 
     loc_file.write(struct.Struct(">i").pack(size_of_the_header))
     loc_file.write(struct.Struct(">i").pack(num_of_text_strings))
     loc_file.write(header_data)
     
     for line_a in line_arr:
         
-        line_res = ( line_a.rstrip("\n").encode("utf-8").replace(b"\\n", b"\n")   #  windows-1250 or utf-8
+        line_res = ( line_a.rstrip("\n").replace("Ż", "À")
+                                        .replace("Ó", "Ó")
+                                        .replace("Ł", "Ò")
+                                        .replace("Ć", "Ö")
+                                        .replace("Ę", "É")
+                                        .replace("Ś", "Á")
+                                        .replace("Ą", "Â")
+                                        .replace("Ź", "Ä")
+                                        .replace("Ń", "Ñ")
+                     
+                                        .replace("ż", "à")
+                                        .replace("ó", "ó")
+                                        .replace("ł", "ò")
+                                        .replace("ć", "ö")
+                                        .replace("ę", "é")
+                                        .replace("ś", "á")
+                                        .replace("ą", "â")
+                                        .replace("ź", "ä")
+                                        .replace("ń", "ñ")
+                     
+                                        .encode("utf-8").replace(b"\\n", b"\n")   #  windows-1250 or utf-8
                                         .replace(b"<TM_SIGN>", b"\xE2\x84\xA2")
                                         .replace(b"<CP_SIGN>", b"\xC2\xA9")
+                                        
+         
                      )
         
         line_res_len = len(line_res)
         loc_file.write(struct.Struct(">H").pack(line_res_len))
         loc_file.write(line_res )   
     
-    bd_logger("Ending Tekken 5 loc write...")
+    bd_logger("Ending Tekken Mobile loc write...")
     
+
+
+
+bd_logger("Tekken Mobile Java Tool " + VERSION_NUM)
     
-    
+#  LOC to INI    
 #input_loc_filepath = "C:\\Users\\Arek\\Desktop\\TRAD_english.loc"
 #out_filepath = "C:\\Users\\Arek\\Desktop\\OUT.ini"
 #read_loc(input_loc_filepath, out_filepath)
 
 
+#  INI to LOC
 input_ini_filepath = "C:\\Users\\Arek\\Desktop\\OUT.ini"
 loc_out_filepath = "C:\\Users\\Arek\\Desktop\\TRAD_english.loc"
 write_loc(input_ini_filepath, loc_out_filepath)
