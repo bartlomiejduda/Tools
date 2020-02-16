@@ -1,0 +1,26 @@
+Document created by Bartlomiej Duda
+Creation date: 16.02.2020
+
+
+// Silent Hill: Shattered Memories (PSP)
+// DATA.ARC (zlib compressed)
+
+
+4 bytes - magic \x10\xfa\x00\x00
+4 bytes - num_of_files
+4 bytes - data start offset
+4 bytes - dummy
+
+
+num_of_files *
+{
+  4 bytes - CRC
+  4 bytes - offset of the file
+  4 bytes - compressed  file size
+  4 bytes - uncompressed file size
+}
+
+num_of_files *
+{
+  x bytes - file data
+}

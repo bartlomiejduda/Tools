@@ -1,0 +1,24 @@
+Document created by Bartlomiej Duda
+Creation date: 16.02.2020
+
+
+// Silent Hill: Shattered Memories (PSP)
+// SUB file format (in-game texts)
+
+4 bytes - version number "\x02\x00\x00\x00"
+4 bytes - number of strings
+
+
+number_of_strings *
+{
+   4 bytes - string hash (UInt)
+   4 bytes - string offset/2 (UInt)    //relative from first string offset
+}
+
+
+number_of_strings *
+{
+   1 byte - string tag 1
+   1 byte - string tag 2
+   x bytes - string
+}
