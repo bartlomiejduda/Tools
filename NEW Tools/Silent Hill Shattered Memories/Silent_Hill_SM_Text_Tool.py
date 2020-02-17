@@ -8,8 +8,9 @@
 # v0.2   16.02.2020  Bartlomiej Duda
 # v0.3   17.02.2020  Bartlomiej Duda
 # v0.4   17.02.2020  Bartlomiej Duda
+# v0.5   17.02.2020  Bartlomiej Duda
 
-VERSION_NUM = "v0.4"
+VERSION_NUM = "v0.5"
 
 import os
 import sys
@@ -65,7 +66,10 @@ def read_SUB(in_sub_filepath):
                 else:
                     str1 += decode_char(ch)
             #print( str(i+1) + ") " + str1 )  
-            str1 = ( str1.replace("\n", "\\n").replace("\r", "\\r")  )
+            str1 = ( str1.replace("\n", "\\n")
+                         .replace("\r", "\\r")  
+                         .replace("™", "<TM_SIGN>")
+                     )
             text_arr.append(str1)
         except:
             offset_end = sub_file.tell()
@@ -103,19 +107,98 @@ def read_SUB_ALL():
         p_in_sub_filepath = "C:\\Users\\Arek\\Desktop\\SUB_ENG\\" + file_i + ".sub"
         read_SUB(p_in_sub_filepath)
     print("FINISHED ALL!")
-    
+
+
+def generate_hash(in_str):
+    return 858993459 #TODO
+
+def convert_str(in_str):
+    out_str = b""
+    for ch in in_str:
+        if ch < 5:
+            out_str += struct.Struct("<B").pack(ch)
+        else:
+            out_str += struct.Struct("<H").pack(ch)
+    return out_str
 
 def write_SUB(in_ini_filepath):
     bd_logger("Starting write_SUB function...")
     ini_file = open(in_ini_filepath, 'rt')
     
     ini_line_arr = []
+    num_of_lines = 0
     for line in ini_file:
-        line_i = line.split("BD_TRANSLATE_TEXT=")[1]
-        ini_line_arr.append(line_i)
         
-    for line in ini_line_arr:
-        print(line)
+        line_i = line.split("BD_TRANSLATE_TEXT=")[1].rstrip("\n")
+        line_i = (  line_i
+                    
+                    .replace("\\n", "\n")
+                    .replace("\\r", "\r")
+                    
+                    .encode("utf-8") )        
+        
+        
+        line_i = convert_str(line_i)
+        line_i = (  line_i
+                    
+                    .replace( convert_str(b"<TAG_1>"), b"\x01\x00")
+                    #.replace(b"<\x00T\x00A\x00G\x00_\x002\x00>", b"\x02\x00")
+                    .replace( convert_str(b"<TM_SIGN>"), b"\x22\x21")
+                    
+                    
+                    #.replace( ("<TM_SIGN>".encode("utf-16")), b"\x05\x00")
+                    #.replace( ("<TAG_1><TAG_1>".encode("utf-16")), b"\x01\x00\x01\x00")
+                    #.replace(b"\x3C\x00\x54\x00\x41\x00\x47\x00\x5F\x00\x31\x00\x3E", b"\x01\x00") #<TAG_1>
+                    .replace("<TAG_2>".encode("utf-16"), b"\x02\x00")
+                    .replace("<TAG_3>".encode("utf-16"), b"\x03\x00")
+                    .replace("<TAG_4>".encode("utf-16"), b"\x04\x00")
+                    .replace("<TAG_5>".encode("utf-16"), b"\x05\x00")
+                    #.replace(b"\x3C\x00\x54\x00\x4D\x00\x5F\x00\x53\x00\x49\x00\x47\x00\x4E\x00\x3E", b"\x22\x21\x20")  #<TM_SIGN>
+                    
+
+                    )
+        
+        line_i = line_i + b"\x00\x00" #padding
+        
+        ini_line_arr.append(line_i)
+        num_of_lines += 1
+        
+    ini_file.close()
+    
+    #for line in ini_line_arr:
+        #print(line)
+    
+    sub_filepath = in_ini_filepath.rstrip(".ini") + "_NEW" 
+    print(sub_filepath)
+    sub_file = open(sub_filepath, 'wb+')
+    sub_file.write(struct.Struct("<I").pack(2)) #version num
+    sub_file.write(struct.Struct("<I").pack(num_of_lines)) #number of strings
+    
+    hash_arr = []
+    for i in range(num_of_lines): #generate hashes
+        str_h = "hhh" #TODO 
+        hash_arr.append(  generate_hash(str_h) )
+    
+    offset_arr = []    
+    base_offset = 8 + (4 * num_of_lines) + (4 * num_of_lines)
+    curr_offset = 0
+    for i in range(num_of_lines): #generate offsets 
+        offset_i = int(curr_offset / 2)
+        #print("offset_i: " + str(offset_i) + ", curr_offset: " + str(curr_offset) + ", len_line_arr: " + str(len(ini_line_arr[i])) )
+        curr_offset += len(ini_line_arr[i])
+        offset_arr.append(offset_i)
+        
+    for i in range(num_of_lines): #writing hash/offset array 
+        sub_file.write(struct.Struct("<I").pack(hash_arr[i]))
+        sub_file.write(struct.Struct("<I").pack(offset_arr[i]))
+        
+    for i in range(num_of_lines): #writing strings 
+        sub_file.write(ini_line_arr[i] )
+    
+    
+    
+    
+    sub_file.close()
     
     bd_logger("Ending write_SUB function...")
 
@@ -132,5 +215,5 @@ def write_SUB(in_ini_filepath):
 
 
 #write SUB
-p_in_ini_filepath = "C:\\Users\\Arek\\Desktop\\SUB_ENG\\DATA_1317.sub.ini"
+p_in_ini_filepath = "C:\\Users\\Arek\\Desktop\\SUB_ENG\\DATA_47.sub.ini"
 write_SUB(p_in_ini_filepath)

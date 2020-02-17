@@ -18,7 +18,5 @@ number_of_strings *
 
 number_of_strings *
 {
-   1 byte - string tag 1
-   1 byte - string tag 2
    x bytes - string
 }
