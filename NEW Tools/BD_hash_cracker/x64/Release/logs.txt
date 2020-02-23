@@ -1,0 +1,15 @@
+
+
+
+
+
+23/02/2020 12:28:24 LOG MAIN_010 Starting Hash Cracker
+23/02/2020 12:28:24 LOG INIT_CRACK_010 Starting loop, word length: 36
+
+
+
+
+
+23/02/2020 12:28:48 LOG MAIN_010 Starting Hash Cracker
+23/02/2020 12:28:48 LOG INIT_CRACK_010 Starting loop, word length: 36
+23/02/2020 12:28:58 LOG LOG_TO_CONSOLE_010 Time_elapsed: 9.99151 Curr_word: eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeuKOAG Word_count: 1671724 Word speed: 168158\s

@@ -1,0 +1,612 @@
+
+
+
+
+
+08/06/2019 17:19:27 LOG MAIN_010 Starting Hercules Hash Cracker
+08/06/2019 17:19:27 LOG INIT_CRACK_010 End of loop, len: 1
+08/06/2019 17:19:27 LOG INIT_CRACK_010 End of loop, len: 2
+08/06/2019 17:19:27 LOG INIT_CRACK_010 End of loop, len: 3
+08/06/2019 17:19:28 LOG INIT_CRACK_010 End of loop, len: 4
+08/06/2019 17:19:30 LOG INIT_CRACK_010 End of loop, len: 5
+08/06/2019 17:19:37 LOG LOG_TO_CONSOLE_010 Time elapsed: 10.0058 Curr_word: .a_dbd Word_count: 171794
+08/06/2019 17:19:45 LOG INIT_CRACK_010 End of loop, len: 6
+08/06/2019 17:19:47 LOG LOG_TO_CONSOLE_010 Time elapsed: 20.0122 Curr_word: abdb_f_ Word_count: 345605
+08/06/2019 17:19:57 LOG LOG_TO_CONSOLE_010 Time elapsed: 30.0207 Curr_word: a_.\dba Word_count: 515343
+08/06/2019 17:20:07 LOG LOG_TO_CONSOLE_010 Time elapsed: 40.0321 Curr_word: bd_cd__ Word_count: 685886
+08/06/2019 17:20:17 LOG LOG_TO_CONSOLE_010 Time elapsed: 50.0423 Curr_word: cbaa.af Word_count: 856911
+08/06/2019 17:20:27 LOG LOG_TO_CONSOLE_010 Time elapsed: 60.0507 Curr_word: c_b_.\a Word_count: 1027951
+
+
+
+
+
+09/06/2019 01:11:12 LOG MAIN_010 Starting Hercules Hash Cracker
+09/06/2019 01:11:12 LOG INIT_CRACK_010 End of loop, len: 1
+09/06/2019 01:11:12 LOG INIT_CRACK_010 End of loop, len: 2
+09/06/2019 01:11:12 LOG INIT_CRACK_010 End of loop, len: 3
+09/06/2019 01:11:13 LOG INIT_CRACK_010 End of loop, len: 4
+09/06/2019 01:11:14 LOG INIT_CRACK_010 End of loop, len: 5
+09/06/2019 01:11:22 LOG LOG_TO_CONSOLE_010 Time elapsed: 10 Curr_word: .c_afc Word_count: 179841
+09/06/2019 01:11:29 LOG INIT_CRACK_010 End of loop, len: 6
+09/06/2019 01:11:32 LOG LOG_TO_CONSOLE_010 Time elapsed: 20.0084 Curr_word: ab_\b\\ Word_count: 359605
+
+
+
+
+
+09/06/2019 01:20:06 LOG MAIN_010 Starting Hercules Hash Cracker
+09/06/2019 01:20:06 LOG INIT_CRACK_010 End of loop, len: 1
+09/06/2019 01:20:06 LOG INIT_CRACK_010 End of loop, len: 2
+09/06/2019 01:20:06 LOG INIT_CRACK_010 End of loop, len: 3
+09/06/2019 01:20:06 LOG INIT_CRACK_010 End of loop, len: 4
+09/06/2019 01:20:08 LOG INIT_CRACK_010 End of loop, len: 5
+
+
+
+
+
+09/06/2019 01:20:24 LOG MAIN_010 Starting Hercules Hash Cracker
+09/06/2019 01:20:24 LOG INIT_CRACK_010 End of loop, len: 1
+09/06/2019 01:20:24 LOG INIT_CRACK_010 End of loop, len: 2
+09/06/2019 01:20:24 LOG INIT_CRACK_010 End of loop, len: 3
+09/06/2019 01:20:24 LOG INIT_CRACK_010 End of loop, len: 4
+09/06/2019 01:20:26 LOG INIT_CRACK_010 End of loop, len: 5
+09/06/2019 01:20:34 LOG LOG_TO_CONSOLE_010 Time elapsed: 10.0106 Curr_word: .c\fab Word_count: 179720 Word speed: 17303\s
+
+09/06/2019 01:20:41 LOG INIT_CRACK_010 End of loop, len: 6
+09/06/2019 01:20:44 LOG LOG_TO_CONSOLE_010 Time elapsed: 20.0239 Curr_word: ab_bf\f Word_count: 357943 Word speed: 17303\s
+
+09/06/2019 01:20:54 LOG LOG_TO_CONSOLE_010 Time elapsed: 30.0374 Curr_word: afafafb Word_count: 532609 Word speed: 17303\s
+
+09/06/2019 01:21:04 LOG LOG_TO_CONSOLE_010 Time elapsed: 40.0508 Curr_word: b.dda_c Word_count: 706682 Word speed: 17303\s
+
+09/06/2019 01:21:14 LOG LOG_TO_CONSOLE_010 Time elapsed: 50.0643 Curr_word: cb\ffd\ Word_count: 881189 Word speed: 17303\s
+
+09/06/2019 01:21:24 LOG LOG_TO_CONSOLE_010 Time elapsed: 60.0795 Curr_word: cfa._da Word_count: 1055711 Word speed: 17303\s
+
+09/06/2019 01:21:34 LOG LOG_TO_CONSOLE_010 Time elapsed: 70.1007 Curr_word: d.daf\\ Word_count: 1229876 Word speed: 17303\s
+
+09/06/2019 01:21:44 LOG LOG_TO_CONSOLE_010 Time elapsed: 80.1191 Curr_word: .b\\cbb Word_count: 1404112 Word speed: 17303\s
+
+09/06/2019 01:21:54 LOG LOG_TO_CONSOLE_010 Time elapsed: 90.1412 Curr_word: .fabad. Word_count: 1578084 Word speed: 17303\s
+
+09/06/2019 01:22:04 LOG LOG_TO_CONSOLE_010 Time elapsed: 100.159 Curr_word: \.c._b\ Word_count: 1752021 Word speed: 17303\s
+
+09/06/2019 01:22:14 LOG LOG_TO_CONSOLE_010 Time elapsed: 110.18 Curr_word: _b..\fd Word_count: 1924035 Word speed: 17303\s
+
+09/06/2019 01:22:24 LOG LOG_TO_CONSOLE_010 Time elapsed: 120.2 Curr_word: ____abc Word_count: 2096721 Word speed: 17303\s
+
+09/06/2019 01:22:34 LOG LOG_TO_CONSOLE_010 Time elapsed: 130.221 Curr_word: f.bc\.b Word_count: 2271145 Word speed: 17303\s
+
+
+
+
+
+
+09/06/2019 01:23:15 LOG MAIN_010 Starting Hercules Hash Cracker
+09/06/2019 01:23:15 LOG INIT_CRACK_010 End of loop, len: 1
+09/06/2019 01:23:15 LOG INIT_CRACK_010 End of loop, len: 2
+09/06/2019 01:23:15 LOG INIT_CRACK_010 End of loop, len: 3
+09/06/2019 01:23:15 LOG INIT_CRACK_010 End of loop, len: 4
+09/06/2019 01:23:17 LOG INIT_CRACK_010 End of loop, len: 5
+
+
+
+
+
+09/06/2019 01:23:42 LOG MAIN_010 Starting Hercules Hash Cracker
+09/06/2019 01:23:42 LOG INIT_CRACK_010 End of loop, len: 1
+09/06/2019 01:23:42 LOG INIT_CRACK_010 End of loop, len: 2
+09/06/2019 01:23:42 LOG INIT_CRACK_010 End of loop, len: 3
+09/06/2019 01:23:42 LOG INIT_CRACK_010 End of loop, len: 4
+09/06/2019 01:23:44 LOG INIT_CRACK_010 End of loop, len: 5
+09/06/2019 01:23:52 LOG LOG_TO_CONSOLE_010 Time_elapsed: 10.0101 Curr_word: .c_c._ Word_count: 179949 Word speed: 17030\s
+09/06/2019 01:23:59 LOG INIT_CRACK_010 End of loop, len: 6
+09/06/2019 01:24:02 LOG LOG_TO_CONSOLE_010 Time_elapsed: 20.0234 Curr_word: ab_abb\ Word_count: 357013 Word speed: 17030\s
+09/06/2019 01:24:12 LOG LOG_TO_CONSOLE_010 Time_elapsed: 30.0369 Curr_word: afabad_ Word_count: 529509 Word speed: 17030\s
+09/06/2019 01:24:22 LOG LOG_TO_CONSOLE_010 Time_elapsed: 40.0522 Curr_word: b.cccdb Word_count: 702176 Word speed: 17030\s
+09/06/2019 01:24:32 LOG LOG_TO_CONSOLE_010 Time_elapsed: 50.0659 Curr_word: cb.dc.b Word_count: 874728 Word speed: 17030\s
+09/06/2019 01:24:42 LOG LOG_TO_CONSOLE_010 Time_elapsed: 60.0816 Curr_word: c___f_c Word_count: 1048634 Word speed: 17030\s
+
+
+
+
+
+09/06/2019 01:27:34 LOG MAIN_010 Starting Hercules Hash Cracker
+
+
+
+
+
+09/06/2019 01:29:03 LOG MAIN_010 Starting Hercules Hash Cracker
+
+
+
+
+
+09/06/2019 01:30:29 LOG MAIN_010 Starting Hercules Hash Cracker
+09/06/2019 01:30:29 LOG CHECK_HASH_010 Hash cracked! h_hash: 6040170 s_hash: 6040170 str: M:\GRAFIX\CHOP\SRC1\ALIEN2\Zeus\ANIMPSX.BIN
+
+
+
+
+
+09/06/2019 01:31:51 LOG MAIN_010 Starting Hercules Hash Cracker
+09/06/2019 01:31:51 LOG CHECK_HASH_010 Hash cracked! h_hash: 6040170 s_hash: 6040170 str: M:\GRAFIX\CHOP\SRC1\ALIEN2\Zeus\ANIMPSX.BIN
+
+
+
+
+
+09/06/2019 01:32:41 LOG MAIN_010 Starting Hercules Hash Cracker
+09/06/2019 01:32:41 LOG CHECK_HASH_010 Hash cracked! h_hash: 6040170 s_hash: 6040170 str: M:\GRAFIX\CHOP\SRC1\ALIEN2\Zeus\ANIMPSX.BIN
+09/06/2019 01:32:42 LOG MAIN_020 Hercules Hash Cracker STOP
+
+
+
+
+
+09/06/2019 01:33:54 LOG MAIN_010 Starting Hercules Hash Cracker
+09/06/2019 01:33:54 LOG CHECK_HASH_010 Hash cracked! h_hash: 6040170 s_hash: 6040170 str: M:\GRAFIX\CHOP\SRC1\ALIEN2\Zeus\ANIMPSX.BIN
+09/06/2019 01:33:55 LOG MAIN_020 Hercules Hash Cracker STOP
+
+
+
+
+
+09/06/2019 01:34:33 LOG MAIN_010 Starting Hercules Hash Cracker
+09/06/2019 01:34:33 LOG CHECK_HASH_010 Hash cracked! h_hash: 6040170 s_hash: 6040170 str: M:\GRAFIX\CHOP\SRC1\ALIEN2\Zeus\ANIMPSX.BIN
+09/06/2019 01:34:34 LOG MAIN_020 Hercules Hash Cracker STOP
+
+
+
+
+
+09/06/2019 01:35:55 LOG MAIN_010 Starting Hercules Hash Cracker
+09/06/2019 01:35:55 LOG CHECK_HASH_010 Hash cracked! h_hash: 6040170 s_hash: 6040170 str: M:\GRAFIX\CHOP\SRC1\ALIEN2\Zeus\ANIMPSX.BIN
+09/06/2019 01:35:56 LOG MAIN_020 Hercules Hash Cracker STOP
+
+
+
+
+
+09/06/2019 01:38:00 LOG MAIN_010 Starting Hercules Hash Cracker
+09/06/2019 01:38:00 LOG CHECK_HASH_010 Hash cracked! h_hash: 6040170 s_hash: 6040170 str: M:\GRAFIX\CHOP\SRC1\ALIEN2\Zeus\ANIMPSX.BIN
+09/06/2019 01:38:01 LOG MAIN_020 Hercules Hash Cracker STOP
+
+
+
+
+
+09/06/2019 01:39:04 LOG MAIN_010 Starting Hercules Hash Cracker
+09/06/2019 01:39:04 LOG CHECK_HASH_010 Hash cracked! h_hash: 6040170 s_hash: 6040170 str: M:\GRAFIX\CHOP\SRC1\ALIEN2\Zeus\ANIMPSX.BIN
+09/06/2019 01:39:05 LOG MAIN_020 Hercules Hash Cracker STOP
+
+
+
+
+
+09/06/2019 01:39:28 LOG MAIN_010 Starting Hercules Hash Cracker
+09/06/2019 01:39:28 LOG CHECK_HASH_010 Hash cracked! h_hash: 6040170 s_hash: 6040170 str: M:\GRAFIX\CHOP\SRC1\ALIEN2\Zeus\ANIMPSX.BIN
+09/06/2019 01:39:29 LOG MAIN_020 Hercules Hash Cracker STOP
+
+
+
+
+
+09/06/2019 01:39:53 LOG MAIN_010 Starting Hercules Hash Cracker
+09/06/2019 01:39:53 LOG INIT_CRACK_010 End of loop, len: 1
+09/06/2019 01:39:53 LOG INIT_CRACK_010 End of loop, len: 2
+09/06/2019 01:39:53 LOG INIT_CRACK_010 End of loop, len: 3
+09/06/2019 01:39:53 LOG INIT_CRACK_010 End of loop, len: 4
+09/06/2019 01:39:55 LOG INIT_CRACK_010 End of loop, len: 5
+
+
+
+
+
+09/06/2019 01:40:15 LOG MAIN_010 Starting Hercules Hash Cracker
+09/06/2019 01:40:15 LOG CHECK_HASH_010 Hash cracked! h_hash: 6040170 s_hash: 6040170 str: M:\GRAFIX\CHOP\SRC1\ALIEN2\Zeus\ANIMPSX.BIN
+09/06/2019 01:40:16 LOG MAIN_020 Hercules Hash Cracker STOP
+
+
+
+
+
+09/06/2019 01:41:07 LOG MAIN_010 Starting Hercules Hash Cracker
+09/06/2019 01:41:07 LOG CHECK_HASH_010 Hash cracked! h_hash: 6040170 s_hash: 6040170 str: M:\GRAFIX\CHOP\SRC1\ALIEN2\Zeus\ANIMPSX.BIN
+09/06/2019 01:41:08 LOG MAIN_020 Hercules Hash Cracker STOP
+
+
+
+
+
+09/06/2019 01:46:54 LOG MAIN_010 Starting Hercules Hash Cracker
+09/06/2019 01:46:54 LOG INIT_CRACK_010 End of loop, len: 1
+09/06/2019 01:46:55 LOG INIT_CRACK_010 End of loop, len: 2
+09/06/2019 01:46:55 LOG INIT_CRACK_010 End of loop, len: 3
+09/06/2019 01:46:55 LOG INIT_CRACK_010 End of loop, len: 4
+09/06/2019 01:46:55 LOG INIT_CRACK_010 End of loop, len: 5
+09/06/2019 01:46:56 LOG INIT_CRACK_010 End of loop, len: 6
+
+
+
+
+
+09/06/2019 01:47:38 LOG MAIN_010 Starting Hercules Hash Cracker
+09/06/2019 01:47:38 LOG INIT_CRACK_010 End of loop, len: 1
+09/06/2019 01:47:38 LOG INIT_CRACK_010 End of loop, len: 2
+09/06/2019 01:47:38 LOG INIT_CRACK_010 End of loop, len: 3
+09/06/2019 01:47:38 LOG INIT_CRACK_010 End of loop, len: 4
+09/06/2019 01:47:38 LOG INIT_CRACK_010 End of loop, len: 5
+09/06/2019 01:47:39 LOG INIT_CRACK_010 End of loop, len: 6
+
+
+
+
+
+09/06/2019 01:48:12 LOG MAIN_010 Starting Hercules Hash Cracker
+09/06/2019 01:48:12 LOG INIT_CRACK_010 End of loop, len: 1
+09/06/2019 01:48:12 LOG INIT_CRACK_010 End of loop, len: 2
+09/06/2019 01:48:12 LOG INIT_CRACK_010 End of loop, len: 3
+09/06/2019 01:48:12 LOG INIT_CRACK_010 End of loop, len: 4
+09/06/2019 01:48:12 LOG INIT_CRACK_010 End of loop, len: 5
+09/06/2019 01:48:13 LOG INIT_CRACK_010 End of loop, len: 6
+
+
+
+
+
+09/06/2019 01:49:41 LOG MAIN_010 Starting Hercules Hash Cracker
+09/06/2019 01:49:41 LOG INIT_CRACK_010 End of loop, len: 1
+09/06/2019 01:49:41 LOG INIT_CRACK_010 End of loop, len: 2
+09/06/2019 01:49:41 LOG INIT_CRACK_010 End of loop, len: 3
+09/06/2019 01:49:41 LOG INIT_CRACK_010 End of loop, len: 4
+09/06/2019 01:49:41 LOG INIT_CRACK_010 End of loop, len: 5
+09/06/2019 01:49:42 LOG INIT_CRACK_010 End of loop, len: 6
+
+
+
+
+
+09/06/2019 01:49:55 LOG MAIN_010 Starting Hercules Hash Cracker
+09/06/2019 01:49:55 LOG INIT_CRACK_010 End of loop, len: 1
+09/06/2019 01:49:55 LOG INIT_CRACK_010 End of loop, len: 2
+09/06/2019 01:49:55 LOG INIT_CRACK_010 End of loop, len: 3
+09/06/2019 01:49:55 LOG INIT_CRACK_010 End of loop, len: 4
+09/06/2019 01:49:57 LOG INIT_CRACK_010 End of loop, len: 5
+
+
+
+
+
+09/06/2019 01:50:06 LOG MAIN_010 Starting Hercules Hash Cracker
+09/06/2019 01:50:06 LOG INIT_CRACK_010 End of loop, len: 1
+09/06/2019 01:50:06 LOG INIT_CRACK_010 End of loop, len: 2
+09/06/2019 01:50:06 LOG INIT_CRACK_010 End of loop, len: 3
+09/06/2019 01:50:06 LOG INIT_CRACK_010 End of loop, len: 4
+09/06/2019 01:50:06 LOG INIT_CRACK_010 End of loop, len: 5
+09/06/2019 01:50:07 LOG INIT_CRACK_010 End of loop, len: 6
+
+
+
+
+
+09/06/2019 02:00:53 LOG MAIN_010 Starting Hercules Hash Cracker
+09/06/2019 02:00:53 LOG INIT_CRACK_010 End of loop, len: 1
+09/06/2019 02:00:53 LOG INIT_CRACK_010 End of loop, len: 2
+09/06/2019 02:00:53 LOG INIT_CRACK_010 End of loop, len: 3
+09/06/2019 02:00:53 LOG INIT_CRACK_010 End of loop, len: 4
+09/06/2019 02:00:54 LOG INIT_CRACK_010 End of loop, len: 5
+09/06/2019 02:00:55 LOG INIT_CRACK_010 End of loop, len: 6
+
+
+
+
+
+09/06/2019 02:02:05 LOG MAIN_010 Starting Hercules Hash Cracker
+09/06/2019 02:02:06 LOG INIT_CRACK_010 End of loop, len: 1
+09/06/2019 02:02:06 LOG INIT_CRACK_010 End of loop, len: 2
+09/06/2019 02:02:06 LOG INIT_CRACK_010 End of loop, len: 3
+09/06/2019 02:02:06 LOG INIT_CRACK_010 End of loop, len: 4
+09/06/2019 02:02:06 LOG INIT_CRACK_010 End of loop, len: 5
+09/06/2019 02:02:07 LOG INIT_CRACK_010 End of loop, len: 6
+
+
+
+
+
+09/06/2019 02:02:26 LOG MAIN_010 Starting Hercules Hash Cracker
+09/06/2019 02:02:27 LOG INIT_CRACK_010 End of loop, len: 1
+09/06/2019 02:02:27 LOG INIT_CRACK_010 End of loop, len: 2
+09/06/2019 02:02:27 LOG INIT_CRACK_010 End of loop, len: 3
+09/06/2019 02:02:27 LOG INIT_CRACK_010 End of loop, len: 4
+09/06/2019 02:02:27 LOG INIT_CRACK_010 End of loop, len: 5
+09/06/2019 02:02:28 LOG INIT_CRACK_010 End of loop, len: 6
+09/06/2019 02:02:36 LOG LOG_TO_CONSOLE_010 Time_elapsed: 10.0078 Curr_word: fc._cbc Word_count: 2219729 Word speed: 0\s
+
+
+
+
+
+09/06/2019 02:03:35 LOG MAIN_010 Starting Hercules Hash Cracker
+09/06/2019 02:03:35 LOG INIT_CRACK_010 End of loop, len: 1
+09/06/2019 02:03:35 LOG INIT_CRACK_010 End of loop, len: 2
+09/06/2019 02:03:35 LOG INIT_CRACK_010 End of loop, len: 3
+09/06/2019 02:03:35 LOG INIT_CRACK_010 End of loop, len: 4
+09/06/2019 02:03:37 LOG INIT_CRACK_010 End of loop, len: 5
+
+
+
+
+
+10/06/2019 14:04:51 LOG MAIN_010 Starting Hercules Hash Cracker
+10/06/2019 14:04:51 LOG INIT_CRACK_010 End of loop, len: 1
+10/06/2019 14:04:51 LOG INIT_CRACK_010 End of loop, len: 2
+10/06/2019 14:04:51 LOG INIT_CRACK_010 End of loop, len: 3
+10/06/2019 14:04:51 LOG INIT_CRACK_010 End of loop, len: 4
+10/06/2019 14:04:53 LOG INIT_CRACK_010 End of loop, len: 5
+10/06/2019 14:05:01 LOG LOG_TO_CONSOLE_010 Time_elapsed: 10.0089 Curr_word: .ba__\ Word_count: 173052 Word speed: 17540\s
+10/06/2019 14:05:08 LOG INIT_CRACK_010 End of loop, len: 6
+
+
+
+
+
+10/06/2019 14:05:26 LOG MAIN_010 Starting Hercules Hash Cracker
+10/06/2019 14:05:26 LOG INIT_CRACK_010 End of loop, len: 1
+10/06/2019 14:05:26 LOG INIT_CRACK_010 End of loop, len: 2
+10/06/2019 14:05:26 LOG INIT_CRACK_010 End of loop, len: 3
+10/06/2019 14:05:26 LOG INIT_CRACK_010 End of loop, len: 4
+10/06/2019 14:05:26 LOG INIT_CRACK_010 End of loop, len: 5
+10/06/2019 14:05:27 LOG INIT_CRACK_010 End of loop, len: 6
+10/06/2019 14:05:36 LOG INIT_CRACK_010 End of loop, len: 7
+10/06/2019 14:05:36 LOG LOG_TO_CONSOLE_010 Time_elapsed: 10.0096 Curr_word: aaaabb_a Word_count: 2397367 Word speed: 243772\s
+10/06/2019 14:05:46 LOG LOG_TO_CONSOLE_010 Time_elapsed: 20.0315 Curr_word: bbadfcc_ Word_count: 4772061 Word speed: 239803\s
+10/06/2019 14:05:56 LOG LOG_TO_CONSOLE_010 Time_elapsed: 30.058 Curr_word: ccac\aad Word_count: 7126090 Word speed: 233981\s
+10/06/2019 14:06:06 LOG LOG_TO_CONSOLE_010 Time_elapsed: 40.0823 Curr_word: dda..\_\ Word_count: 9493437 Word speed: 237381\s
+10/06/2019 14:06:16 LOG LOG_TO_CONSOLE_010 Time_elapsed: 50.1063 Curr_word: ..afacf. Word_count: 11862788 Word speed: 235655\s
+10/06/2019 14:06:26 LOG LOG_TO_CONSOLE_010 Time_elapsed: 60.1707 Curr_word: \\ab_c\\ Word_count: 14200564 Word speed: 234339\s
+10/06/2019 14:06:36 LOG LOG_TO_CONSOLE_010 Time_elapsed: 70.1939 Curr_word: _\fb\\__ Word_count: 16526781 Word speed: 226929\s
+10/06/2019 14:06:46 LOG LOG_TO_CONSOLE_010 Time_elapsed: 80.22 Curr_word: f__b_d\b Word_count: 18853681 Word speed: 232001\s
+10/06/2019 14:06:47 LOG INIT_CRACK_010 End of loop, len: 8
+10/06/2019 14:06:47 LOG INIT_CRACK_030 Test_03
+10/06/2019 14:06:56 LOG LOG_TO_CONSOLE_010 Time_elapsed: 81.5844 Curr_word: aaaaaaaa Word_count: 19173960 Word speed: 0\s
+10/06/2019 14:07:07 LOG LOG_TO_CONSOLE_010 Time_elapsed: 81.5844 Curr_word: aaaaaaaa Word_count: 19173960 Word speed: 0\s
+10/06/2019 14:07:17 LOG LOG_TO_CONSOLE_010 Time_elapsed: 81.5844 Curr_word: aaaaaaaa Word_count: 19173960 Word speed: 0\s
+10/06/2019 14:07:27 LOG LOG_TO_CONSOLE_010 Time_elapsed: 81.5844 Curr_word: aaaaaaaa Word_count: 19173960 Word speed: 0\s
+10/06/2019 14:07:37 LOG LOG_TO_CONSOLE_010 Time_elapsed: 81.5844 Curr_word: aaaaaaaa Word_count: 19173960 Word speed: 0\s
+10/06/2019 14:07:47 LOG LOG_TO_CONSOLE_010 Time_elapsed: 81.5844 Curr_word: aaaaaaaa Word_count: 19173960 Word speed: 0\s
+10/06/2019 14:07:57 LOG LOG_TO_CONSOLE_010 Time_elapsed: 81.5844 Curr_word: aaaaaaaa Word_count: 19173960 Word speed: 0\s
+10/06/2019 14:08:07 LOG LOG_TO_CONSOLE_010 Time_elapsed: 81.5844 Curr_word: aaaaaaaa Word_count: 19173960 Word speed: 0\s
+10/06/2019 14:08:17 LOG LOG_TO_CONSOLE_010 Time_elapsed: 81.5844 Curr_word: aaaaaaaa Word_count: 19173960 Word speed: 0\s
+10/06/2019 14:08:27 LOG LOG_TO_CONSOLE_010 Time_elapsed: 81.5844 Curr_word: aaaaaaaa Word_count: 19173960 Word speed: 0\s
+10/06/2019 14:08:37 LOG LOG_TO_CONSOLE_010 Time_elapsed: 81.5844 Curr_word: aaaaaaaa Word_count: 19173960 Word speed: 0\s
+10/06/2019 14:08:47 LOG LOG_TO_CONSOLE_010 Time_elapsed: 81.5844 Curr_word: aaaaaaaa Word_count: 19173960 Word speed: 0\s
+10/06/2019 14:08:59 LOG LOG_TO_CONSOLE_010 Time_elapsed: 81.5844 Curr_word: aaaaaaaa Word_count: 19173960 Word speed: 0\s
+10/06/2019 14:09:09 LOG LOG_TO_CONSOLE_010 Time_elapsed: 81.5844 Curr_word: aaaaaaaa Word_count: 19173960 Word speed: 0\s
+10/06/2019 14:09:19 LOG LOG_TO_CONSOLE_010 Time_elapsed: 81.5844 Curr_word: aaaaaaaa Word_count: 19173960 Word speed: 0\s
+10/06/2019 14:09:29 LOG LOG_TO_CONSOLE_010 Time_elapsed: 81.5844 Curr_word: aaaaaaaa Word_count: 19173960 Word speed: 0\s
+10/06/2019 14:09:39 LOG LOG_TO_CONSOLE_010 Time_elapsed: 81.5844 Curr_word: aaaaaaaa Word_count: 19173960 Word speed: 0\s
+10/06/2019 14:09:49 LOG LOG_TO_CONSOLE_010 Time_elapsed: 81.5844 Curr_word: aaaaaaaa Word_count: 19173960 Word speed: 0\s
+10/06/2019 14:09:59 LOG LOG_TO_CONSOLE_010 Time_elapsed: 81.5844 Curr_word: aaaaaaaa Word_count: 19173960 Word speed: 0\s
+10/06/2019 14:10:09 LOG LOG_TO_CONSOLE_010 Time_elapsed: 81.5844 Curr_word: aaaaaaaa Word_count: 19173960 Word speed: 0\s
+10/06/2019 14:10:19 LOG LOG_TO_CONSOLE_010 Time_elapsed: 81.5844 Curr_word: aaaaaaaa Word_count: 19173960 Word speed: 0\s
+10/06/2019 14:10:29 LOG LOG_TO_CONSOLE_010 Time_elapsed: 81.5844 Curr_word: aaaaaaaa Word_count: 19173960 Word speed: 0\s
+
+
+
+
+
+10/06/2019 14:16:50 LOG MAIN_010 Starting Hercules Hash Cracker
+10/06/2019 14:16:50 LOG INIT_CRACK_010 End of loop, len: 1
+10/06/2019 14:16:50 LOG INIT_CRACK_010 End of loop, len: 2
+10/06/2019 14:16:50 LOG INIT_CRACK_010 End of loop, len: 3
+10/06/2019 14:16:50 LOG INIT_CRACK_010 End of loop, len: 4
+10/06/2019 14:16:51 LOG INIT_CRACK_010 End of loop, len: 5
+10/06/2019 14:16:52 LOG INIT_CRACK_010 End of loop, len: 6
+
+
+
+
+
+10/06/2019 14:17:14 LOG MAIN_010 Starting Hercules Hash Cracker
+10/06/2019 14:17:14 LOG INIT_CRACK_010 End of loop, len: 1
+10/06/2019 14:17:14 LOG INIT_CRACK_010 End of loop, len: 2
+10/06/2019 14:17:14 LOG INIT_CRACK_010 End of loop, len: 3
+10/06/2019 14:17:14 LOG INIT_CRACK_010 End of loop, len: 4
+10/06/2019 14:17:14 LOG INIT_CRACK_010 End of loop, len: 5
+10/06/2019 14:17:15 LOG INIT_CRACK_010 End of loop, len: 6
+10/06/2019 14:17:23 LOG INIT_CRACK_010 End of loop, len: 7
+10/06/2019 14:17:24 LOG LOG_TO_CONSOLE_010 Time_elapsed: 10.0094 Curr_word: aaabffc_ Word_count: 2404893 Word speed: 243980\s
+10/06/2019 14:17:34 LOG LOG_TO_CONSOLE_010 Time_elapsed: 20.0347 Curr_word: ba_dccd. Word_count: 4703971 Word speed: 235482\s
+10/06/2019 14:17:44 LOG LOG_TO_CONSOLE_010 Time_elapsed: 30.0613 Curr_word: cb\_df\d Word_count: 7043634 Word speed: 234564\s
+10/06/2019 14:17:54 LOG LOG_TO_CONSOLE_010 Time_elapsed: 40.0892 Curr_word: dcdf.af. Word_count: 9341572 Word speed: 230702\s
+10/06/2019 14:18:04 LOG LOG_TO_CONSOLE_010 Time_elapsed: 50.1136 Curr_word: .d.b_a__ Word_count: 11710078 Word speed: 240288\s
+10/06/2019 14:18:14 LOG LOG_TO_CONSOLE_010 Time_elapsed: 60.1409 Curr_word: \.\afcd. Word_count: 14098659 Word speed: 236766\s
+10/06/2019 14:18:24 LOG LOG_TO_CONSOLE_010 Time_elapsed: 70.1683 Curr_word: _\_aab\. Word_count: 16487091 Word speed: 239287\s
+10/06/2019 14:18:34 LOG LOG_TO_CONSOLE_010 Time_elapsed: 80.1936 Curr_word: f__fbb__ Word_count: 18875582 Word speed: 238570\s
+10/06/2019 14:18:35 LOG INIT_CRACK_010 End of loop, len: 8
+10/06/2019 14:18:35 LOG INIT_CRACK_030 All combinations for desired length have been checked. Finishing work...
+10/06/2019 14:18:36 LOG MAIN_020 Hercules Hash Cracker STOP
+
+
+
+
+
+10/06/2019 14:27:28 LOG MAIN_010 Starting Hercules Hash Cracker
+10/06/2019 14:27:28 LOG INIT_CRACK_010 End of loop, len: 1
+10/06/2019 14:27:28 LOG INIT_CRACK_010 End of loop, len: 2
+10/06/2019 14:27:28 LOG INIT_CRACK_010 End of loop, len: 2
+10/06/2019 14:27:28 LOG INIT_CRACK_010 End of loop, len: 3
+10/06/2019 14:27:28 LOG INIT_CRACK_010 End of loop, len: 3
+10/06/2019 14:27:28 LOG INIT_CRACK_010 End of loop, len: 4
+10/06/2019 14:27:28 LOG INIT_CRACK_010 End of loop, len: 4
+10/06/2019 14:27:29 LOG INIT_CRACK_010 End of loop, len: 5
+10/06/2019 14:27:29 LOG INIT_CRACK_010 End of loop, len: 5
+10/06/2019 14:27:32 LOG INIT_CRACK_010 End of loop, len: 6
+10/06/2019 14:27:32 LOG INIT_CRACK_010 End of loop, len: 6
+10/06/2019 14:27:38 LOG LOG_TO_CONSOLE_010 Time_elapsed: 10.0113 Curr_word: b_fd_.d Word_count: 1680312 Word speed: 167385\s
+10/06/2019 14:27:48 LOG LOG_TO_CONSOLE_010 Time_elapsed: 20.0353 Curr_word: \\b..__ Word_count: 3327156 Word speed: 164222\s
+
+
+
+
+
+10/06/2019 14:28:05 LOG MAIN_010 Starting Hercules Hash Cracker
+10/06/2019 14:28:05 LOG INIT_CRACK_010 End of loop, len: 1
+10/06/2019 14:28:05 LOG INIT_CRACK_010 End of loop, len: 2
+10/06/2019 14:28:05 LOG INIT_CRACK_010 End of loop, len: 3
+10/06/2019 14:28:05 LOG INIT_CRACK_010 End of loop, len: 4
+10/06/2019 14:28:05 LOG INIT_CRACK_010 End of loop, len: 5
+10/06/2019 14:28:07 LOG INIT_CRACK_010 End of loop, len: 6
+10/06/2019 14:28:15 LOG INIT_CRACK_010 End of loop, len: 7
+10/06/2019 14:28:15 LOG LOG_TO_CONSOLE_010 Time_elapsed: 10.0094 Curr_word: aaa.c.cc Word_count: 2414426 Word speed: 242761\s
+10/06/2019 14:28:25 LOG LOG_TO_CONSOLE_010 Time_elapsed: 20.037 Curr_word: bbca\da. Word_count: 4824331 Word speed: 242121\s
+10/06/2019 14:28:35 LOG LOG_TO_CONSOLE_010 Time_elapsed: 30.0613 Curr_word: ccd\aaff Word_count: 7234182 Word speed: 242341\s
+10/06/2019 14:28:45 LOG LOG_TO_CONSOLE_010 Time_elapsed: 40.0876 Curr_word: dd\ba\.b Word_count: 9642921 Word speed: 242418\s
+10/06/2019 14:28:55 LOG LOG_TO_CONSOLE_010 Time_elapsed: 50.1135 Curr_word: ..__\dbb Word_count: 12057872 Word speed: 240785\s
+10/06/2019 14:29:05 LOG LOG_TO_CONSOLE_010 Time_elapsed: 60.1401 Curr_word: \_ac.bca Word_count: 14465687 Word speed: 241298\s
+10/06/2019 14:29:15 LOG LOG_TO_CONSOLE_010 Time_elapsed: 70.164 Curr_word: _fa_b__d Word_count: 16840186 Word speed: 237188\s
+10/06/2019 14:29:25 LOG INIT_CRACK_010 End of loop, len: 8
+10/06/2019 14:29:25 LOG INIT_CRACK_030 All combinations for desired length have been checked. Finishing work...
+10/06/2019 14:29:25 LOG MAIN_020 Hercules Hash Cracker STOP
+
+
+
+
+
+10/06/2019 14:35:48 LOG MAIN_010 Starting Hercules Hash Cracker
+10/06/2019 14:35:48 LOG INIT_CRACK_010 Starting loop, word length: 36
+10/06/2019 14:35:58 LOG LOG_TO_CONSOLE_010 Time_elapsed: 10.0119 Curr_word: aaaaaaaaaaaaaaaaaaaaaaaaaaaaa\a__cfa Word_count: 1338552 Word speed: 135201\s
+10/06/2019 14:36:08 LOG LOG_TO_CONSOLE_010 Time_elapsed: 20.0352 Curr_word: aaaaaaaaaaaaaaaaaaaaaaaaaaaabcbd\\\\ Word_count: 2669420 Word speed: 134678\s
+10/06/2019 14:36:18 LOG LOG_TO_CONSOLE_010 Time_elapsed: 30.0604 Curr_word: aaaaaaaaaaaaaaaaaaaaaaaaaaaabfcdc_\b Word_count: 4011433 Word speed: 134322\s
+
+
+
+
+
+10/06/2019 14:38:36 LOG MAIN_010 Starting Hercules Hash Cracker
+10/06/2019 14:38:36 LOG INIT_CRACK_010 Starting loop, word length: 36
+10/06/2019 14:38:46 LOG LOG_TO_CONSOLE_010 Time_elapsed: 10.009 Curr_word: eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeuAVVU Word_count: 1320683 Word speed: 134976\s
+10/06/2019 14:38:56 LOG LOG_TO_CONSOLE_010 Time_elapsed: 20.0321 Curr_word: eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeesFsB1 Word_count: 2661678 Word speed: 135002\s
+10/06/2019 14:39:06 LOG LOG_TO_CONSOLE_010 Time_elapsed: 30.0577 Curr_word: eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeAJGZI Word_count: 3999743 Word speed: 134225\s
+10/06/2019 14:39:16 LOG LOG_TO_CONSOLE_010 Time_elapsed: 40.0817 Curr_word: eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeBNN.F Word_count: 5337132 Word speed: 133923\s
+10/06/2019 14:39:26 LOG LOG_TO_CONSOLE_010 Time_elapsed: 50.1081 Curr_word: eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeCRSAY Word_count: 6671341 Word speed: 132892\s
+10/06/2019 14:39:36 LOG LOG_TO_CONSOLE_010 Time_elapsed: 60.1323 Curr_word: eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeDVUHK Word_count: 8003405 Word speed: 131886\s
+10/06/2019 14:39:46 LOG LOG_TO_CONSOLE_010 Time_elapsed: 70.158 Curr_word: eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeEZPOA Word_count: 9327849 Word speed: 131159\s
+10/06/2019 14:39:56 LOG LOG_TO_CONSOLE_010 Time_elapsed: 80.185 Curr_word: eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeF\NVW Word_count: 10655594 Word speed: 131182\s
+10/06/2019 14:40:06 LOG LOG_TO_CONSOLE_010 Time_elapsed: 90.2105 Curr_word: eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeHAAXV Word_count: 11971171 Word speed: 128206\s
+10/06/2019 14:40:16 LOG LOG_TO_CONSOLE_010 Time_elapsed: 100.239 Curr_word: eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeIEIXF Word_count: 13309536 Word speed: 136901\s
+10/06/2019 14:40:29 LOG LOG_TO_CONSOLE_010 Time_elapsed: 113.56 Curr_word: eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeJVFeR Word_count: 15102273 Word speed: 133698\s
+10/06/2019 14:40:39 LOG LOG_TO_CONSOLE_010 Time_elapsed: 123.585 Curr_word: eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeKZPNI Word_count: 16443350 Word speed: 133256\s
+10/06/2019 14:40:50 LOG LOG_TO_CONSOLE_010 Time_elapsed: 133.609 Curr_word: eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeMeuDD Word_count: 17790108 Word speed: 133854\s
+10/06/2019 14:41:00 LOG LOG_TO_CONSOLE_010 Time_elapsed: 143.633 Curr_word: eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeNBSuC Word_count: 19141392 Word speed: 135909\s
+10/06/2019 14:41:10 LOG LOG_TO_CONSOLE_010 Time_elapsed: 153.656 Curr_word: eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeOFXUY Word_count: 20477254 Word speed: 131738\s
+10/06/2019 14:41:20 LOG LOG_TO_CONSOLE_010 Time_elapsed: 163.67 Curr_word: eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeePKBS2 Word_count: 21818838 Word speed: 135686\s
+10/06/2019 14:41:30 LOG LOG_TO_CONSOLE_010 Time_elapsed: 173.684 Curr_word: eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeQOQLU Word_count: 23164604 Word speed: 135368\s
+10/06/2019 14:41:40 LOG LOG_TO_CONSOLE_010 Time_elapsed: 183.699 Curr_word: eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeRSSNA Word_count: 24496498 Word speed: 129268\s
+10/06/2019 14:41:50 LOG LOG_TO_CONSOLE_010 Time_elapsed: 193.713 Curr_word: eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeSW1SE Word_count: 25835047 Word speed: 134882\s
+10/06/2019 14:42:00 LOG LOG_TO_CONSOLE_010 Time_elapsed: 203.727 Curr_word: eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeT11UQ Word_count: 27164795 Word speed: 127256\s
+10/06/2019 14:42:10 LOG LOG_TO_CONSOLE_010 Time_elapsed: 213.731 Curr_word: eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeVe\D1 Word_count: 28497180 Word speed: 133125\s
+10/06/2019 14:42:20 LOG LOG_TO_CONSOLE_010 Time_elapsed: 223.735 Curr_word: eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeWATP. Word_count: 29780419 Word speed: 132241\s
+10/06/2019 14:42:30 LOG LOG_TO_CONSOLE_010 Time_elapsed: 233.74 Curr_word: eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeXEYPM Word_count: 31115517 Word speed: 134789\s
+10/06/2019 14:42:40 LOG LOG_TO_CONSOLE_010 Time_elapsed: 243.744 Curr_word: eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeYIQTA Word_count: 32436595 Word speed: 128676\s
+10/06/2019 14:42:50 LOG LOG_TO_CONSOLE_010 Time_elapsed: 253.748 Curr_word: eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeZMeEE Word_count: 33745081 Word speed: 133946\s
+10/06/2019 14:43:00 LOG LOG_TO_CONSOLE_010 Time_elapsed: 263.753 Curr_word: eeeeeeeeeeeeeeeeeeeeeeeeeeeeeee1PYTD Word_count: 35068710 Word speed: 134158\s
+10/06/2019 14:43:10 LOG LOG_TO_CONSOLE_010 Time_elapsed: 273.757 Curr_word: eeeeeeeeeeeeeeeeeeeeeeeeeeeeeee2THVL Word_count: 36379941 Word speed: 130382\s
+10/06/2019 14:43:20 LOG LOG_TO_CONSOLE_010 Time_elapsed: 283.762 Curr_word: eeeeeeeeeeeeeeeeeeeeeeeeeeeeeee.XuE1 Word_count: 37699263 Word speed: 133149\s
+10/06/2019 14:43:30 LOG LOG_TO_CONSOLE_010 Time_elapsed: 293.766 Curr_word: eeeeeeeeeeeeeeeeeeeeeeeeeeeeeee\1POV Word_count: 39011833 Word speed: 133436\s
+10/06/2019 14:43:40 LOG LOG_TO_CONSOLE_010 Time_elapsed: 303.771 Curr_word: eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeuueWMB Word_count: 40349039 Word speed: 131355\s
+10/06/2019 14:43:50 LOG LOG_TO_CONSOLE_010 Time_elapsed: 313.776 Curr_word: eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeusCBVI Word_count: 41692079 Word speed: 136613\s
+10/06/2019 14:44:00 LOG LOG_TO_CONSOLE_010 Time_elapsed: 323.781 Curr_word: eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeuAF\LC Word_count: 43015968 Word speed: 131156\s
+10/06/2019 14:44:10 LOG LOG_TO_CONSOLE_010 Time_elapsed: 333.785 Curr_word: eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeuBKuPP Word_count: 44347960 Word speed: 131917\s
+10/06/2019 14:44:20 LOG LOG_TO_CONSOLE_010 Time_elapsed: 343.79 Curr_word: eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeuCN1ZC Word_count: 45672500 Word speed: 132582\s
+10/06/2019 14:44:30 LOG LOG_TO_CONSOLE_010 Time_elapsed: 353.794 Curr_word: eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeuDRV\O Word_count: 46996869 Word speed: 133280\s
+10/06/2019 14:44:40 LOG LOG_TO_CONSOLE_010 Time_elapsed: 363.798 Curr_word: eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeuEVIVT Word_count: 48312121 Word speed: 131790\s
+10/06/2019 14:44:50 LOG LOG_TO_CONSOLE_010 Time_elapsed: 373.803 Curr_word: eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeuFZeVF Word_count: 49629797 Word speed: 131356\s
+10/06/2019 14:45:00 LOG LOG_TO_CONSOLE_010 Time_elapsed: 383.807 Curr_word: eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeuG.PHO Word_count: 50942679 Word speed: 127288\s
+10/06/2019 14:45:10 LOG LOG_TO_CONSOLE_010 Time_elapsed: 393.811 Curr_word: eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeuIADYL Word_count: 52295775 Word speed: 134804\s
+10/06/2019 14:45:20 LOG LOG_TO_CONSOLE_010 Time_elapsed: 403.816 Curr_word: eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeuJFeW2 Word_count: 53654797 Word speed: 136627\s
+10/06/2019 14:45:30 LOG LOG_TO_CONSOLE_010 Time_elapsed: 413.82 Curr_word: eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeuKJT.Q Word_count: 55008610 Word speed: 136126\s
+10/06/2019 14:45:40 LOG LOG_TO_CONSOLE_010 Time_elapsed: 423.831 Curr_word: eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeuLNGYA Word_count: 56323974 Word speed: 130944\s
+10/06/2019 14:45:50 LOG LOG_TO_CONSOLE_010 Time_elapsed: 433.845 Curr_word: eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeuMRFAs Word_count: 57651761 Word speed: 132619\s
+10/06/2019 14:46:00 LOG LOG_TO_CONSOLE_010 Time_elapsed: 443.86 Curr_word: eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeuNVsBW Word_count: 58974952 Word speed: 133543\s
+10/06/2019 14:46:10 LOG LOG_TO_CONSOLE_010 Time_elapsed: 453.875 Curr_word: eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeuOZJ2\ Word_count: 60316377 Word speed: 134026\s
+10/06/2019 14:46:20 LOG LOG_TO_CONSOLE_010 Time_elapsed: 463.889 Curr_word: eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeuP\WRN Word_count: 61659857 Word speed: 133692\s
+10/06/2019 14:46:30 LOG LOG_TO_CONSOLE_010 Time_elapsed: 473.904 Curr_word: eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeuRATLI Word_count: 62986056 Word speed: 134046\s
+10/06/2019 14:46:40 LOG LOG_TO_CONSOLE_010 Time_elapsed: 483.918 Curr_word: eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeuSEVPS Word_count: 64318045 Word speed: 134756\s
+10/06/2019 14:46:50 LOG LOG_TO_CONSOLE_010 Time_elapsed: 493.933 Curr_word: eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeuTJueV Word_count: 65658013 Word speed: 135163\s
+10/06/2019 14:47:00 LOG LOG_TO_CONSOLE_010 Time_elapsed: 503.947 Curr_word: eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeuUNEuK Word_count: 66994237 Word speed: 136231\s
+10/06/2019 14:47:10 LOG LOG_TO_CONSOLE_010 Time_elapsed: 513.96 Curr_word: eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeuVROCX Word_count: 68334941 Word speed: 134555\s
+10/06/2019 14:47:20 LOG LOG_TO_CONSOLE_010 Time_elapsed: 523.974 Curr_word: eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeuWVXHG Word_count: 69674560 Word speed: 132228\s
+10/06/2019 14:47:30 LOG LOG_TO_CONSOLE_010 Time_elapsed: 533.987 Curr_word: eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeuXZNAN Word_count: 70993114 Word speed: 133212\s
+10/06/2019 14:47:40 LOG LOG_TO_CONSOLE_010 Time_elapsed: 544 Curr_word: eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeuY\Ms. Word_count: 72321676 Word speed: 130761\s
+10/06/2019 14:47:50 LOG LOG_TO_CONSOLE_010 Time_elapsed: 554.013 Curr_word: eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeu1ANC1 Word_count: 73652531 Word speed: 132555\s
+10/06/2019 14:48:00 LOG LOG_TO_CONSOLE_010 Time_elapsed: 564.027 Curr_word: eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeu2ESWT Word_count: 74988299 Word speed: 132538\s
+10/06/2019 14:48:10 LOG LOG_TO_CONSOLE_010 Time_elapsed: 574.04 Curr_word: eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeu.IW2G Word_count: 76322475 Word speed: 133125\s
+
+
+
+
+
+10/06/2019 14:49:54 LOG MAIN_010 Starting Hercules Hash Cracker
+10/06/2019 14:49:54 LOG INIT_CRACK_010 Starting loop, word length: 36
+10/06/2019 14:50:04 LOG LOG_TO_CONSOLE_010 Time_elapsed: 10.0094 Curr_word: eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeuBRRC Word_count: 1352115 Word speed: 137116\s
+
+
+
+
+
+10/06/2019 14:50:57 LOG MAIN_010 Starting Hercules Hash Cracker
+10/06/2019 14:50:57 LOG INIT_CRACK_010 Starting loop, word length: 36
+
+
+
+
+
+23/02/2020 12:42:12 LOG MAIN_010 Starting Hash Cracker
+23/02/2020 12:42:12 LOG INIT_CRACK_010 Starting loop, word length: 36
+
+
+
+
+
+23/02/2020 12:49:25 LOG MAIN_010 Starting Hash Cracker
+
+
+
+
+
+23/02/2020 12:50:25 LOG MAIN_010 Starting Hash Cracker
+
+
+
+
+
+23/02/2020 12:56:39 LOG MAIN_010 Starting Hash Cracker
+23/02/2020 12:56:39 LOG MAIN_020 Hash Cracker STOP
+
+
+
+
+
+23/02/2020 13:07:52 LOG MAIN_010 Starting Hash Cracker
+23/02/2020 13:07:52 LOG MAIN_020 Hash Cracker STOP
+
+
+
+
+
+23/02/2020 13:17:20 LOG MAIN_010 Starting Hash Cracker
+23/02/2020 13:17:20 LOG CHECK_HASH_010 Hash cracked! h_hash: 6040170 s_hash: 6040170 str: M:\GRAFIX\CHOP\SRC1\ALIEN2\Zeus\ANIMPSX.BIN
+23/02/2020 13:17:20 LOG MAIN_020 Hash Cracker STOP
+
+
+
+
+
+23/02/2020 13:17:50 LOG MAIN_010 Starting Hash Cracker
+23/02/2020 13:17:50 LOG CHECK_HASH_010 Hash cracked! h_hash: 6040170 s_hash: 6040170 str: M:\GRAFIX\CHOP\SRC1\ALIEN2\Zeus\ANIMPSX.BIN
+23/02/2020 13:17:50 LOG MAIN_020 Hash Cracker STOP
