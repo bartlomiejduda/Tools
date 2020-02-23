@@ -1,10 +1,10 @@
-﻿  Hercules_hash_cracker.cpp
-c:\users\arek\tools\new tools\disney's hercules pc\hercules_hash_cracker\hercules_hash_cracker\hercules_hash_cracker.cpp(146): warning C4018: '>=': signed/unsigned mismatch
-c:\users\arek\tools\new tools\disney's hercules pc\hercules_hash_cracker\hercules_hash_cracker\hercules_hash_cracker.cpp(264): warning C4244: 'initializing': conversion from 'unsigned __int64' to 'unsigned long', possible loss of data
-c:\users\arek\tools\new tools\disney's hercules pc\hercules_hash_cracker\hercules_hash_cracker\hercules_hash_cracker.cpp(266): warning C4244: 'initializing': conversion from 'unsigned __int64' to 'unsigned long', possible loss of data
-  Generating code
-  1 of 374 functions ( 0.3%) were compiled, the rest were copied from previous compilation.
-    0 functions were new in current compilation
-    0 functions had inline decision re-evaluated but remain unchanged
-  Finished generating code
-  Hercules_hash_cracker.vcxproj -> C:\Users\Arek\Tools\NEW Tools\Disney's Hercules PC\Hercules_hash_cracker\Release\Hercules_hash_cracker.exe
+﻿  pch.cpp
+  Hercules_hash_cracker.cpp
+C:\Users\Arek\Tools\NEW Tools\BD_hash_cracker\Hercules_hash_cracker\Hercules_hash_cracker.cpp(146,13): warning C4018: ">=": niezgodność typu ze znakiem/bez znaku
+C:\Users\Arek\Tools\NEW Tools\BD_hash_cracker\Hercules_hash_cracker\Hercules_hash_cracker.cpp(264,34): warning C4244: "inicjowanie": konwersja z "unsigned __int64" do "unsigned long", możliwa utrata danych
+C:\Users\Arek\Tools\NEW Tools\BD_hash_cracker\Hercules_hash_cracker\Hercules_hash_cracker.cpp(266,34): warning C4244: "inicjowanie": konwersja z "unsigned __int64" do "unsigned long", możliwa utrata danych
+  Trwa generowanie kodu
+  Previous IPDB was built with incompatible compiler, fall back to full compilation.
+  All 327 functions were compiled because no usable IPDB/IOBJ from previous compilation was found.
+  Zakończono generowanie kodu
+  Hercules_hash_cracker.vcxproj -> C:\Users\Arek\Tools\NEW Tools\BD_hash_cracker\Release\Hercules_hash_cracker.exe
