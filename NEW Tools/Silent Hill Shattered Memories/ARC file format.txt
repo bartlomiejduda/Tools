@@ -14,7 +14,7 @@ Creation date: 16.02.2020
 
 num_of_files *
 {
-  4 bytes - CRC
+  4 bytes - CRC // hash ^= name*33;
   4 bytes - offset of the file
   4 bytes - compressed  file size
   4 bytes - uncompressed file size
@@ -24,3 +24,27 @@ num_of_files *
 {
   x bytes - file data
 }
+
+
+
+
+
+
+
+
+
+
+
+// Hash description
+
+
+for file "FontJAP":
+1. FontJAP -> fontjap
+2.
+name = "fontjap"
+hash = 0;
+for(i=0; i<7; i++){
+hash *= 33;
+hash ^= name;
+}
+3. hash result: 0xf63bd6a8
