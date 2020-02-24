@@ -43,7 +43,7 @@ def read_ARC_hash(in_ARC_filepath):
         #print(hash_i)
     
     ARC_file.close()
-    p_in_str = "bn_wlk_lisa".lower()
+    p_in_str = "boot_4.txd".lower()
     print("in_str: " + p_in_str)
     
     hash_res = calc_arc_hash(p_in_str)
@@ -51,7 +51,7 @@ def read_ARC_hash(in_ARC_filepath):
         print("Hash_a: " + str(hash_a) + ", Hash_res: " + str(hash_res) )
         if hash_a == hash_res:
             print("Hash found!" + hash_a)
-    bd_logger("nding read_ARC_hash function...")
+    bd_logger("Ending read_ARC_hash function...")
 
 
 #read ARC hash

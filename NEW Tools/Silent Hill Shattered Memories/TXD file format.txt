@@ -1,10 +1,47 @@
-Document created by Bartlomiej Duda
+﻿Document created by Bartlomiej Duda
 Creation date: 22.02.2020
 
 
 // Silent Hill: Shattered Memories (PSP)
 // TXD file format (textures)
 
+//header
+4 bytes - signature "\x16\x07\x00\x00"
+4 bytes - segment size
+2 bytes - unk1
+2 bytes - unk2
+
+//meta info
+4 bytes - size
+24 bytes - unk3
+4 bytes - typeID length
+x bytes - typeID  // rwID_TEXDICTIONARY
+4 bytes - target path length
+x bytes - target path // "z:\sh1r\design\..."
+4 bytes - source path length
+x bytes - source path
+4 bytes - unk4
+
+//item info
+4 bytes - item size
+4 bytes - item signature // "\x16\x00\x00\x00"
+4 bytes - ?? size
+4 bytes - unk5
+4 bytes - unk6
+16 bytes - unk7
+4 bytes - ??? size
+20 bytes - unk8
+2 bytes - width
+2 bytes - height
+1 byte - bits per pixel
+1 byte - mipmap count
+1 byte - texture format
+1 byte - palette format
+96 bytes - unk9
+64 bytes - texture name + padding
 
 
-//TODO
+//data
+x bytes - texture data
+
+
