@@ -1,0 +1,39 @@
+﻿Document created by Bartlomiej Duda
+Creation date: 26.02.2020
+
+
+// Silent Hill Shattered Memories (PSP)
+// Font file format
+
+
+//header
+2 bytes - version   // "\x06\x00"
+2 bytes - unk2
+2 bytes - unk3
+2 bytes - unk4
+32 bytes - font family // "DIN Mittelschrift Std..."
+32 bytes - unk_blob // "Font_EUR..."
+
+//unknown rect records
+2 bytes - index
+2 bytes - header type
+4 bytes - size_r
+2 bytes - count
+2 bytes - unk
+{size_r} bytes - unknown rect records data
+
+//font colors
+2 bytes - index
+2 bytes - header type
+4 bytes - size_c
+2 bytes - count
+2 bytes - unk
+{size_c} bytes - font colors data
+
+//kerning
+2 bytes - index
+2 bytes - header type
+4 bytes - size_k
+2 bytes - count
+2 bytes - unk
+{size_k} bytes - kerning data

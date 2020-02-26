@@ -22,7 +22,7 @@ num_of_files *
 
 num_of_files *
 {
-  x bytes - file data
+  x bytes - compressed file data
 }
 
 

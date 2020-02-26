@@ -23,25 +23,31 @@ x bytes - source path
 4 bytes - unk4
 
 //item info
-4 bytes - item size
-4 bytes - item signature // "\x16\x00\x00\x00"
-4 bytes - ?? size
-4 bytes - unk5
-4 bytes - unk6
-16 bytes - unk7
-4 bytes - ??? size
-20 bytes - unk8
-2 bytes - width
-2 bytes - height
-1 byte - bits per pixel
-1 byte - mipmap count
-1 byte - texture format
-1 byte - palette format
-96 bytes - unk9
-64 bytes - texture name + padding
+num_of_textures *
+{
+   4 bytes - item size
+   4 bytes - item signature // "\x16\x00\x00\x00"
+   4 bytes - ?? size
+   4 bytes - unk5
+   4 bytes - unk6
+   16 bytes - unk7
+   4 bytes - ??? size
+   20 bytes - unk8
+   2 bytes - width
+   2 bytes - height
+   1 byte - bits per pixel
+   1 byte - mipmap count
+   1 byte - texture format
+   1 byte - palette format
+   96 bytes - unk9
+   64 bytes - texture name + padding
+}
 
 
 //data
-x bytes - texture data
+num_of_textures *
+{
+   x bytes - texture data
+}
 
 
