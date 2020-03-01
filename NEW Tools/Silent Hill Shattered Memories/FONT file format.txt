@@ -3,8 +3,11 @@ Creation date: 26.02.2020
 
 
 // Silent Hill Shattered Memories (PSP)
-// Font file format
+// Font file format (.kft file)
 
+//Note: Font in "F63BBFF1" file inside DATA.ARC
+//archive is not used by game. "Real" font can
+//be found in \PSP_GAME\SYSDIR\EBOOT.BIN file.
 
 //header
 2 bytes - version   // "\x06\x00"

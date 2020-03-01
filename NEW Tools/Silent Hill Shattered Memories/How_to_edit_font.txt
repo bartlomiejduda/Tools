@@ -1,0 +1,20 @@
+﻿Document created by Bartlomiej Duda
+Creation date: 01.03.2020
+
+// Tutorial - How to edit font in
+// Silent Hill Shattered Memories (PSP)
+// USA version
+
+1. Download PPSSPP v1.9.3 emulator
+2. Run PPSSPP and go to settings->tools->developer tools and select option dump decrypted Eboot.bin on game boot
+3. Run game in PPSSPP and go to ppsspp\memstick\PSP\SYSTEM\DUMP folder
+4. Open ELF file in Hex Editor
+5. Copy data from offset 0034916c to offset 0034BDE9 and save it as a new file.
+6. Use my tool Silent_Hill_SM_Font_Tool.py to deompress zlib compressed data.
+7. Open file, go to offset 000046BC and copy data from this offfset to the end of the file, then save it as a new file.
+8. Open file in FontEditor by HoRRor from consolgames.ru
+9. Edit file in FontEditor and save.
+10. Use FontTool by HoRRor to replace font
+11. Use hex editor to replace font file in ELF file
+12. Change ELF file name to EBOOT.BIN
+13. Use UMDGen to replace EBOOT.BIN in game at location \PSP_GAME\SYSDIR
