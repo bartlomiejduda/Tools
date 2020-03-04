@@ -72,5 +72,5 @@ def replace_chars_EXTENDED(tab_extensions, tab_folders):
             
 ##RUN EXTENDED CHAR REPLACER
 tab_extensions = ['ini']
-tab_folders = ['C:\\Users\\Arek\\Spolszczenia\\Silent Hill Shattered Memories\\target']   
+tab_folders = ['C:\\Users\\Arek\\Spolszczenia\\Silent Hill Shattered Memories\\target\\PSP_USA']   
 replace_chars_EXTENDED(tab_extensions, tab_folders)
