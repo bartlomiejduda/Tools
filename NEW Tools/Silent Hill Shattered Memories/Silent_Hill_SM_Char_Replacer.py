@@ -5,6 +5,7 @@
 
 # Ver    Date        Name
 # v0.1   26.02.2020  Bartlomiej Duda
+# v0.2   09.04.2020  Bartlomiej Duda
 
 
 
@@ -30,8 +31,8 @@ def replace_chars_in_regular_txt(extension, txt_folder):
         temp_filename = txt_path.split('\\')[-1].split('.')[0]
         temp_path += '\\' + temp_filename + '_temp.txt'
         
-        temp_file = open(temp_path, 'wt+')
-        txt_file = open(txt_path, 'rt')
+        temp_file = open(temp_path, 'wt+', encoding="utf8")
+        txt_file = open(txt_path, 'rt', encoding="utf8")
         
         for line in txt_file:
             line = (
