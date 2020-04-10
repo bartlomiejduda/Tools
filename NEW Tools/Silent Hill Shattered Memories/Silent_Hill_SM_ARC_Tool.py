@@ -6,9 +6,10 @@
 # Ver    Date        Author
 # v0.1   23.02.2020  Bartlomiej Duda
 # v0.2   10.04.2020  Bartlomiej Duda
+# v0.3   10.04.2020  Bartlomiej Duda
 
 
-VERSION_NUM = "v0.2"
+VERSION_NUM = "v0.3"
 
 import os
 import sys
@@ -99,8 +100,27 @@ def unpack_ARC(in_ARC_filepath, out_folder_filepath):
     bd_logger("Ending unpack_ARC function...")
     
     
-def pack_ARC(in_folder_filepath, out_ARC_filepath):
-    pass #TODO
+def pack_ARC(in_folder_filepath, in_ARC_filepath, out_ARC_filepath): #this function has limited use due to hardcoded values 
+    bd_logger("Starting pack_ARC function...")
+    
+    old_ARC_file = open(in_ARC_filepath, 'rb') 
+    new_ARC_file = open(out_ARC_filepath, 'rb') 
+    
+    #header read
+    magic = old_ARC_file.read(4)
+    b_num_of_files = old_ARC_file.read(4)
+    num_of_files = struct.unpack('<I', b_num_of_files)[0]
+    data_offset = old_ARC_file.read(4)
+    dummy = old_ARC_file.read(4)
+    
+    for i in range(num_of_files):
+        pass #TODO
+    
+    
+    
+    old_ARC_file.close()
+    new_ARC_file.close()
+    bd_logger("Starting pack_ARC function...")
 
 
 #read ARC hash
