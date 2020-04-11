@@ -1,0 +1,29 @@
+# Silent Hill: Shattered Memories PSP
+
+# Author: aluigi
+# Adjustments: Bartlomiej Duda
+
+comtype ZLIB
+get XFA10 long
+if XFA10 != 0xfa10
+    cleanexit
+endif
+get FILES long
+get BASE_OFF long
+get DUMMY long
+
+get FULLNAME basename
+string FULLNAME += "_"
+
+for i = 0 < FILES
+    get CRC long
+    get OFFSET long
+    get ZSIZE long
+    get SIZE long
+
+    set NAME string FULLNAME
+    string NAME += i
+	#print "name: %NAME|8% ZSIZE_val: %ZSIZE|8% Size_val: %SIZE|8%"
+    log NAME OFFSET ZSIZE
+    endif
+next i

@@ -77,7 +77,8 @@ def unpack_ARC(in_ARC_filepath, out_folder_filepath):
         CRC = ARC_file.read(4)
         file_offset = struct.unpack('<I', ARC_file.read(4))[0]
         comp_filesize = struct.unpack('<I', ARC_file.read(4))[0]
-        uncomp_filesize = ARC_file.read(4)
+        uncomp_filesize = struct.unpack('<I', ARC_file.read(4))[0]
+        print( str(i+1) + " comp_filesize: " + str(comp_filesize) + " uncomp_filesize: " + str(uncomp_filesize) )
         off_arr.append(file_offset)
         csize_arr.append(comp_filesize)
     
@@ -91,7 +92,7 @@ def unpack_ARC(in_ARC_filepath, out_folder_filepath):
             uncomp_data = zlib.decompress(data)
         except:
             uncomp_data = data
-        out_filepath = out_folder_filepath + "\\" + "file" + str(i+1) + ".dat"
+        out_filepath = out_folder_filepath + "\\" + "file" + str(i) + ".dat"
         out_file = open(out_filepath, 'wb+') 
         out_file.write(uncomp_data)
         out_file.close()
@@ -130,7 +131,7 @@ def pack_ARC(in_folder_filepath, in_ARC_filepath, out_ARC_filepath): #this funct
 
 #unpack ARC
 p_in_ARC_filepath = "C:\\Users\\Arek\\Desktop\\Silent_Hill_SM\\USA_ROM\\DATA.ARC"
-p_out_folder_filepath = "C:\\Users\\Arek\\Desktop\\Silent_Hill_SM\\USA_ROM\\data_arc_test"
+p_out_folder_filepath = "C:\\Users\\Arek\\Desktop\\Silent_Hill_SM\\USA_ROM\\data_arc_test_py"
 unpack_ARC(p_in_ARC_filepath, p_out_folder_filepath)
 
 
