@@ -5,6 +5,7 @@
 
 # Ver    Date        Author
 # v0.1   11.04.2020  Bartlomiej Duda
+# v0.2   12.04.2020  Bartlomiej Duda
 
 
 
@@ -101,6 +102,9 @@ def INI_padding(in_INI_filepath, out_INI_filepath):
 
     
 def unzlib_file(in_filepath, out_filepath):
+    '''
+    Function for uncompressing input files
+    '''    
     bd_logger("Starting unzlib...")
     
     in_file = open(in_filepath, 'rb')
@@ -117,6 +121,9 @@ def unzlib_file(in_filepath, out_filepath):
     
     
 def zlib_file(in_filepath, out_filepath):
+    '''
+    Function for compressing input files
+    '''
     bd_logger("Starting zlib...")
     
     in_file = open(in_filepath, 'rb')
@@ -132,15 +139,50 @@ def zlib_file(in_filepath, out_filepath):
     bd_logger("Ending zlib...")    
     
 
+def remove_lines(in_filepath, out_filepath):
+    '''
+    Function for making translation smaller to work with quick bms script
+    Basically designed to remove credits from translation to fit with DATA.ARC archive
+    
+    Note: Eventually I have removed lines manually in OmegaT
+    '''    
+    bd_logger("Starting remove_lines...")
+    
+    line_arr = [ 12670]  #TODO?
+    
+    
+    
+    in_file = open(in_filepath, 'rt', encoding="utf8")
+    out_file = open(out_filepath, 'wt+', encoding="utf8")      
+    
+    i = 0
+    replace_count = 0
+    for line in in_file:
+        i += 1
+        
+        if i in line_arr and line.startswith("<c="):
+            old_line = line 
+            line = "<c=1>" + " " + "\n"
+            replace_count += 1
+            print("Num: " + str(i) + "R_cnt: " + str(replace_count) + " Old_line: " + old_line.replace("\n", "") + " new_line: " + line.replace("\n", "") )
+            
+        out_file.write(line)
+        
+        
+    in_file.close()
+    out_file.close()
+    bd_logger("Ending remove_lines...")
+    
+
 
 def main():
     
-    in1 = "C:\\Users\\Arek\\Desktop\\Silent_Hill_SM_Tools_v7\\TextConv\\OUT\\2C238264_fixed_out.ini"
-    out2 = "C:\\Users\\Arek\\Desktop\\Silent_Hill_SM_Tools_v7\\TextConv\\OUT\\2C238264_fixed_out2.ini"
-    out3 = "C:\\Users\\Arek\\Desktop\\Silent_Hill_SM_Tools_v7\\TextConv\\OUT\\2C238264_fixed_out3.ini"
+    #in1 = "C:\\Users\\Arek\\Desktop\\Silent_Hill_SM_Tools_v7\\TextConv\\OUT\\2C238264_fixed_out.ini"
+    #out2 = "C:\\Users\\Arek\\Desktop\\Silent_Hill_SM_Tools_v7\\TextConv\\OUT\\2C238264_fixed_out2.ini"
+    #out3 = "C:\\Users\\Arek\\Desktop\\Silent_Hill_SM_Tools_v7\\TextConv\\OUT\\2C238264_fixed_out3.ini"
     
-    eng1 = "C:\\Users\\Arek\\Desktop\\Silent_Hill_SM_Tools_v7\\TextConv\\OUT\\2C238264_eng.ini"
-    eng2 = "C:\\Users\\Arek\\Desktop\\Silent_Hill_SM_Tools_v7\\TextConv\\OUT\\2C238264_eng_short.ini"    
+    #eng1 = "C:\\Users\\Arek\\Desktop\\Silent_Hill_SM_Tools_v7\\TextConv\\OUT\\2C238264_eng.ini"
+    #eng2 = "C:\\Users\\Arek\\Desktop\\Silent_Hill_SM_Tools_v7\\TextConv\\OUT\\2C238264_eng_short.ini"    
   
     #debug_INI_file(in1, out2)
     #INI_padding(out2, out3)
@@ -150,9 +192,25 @@ def main():
     #p_out_filepath = "C:\\Users\\Arek\\Desktop\\Silent_Hill_SM\\USA_ROM\\data_arc_test\\DATA_1316_temp"
     #unzlib_file(p_in_filepath, p_out_filepath)
     
-    p_in_filepath = "C:\\Users\\Arek\\Desktop\\Silent_Hill_SM_Tools_v7\\TextConv\\IN\\2C238264"
-    p_out_filepath = "C:\\Users\\Arek\\Desktop\\Silent_Hill_SM\\USA_ROM\\data_arc_test\\DATA_1316_222"
-    zlib_file(p_in_filepath, p_out_filepath)
+    
+    
+    main_switch = 2
+    # 1 - remove_lines 
+    # 2 - zlib
+    
+    
+    if main_switch == 1:
+        p_in_filepath = "C:\\Users\\Arek\\Desktop\\Silent_Hill_SM_Tools_v7\\TextConv\\OUT\\2C238264_fixed_out.ini"
+        p_out_filepath = "C:\\Users\\Arek\\Desktop\\Silent_Hill_SM_Tools_v7\\TextConv\\OUT\\2C238264_fixed_out_removed.ini"
+        remove_lines(p_in_filepath, p_out_filepath)
+        
+    elif main_switch == 2:
+        p_in_filepath = "C:\\Users\\Arek\\Desktop\\Silent_Hill_SM_Tools_v7\\TextConv\\IN\\2C238264"
+        p_out_filepath = "C:\\Users\\Arek\\Desktop\\Silent_Hill_SM\\USA_ROM\\data_arc_test\\DATA_1316_222"
+        zlib_file(p_in_filepath, p_out_filepath)
+        
+    else:
+        print("Wrong main switch option selected!")
         
     bd_logger("End of main...")
     

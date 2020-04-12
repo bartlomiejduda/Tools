@@ -1,4 +1,4 @@
-# Silent Hill: Shattered Memories PSP
+# Silent Hill: Shattered Memories
 
 # Author: aluigi
 # Adjustments: Bartlomiej Duda
@@ -24,6 +24,9 @@ for i = 0 < FILES
     set NAME string FULLNAME
     string NAME += i
 	#print "name: %NAME|8% ZSIZE_val: %ZSIZE|8% Size_val: %SIZE|8%"
-    log NAME OFFSET ZSIZE
+    if SIZE == 0
+        log NAME OFFSET ZSIZE
+    else
+        log NAME OFFSET ZSIZE
     endif
 next i

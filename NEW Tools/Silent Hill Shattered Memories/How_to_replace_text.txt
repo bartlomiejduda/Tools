@@ -1,0 +1,14 @@
+﻿
+Document created by Bartlomiej Duda
+Creation date: 11.04.2020
+
+#How to replace text - tutorial#
+
+1. Generate output files from OmegaT
+2. Use OmegaT fixer (restore mode)
+3. Use char replacer
+4. Use TextConv tool
+5. Rename file to "2C238264"
+6. Use DEBUG Tool (zlib file) to replace "DATA_1316" file
+7. Use quickbms to rebuild DATA.ARC
+8. Replace DATA.ARC file using UMDgen
