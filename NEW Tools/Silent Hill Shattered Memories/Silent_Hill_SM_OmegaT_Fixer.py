@@ -72,8 +72,15 @@ def restore_INI_file(in_INI_filepath, out_INI_filepath):
     in_INI_file = open(in_INI_filepath, 'rt', encoding="utf8")
     out_INI_file = open(out_INI_filepath, 'wt+', encoding="utf8")
     
+    i = 0
     for line in in_INI_file:
+        i += 1
         line = line.replace("BD_TRANSLATE_TEXT=", "")
+        
+        if i > 12660:
+            line = line.replace("<c=1> a", "<c=1>")  #fix for debug mode
+        
+        
         out_INI_file.write(line)
         
     in_INI_file.close()
