@@ -6,6 +6,7 @@
 # Ver    Date        Author
 # v0.1   11.04.2020  Bartlomiej Duda
 # v0.2   12.04.2020  Bartlomiej Duda
+# v0.3   16.04.2020  Bartlomiej Duda
 
 
 
@@ -196,7 +197,9 @@ def main():
     
     main_switch = 2
     # 1 - remove_lines 
-    # 2 - zlib
+    # 2 - zlib text
+    # 3 - unzlib images 
+    # 4 - zlib images
     
     
     if main_switch == 1:
@@ -208,6 +211,25 @@ def main():
         p_in_filepath = "C:\\Users\\Arek\\Desktop\\Silent_Hill_SM_Tools_v7\\TextConv\\IN\\2C238264"
         p_out_filepath = "C:\\Users\\Arek\\Desktop\\Silent_Hill_SM\\USA_ROM\\data_arc_test\\DATA_1316_222"
         zlib_file(p_in_filepath, p_out_filepath)
+        
+    elif main_switch == 3:
+        p_in_filepath = "C:\\Users\\Arek\\Desktop\\Silent_Hill_SM\\USA_ROM\\data_arc_test\\DATA_1735"
+        p_out_filepath = "C:\\Users\\Arek\\Desktop\\Silent_Hill_SM\\USA_ROM\\data_arc_test\\DATA_1735_unzlib.jpeg"
+        unzlib_file(p_in_filepath, p_out_filepath) 
+        
+        p_in_filepath = "C:\\Users\\Arek\\Desktop\\Silent_Hill_SM\\USA_ROM\\data_arc_test\\DATA_1783"
+        p_out_filepath = "C:\\Users\\Arek\\Desktop\\Silent_Hill_SM\\USA_ROM\\data_arc_test\\DATA_1783_unzlib.jpeg"
+        unzlib_file(p_in_filepath, p_out_filepath)   
+        
+    elif main_switch == 4:
+        p_in_filepath = "C:\\Users\\Arek\\Desktop\\Silent_Hill_SM\\USA_ROM\\data_arc_test\\DATA_1735_unzlib.jpeg"
+        p_out_filepath = "C:\\Users\\Arek\\Desktop\\Silent_Hill_SM\\USA_ROM\\data_arc_test\\DATA_1735_zlib"
+        zlib_file(p_in_filepath, p_out_filepath) 
+        
+        p_in_filepath = "C:\\Users\\Arek\\Desktop\\Silent_Hill_SM\\USA_ROM\\data_arc_test\\DATA_1783_unzlib.jpeg"
+        p_out_filepath = "C:\\Users\\Arek\\Desktop\\Silent_Hill_SM\\USA_ROM\\data_arc_test\\DATA_1783_zlib"
+        #zlib_file(p_in_filepath, p_out_filepath)           
+        
         
     else:
         print("Wrong main switch option selected!")
