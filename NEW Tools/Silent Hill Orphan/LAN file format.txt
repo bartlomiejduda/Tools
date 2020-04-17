@@ -1,0 +1,16 @@
+Document created by Bartlomiej Duda
+Creation date: 17.04.2020
+
+
+// Silent Hill: Orphan (Java)
+// LAN file format
+// big endian
+
+
+2 bytes - number of strings
+
+num_of_strings *
+{
+  2 bytes - string length
+  x bytes - string
+}
