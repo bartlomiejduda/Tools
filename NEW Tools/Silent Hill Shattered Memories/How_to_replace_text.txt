@@ -9,6 +9,6 @@ Creation date: 11.04.2020
 3. Use char replacer
 4. Use TextConv tool
 5. Rename file to "2C238264"
-6. Use DEBUG Tool (zlib file) to replace "DATA_1316" file
+6. Use ZLIB Tool (zlib file) to replace "DATA_1316" file
 7. Use quickbms to rebuild DATA.ARC
 8. Replace DATA.ARC file using UMDgen
