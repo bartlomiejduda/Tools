@@ -57,27 +57,7 @@ def replace_chars_in_regular_txt(extension, txt_folder):
                     .replace('ń', 'ñ')
                     )
             
-            #line = (
-                #line
-                    #.replace('Ż', 'Z')
-                    #.replace('Ó', 'O')
-                    #.replace('Ł', 'L')
-                    #.replace('Ć', 'C')
-                    #.replace('Ę', 'E')
-                    #.replace('Ś', 'S')
-                    #.replace('Ą', 'A')
-                    #.replace('Ź', 'Z')
-                    #.replace('Ń', 'N')
-                    #.replace('ż', 'z')
-                    #.replace('ó', 'o')
-                    #.replace('ł', 'l')
-                    #.replace('ć', 'c')
-                    #.replace('ę', 'e')
-                    #.replace('ś', 's')
-                    #.replace('ą', 'a')
-                    #.replace('ź', 'z')
-                    #.replace('ń', 'n')
-                    #)
+   
             
             temp_file.write(line)
             
