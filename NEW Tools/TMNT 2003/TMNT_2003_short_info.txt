@@ -20,6 +20,7 @@ Can be played in Media Player Classic
 # ADX Audio files #
 Example files: M_02G.adx
 Can be played in Media Player Classic
+Converter: https://github.com/OSA413/FFmpeg-based-ADX-converter
 
 # Fonts #
 Font images are in bmp files, Example files: font.bmp, fontm.bmp
