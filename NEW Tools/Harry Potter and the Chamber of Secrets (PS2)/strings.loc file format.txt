@@ -1,0 +1,13 @@
+Document created by Bartlomiej Duda
+Creation date: 23.05.2020
+
+
+// Harry Potter and the Chamber of Secrets (PS2)
+// strings.loc file format
+
+
+
+//HEADER
+4 bytes - magic word "LOCH"
+
+
