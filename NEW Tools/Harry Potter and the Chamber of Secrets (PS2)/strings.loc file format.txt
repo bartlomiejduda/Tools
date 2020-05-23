@@ -9,5 +9,26 @@ Creation date: 23.05.2020
 
 //HEADER
 4 bytes - magic word "LOCH"
+8 bytes - header size (LOCH block size)
+4 bytes - number of LOCH entries + 1
+4 bytes - LOCH size?
 
+//LOCL BLOCK
+4 bytes - magic word "LOCL"
+8 bytes - LOCL block size
+4 bytes - number of LOCL entries + 1
+4 bytes - data start offset
+
+
+//LOCL offset table
+number_of_LOCL_entries *
+{
+   4 bytes - text offset
+}
+
+//TEXT DATA
+number_of_LOCL_entries *
+{
+  x bytes - string
+}
 
