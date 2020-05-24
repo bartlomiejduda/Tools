@@ -1,8 +1,11 @@
 ﻿Document created by Bartlomiej Duda
 Creation date: 11.03.2020
 
-// CT Special Forces: Fire for effect
+// CT Special Forces: Fire for effect (PC)
 // DPC archive file format
+
+// Archives are compressesed
+// with custom compression algorithm
 
 
 //header
@@ -22,8 +25,10 @@ num_of_files *
   4 bytes - unknown
 }
 
+
 //file data
 num_of_files *
 {
   x bytes - file data
+  x bytes - padding
 }
