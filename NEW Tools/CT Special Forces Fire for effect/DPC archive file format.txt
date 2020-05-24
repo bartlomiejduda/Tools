@@ -11,12 +11,15 @@ Creation date: 11.03.2020
 24 bytes - unknown
 
 
-//file info
+//file info (24 bytes per entry)
 num_of_files *
 {
   4 bytes - dummy
-  4 bytes - xsize
-  4 bytes - size
+  4 bytes - xsize / uncompressed size
+  4 bytes - size  / compressed size
+  4 bytes - unknwon
+  4 bytes - some CRC?
+  4 bytes - unknown
 }
 
 //file data
