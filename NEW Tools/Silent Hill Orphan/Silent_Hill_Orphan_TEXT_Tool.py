@@ -81,7 +81,7 @@ def import_lan(in_INI_path, out_LAN_path):
     
     for line in line_arr:
         B_s_len = struct.Struct(">h").pack( len(line)-1 )
-        B_str = line.rstrip("\n").encode("utf8")
+        B_str = ( line.rstrip("\n").encode("windows-1250")     )
         
         out_file.write(B_s_len)
         out_file.write(B_str)
@@ -142,11 +142,11 @@ def main():
     
     
     if main_switch == 1:
-        in_filepath = "C:\\Users\\Arek\\Desktop\\Silent_Hill_Orphan_SPOL\\en.lan"
+        in_filepath = "C:\\Users\\Arek\\Desktop\\Silent_Hill_Orphan_SPOL\\en.lan_OLD"
         out_ini_path = "C:\\Users\\Arek\\Desktop\\Silent_Hill_Orphan_SPOL\\en.lan_out.ini"
         export_lan(in_filepath, out_ini_path)
         
-        in_filepath = "C:\\Users\\Arek\\Desktop\\Silent_Hill_Orphan_SPOL\\en.properties"
+        in_filepath = "C:\\Users\\Arek\\Desktop\\Silent_Hill_Orphan_SPOL\\en.properties_OLD"
         out_ini_path = "C:\\Users\\Arek\\Desktop\\Silent_Hill_Orphan_SPOL\\en.properties_out.ini"
         export_properties(in_filepath, out_ini_path)   
         
