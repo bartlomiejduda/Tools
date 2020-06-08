@@ -1,0 +1,31 @@
+Document created by Bartlomiej Duda
+Creation date: 08.06.2020
+
+
+// Harry Potter and the Sorcerer's Stone (PS1)
+// XSPL chunk format
+
+//HEADER
+4 bytes - magic "XSPL"
+4 bytes - chunk size
+4 bytes - number of supported languages in chunk
+4 bytes - number of strings / 4     // 4 = 3 languages + 1 null string
+4 bytes - unknown
+
+
+// OFFSET TABLE
+num_of_entries *
+{ 
+  4 bytes - string relative offset
+}
+
+
+//STRING TABLE
+//Note: lower characters "a-z" are encrypted,
+//moved in ASCII table 1 character left
+num_of_entries *
+{
+  12 bytes - identifier   // #0#$01 etc.   
+  x bytes - string
+  2 bytes - null terminator // "\x00\x00"
+}
