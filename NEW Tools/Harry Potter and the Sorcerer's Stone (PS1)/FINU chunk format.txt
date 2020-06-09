@@ -1,0 +1,29 @@
+Document created by Bartlomiej Duda
+Creation date: 09.06.2020
+
+
+// Harry Potter and the Sorcerer's Stone (PS1)
+// FINU chunk format
+
+//HEADER
+4 bytes - magic "FINU"
+4 bytes - chunk size
+2 bytes - unknown // char table size * 2 (?)
+2 bytes - number of supported languages?
+4 bytes - number of entries in char table
+4 bytes - unknwon
+2 bytes - unknown  // size of some rel_offsets data block? (look below)
+
+
+//CHARACTER TABLE
+num_of_entries *
+{
+  2 bytes - unknown  // always "\x00\x00"
+  2 bytes - unknown  // height?
+  2 bytes - character
+  2 bytes - some relative offset
+}
+
+
+
+#TODO

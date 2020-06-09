@@ -23,6 +23,9 @@ num_of_entries *
 //STRING TABLE
 //Note: lower characters "a-z" are encrypted,
 //moved in ASCII table 1 character left
+//Note2: special characters are encrypted
+//in different way, check .py script for details
+
 num_of_entries *
 {
   12 bytes - identifier   // #0#$01 etc.   
