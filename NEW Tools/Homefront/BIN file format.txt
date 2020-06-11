@@ -1,0 +1,15 @@
+Document created by Bartlomiej Duda
+Creation date: 11.06.2020
+
+
+// Homefront
+// BIN file format
+
+
+num_of_strings *
+{
+   4 bytes -  value1  // length of string block = (value1 * 2) - 4
+   4 bytes - string length/2   // XORed with 0xFF
+   {len} bytes - string
+   2 bytes - null terminator
+}
