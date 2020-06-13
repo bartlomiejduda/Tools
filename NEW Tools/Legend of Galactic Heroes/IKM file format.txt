@@ -1,0 +1,19 @@
+Document created by Bartlomiej Duda
+Creation date: 13.06.2020
+
+
+// Legend of Galactic Heroes
+// IKM file format
+
+
+//HEADER (2048 bytes)
+4 bytes - magic "IKM"
+32 bytes - unknwon
+4 bytes - size of the file without header
+2008 bytes - nulls
+
+//DATA
+number_of_files *
+{
+  x bytes - data
+}
