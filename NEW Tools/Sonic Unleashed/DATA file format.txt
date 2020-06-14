@@ -1,0 +1,26 @@
+Document created by Bartlomiej Duda
+Creation date: 14.06.2020
+
+
+// Sonic Unleashed (Java)
+// DATA file format
+
+//Note: Gameloft uses a combination of LZMA and 
+//their custom compression algorithm (GLAs)
+
+
+2 bytes - file count
+
+
+//OFFSET TABLE
+file_count *
+{
+  4 bytes - file offset
+}
+
+//FILE DATA
+{
+file_count *
+{
+   x bytes - file data
+}
