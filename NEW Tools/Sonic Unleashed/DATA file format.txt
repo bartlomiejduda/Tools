@@ -1,0 +1,38 @@
+Document created by Bartlomiej Duda
+Creation date: 14.06.2020
+
+
+// Sonic Unleashed (Java)
+// DATA file format
+
+//Note: lzma 86 dec head compression
+
+
+2 bytes - number of files
+2 bytes - number of subpacks (?)
+
+
+//SUBPACK TABLE
+number_of_subpacks *
+{
+  2 bytes - subpack entry
+}
+
+
+
+//OFFSET TABLE
+number_of_files *
+{
+  4 bytes - file offset
+}
+4 bytes - size of the archive (last offset in table)
+
+
+
+//FILE DATA
+{
+number_of_files *
+{
+   1 byte  - MIME type (file type)
+   x bytes - lzma compressed file data
+}
