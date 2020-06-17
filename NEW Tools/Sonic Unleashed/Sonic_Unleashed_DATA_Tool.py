@@ -6,6 +6,7 @@
 # Ver    Date        Author
 # v0.1   14.06.2020  Bartlomiej Duda
 # v0.2   16.06.2020  Bartlomiej Duda
+# v0.3   17.06.2020  Bartlomiej Duda
 
 
 import os
@@ -47,17 +48,33 @@ def export_data(in_DATA_path, out_FOLDER_path):
         bd_logger("Error 2: This is not supported archive!!! Aborting extraction from \"" + in_file_short + "\" file.")
         return        
     
-    
+    #read subpacks array
+    subpacks_arr = []
     for i in range(num_of_subpacks):
-        DATA_file.read(2)
-        
-        
-    if num_of_subpacks != 1: #WORKAROUND!!! TODO!
-        num_of_files = num_of_subpacks - 2
-        if num_of_files <= 0:
-            num_of_files = 1
-        print("Using WORKAROUND on file " + str(in_file_short) + ", Num_of_extracted_files: " + str(num_of_files))
+        subpack = struct.unpack('<h', DATA_file.read(2))[0]
+        subpacks_arr.append(subpack)
     
+
+    #detecting if file is pack or subpack   (subpack extraction is not supported now)
+    try:
+        i_in_file_short = len(in_file_short.split('.'))
+        if int(i_in_file_short) > 1:
+            print("This file \"" + str(in_file_short) + "\" is not pack file. Skipping...")
+            return
+    except:
+        print("Error in detecting pack type!")
+
+    
+
+    #subpack algorithm
+    curr_subpack = 0 
+    if curr_subpack == num_of_subpacks - 1:
+        num_of_files = num_of_files - subpacks_arr[curr_subpack]
+    else:
+        if num_of_subpacks != 0:
+            num_of_files = subpacks_arr[curr_subpack+1] - subpacks_arr[curr_subpack]
+
+        
     
     #save offset table    
     offset_arr = []
@@ -70,13 +87,14 @@ def export_data(in_DATA_path, out_FOLDER_path):
     
     for i in range(num_of_files):
         
-        #save compressed data
+        #save data info
         file_size = offset_arr[i+1] - offset_arr[i]
         DATA_file.seek(offset_arr[i] )
         
         file_type = int.from_bytes( DATA_file.read(1), "little")
         
         #decode MIME file type
+        #if file_type >= 127 then file is compressed
         if file_type == 128:
             extension = ".midi"
         elif file_type == 127:
@@ -84,18 +102,21 @@ def export_data(in_DATA_path, out_FOLDER_path):
         else:
             extension = ".bin" #unsupported MIME type
         
+        #read data
+        if file_type >= 127:
+            file_data = lzma.decompress( DATA_file.read(file_size) ) 
+        else:
+            file_data = DATA_file.read(file_size)
+            
         
-        
-        file_data = lzma.decompress( DATA_file.read(file_size) )
         out_file_path = out_FOLDER_path + "\\" + str(i) + extension
         out_file = open(out_file_path, 'wb+')
         out_file.write(file_data) 
         out_file.close()
-        #print("File_type: " + str(file_type) + " Extracted: " + str(out_file_path) )
 
     
     DATA_file.close()
-    #bd_logger("Ending export_data...")    
+    bd_logger("Ending processing " + str(in_file_short) + " file.")    
     
     
     

@@ -15,7 +15,7 @@ Creation date: 14.06.2020
 //SUBPACK TABLE
 number_of_subpacks *
 {
-  2 bytes - subpack entry
+  2 bytes - subpack entry (subpackfat?)
 }
 
 
