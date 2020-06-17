@@ -7,6 +7,7 @@
 # v0.1   14.06.2020  Bartlomiej Duda
 # v0.2   16.06.2020  Bartlomiej Duda
 # v0.3   17.06.2020  Bartlomiej Duda
+# v0.4   17.06.2020  Bartlomiej Duda
 
 
 import os
@@ -23,6 +24,27 @@ def bd_logger(in_str):
     
 
 
+def get_MIME_extension(file_type):
+    '''
+    Function for getting extension for MIME file from given file type
+    '''      
+    #decode MIME file type
+    #if file_type >= 127 then file is compressed
+    
+    if file_type == 127: #compressed WAV file
+        r_extension = ".wav"    
+    elif file_type == 128: #compressed MIDI file
+        r_extension = ".midi"
+    elif file_type == 129:
+        r_extension = ".bin" #compressed binary file
+    else:
+        print("Unsupported MIME detected: " + str(file_type) )
+        r_extension = ".data" #unsupported MIME type
+        
+    return r_extension
+
+
+
 def export_data(in_DATA_path, out_FOLDER_path):
     '''
     Function for exporting data from DATA files
@@ -30,94 +52,143 @@ def export_data(in_DATA_path, out_FOLDER_path):
     #bd_logger("Starting export_data...")   
     in_file_short = in_DATA_path.split('\\')[-1]
     
-    if not os.path.exists(out_FOLDER_path):
-        os.makedirs(out_FOLDER_path)       
-    
-    DATA_file = open(in_DATA_path, 'rb')
-    
-    num_of_files = struct.unpack('<h', DATA_file.read(2))[0]
-    num_of_subpacks = struct.unpack('<h', DATA_file.read(2))[0]
-    
-    
-    #validity checks
-    file_size_err_check = os.stat(in_DATA_path).st_size
-    if num_of_files > file_size_err_check:
-        bd_logger("Error 1: This is not valid archive!!! Aborting extraction from \"" + in_file_short + "\" file.")
-        return
-    if in_file_short == "999": # "999" file is an archive list
-        bd_logger("Error 2: This is not supported archive!!! Aborting extraction from \"" + in_file_short + "\" file.")
-        return        
-    
-    #read subpacks array
-    subpacks_arr = []
-    for i in range(num_of_subpacks):
-        subpack = struct.unpack('<h', DATA_file.read(2))[0]
-        subpacks_arr.append(subpack)
-    
 
-    #detecting if file is pack or subpack   (subpack extraction is not supported now)
+    #detecting if file is pack or subpack 
+    subpack_flag = 0 # 0 for default pack file
     try:
         i_in_file_short = len(in_file_short.split('.'))
         if int(i_in_file_short) > 1:
-            print("This file \"" + str(in_file_short) + "\" is not pack file. Skipping...")
-            return
+            subpack_flag = 1
+            
     except:
         print("Error in detecting pack type!")
-
+    
+    
+    
+    if not os.path.exists(out_FOLDER_path):
+        os.makedirs(out_FOLDER_path)       
+    
+    DATA_file = open(in_DATA_path, 'rb')    
+    
+    
+    
+    if subpack_flag == 1: #this is subpack file
+        size_of_offset_table = struct.unpack('<l', DATA_file.read(4))[0] - 4
+        num_of_offsets = int(size_of_offset_table / 4)
+        
+        offset_arr = []
+        for i in range(num_of_offsets):
+            offset = struct.unpack('<l', DATA_file.read(4))[0]
+            offset_arr.append(offset)
+            
+        for i in range(num_of_offsets - 1):
+            file_size = offset_arr[i+1] - offset_arr[i]
+            DATA_file.seek(offset_arr[i])
+            #file_data = DATA_file.read(file_size)
+    
+    
+            file_type = int.from_bytes( DATA_file.read(1), "little")
+            
+            #decode MIME file type
+            extension = get_MIME_extension(file_type)
+            if extension == ".data":
+                print("[DEBUG]in_file_short: " + str(in_file_short) + " file_offset: " + str(offset_arr[i]) + " file_name: " + str(i) + extension )  
+            
+            #read data
+            if file_type >= 127:
+                file_data = lzma.decompress( DATA_file.read(file_size) ) 
+            else:
+                file_data = DATA_file.read(file_size)
+                
+            
+            out_file_path = out_FOLDER_path + "\\" + str(i) + extension
+            out_file = open(out_file_path, 'wb+')
+            out_file.write(file_data) 
+            out_file.close()
+    
+        
+        DATA_file.close()
+        bd_logger("[SUBPACK] Ending processing \"" + str(in_file_short) + "\" file.")       
+    
+    
+    
+    
+    
+    
+    
+    else: #this is pack file
     
 
-    #subpack algorithm
-    curr_subpack = 0 
-    if curr_subpack == num_of_subpacks - 1:
-        num_of_files = num_of_files - subpacks_arr[curr_subpack]
-    else:
-        if num_of_subpacks != 0:
-            num_of_files = subpacks_arr[curr_subpack+1] - subpacks_arr[curr_subpack]
-
+        
+        num_of_files = struct.unpack('<h', DATA_file.read(2))[0]
+        num_of_subpacks = struct.unpack('<h', DATA_file.read(2))[0]
+        
+        
+        #validity checks
+        file_size_err_check = os.stat(in_DATA_path).st_size
+        if num_of_files > file_size_err_check:
+            bd_logger("Error 1: This is not valid archive!!! Aborting extraction from \"" + in_file_short + "\" file.")
+            return
+        if in_file_short == "999": # "999" file is an archive list
+            bd_logger("Error 2: This is not supported archive!!! Aborting extraction from \"" + in_file_short + "\" file.")
+            return        
+        
+        #read subpacks array
+        subpacks_arr = []
+        for i in range(num_of_subpacks):
+            subpack = struct.unpack('<h', DATA_file.read(2))[0]
+            subpacks_arr.append(subpack)
         
     
-    #save offset table    
-    offset_arr = []
-    for i in range(num_of_files):
-        offset = struct.unpack('<l', DATA_file.read(4))[0]
-        offset_arr.append(offset)    
-    last_offset = struct.unpack('<l', DATA_file.read(4))[0]
-    offset_arr.append(last_offset)
-    extension = ""
     
-    for i in range(num_of_files):
         
-        #save data info
-        file_size = offset_arr[i+1] - offset_arr[i]
-        DATA_file.seek(offset_arr[i] )
-        
-        file_type = int.from_bytes( DATA_file.read(1), "little")
-        
-        #decode MIME file type
-        #if file_type >= 127 then file is compressed
-        if file_type == 128:
-            extension = ".midi"
-        elif file_type == 127:
-            extension = ".wav"
+    
+        #subpack algorithm
+        curr_subpack = 0 
+        if curr_subpack == num_of_subpacks - 1:
+            num_of_files = num_of_files - subpacks_arr[curr_subpack]
         else:
-            extension = ".bin" #unsupported MIME type
-        
-        #read data
-        if file_type >= 127:
-            file_data = lzma.decompress( DATA_file.read(file_size) ) 
-        else:
-            file_data = DATA_file.read(file_size)
+            if num_of_subpacks != 0:
+                num_of_files = subpacks_arr[curr_subpack+1] - subpacks_arr[curr_subpack]
+    
             
         
-        out_file_path = out_FOLDER_path + "\\" + str(i) + extension
-        out_file = open(out_file_path, 'wb+')
-        out_file.write(file_data) 
-        out_file.close()
-
+        #save offset table    
+        offset_arr = []
+        for i in range(num_of_files):
+            offset = struct.unpack('<l', DATA_file.read(4))[0]
+            offset_arr.append(offset)    
+        last_offset = struct.unpack('<l', DATA_file.read(4))[0]
+        offset_arr.append(last_offset)
+        extension = ""
+        
+        for i in range(num_of_files):
+            
+            #save data info
+            file_size = offset_arr[i+1] - offset_arr[i]
+            DATA_file.seek(offset_arr[i] )
+            
+            file_type = int.from_bytes( DATA_file.read(1), "little")
+            
+            #decode MIME file type
+            extension = get_MIME_extension(file_type)
+            
+            #read data
+            if file_type >= 127:
+                file_data = lzma.decompress( DATA_file.read(file_size) ) 
+            else:
+                file_data = DATA_file.read(file_size)
+                
+            
+            out_file_path = out_FOLDER_path + "\\" + str(i) + extension
+            out_file = open(out_file_path, 'wb+')
+            out_file.write(file_data) 
+            out_file.close()
     
-    DATA_file.close()
-    bd_logger("Ending processing " + str(in_file_short) + " file.")    
-    
+        
+        DATA_file.close()
+        bd_logger("[PACK] Ending processing \"" + str(in_file_short) + "\" file.")    
+        
     
     
     
@@ -137,7 +208,8 @@ def main():
         export_data(p_in_DATA_path, p_out_FOLDER_path)
         
     if main_switch == 2:    
-        fold_path = "C:\\Users\\Arek\\Desktop\\Sonic Unleashed\\Sonic_Unleashed_640x480\\"
+        #fold_path = "C:\\Users\\Arek\\Desktop\\Sonic Unleashed\\Sonic_Unleashed_640x480\\"
+        fold_path = "C:\\Users\\Arek\\Desktop\\SEGA All Stars\\"
         for file in os.listdir(fold_path):
             in_file = os.path.join(fold_path, file)
             if os.path.isdir(in_file):
