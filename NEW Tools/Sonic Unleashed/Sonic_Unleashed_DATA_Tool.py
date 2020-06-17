@@ -31,12 +31,15 @@ def get_MIME_extension(file_type):
     #decode MIME file type
     #if file_type >= 127 then file is compressed
     
-    if file_type == 127: #compressed WAV file
+    if file_type in (0, 127): #WAV file
         r_extension = ".wav"    
-    elif file_type == 128: #compressed MIDI file
+    elif file_type in (1, 128): #MIDI file
         r_extension = ".midi"
-    elif file_type == 129:
-        r_extension = ".bin" #compressed binary file
+    elif file_type in (2, 129):
+        r_extension = ".bin" #binary file
+    elif file_type in (4, 131):
+        r_extension = ".tex" #textures?        
+        
     else:
         print("Unsupported MIME detected: " + str(file_type) )
         r_extension = ".data" #unsupported MIME type
@@ -58,8 +61,7 @@ def export_data(in_DATA_path, out_FOLDER_path):
     try:
         i_in_file_short = len(in_file_short.split('.'))
         if int(i_in_file_short) > 1:
-            subpack_flag = 1
-            
+            subpack_flag = 1      
     except:
         print("Error in detecting pack type!")
     
@@ -92,7 +94,8 @@ def export_data(in_DATA_path, out_FOLDER_path):
             #decode MIME file type
             extension = get_MIME_extension(file_type)
             if extension == ".data":
-                print("[DEBUG]in_file_short: " + str(in_file_short) + " file_offset: " + str(offset_arr[i]) + " file_name: " + str(i) + extension )  
+                #print("[DEBUG]in_file_short: " + str(in_file_short) + " file_offset: " + str(offset_arr[i]) + " file_name: " + str(i) + extension )  
+                pass
             
             #read data
             if file_type >= 127:

@@ -1,0 +1,27 @@
+Document created by Bartlomiej Duda
+Creation date: 17.06.2020
+
+
+// Code Lyoko - Quest For Infinity
+// GRP file format
+
+
+//HEADER
+2 bytes - number of files
+2 bytes - padding value?
+
+
+//OFFSET TABLE
+num_of_files *
+{
+  4 bytes - file size  
+  4 bytes - file offset
+}
+
+
+//DATA
+number_of_files *
+{
+  x bytes - data
+  x bytes - padding  //padded with "\x00" to 64 bytes
+}
