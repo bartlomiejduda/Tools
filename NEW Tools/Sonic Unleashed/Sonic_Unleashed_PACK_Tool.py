@@ -13,6 +13,7 @@
 # v0.5   18.06.2020  Bartlomiej Duda                        -
 # v0.6   18.06.2020  Bartlomiej Duda / Leia Ivon Flame      Added support for dataIGP
 # v0.7   18.06.2020  Bartlomiej Duda                        Code cleaning and test paths
+# v0.8   18.06.2020  Bartlomiej Duda / Leia Ivon Flame      Added "999" file support
 
 
 import os
@@ -53,6 +54,26 @@ def get_MIME_extension(file_type):
 
 
 
+def read_999_file(in_FILE_path):
+    '''
+    Function for reading data in "999" file 
+    ''' 
+    bd_logger("Starting reading \"999\" file...")  
+    
+    in_file = open(in_FILE_path, 'rb') 
+    
+    num_of_files = struct.unpack('<l', in_file.read(4))[0]
+    
+    for i in range(num_of_files):
+        str_len = struct.unpack('<l', in_file.read(4))[0]
+        file_name = in_file.read(str_len).decode("utf8")
+        file_size = struct.unpack('<l', in_file.read(4))[0]
+        print( str(i+1) + ") " + "file_name: " + file_name + " file_size: " + str(file_size) )
+        
+    
+    
+    
+    bd_logger("Ending reading \"999\" file...") 
 
 
 
@@ -75,7 +96,7 @@ def export_data(in_DATA_path, out_FOLDER_path):
     
     
     #validity checks
-    if in_file_short in ("0", "999", "888", "dataIGPSprites"): # "currently not supported files
+    if in_file_short in ("0", "999", "888", "dataIGPSprites"): #currently not supported files by export_data function
         bd_logger("Error 1: This is not supported archive!!! Aborting extraction from \"" + in_file_short + "\" file.")
         return  
     if ("class" in in_file_short) or ("png" in in_file_short):
@@ -89,7 +110,7 @@ def export_data(in_DATA_path, out_FOLDER_path):
     DATA_file = open(in_DATA_path, 'rb')    
     
     
-    if in_file_short in "dataIGP": #his is dataIGP file
+    if in_file_short in "dataIGP": #this is dataIGP file
         num_of_offsets = struct.unpack('<h', DATA_file.read(2))[0]
         
         offset_arr = []
@@ -239,6 +260,7 @@ def main():
     main_switch = 2
     # 1 - data export 
     # 2 - data mass export
+    # 3 - read 999 file
 
     
   
@@ -249,7 +271,7 @@ def main():
         p_out_FOLDER_path = "C:\\Users\\Arek\\Desktop\\Sonic Unleashed\\Sonic_Unleashed_640x480\\" + temp_name + "_out"
         export_data(p_in_DATA_path, p_out_FOLDER_path)
         
-    if main_switch == 2:    
+    elif main_switch == 2:    
 
         #fold_path =  "C:\\Users\\Arek\\Desktop\\GAMELOFT_TEST\\RivalWheels\\"
         #fold_path =  "C:\\Users\\Arek\\Desktop\\GAMELOFT_TEST\\Sonic_Unleashed_640x480\\"
@@ -273,6 +295,10 @@ def main():
                 out_folder = in_file + "_out"
                 #print(in_file)
                 export_data(in_file, out_folder)
+    
+    elif main_switch == 3: 
+        p_in_file_path = "C:\\Users\\Arek\\Desktop\\GAMELOFT_TEST\\SpiderMan ToxicCity\\999"
+        read_999_file(p_in_file_path)
     
             
     else:

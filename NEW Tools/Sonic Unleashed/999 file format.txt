@@ -1,0 +1,21 @@
+Document created by Bartlomiej Duda
+Creation date: 18.06.2020
+
+
+// Sonic Unleashed (Java)
+// "999" file format
+
+
+// Note: "999" is an archive index file.
+// It can be used to iterate over archives in game.
+
+
+
+4 bytes - number of files
+
+num_of_files *
+{
+  4 bytes - file name length
+  x bytes - file name
+  4 bytes - file size
+}

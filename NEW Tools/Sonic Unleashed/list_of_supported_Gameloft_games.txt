@@ -8,6 +8,10 @@ Legend:
 [U] - support unknown
 
 
+// Note: Games with "999" index file should be supported
+// but games with "888" index file may be not supported
+
+
 
 - [F] Sonic Unleashed (Java game)
 - [F] SEGA All Stars (Java game)
