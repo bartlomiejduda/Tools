@@ -1,7 +1,9 @@
 # -*- coding: utf-8 -*-
 
 # Tested on Python 3.8.0
-# This tool should be used with Sonic Unleashed (Java)
+
+# This tool originally was created to work with Sonic Unleashed (Java)
+# but it may be also compatible with other Gameloft games 
 
 # Ver    Date        Author                                 Comment
 # v0.1   14.06.2020  Bartlomiej Duda                        -
@@ -10,6 +12,7 @@
 # v0.4   17.06.2020  Bartlomiej Duda                        -
 # v0.5   18.06.2020  Bartlomiej Duda                        -
 # v0.6   18.06.2020  Bartlomiej Duda / Leia Ivon Flame      Added support for dataIGP
+# v0.7   18.06.2020  Bartlomiej Duda                        Code cleaning and test paths
 
 
 import os
@@ -72,7 +75,7 @@ def export_data(in_DATA_path, out_FOLDER_path):
     
     
     #validity checks
-    if in_file_short in ("0", "999", "dataIGPSprites"): # "currently not supported files
+    if in_file_short in ("0", "999", "888", "dataIGPSprites"): # "currently not supported files
         bd_logger("Error 1: This is not supported archive!!! Aborting extraction from \"" + in_file_short + "\" file.")
         return  
     if ("class" in in_file_short) or ("png" in in_file_short):
@@ -137,7 +140,10 @@ def export_data(in_DATA_path, out_FOLDER_path):
             
             #read data
             if file_type >= 127:
-                file_data = lzma.decompress( DATA_file.read(file_size) ) 
+                try:
+                    file_data = lzma.decompress( DATA_file.read(file_size) ) 
+                except:
+                    print("LZMA error in archive \"" + in_file_short + "\". Skipping file " + str(i) + extension + "...")
             else:
                 file_data = DATA_file.read(file_size)
                 
@@ -206,8 +212,12 @@ def export_data(in_DATA_path, out_FOLDER_path):
             extension = get_MIME_extension(file_type)
             
             #read data
+            file_data = b'\x00'
             if file_type >= 127:
-                file_data = lzma.decompress( DATA_file.read(file_size) ) 
+                try:
+                    file_data = lzma.decompress( DATA_file.read(file_size) ) 
+                except:
+                    print("LZMA error in archive \"" + in_file_short + "\". Skipping file " + str(i) + extension + "...")
             else:
                 file_data = DATA_file.read(file_size)
                 
@@ -242,7 +252,19 @@ def main():
     if main_switch == 2:    
 
         #fold_path =  "C:\\Users\\Arek\\Desktop\\GAMELOFT_TEST\\RivalWheels\\"
-        fold_path =  "C:\\Users\\Arek\\Desktop\\GAMELOFT_TEST\\Sonic_Unleashed_640x480"
+        #fold_path =  "C:\\Users\\Arek\\Desktop\\GAMELOFT_TEST\\Sonic_Unleashed_640x480\\"
+        #fold_path =  "C:\\Users\\Arek\\Desktop\\GAMELOFT_TEST\\SEGA All Stars\\"
+        #fold_path =  "C:\\Users\\Arek\\Desktop\\GAMELOFT_TEST\\Sonic Runners Adventure\\"
+        #fold_path =  "C:\\Users\\Arek\\Desktop\\GAMELOFT_TEST\\Tetris\\"
+        #fold_path =  "C:\\Users\\Arek\\Desktop\\GAMELOFT_TEST\\AssassinsCreed2\\"
+        #fold_path =  "C:\\Users\\Arek\\Desktop\\GAMELOFT_TEST\\Love Boat Puzzle Cruise\\"
+        #fold_path = "C:\\Users\\Arek\\Desktop\\GAMELOFT_TEST\\DungeonHunterCurseOfHeaven\\"
+        #fold_path = "C:\\Users\\Arek\\Desktop\\GAMELOFT_TEST\\RealFootball2018\\"
+        fold_path = "C:\\Users\\Arek\\Desktop\\GAMELOFT_TEST\\SpiderMan ToxicCity\\"
+        #fold_path = "C:\\Users\\Arek\\Desktop\\GAMELOFT_TEST\\Jurassic Park 2010\\"
+        #fold_path = "C:\\Users\\Arek\\Desktop\\GAMELOFT_TEST\\Prince of Persia The Forgotten Sands\\"
+        
+        
         for file in os.listdir(fold_path):
             in_file = os.path.join(fold_path, file)
             if os.path.isdir(in_file):

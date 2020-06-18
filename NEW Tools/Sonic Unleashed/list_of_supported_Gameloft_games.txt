@@ -1,0 +1,28 @@
+Here you can find a list of supported games by this tool.
+Please read legend first.
+
+Legend:
+[F] - full support
+[P] - partial support of some archives (unknown MIME types, LZMA errors etc.)
+[N] - no support at all
+[U] - support unknown
+
+
+
+- [F] Sonic Unleashed (Java game)
+- [F] SEGA All Stars (Java game)
+- [F] Spider-Man: Toxic City (Java game)
+
+- [P] Assasin's Creed II (Java game)
+- [P] Real Football 2018 (Java game)
+- [P] Jurassic Park 2010 (Java game)
+- [P] Prince of Persia: The Forgotten Sands (Java game)
+
+
+
+
+- [N] Sonic Runners Adventure (Java game)
+- [N] Rival Wheels: Moto Drag Racing (Java game)
+- [N] Tetris
+- [N] Love boat Puzzle Cruise
+- [N] Dungeon Hunter Curse Of Heaven
