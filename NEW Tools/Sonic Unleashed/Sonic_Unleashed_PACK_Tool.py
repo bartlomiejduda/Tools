@@ -8,6 +8,7 @@
 # v0.2   16.06.2020  Bartlomiej Duda
 # v0.3   17.06.2020  Bartlomiej Duda
 # v0.4   17.06.2020  Bartlomiej Duda
+# v0.5   18.06.2020  Bartlomiej Duda
 
 
 import os
@@ -50,11 +51,11 @@ def get_MIME_extension(file_type):
 
 def export_data(in_DATA_path, out_FOLDER_path):
     '''
-    Function for exporting data from DATA files
+    Function for exporting data from PACK/SUBPACK files
     '''    
-    #bd_logger("Starting export_data...")   
+     
     in_file_short = in_DATA_path.split('\\')[-1]
-    
+    bd_logger("Starting processing \"" + str(in_file_short) + "\" file...")  
 
     #detecting if file is pack or subpack 
     subpack_flag = 0 # 0 for default pack file
@@ -65,6 +66,15 @@ def export_data(in_DATA_path, out_FOLDER_path):
     except:
         print("Error in detecting pack type!")
     
+    
+    #validity checks
+    file_size_err_check = os.stat(in_DATA_path).st_size
+    if in_file_short in ("0", "999", "dataIGP", "dataIGPSprites"): # "currently not supported files
+        bd_logger("Error 1: This is not supported archive!!! Aborting extraction from \"" + in_file_short + "\" file.")
+        return  
+    if ("class" in in_file_short) or ("png" in in_file_short):
+        bd_logger("Error 2: This is not PACK/SUBPACK archive!!! Aborting extraction from \"" + in_file_short + "\" file.")
+        return          
     
     
     if not os.path.exists(out_FOLDER_path):
@@ -126,15 +136,6 @@ def export_data(in_DATA_path, out_FOLDER_path):
         num_of_files = struct.unpack('<h', DATA_file.read(2))[0]
         num_of_subpacks = struct.unpack('<h', DATA_file.read(2))[0]
         
-        
-        #validity checks
-        file_size_err_check = os.stat(in_DATA_path).st_size
-        if num_of_files > file_size_err_check:
-            bd_logger("Error 1: This is not valid archive!!! Aborting extraction from \"" + in_file_short + "\" file.")
-            return
-        if in_file_short == "999": # "999" file is an archive list
-            bd_logger("Error 2: This is not supported archive!!! Aborting extraction from \"" + in_file_short + "\" file.")
-            return        
         
         #read subpacks array
         subpacks_arr = []
@@ -211,8 +212,9 @@ def main():
         export_data(p_in_DATA_path, p_out_FOLDER_path)
         
     if main_switch == 2:    
-        #fold_path = "C:\\Users\\Arek\\Desktop\\Sonic Unleashed\\Sonic_Unleashed_640x480\\"
-        fold_path = "C:\\Users\\Arek\\Desktop\\SEGA All Stars\\"
+
+        #fold_path =  "C:\\Users\\Arek\\Desktop\\GAMELOFT_TEST\\RivalWheels\\"
+        fold_path =  "C:\\Users\\Arek\\Desktop\\GAMELOFT_TEST\\Sonic_Unleashed_640x480"
         for file in os.listdir(fold_path):
             in_file = os.path.join(fold_path, file)
             if os.path.isdir(in_file):

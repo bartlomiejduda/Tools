@@ -1,0 +1,17 @@
+Here you can find a list of supported games by this tool.
+Please read legend first.
+
+Legend:
+[F] - full support
+[P] - partial support of some archives
+[N] - no support at all
+[U] - support unknown
+
+
+
+- [P] Sonic Unleashed (Java game)
+- [P] SEGA All Stars (Java game)
+
+
+
+#TODO
