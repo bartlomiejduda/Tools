@@ -3,12 +3,13 @@
 # Tested on Python 3.8.0
 # This tool should be used with Sonic Unleashed (Java)
 
-# Ver    Date        Author
-# v0.1   14.06.2020  Bartlomiej Duda
-# v0.2   16.06.2020  Bartlomiej Duda
-# v0.3   17.06.2020  Bartlomiej Duda
-# v0.4   17.06.2020  Bartlomiej Duda
-# v0.5   18.06.2020  Bartlomiej Duda
+# Ver    Date        Author                                 Comment
+# v0.1   14.06.2020  Bartlomiej Duda                        -
+# v0.2   16.06.2020  Bartlomiej Duda                        -
+# v0.3   17.06.2020  Bartlomiej Duda                        -
+# v0.4   17.06.2020  Bartlomiej Duda                        -
+# v0.5   18.06.2020  Bartlomiej Duda                        -
+# v0.6   18.06.2020  Bartlomiej Duda / Leia Ivon Flame      Added support for dataIGP
 
 
 import os
@@ -49,6 +50,9 @@ def get_MIME_extension(file_type):
 
 
 
+
+
+
 def export_data(in_DATA_path, out_FOLDER_path):
     '''
     Function for exporting data from PACK/SUBPACK files
@@ -68,8 +72,7 @@ def export_data(in_DATA_path, out_FOLDER_path):
     
     
     #validity checks
-    file_size_err_check = os.stat(in_DATA_path).st_size
-    if in_file_short in ("0", "999", "dataIGP", "dataIGPSprites"): # "currently not supported files
+    if in_file_short in ("0", "999", "dataIGPSprites"): # "currently not supported files
         bd_logger("Error 1: This is not supported archive!!! Aborting extraction from \"" + in_file_short + "\" file.")
         return  
     if ("class" in in_file_short) or ("png" in in_file_short):
@@ -83,8 +86,34 @@ def export_data(in_DATA_path, out_FOLDER_path):
     DATA_file = open(in_DATA_path, 'rb')    
     
     
+    if in_file_short in "dataIGP": #his is dataIGP file
+        num_of_offsets = struct.unpack('<h', DATA_file.read(2))[0]
+        
+        offset_arr = []
+        for i in range(num_of_offsets):
+            offset = struct.unpack('<l', DATA_file.read(4))[0]
+            offset_arr.append(offset)
+            
+        file_size = os.stat(in_DATA_path).st_size 
+        offset_arr.append(file_size)
+        
+        base_offset = DATA_file.tell()
+            
+        for i in range(num_of_offsets-1):
+            DATA_file.seek(base_offset + offset_arr[i])
+            file_size = offset_arr[i+1] - offset_arr[i]
+            data = DATA_file.read(file_size)
+            out_file_path = out_FOLDER_path + "\\" + str(i) + ".bin"
+            out_file = open(out_file_path, 'wb+')
+            out_file.write(data) 
+            out_file.close()
+        
+        
+
+        
+        
     
-    if subpack_flag == 1: #this is subpack file
+    elif subpack_flag == 1: #this is subpack file
         size_of_offset_table = struct.unpack('<l', DATA_file.read(4))[0] - 4
         num_of_offsets = int(size_of_offset_table / 4)
         
@@ -96,7 +125,6 @@ def export_data(in_DATA_path, out_FOLDER_path):
         for i in range(num_of_offsets - 1):
             file_size = offset_arr[i+1] - offset_arr[i]
             DATA_file.seek(offset_arr[i])
-            #file_data = DATA_file.read(file_size)
     
     
             file_type = int.from_bytes( DATA_file.read(1), "little")
