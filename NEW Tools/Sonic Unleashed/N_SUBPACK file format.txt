@@ -1,0 +1,17 @@
+Document created by Bartlomiej Duda
+Creation date: 19.06.2020
+
+
+// Sonic Unleashed (Java)
+// N_SUBPACK file format
+
+
+// Note: "N_SUBPACK" stands for "new subpack" 
+// and it is work name for another kind of pack archive
+// It occurs in games where there is "888" file
+// instead of "999" index file.
+
+
+
+
+#TODO

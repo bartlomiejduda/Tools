@@ -14,6 +14,7 @@
 # v0.6   18.06.2020  Bartlomiej Duda / Leia Ivon Flame      Added support for dataIGP
 # v0.7   18.06.2020  Bartlomiej Duda                        Code cleaning and test paths
 # v0.8   18.06.2020  Bartlomiej Duda / Leia Ivon Flame      Added "999" file support
+# v0.9   19.06.2020  Bartlomiej Duda                        Added support for "N_PACK"
 
 
 import os
@@ -77,7 +78,7 @@ def read_999_file(in_FILE_path):
 
 
 
-def export_data(in_DATA_path, out_FOLDER_path):
+def export_data(in_DATA_path, out_FOLDER_path, pack_mode):
     '''
     Function for exporting data from PACK/SUBPACK files
     '''    
@@ -110,6 +111,8 @@ def export_data(in_DATA_path, out_FOLDER_path):
     DATA_file = open(in_DATA_path, 'rb')    
     
     
+    
+    
     if in_file_short in "dataIGP": #this is dataIGP file
         num_of_offsets = struct.unpack('<h', DATA_file.read(2))[0]
         
@@ -131,10 +134,45 @@ def export_data(in_DATA_path, out_FOLDER_path):
             out_file = open(out_file_path, 'wb+')
             out_file.write(data) 
             out_file.close()
-        
+      
         
 
+    elif pack_mode == "N_PACK": #this is N_PACK archive
         
+        
+        if subpack_flag == 1:
+            print("N_SUBPACK extraction is not supported yet... Skipping extraction from " + in_file_short + " file.")
+            return
+ 
+        
+        print("N_PACK extraction started...")
+        
+        num_of_files = int(struct.unpack('<h', DATA_file.read(2))[0] / 2)
+        
+        offset_arr = []
+        arch_size = os.stat(in_DATA_path).st_size 
+        for i in range(num_of_files):
+            file_offset = struct.unpack('<L', DATA_file.read(4))[0]
+            if file_offset > arch_size: #workaround
+                print("Offset " + str(file_offset) + " is larger than archive size " + str(arch_size) + ". Using workaround on N_PACK archive...")
+            else:
+                offset_arr.append(file_offset)
+         
+        offset_arr.append(arch_size)
+        
+        for i in range(len(offset_arr)-1):
+            DATA_file.seek(offset_arr[i])
+            file_size = offset_arr[i+1] - offset_arr[i]
+            
+            file_type = int.from_bytes( DATA_file.read(1), "little")
+            extension = get_MIME_extension(file_type)            
+            
+            data = DATA_file.read(file_size)
+            out_file_path = out_FOLDER_path + "\\" + str(i) + extension
+            out_file = open(out_file_path, 'wb+')
+            out_file.write(data) 
+            out_file.close()
+
         
     
     elif subpack_flag == 1: #this is subpack file
@@ -269,11 +307,11 @@ def main():
         temp_name = "0"
         p_in_DATA_path = "C:\\Users\\Arek\\Desktop\\Sonic Unleashed\\Sonic_Unleashed_640x480\\" + temp_name 
         p_out_FOLDER_path = "C:\\Users\\Arek\\Desktop\\Sonic Unleashed\\Sonic_Unleashed_640x480\\" + temp_name + "_out"
-        export_data(p_in_DATA_path, p_out_FOLDER_path)
+        export_data(p_in_DATA_path, p_out_FOLDER_path, "")
         
     elif main_switch == 2:    
 
-        #fold_path =  "C:\\Users\\Arek\\Desktop\\GAMELOFT_TEST\\RivalWheels\\"
+        fold_path =  "C:\\Users\\Arek\\Desktop\\GAMELOFT_TEST\\RivalWheels\\"
         #fold_path =  "C:\\Users\\Arek\\Desktop\\GAMELOFT_TEST\\Sonic_Unleashed_640x480\\"
         #fold_path =  "C:\\Users\\Arek\\Desktop\\GAMELOFT_TEST\\SEGA All Stars\\"
         #fold_path =  "C:\\Users\\Arek\\Desktop\\GAMELOFT_TEST\\Sonic Runners Adventure\\"
@@ -282,10 +320,15 @@ def main():
         #fold_path =  "C:\\Users\\Arek\\Desktop\\GAMELOFT_TEST\\Love Boat Puzzle Cruise\\"
         #fold_path = "C:\\Users\\Arek\\Desktop\\GAMELOFT_TEST\\DungeonHunterCurseOfHeaven\\"
         #fold_path = "C:\\Users\\Arek\\Desktop\\GAMELOFT_TEST\\RealFootball2018\\"
-        fold_path = "C:\\Users\\Arek\\Desktop\\GAMELOFT_TEST\\SpiderMan ToxicCity\\"
+        #fold_path = "C:\\Users\\Arek\\Desktop\\GAMELOFT_TEST\\SpiderMan ToxicCity\\"
         #fold_path = "C:\\Users\\Arek\\Desktop\\GAMELOFT_TEST\\Jurassic Park 2010\\"
         #fold_path = "C:\\Users\\Arek\\Desktop\\GAMELOFT_TEST\\Prince of Persia The Forgotten Sands\\"
         
+        
+        
+        pack_mode = "N_PACK"
+        # "" - empty for default mode
+        # "N_PACK" - for N_PACK mode 
         
         for file in os.listdir(fold_path):
             in_file = os.path.join(fold_path, file)
@@ -294,7 +337,7 @@ def main():
             else:
                 out_folder = in_file + "_out"
                 #print(in_file)
-                export_data(in_file, out_folder)
+                export_data(in_file, out_folder, pack_mode)
     
     elif main_switch == 3: 
         p_in_file_path = "C:\\Users\\Arek\\Desktop\\GAMELOFT_TEST\\SpiderMan ToxicCity\\999"

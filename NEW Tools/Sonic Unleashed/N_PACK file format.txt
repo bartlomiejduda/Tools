@@ -1,0 +1,29 @@
+Document created by Bartlomiej Duda
+Creation date: 19.06.2020
+
+
+// Sonic Unleashed (Java)
+// N_PACK file format
+
+
+// Note: "N_PACK" stands for "new pack" 
+// and it is work name for another kind of pack archive
+// It occurs in games where there is "888" file
+// instead of "999" index file.
+
+
+
+2 bytes - number of entries /  number of files * 2
+
+
+num_of_files *
+{
+  4 bytes - file offset
+}
+
+
+num_of_files *
+{
+  1 byte - MIME type
+  x bytes - file data
+}

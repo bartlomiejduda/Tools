@@ -1,0 +1,31 @@
+Document created by Bartlomiej Duda
+Creation date: 19.06.2020
+
+
+// Sonic Unleashed (Java)
+// SUBPACK file format
+
+
+// Note: It may use lzma compression
+
+
+4 bytes - size of offset table 
+
+
+//OFFSET TABLE
+num_of_files *
+{
+  4 bytes - file offset
+}
+4 bytes - archive size (last offset)
+
+
+//DATA
+num_of_files *
+{
+  1 byte - MIME type
+  x bytes - file data 
+}
+
+
+
