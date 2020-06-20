@@ -6,6 +6,7 @@
 # Ver    Date        Author
 # v0.1   17.04.2020  Bartlomiej Duda
 # v0.2   07.06.2020  Bartlomiej Duda
+# v0.3   20.06.2020  Bartlomiej Duda
 
 
 
@@ -37,7 +38,6 @@ def export_lan(in_LAN_filepath, out_INI_path):
     for i in range(num_of_lines):
         line_length = struct.unpack('>h', lan_file.read(2))[0]
         line = lan_file.read(line_length).decode("utf8")
-        #print(str(i+1) + ") Line: " + line)
         line_arr.append(line)
         
     for line in line_arr:
@@ -57,10 +57,11 @@ def import_lan(in_INI_path, out_LAN_path):
     '''    
     bd_logger("Starting import_lan...") 
     
-    ini_file = open(in_INI_path, 'rt')
+    ini_file = open(in_INI_path, 'rt', encoding="UTF8")
     out_file = open(out_LAN_path, 'wb+')    
     
     count_lines = 0
+    print( "Starting reading lines..." )
     for line in ini_file:
         count_lines += 1   #count lines in INI file
         
@@ -69,10 +70,10 @@ def import_lan(in_INI_path, out_LAN_path):
     
     line_arr = []
     i = 0
+    print( "Starting writing lines..." )
     for line in ini_file:
         i += 1
         line = line.split("BD_TRANSLATE_TEXT=")[-1]   #read lines from INI
-        #print(str(i) + ") " + line)
         line_arr.append(line)
     
     #writing data    
@@ -80,8 +81,8 @@ def import_lan(in_INI_path, out_LAN_path):
     out_file.write(B_count_lines)
     
     for line in line_arr:
-        B_s_len = struct.Struct(">h").pack( len(line)-1 )
-        B_str = ( line.rstrip("\n").encode("windows-1250")     )
+        B_str = ( line.rstrip("\n").encode("utf8")     )
+        B_s_len = struct.Struct(">h").pack(   len(B_str)    )
         
         out_file.write(B_s_len)
         out_file.write(B_str)
@@ -120,9 +121,10 @@ def import_properties(in_INI_path, out_PROP_path):
     '''    
     bd_logger("Starting import_prop...")  
     
-    INI_file = open(in_INI_path, 'rt')
-    PROP_file = open(out_PROP_path, 'wt+', newline='\x0A')
+    INI_file = open(in_INI_path, 'rt', encoding="UTF8")
+    PROP_file = open(out_PROP_path, 'wt+', newline='\x0A', encoding="UTF8")
     
+    print("Starting reading/writing lines...")
     for line in INI_file:
         line = line.split("BD_TRANSLATE_TEXT=")[-1]
         PROP_file.write(line)

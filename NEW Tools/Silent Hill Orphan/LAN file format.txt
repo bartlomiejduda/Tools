@@ -7,6 +7,9 @@ Creation date: 17.04.2020
 // big endian
 
 
+// Note: strings are encoded in UTF-8
+
+
 2 bytes - number of strings
 
 num_of_strings *
