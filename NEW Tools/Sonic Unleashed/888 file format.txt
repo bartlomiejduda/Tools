@@ -1,0 +1,28 @@
+Document created by Bartlomiej Duda
+Creation date: 20.06.2020
+
+
+// Rival Wheels (Java)
+// "888" file format
+
+
+// Note: I have noticed that "888" files are identical
+// in games like "Love Boat Puzzle Cruise",
+// "Sonic Runners Adventure" or 
+// "Dungeon Hunter Course of Heaven".
+// They may contain some constant data, not assets.
+
+
+
+2 bytes - number of entries?
+1 byte - unknown
+2 bytes - size of some table?
+
+(size_of_table/2) *
+{
+  2 bytes - unknown
+}
+
+
+
+#TODO

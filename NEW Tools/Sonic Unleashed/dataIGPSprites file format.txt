@@ -1,0 +1,25 @@
+Document created by Bartlomiej Duda
+Creation date: 20.06.2020
+
+
+// Rival Wheels (Java)
+// dataIGPSprites file format
+
+
+
+2 bytes - number of offsets
+
+
+//OFFSET TABLE
+(num_of_offsets-1) *
+{
+  4 bytes - file offset
+}
+4 bytes - archive size (last offset in table)
+
+
+//OFFSET TABLE
+(num_of_offsets-1) *
+{
+  x bytes - data
+}
