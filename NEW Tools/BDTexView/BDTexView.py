@@ -1,12 +1,14 @@
 # -*- coding: utf-8 -*-
 
-# Tested on Python 3.8.1
+# Tested on Python 3.8.0
 
 # Ver    Date        Name
-# v1.0   08.01.2020  Bartlomiej Duda
+# v0.1   08.01.2020  Bartlomiej Duda
+# v0.2   23.06.2020  Bartlomiej Duda
 
 
-VERSION_NUM = "v1.0"
+
+VERSION_NUM = "v0.2"
 
 
 import os
@@ -16,6 +18,14 @@ import tkinter as tk
 from tkinter import messagebox, StringVar, OptionMenu, filedialog, ttk, Text, LabelFrame, Radiobutton
 import webbrowser
 import traceback
+
+
+
+def bd_logger(in_str):
+    import datetime
+    now = datetime.datetime.now()
+    print(now.strftime("%d-%m-%Y %H:%M:%S") + " " + in_str)    
+
 
 
 def open_manual():
@@ -67,7 +77,7 @@ root.winfo_toplevel().title("BDTexView " + VERSION_NUM)
 try:
     root.iconbitmap('bdtexview_icon.ico')
 except:
-    print("Icon not loaded!")
+    bd_logger("Icon not loaded!")
 
 
 canvas = tk.Canvas(root, height=WINDOW_HEIGHT, width=WINDOW_WIDTH)
