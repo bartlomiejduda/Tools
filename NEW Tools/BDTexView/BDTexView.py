@@ -8,10 +8,11 @@
 # v0.3   26.06.2020  Bartlomiej Duda    -
 # v0.4   27.06.2020  Bartlomiej Duda    -
 # v0.5   29.06.2020  Bartlomiej Duda    -
+# v0.6   30.06.2020  Bartlomiej Duda    -
 
 
 
-VERSION_NUM = "v0.5"
+VERSION_NUM = "v0.6"
 
 
 import os
@@ -79,13 +80,17 @@ def main():
     
     #default app settings
     WINDOW_HEIGHT = 700
-    WINDOW_WIDTH = 800
+    WINDOW_WIDTH = 740
+    
+    MIN_WINDOW_HEIGHT = 700
+    MIN_WINDOW_WIDTH = 740
     
     #default yellow canvas settings
-    canv_yellow_settings = [ 10,   70,  200,   180,    0          ] 
-                            #x     y    width  height  change_flag    
+    canv_yellow_settings = [ 10,   70,  450,   300,    500,         490       ] 
+                            #x     y    width  height  max_width    max_height   
     
     root = tk.Tk("BDTexView", "BDTexView")
+    root.minsize(MIN_WINDOW_WIDTH, MIN_WINDOW_HEIGHT) 
     root.winfo_toplevel().title("BDTexView " + VERSION_NUM)
     
     try:
@@ -97,7 +102,7 @@ def main():
     
     
     #main window
-    canvas = tk.Canvas(root, height=WINDOW_HEIGHT, width=WINDOW_WIDTH)
+    canvas = tk.Canvas(root, height=WINDOW_HEIGHT, width=WINDOW_WIDTH) 
     canvas.pack()
     main_frame = tk.Frame(root, bg='light blue', bd=5)
     main_frame.place(x=0, y=0, relwidth=1, relheight=1)
@@ -107,7 +112,7 @@ def main():
     
     
     #browse image
-    txt_pack_label = tk.Label(main_frame, text="Graphic filepath")
+    txt_pack_label = tk.Label(main_frame, text="Graphic Filepath")
     txt_pack_label.place(x=10, y=10, width=100, height=20)
     txt_pack_text = tk.Text(main_frame, font=("Arial", 10), wrap='none')
     txt_pack_text.place(x= 10, y= 40, width=500, height=20)
@@ -119,14 +124,14 @@ def main():
 
     
     #PIXEL FORMATS
-    mode_frame = LabelFrame(main_frame, text="Pixel formats")
-    mode_frame['bg'] = mode_frame.master['bg']
-    mode_frame.place(relx=1, x= -210, rely= 0.15, width=200, height=400)
+    pixel_formats_box = LabelFrame(main_frame, text="Pixel Formats")
+    pixel_formats_box['bg'] = pixel_formats_box.master['bg']
+    pixel_formats_box.place(relx=1, x= -210, rely= 0, y=75, width=200, height=400)
     v = StringVar()
     v.set("M1")
-    radio_b_1 = Radiobutton(mode_frame, text="16x4 = 48+16          ", variable=v, value="P1", bg="light blue", command=lambda: change_mode("M1"))
+    radio_b_1 = Radiobutton(pixel_formats_box, text="16x4 = 48+16          ", variable=v, value="P1", bg="light blue", command=lambda: change_mode("M1"))
     radio_b_1.place(relx=0, x=5, y= 10, width=110, height=20) 
-    radio_b_2 = Radiobutton(mode_frame, text="16x3 = 48          ", variable=v, value="P2", bg="light blue", command=lambda: change_mode("M2"))
+    radio_b_2 = Radiobutton(pixel_formats_box, text="16x3 = 48          ", variable=v, value="P2", bg="light blue", command=lambda: change_mode("M2"))
     radio_b_2.place(relx=0, x=5, y= 40, width=95, height=20) 
     
     
@@ -166,7 +171,9 @@ def main():
     
     canv_w_label = tk.Label( canv_info_box, text="Canvas width: " + str(canv_yellow_settings[2]), anchor="w")
     canv_w_label['bg'] = canv_h_label.master['bg']
-    canv_w_label.place(x= 5, y= 15, width=120, height=20)      
+    canv_w_label.place(x= 5, y= 15, width=120, height=20)    
+    
+    
 
 
     
@@ -178,25 +185,27 @@ def main():
     canv_size_box = LabelFrame(main_frame, text="Canvas Size", padx=5, pady=5)
     canv_size_box['bg'] = canv_size_box.master['bg']
     canv_size_box.place(relx= 0, x=10, rely= 1, y=-120, width=135, height=110)    
-    butt1 = tk.Button(canv_size_box, text="Left", command=lambda: change_canvas_width(canv_w_label, canv_yellow, canv_yellow_settings, -10) )
-    butt1.place(x= 10, y= 30, width=40, height=20)    
-    butt2 = tk.Button(canv_size_box, text="Right", command=lambda: change_canvas_width(canv_w_label, canv_yellow, canv_yellow_settings, 10) )
-    butt2.place(x= 70, y= 30, width=40, height=20)  
-    butt3 = tk.Button(canv_size_box, text="Up", command=lambda: change_canvas_height(canv_h_label, canv_yellow, canv_yellow_settings, -10) )
-    butt3.place(x= 40, y= 5, width=40, height=20)     
-    butt4 = tk.Button(canv_size_box, text="Down", command=lambda: change_canvas_height(canv_h_label, canv_yellow, canv_yellow_settings, 10) )
-    butt4.place(x= 40, y= 55, width=40, height=20)  
+    c_butt1 = tk.Button(canv_size_box, text="Left", command=lambda: change_canvas_width(canv_w_label, canv_yellow, canv_yellow_settings, -10) )
+    c_butt1.place(x= 10, y= 30, width=40, height=20)    
+    c_butt2 = tk.Button(canv_size_box, text="Right", command=lambda: change_canvas_width(canv_w_label, canv_yellow, canv_yellow_settings, 10) )
+    c_butt2.place(x= 70, y= 30, width=40, height=20)  
+    c_butt3 = tk.Button(canv_size_box, text="Up", command=lambda: change_canvas_height(canv_h_label, canv_yellow, canv_yellow_settings, -10) )
+    c_butt3.place(x= 40, y= 5, width=40, height=20)     
+    c_butt4 = tk.Button(canv_size_box, text="Down", command=lambda: change_canvas_height(canv_h_label, canv_yellow, canv_yellow_settings, 10) )
+    c_butt4.place(x= 40, y= 55, width=40, height=20)  
     
 
     
-    #debug buttons (DEBUG OPTIONS)
-    canv_debug_box = LabelFrame(main_frame, text="Debug Options", padx=5, pady=5)
+    #options buttons (OTHER OPTIONS)
+    canv_debug_box = LabelFrame(main_frame, text="Other Options", padx=5, pady=5)
     canv_debug_box['bg'] = canv_debug_box.master['bg']
-    canv_debug_box.place(relx= 1, x=-210, rely= 1, y=-180, width=200, height=100)    
-    butt1 = tk.Button(canv_debug_box, text="Open Log", command=lambda: open_log() )
-    butt1.place(x= 10, y= 10, width=80, height=20)    
-    butt2 = tk.Button(canv_debug_box, text="File Properties", command=lambda: file_properties() )
-    butt2.place(x= 10, y= 40, width=90, height=20)      
+    canv_debug_box.place(relx= 1, x=-210, rely= 0, y=480, width=200, height=100)    
+    o_butt1 = tk.Button(canv_debug_box, text="Open Log", command=lambda: open_log() )
+    o_butt1.place(x= 10, y= 10, width=80, height=20)    
+    o_butt2 = tk.Button(canv_debug_box, text="File Properties", command=lambda: file_properties() )
+    o_butt2.place(x= 10, y= 40, width=90, height=20)  
+    o_butt3 = tk.Button(canv_debug_box, text="Swizzling", command=lambda: swizzling() )
+    o_butt3.place(x= 95, y= 10, width=90, height=20)     
     
     
     
@@ -228,11 +237,20 @@ def main():
     
  
 def change_canvas_width(in_w_label, in_canvas, in_canvas_settings, step):
+    temp_width = in_canvas_settings[2] + step
+    if (temp_width > in_canvas_settings[4]):  # new_width > max_width
+        return    
+    
     in_canvas_settings[2] = in_canvas_settings[2] + step
     in_canvas.place(x= in_canvas_settings[0], y= in_canvas_settings[1], width=in_canvas_settings[2], height=in_canvas_settings[3])  
     in_w_label.config(text="Canvas width: " + str(in_canvas_settings[2]) )
+ 
     
 def change_canvas_height(in_h_label, in_canvas, in_canvas_settings, step):
+    temp_height = in_canvas_settings[3] + step
+    if (temp_height > in_canvas_settings[5]):  # new_height > max_height
+        return    
+    
     in_canvas_settings[3] = in_canvas_settings[3] + step
     in_canvas.place(x= in_canvas_settings[0], y= in_canvas_settings[1], width=in_canvas_settings[2], height=in_canvas_settings[3])   
     in_h_label.config(text="Canvas height: " + str(in_canvas_settings[3]) )
