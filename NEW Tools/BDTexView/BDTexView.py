@@ -9,10 +9,11 @@
 # v0.4   27.06.2020  Bartlomiej Duda    -
 # v0.5   29.06.2020  Bartlomiej Duda    -
 # v0.6   30.06.2020  Bartlomiej Duda    -
+# v0.7   04.07.2020  Bartlomiej Duda    -
 
 
 
-VERSION_NUM = "v0.6"
+VERSION_NUM = "v0.7"
 
 
 import os
@@ -34,7 +35,7 @@ def bd_logger(in_str):
 
 
 def open_manual():
-    filename = "bdtexview_manual.html"
+    filename = "files\\bdtexview_manual.html"
     webbrowser.open('file://' + os.path.realpath(filename))
     
 def callback(url):
@@ -75,6 +76,11 @@ def about_window(self):
 
 
 
+def export_settings(self):
+    t = tk.Toplevel(self)
+    t.wm_title("Export settings")
+
+
 
 def main():
     
@@ -89,6 +95,9 @@ def main():
     canv_yellow_settings = [ 10,   70,  450,   300,    500,         490       ] 
                             #x     y    width  height  max_width    max_height   
     
+    
+    
+    #main window
     root = tk.Tk("BDTexView", "BDTexView")
     root.minsize(MIN_WINDOW_WIDTH, MIN_WINDOW_HEIGHT) 
     root.winfo_toplevel().title("BDTexView " + VERSION_NUM)
@@ -101,7 +110,7 @@ def main():
     
     
     
-    #main window
+    #main canvas
     canvas = tk.Canvas(root, height=WINDOW_HEIGHT, width=WINDOW_WIDTH) 
     canvas.pack()
     main_frame = tk.Frame(root, bg='light blue', bd=5)
@@ -223,7 +232,7 @@ def main():
     menubar.add_cascade(label="Image", menu=imagemenu)    
     
     optionsmenu = tk.Menu(menubar, tearoff=0)
-    optionsmenu.add_command(label="Export Settings", command=lambda: export_settings())
+    optionsmenu.add_command(label="Export Settings", command=lambda: export_settings(root))
     optionsmenu.add_command(label="Import Settings", command=lambda: import_settings())
     menubar.add_cascade(label="Options", menu=optionsmenu)
     
