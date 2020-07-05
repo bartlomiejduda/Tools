@@ -10,10 +10,11 @@
 # v0.5   29.06.2020  Bartlomiej Duda    -
 # v0.6   30.06.2020  Bartlomiej Duda    -
 # v0.7   04.07.2020  Bartlomiej Duda    -
+# v0.8   05.07.2020  Bartlomiej Duda    -
 
 
 
-VERSION_NUM = "v0.7"
+VERSION_NUM = "v0.8"
 
 
 import os
@@ -86,10 +87,10 @@ def main():
     
     #default app settings
     WINDOW_HEIGHT = 700
-    WINDOW_WIDTH = 740
+    WINDOW_WIDTH = 730
     
     MIN_WINDOW_HEIGHT = 700
-    MIN_WINDOW_WIDTH = 740
+    MIN_WINDOW_WIDTH = 730
     
     #default yellow canvas settings
     canv_yellow_settings = [ 10,   70,  450,   300,    500,         490       ] 
@@ -112,8 +113,8 @@ def main():
     
     #main canvas
     canvas = tk.Canvas(root, height=WINDOW_HEIGHT, width=WINDOW_WIDTH) 
-    canvas.pack()
-    main_frame = tk.Frame(root, bg='light blue', bd=5)
+    #canvas.pack()
+    main_frame = tk.Frame(root, bg='light blue')
     main_frame.place(x=0, y=0, relwidth=1, relheight=1)
     
     
@@ -183,9 +184,31 @@ def main():
     canv_w_label.place(x= 5, y= 15, width=120, height=20)    
     
     
-
+    
 
     
+    def update_frame_width_label(in_w_label, in_w):
+        in_w_label.config(text="Frame width: " + str(in_w) )
+        
+    def update_frame_height_label(in_h_label, in_h):
+        in_h_label.config(text="Frame height: " + str(in_h) )  
+        
+    def frame_configure(event, in_w_label, in_h_label):
+        w, h = event.width, event.height
+        #print("width: " + str(w) + " height: " + str(h) ) 
+        update_frame_width_label(in_w_label, w)
+        update_frame_height_label(in_h_label, h)
+    
+    
+    main_frame.update()
+    mframe_h_label = tk.Label( canv_info_box, text="Frame height: " + str(main_frame.winfo_height()), anchor="w")
+    mframe_h_label['bg'] = canv_h_label.master['bg']
+    mframe_h_label.place(x= 5, y= 30, width=120, height=20) 
+    mframe_w_label = tk.Label( canv_info_box, text="Frame width: " + str(main_frame.winfo_width()), anchor="w")
+    mframe_w_label['bg'] = canv_h_label.master['bg']
+    mframe_w_label.place(x= 5, y= 45, width=120, height=20)     
+
+    main_frame.bind("<Configure>", lambda event: frame_configure(event, mframe_w_label, mframe_h_label) )
         
     
     
@@ -228,7 +251,8 @@ def main():
     imagemenu = tk.Menu(menubar, tearoff=0)
     imagemenu.add_command(label="Quick Image Save", command=lambda: quick_image_save())
     imagemenu.add_command(label="Save Image As...", command=lambda: save_image_as())
-    imagemenu.add_command(label="Print Image", command=lambda: quick_image_save())
+    imagemenu.add_command(label="Print Image", command=lambda: print_image())
+    imagemenu.add_command(label="Export Image Settings", command=lambda: export_image_settings())
     menubar.add_cascade(label="Image", menu=imagemenu)    
     
     optionsmenu = tk.Menu(menubar, tearoff=0)
