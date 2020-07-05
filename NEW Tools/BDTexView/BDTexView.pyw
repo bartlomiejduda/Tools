@@ -11,10 +11,11 @@
 # v0.6   30.06.2020  Bartlomiej Duda    -
 # v0.7   04.07.2020  Bartlomiej Duda    -
 # v0.8   05.07.2020  Bartlomiej Duda    -
+# v0.9   05.07.2020  Bartlomiej Duda    -
 
 
 
-VERSION_NUM = "v0.8"
+VERSION_NUM = "v0.9"
 
 
 import os
@@ -104,7 +105,7 @@ def main():
     root.winfo_toplevel().title("BDTexView " + VERSION_NUM)
     
     try:
-        root.iconbitmap('bdtexview_icon.ico')
+        root.iconbitmap('files\\icon_bd.ico')
     except:
         bd_logger("Icon not loaded!")
     
