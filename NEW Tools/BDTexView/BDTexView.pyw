@@ -12,10 +12,11 @@
 # v0.7   04.07.2020  Bartlomiej Duda    -
 # v0.8   05.07.2020  Bartlomiej Duda    -
 # v0.9   05.07.2020  Bartlomiej Duda    -
+# v0.10  08.07.2020  Bartlomiej Duda    flag_manager, opening files
 
 
 
-VERSION_NUM = "v0.9"
+VERSION_NUM = "v0.10"
 
 
 import os
@@ -28,10 +29,21 @@ import webbrowser
 import traceback
 
 
+class flag_manager:
+    '''Class container for flags.'''
+    FILE_OPEN_FLAG = False
+    
+    def set_file_open_true(self):
+        self.FILE_OPEN_FLAG = True 
+        
+    def set_file_open_false(self):
+        self.FILE_OPEN_FLAG = False
+        
+
 
 def bd_logger(in_str):
-    import datetime
-    now = datetime.datetime.now()
+    from datetime import datetime
+    now = datetime.now()
     print(now.strftime("%d-%m-%Y %H:%M:%S") + " " + in_str)    
 
 
@@ -94,7 +106,7 @@ def main():
     MIN_WINDOW_WIDTH = 730
     
     #default yellow canvas settings
-    canv_yellow_settings = [ 10,   70,  450,   300,    500,         490       ] 
+    canv_yellow_settings = [ 10,   40,  450,   300,    500,         490       ] 
                             #x     y    width  height  max_width    max_height   
     
     
@@ -111,10 +123,12 @@ def main():
     
     
     
+    #flag manager 
+    flag_man = flag_manager()
+
     
     #main canvas
     canvas = tk.Canvas(root, height=WINDOW_HEIGHT, width=WINDOW_WIDTH) 
-    #canvas.pack()
     main_frame = tk.Frame(root, bg='light blue')
     main_frame.place(x=0, y=0, relwidth=1, relheight=1)
     
@@ -123,12 +137,14 @@ def main():
     
     
     #browse image
-    txt_pack_label = tk.Label(main_frame, text="Graphic Filepath")
-    txt_pack_label.place(x=10, y=10, width=100, height=20)
-    txt_pack_text = tk.Text(main_frame, font=("Arial", 10), wrap='none')
-    txt_pack_text.place(x= 10, y= 40, width=500, height=20)
-    txt_pack_button = tk.Button(main_frame, text="Browse", command=lambda: b_browse(1))
-    txt_pack_button.place(x= 520, y= 40, width=100, height=20)
+    loaded_file_label = tk.Label(main_frame, text="Loaded file: None", anchor='w')
+    loaded_file_label.place(x= 10, y= 10, width=5000, height=20)
+    loaded_file_label['bg'] = loaded_file_label.master['bg']
+    
+    #txt_pack_text = tk.Text(main_frame, font=("Arial", 10), wrap='none')
+    #txt_pack_text.place(x= 10, y= 40, width=500, height=20)
+    #txt_pack_button = tk.Button(main_frame, text="Browse", command=lambda: b_browse(1))
+    #txt_pack_button.place(x= 520, y= 40, width=100, height=20)
     
     
     
@@ -246,6 +262,8 @@ def main():
     menubar = tk.Menu(root)
     
     filemenu = tk.Menu(menubar, tearoff=0)
+    filemenu.add_command(label="Open File", command=lambda: open_file())
+    filemenu.add_command(label="Close File", command=lambda: close_file())
     filemenu.add_command(label="Exit", command=root.destroy)
     menubar.add_cascade(label="File", menu=filemenu)
     
@@ -258,7 +276,7 @@ def main():
     
     optionsmenu = tk.Menu(menubar, tearoff=0)
     optionsmenu.add_command(label="Export Settings", command=lambda: export_settings(root))
-    optionsmenu.add_command(label="Import Settings", command=lambda: import_settings())
+    optionsmenu.add_command(label="Reset Settings", command=lambda: reset_settings())
     menubar.add_cascade(label="Options", menu=optionsmenu)
     
     helpmenu = tk.Menu(menubar, tearoff=0)
@@ -268,6 +286,22 @@ def main():
     root.config(menu=menubar)
     
     root.mainloop()
+
+
+
+def open_file():
+    opened_file =  filedialog.askopenfile(initialdir = ".",title = "Select file")
+    try:
+        opened_file_name = os.path.basename(opened_file.name)
+        bd_logger("Opening file... " + opened_file_name) 
+        sys.stdout.flush()
+        return opened_file
+    except:
+        bd_logger("File to open not selected...")
+        sys.stdout.flush()
+        return       
+
+
     
  
 def change_canvas_width(in_w_label, in_canvas, in_canvas_settings, step):
