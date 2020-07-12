@@ -1,0 +1,25 @@
+Document created by Bartlomiej Duda
+Creation date: 12.07.2020
+
+
+// White Night
+// TEXT file format
+
+
+// little endian
+
+
+//HEADER
+4 bytes - unknown1  (always "\x0A\x00\x00\x00")
+4 bytes - unknown2  (always "\x00\x00\x00\x00")
+4 bytes - unknown3  (always "\x00\x00\x00\x00")
+4 bytes - number of lines
+4 bytes - number of lines (repeated value?)
+
+
+//TEXT
+num_of_lines *
+{
+  4 bytes - line length
+  x bytes - line
+}
