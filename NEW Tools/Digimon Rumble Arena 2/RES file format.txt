@@ -1,0 +1,63 @@
+Document created by Bartlomiej Duda
+Creation date: 15.07.2020
+
+
+// Digimon Rumble Arena 2
+// RES file format
+
+// little endian
+
+
+//HEADER
+4 bytes - magic ("res\x0A")
+4 bytes - unknown
+4 bytes - data offset
+4 bytes - some offset
+4 bytes - offset to number of files
+4 bytes - data size
+4 bytes - offset to number of files (repeated value?)
+4 bytes - size of the tail
+4 bytes - number of tags
+
+
+//FOLDERS
+num_of_folders *
+{
+  4 bytes - folder name   ("lua!, "strg", "indx" etc.)
+  2 bytes - unknown
+  2 bytes - unknown
+}
+
+
+x bytes - padding
+
+
+//DATA
+num_of_files *
+{
+   x bytes - file data
+}
+
+x bytes - padding
+
+
+//OFFSET TABLE
+4 bytes - number of files
+
+num_of_files * 
+{
+  4 bytes - unknown
+  4 bytes - file type
+  4 bytes - relative offset
+  4 bytes - file size
+  4 bytes - unknown
+}
+
+
+
+//SOME TABLE
+num_of_entries *
+{
+  4 bytes - unknown
+}
+
