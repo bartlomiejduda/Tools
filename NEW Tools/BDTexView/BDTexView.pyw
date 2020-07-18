@@ -13,10 +13,11 @@
 # v0.8   05.07.2020  Bartlomiej Duda    -
 # v0.9   05.07.2020  Bartlomiej Duda    -
 # v0.10  08.07.2020  Bartlomiej Duda    flag_manager, opening files
+# v0.11  18.07.2020  Bartlomiej Duda    opening files, closing files, removed flag_manager
 
 
 
-VERSION_NUM = "v0.10"
+VERSION_NUM = "v0.11"
 
 
 import os
@@ -29,16 +30,6 @@ import webbrowser
 import traceback
 
 
-class flag_manager:
-    '''Class container for flags.'''
-    FILE_OPEN_FLAG = False
-    
-    def set_file_open_true(self):
-        self.FILE_OPEN_FLAG = True 
-        
-    def set_file_open_false(self):
-        self.FILE_OPEN_FLAG = False
-        
 
 
 def bd_logger(in_str):
@@ -96,6 +87,12 @@ def export_settings(self):
 
 
 
+#global variables
+LOADED_FILE = None
+LOADED_FILE_OPENED_FLAG = False
+
+
+
 def main():
     
     #default app settings
@@ -122,9 +119,6 @@ def main():
         bd_logger("Icon not loaded!")
     
     
-    
-    #flag manager 
-    flag_man = flag_manager()
 
     
     #main canvas
@@ -243,6 +237,12 @@ def main():
     c_butt4 = tk.Button(canv_size_box, text="Down", command=lambda: change_canvas_height(canv_h_label, canv_yellow, canv_yellow_settings, 10) )
     c_butt4.place(x= 40, y= 55, width=40, height=20)  
     
+    
+    #IMAGE OPTIONS 
+    image_options_box = LabelFrame(main_frame, text="Image Options", padx=5, pady=5)
+    image_options_box['bg'] = image_options_box.master['bg']
+    image_options_box.place(relx= 0, x=290, rely= 1, y=-120, width=135, height=110)  
+    
 
     
     #options buttons (OTHER OPTIONS)
@@ -262,8 +262,9 @@ def main():
     menubar = tk.Menu(root)
     
     filemenu = tk.Menu(menubar, tearoff=0)
-    filemenu.add_command(label="Open File", command=lambda: open_file())
-    filemenu.add_command(label="Close File", command=lambda: close_file())
+    filemenu.add_command(label="Open File", command=lambda: open_file(filemenu, loaded_file_label))
+    filemenu.add_command(label="Close File", command=lambda: close_file(filemenu, loaded_file_label))
+    filemenu.entryconfig(1, state="disabled")
     filemenu.add_command(label="Exit", command=root.destroy)
     menubar.add_cascade(label="File", menu=filemenu)
     
@@ -289,19 +290,64 @@ def main():
 
 
 
-def open_file():
-    opened_file =  filedialog.askopenfile(initialdir = ".",title = "Select file")
-    try:
-        opened_file_name = os.path.basename(opened_file.name)
-        bd_logger("Opening file... " + opened_file_name) 
-        sys.stdout.flush()
-        return opened_file
-    except:
+def open_file(in_menu, in_file_label):
+
+    opened_file_path =  filedialog.askopenfilename(initialdir = ".",title = "Select file")
+    if opened_file_path == "":
         bd_logger("File to open not selected...")
+        sys.stdout.flush()
+        return               
+        
+    try:
+        opened_file_name = os.path.basename(opened_file_path)
+        global LOADED_FILE
+        global LOADED_FILE_OPENED_FLAG
+
+        bd_logger("Opening file... " + opened_file_name) 
+        bd_logger("File path: " + opened_file_path) 
+        sys.stdout.flush()
+        LOADED_FILE = open(str(opened_file_path), 'rb')
+        bd_logger("File " + opened_file_name + " has been opened.") 
+        LOADED_FILE_OPENED_FLAG = True
+        in_menu.entryconfig(1, state="active")
+        
+        in_file_label.config(text="Loaded file: " + opened_file_name)
+        
+        
+        sys.stdout.flush()
+        return
+
+    except Exception as e:
+        bd_logger("Error while opening file...")
+        traceback.print_exc()
         sys.stdout.flush()
         return       
 
 
+def close_file(in_menu, in_file_label):
+    try:
+        global LOADED_FILE
+        global LOADED_FILE_OPENED_FLAG
+        
+        loaded_file_name = os.path.basename(LOADED_FILE.name)
+        bd_logger("Closing file... " + loaded_file_name) 
+        sys.stdout.flush()
+        
+        LOADED_FILE.close()
+        LOADED_FILE_OPENED_FLAG = False 
+        in_menu.entryconfig(1, state="disabled")
+        
+        in_file_label.config(text="Loaded file: None")
+        
+        bd_logger("File " + loaded_file_name + " has been closed.") 
+        sys.stdout.flush()      
+        return
+    
+    except Exception as e:
+        bd_logger("Error while closing file...")
+        traceback.print_exc()
+        sys.stdout.flush()
+        return       
     
  
 def change_canvas_width(in_w_label, in_canvas, in_canvas_settings, step):
