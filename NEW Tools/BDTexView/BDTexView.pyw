@@ -1,5 +1,10 @@
 # -*- coding: utf-8 -*-
 
+'''
+Copyright © 2020  Bartłomiej Duda
+'''
+
+
 # Tested on Python 3.8.0
 
 # Ver    Date        Name               Comment
@@ -14,10 +19,11 @@
 # v0.9   05.07.2020  Bartlomiej Duda    -
 # v0.10  08.07.2020  Bartlomiej Duda    flag_manager, opening files
 # v0.11  18.07.2020  Bartlomiej Duda    opening files, closing files, removed flag_manager
+# v0.12  19.07.2020  Bartlomiej Duda 
 
 
 
-VERSION_NUM = "v0.11"
+VERSION_NUM = "v0.12"
 
 
 import os
@@ -242,6 +248,16 @@ def main():
     image_options_box = LabelFrame(main_frame, text="Image Options", padx=5, pady=5)
     image_options_box['bg'] = image_options_box.master['bg']
     image_options_box.place(relx= 0, x=290, rely= 1, y=-120, width=135, height=110)  
+    
+    im_options_label_w = tk.Label( image_options_box, text="Width", anchor="w" ) 
+    im_options_label_w.place(relx= 0, x=0, rely= 0, y=0, width=60, height=15)  
+    im_options_label_w['bg'] = im_options_label_w.master['bg']
+    
+    im_options_textbox_w = tk.Entry(image_options_box)
+    im_options_textbox_w.place(relx= 0, x=45, rely= 0, y=0, width=40, height=15)  
+    im_options_textbox_w.insert(0, "0")
+    
+    
     
 
     
