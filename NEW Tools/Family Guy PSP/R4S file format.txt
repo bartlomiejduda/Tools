@@ -1,0 +1,33 @@
+Document created by Bartlomiej Duda
+Creation date: 20.07.2020
+
+
+// Family Guy PSP
+// R4S file format
+
+
+// little endian
+
+
+
+//HEADER
+4 bytes - magic "BIGB"
+4 bytes - offset to entry
+4 bytes - size of header
+4 bytes - unknown
+1 byte - unknown
+64 bytes - description clob + padding
+43 bytes - author clob (?) + padding // (JohnSanderson)
+4 bytes - unknown
+4 bytes - unknown
+4 bytes - some length?
+4 bytes - some length?
+4 bytes - unknown
+4 bytes - unknown
+260 bytes - command clob + padding
+
+
+//SOME ENTRY
+51 bytes - data
+x bytes - padding
+
