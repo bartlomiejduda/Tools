@@ -1,0 +1,26 @@
+Document created by Bartlomiej Duda
+Creation date: 06.08.2020
+
+
+// Crash Mind Over Mutant PSP
+// RCF file format
+
+// little endian
+
+
+//HEADER
+32 bytes - ID string   //ATG CORE CEMENT LIBRARY
+4 bytes - unknown
+4 bytes - index offset
+4 bytes - unknown
+4 bytes - filenames array offset
+4 bytes - filenames array size
+4 bytes - dummy
+4 bytes - number of files + 1
+
+
+// FILE INFO ARRAY
+4 bytes - CRC
+
+
+//TODO
