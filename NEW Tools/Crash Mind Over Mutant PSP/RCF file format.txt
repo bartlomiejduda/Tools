@@ -11,16 +11,40 @@ Creation date: 06.08.2020
 //HEADER
 32 bytes - ID string   //ATG CORE CEMENT LIBRARY
 4 bytes - unknown
-4 bytes - index offset
-4 bytes - unknown
-4 bytes - filenames array offset
-4 bytes - filenames array size
-4 bytes - dummy
+4 bytes - directory offset
+4 bytes - directory size
+4 bytes - filenames directory offset
+4 bytes - filenames directory size
+4 bytes - dummy / null
 4 bytes - number of files + 1
 
 
-// FILE INFO ARRAY
-4 bytes - CRC
+// DIRECTORY
+num_of_files *
+{
+   4 bytes - CRC
+   4 bytes - file offset
+   4 bytes - file size
+}
+
+x bytes - padding
+
+
+// FILENAME DIRECTORY
+4 bytes - padding multiple value
+4 bytes - dummy / null
+num_of_files *
+{
+  4 bytes - unknown
+  4 bytes - padding multiple value
+}
+
 
 
 //TODO
+
+
+
+
+
+
