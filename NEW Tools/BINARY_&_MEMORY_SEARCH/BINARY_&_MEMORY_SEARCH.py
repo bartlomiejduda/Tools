@@ -6,6 +6,7 @@
 # v0.1   03.08.2020  Bartlomiej Duda
 # v0.2   09.08.2020  Bartlomiej Duda
 # v0.3   10.08.2020  Bartlomiej Duda
+# v0.4   10.08.2020  Bartlomiej Duda
 
 
 
@@ -25,7 +26,7 @@ def bd_logger(in_str):
     
 
 
-def binary_search(pattern_file_path, search_file_path):
+def binary_search(pattern_file_path, search_file_path, match_flag, match_file_path):
     '''
     Function for searching through binary files 
     '''    
@@ -42,24 +43,64 @@ def binary_search(pattern_file_path, search_file_path):
     s = ConstBitStream(search_file)
     occurances = s.findall(pattern_file, bytealigned=True)
     occurances = list(occurances)
-    totalOccurances = len(occurances)    
+    totalOccurances = len(occurances)  
+    match_arr = []
     
     for i in range(0, len(occurances)):
         occuranceOffset_dec = int(occurances[i]/8)
         occuranceOffset_hex = hex(int(occurances[i]/8) )
         print(str(i+1) + ') ' + 'Offset_hex: ' + str(occuranceOffset_hex) + '  Offset_dec: ' + str(occuranceOffset_dec) +  " File_name: " + str( search_file_path.split("\\")[-1] ) 
-              + " File_size: " + str(hex(search_file_size) ) + " \\ " + str(search_file_size)
-              
-              )
+              + " File_size: " + str(hex(search_file_size) ) + " \\ " + str(search_file_size)  )
+        
+        if match_flag == 1:
+            match_arr.append(occuranceOffset_dec)
                                
-    
-    
-    
     pattern_file.close()
     search_file.close()
-    #bd_logger("Ending binary search...")    
     
-  
+    if match_flag == 1:
+        
+        match_file = open(match_file_path, "rt")
+        
+        for match_entry in match_arr:
+            
+            print("\n### " + "match_entry: " + str(match_entry) + " ###")
+            match_file.seek(0)
+            
+            i = 0
+            for line in match_file:
+                #print(line)
+                i += 1
+                i_mem_address = int(line.split(" file_offset=")[0].split("mem_address=")[-1])
+                i_file_offset = int(line.split(" file_offset=")[-1])
+                i_match_entry = int(match_entry)
+                
+                if i_file_offset > i_match_entry:
+                    #print("F_OFF: " + str(i_file_offset) )
+                    break
+                
+            j = 0  
+            match_file.seek(0)
+            for line in match_file:
+                j += 1
+                
+                if j == i-1:
+                    print("MATCHED LINE: " + line.rstrip("\n"))
+                    i_mem_address = int(line.split(" file_offset=")[0].split("mem_address=")[-1])
+                    i_file_offset = int(line.split(" file_offset=")[-1])
+                    i_match_entry = int(match_entry)
+                    i_off_diff = int(i_match_entry - i_file_offset)
+                    i_real_mem_address = int(i_mem_address + i_off_diff)
+                    
+                    print("REAL_MEM_ADRESS_dec=" + str(i_real_mem_address) + "  REAL_MEM_ADRESS_hex=" + str(hex(i_real_mem_address)) 
+                          + "  page_address_dec=" + str(i_mem_address) + "  page_address_hex=" + str(hex(i_mem_address)) 
+                          )
+                    
+
+            
+    
+    #bd_logger("Ending binary search...")   
+    
   
 def memory_search(pid, pattern_file_path, temp_file_path, start_addr, buffer_size, MAX_ADDRESS):
 
@@ -104,18 +145,19 @@ def main():
     
     bd_logger("Starting main...") 
     
-    main_switch = 3
+    main_switch = 4
     # 1 - binary search
     # 2 - binary search in multiple files
     # 3 - memory search (experimental)
+    # 4 - binary search + match row from TotalDump output (experimental)
     
     
     p_pattern_file_path = "C:\\Users\\Arek\\Desktop\\MeMory Dump IKS\\Tex_0019.dds.bin"
     
     if main_switch == 1:
-        #p_search_file_path = "C:\\Users\\Arek\\Desktop\\MeMory Dump IKS\\pdump_7548.bin"
-        p_search_file_path = "C:\\Users\\Arek\\Desktop\\Dumped.exe"
-        binary_search(p_pattern_file_path, p_search_file_path)
+        p_search_file_path = "C:\\Users\\Arek\\Desktop\\MeMory Dump IKS\\pdump_7388.bin"
+        #p_search_file_path = "C:\\Users\\Arek\\Desktop\\Dumped.exe"
+        binary_search(p_pattern_file_path, p_search_file_path, 0, "")
 
 
     elif main_switch == 2:
@@ -126,7 +168,7 @@ def main():
                 i += 1
                 p_search_file_path = os.path.join(root, name)
                 #print(str(i) + ") " + "Searching in " + str(p_search_file_path) )  
-                binary_search(p_pattern_file_path, p_search_file_path)
+                binary_search(p_pattern_file_path, p_search_file_path, 0, "")
                 
     elif main_switch == 3:
         
@@ -136,6 +178,11 @@ def main():
         p_buffer_size = 0x1000 
         p_MAX_ADDRESS = 0x80000000        
         memory_search(p_pid, p_pattern_file_path, p_temp_file_path, p_start_addr, p_buffer_size, p_MAX_ADDRESS)
+        
+    elif main_switch == 4:
+        p_search_file_path = "C:\\Users\\Arek\\Desktop\\MeMory Dump IKS\\pdump_8636.bin"
+        p_match_file_path = "C:\\Users\\Arek\\Desktop\\MeMory Dump IKS\\pdump_8636.txt"
+        binary_search(p_pattern_file_path, p_search_file_path, 1, p_match_file_path)        
         
         
     else:
