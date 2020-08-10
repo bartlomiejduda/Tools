@@ -5,6 +5,7 @@
 # Ver    Date        Author
 # v0.1   03.08.2020  Bartlomiej Duda
 # v0.2   09.08.2020  Bartlomiej Duda
+# v0.3   10.08.2020  Bartlomiej Duda
 
 
 
@@ -13,6 +14,7 @@ import os
 import sys
 import struct
 from bitstring import ConstBitStream   #need to install it
+import ctypes
 
 
 
@@ -57,7 +59,44 @@ def binary_search(pattern_file_path, search_file_path):
     search_file.close()
     #bd_logger("Ending binary search...")    
     
+  
+  
+def memory_search(pid, pattern_file_path, temp_file_path, start_addr, buffer_size, MAX_ADDRESS):
+
+    if os.path.exists(temp_file_path):
+        os.remove(temp_file_path)        
+
     
+    processHandle = ctypes.windll.kernel32.OpenProcess(0x10, False, pid)
+    buffer = (ctypes.c_byte * buffer_size)()
+    bytesRead = ctypes.c_ulonglong(0)
+    i = start_addr
+    j = 0
+    
+    
+    while(1):
+    
+        j += 1
+        result = ctypes.windll.kernel32.ReadProcessMemory(processHandle, ctypes.c_void_p(start_addr), buffer, len(buffer), ctypes.byref(bytesRead))
+        e = ctypes.windll.kernel32.GetLastError()
+        
+        print(str(j) + ") " + 'result: ' + str(result) + ', err code: ' + str(e) + " i=" + str(hex(i)) + " i_dec=" + str(i) )
+        out_data = bytearray(buffer)
+        
+        temp_file = open(temp_file_path, "ab+")
+        temp_file.write(out_data)
+        temp_file.close()
+        
+        binary_search(pattern_file_path, temp_file_path)
+        i+= buffer_size
+
+        if i > MAX_ADDRESS:
+            break
+
+
+    ctypes.windll.kernel32.CloseHandle(processHandle)
+            
+        
     
     
     
@@ -91,36 +130,12 @@ def main():
                 
     elif main_switch == 3:
         
-        
-        import ctypes, struct
-
-        pid = 7876  
-        processHandle = ctypes.windll.kernel32.OpenProcess(0x10, False, pid)
-        
-        base_addr = 0x400000  
-        buffer = (ctypes.c_byte * 4096)()
-        bytesRead = ctypes.c_ulonglong(0)
-        result = ctypes.windll.kernel32.ReadProcessMemory(processHandle, ctypes.c_void_p(base_addr), buffer, len(buffer), ctypes.byref(bytesRead))
-        e = ctypes.windll.kernel32.GetLastError()
-        
-        print('result: ' + str(result) + ', err code: ' + str(e))
-        #print('data: ' + str(struct.unpack('Q', buffer)[0]))
-        #print("bd_buffer: " + str(bytearray(buffer))    )
-        
-        out_data = bytearray(buffer)
-        
-        
-        temp_file_path = "C:\\Users\\Arek\\Desktop\\temp1.bin"
-        temp_file = open(temp_file_path, "wb+")
-        temp_file.write(out_data)
-        temp_file.close()
-        
-        
-        
-        
-        ctypes.windll.kernel32.CloseHandle(processHandle)
-                
-        
+        p_pid = 3344 
+        p_temp_file_path = "C:\\Users\\Arek\\Desktop\\temp1.bin"
+        p_start_addr = 0x400000  
+        p_buffer_size = 0x1000 
+        p_MAX_ADDRESS = 0x80000000        
+        memory_search(p_pid, p_pattern_file_path, p_temp_file_path, p_start_addr, p_buffer_size, p_MAX_ADDRESS)
         
         
     else:
