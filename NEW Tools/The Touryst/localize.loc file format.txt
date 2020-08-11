@@ -1,0 +1,52 @@
+Document created by Bartlomiej Duda
+Creation date: 11.08.2020
+
+
+// The Touryst
+// localize.loc file format
+
+
+//HEADER
+4 bytes - magic "SHN!"
+4 bytes - unknown
+4 bytes - some offset
+4 bytes - some offset (repeated)
+8 bytes - nulls
+4 bytes - some offset
+4 bytes - unknown 
+4 bytes - unknown
+x bytes - nulls
+
+//LOC TABLE
+8 bytes - string ID // "LOC XXXX"
+32 bytes - unknown
+
+num_of_entries *
+{
+  1 byte - character
+  2 bytes - iterator
+  1 bytes - unknown
+  4 bytes - unknown
+}
+
+
+//TEXT OFFSETS TABLE
+2 bytes - lang code // "en"
+1 byte - null
+9 bytes - lang name // "english"
+
+num_of_entries *
+{
+  4 bytes - relative offset
+}
+1 byte - null
+
+
+//TEXTS
+num_of_entries *
+{
+  x bytes - text string
+}
+
+
+
