@@ -18,8 +18,10 @@ Creation date: 11.08.2020
 x bytes - nulls
 
 //LOC TABLE
-8 bytes - string ID // "LOC XXXX"
-32 bytes - unknown
+8 bytes - string // "LOC XXXX"
+16 bytes - unknown
+4 bytes - number of languages?
+12 bytes - unknown
 
 num_of_entries *
 {
@@ -28,25 +30,41 @@ num_of_entries *
   1 bytes - unknown
   4 bytes - unknown
 }
-
-
-//TEXT OFFSETS TABLE
-2 bytes - lang code // "en"
 1 byte - null
-9 bytes - lang name // "english"
-
-num_of_entries *
-{
-  4 bytes - relative offset
-}
+4 bytes - number of strings
+2 bytes - null
 1 byte - null
 
 
-//TEXTS
-num_of_entries *
+num_of_languages *
 {
-  x bytes - text string
+   //TEXT OFFSETS TABLE
+
+   2 bytes - lang code // "en"
+   1 byte - null
+   9 bytes - lang name // "english"
+
+   num_of_strings *
+   {
+     4 bytes - relative offset
+   }
+   1 byte - null
+
+
+   //TEXTS
+   num_of_strings *
+   {
+     x bytes - text string
+     1 byte - null
+   }
 }
 
 
+
+// SOME ARRAY
+num_of_entries *
+{
+  4 bytes - unknown
+  4 bytes - unknown
+}
 
