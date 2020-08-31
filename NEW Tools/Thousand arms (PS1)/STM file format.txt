@@ -1,0 +1,34 @@
+Document created by Bartlomiej Duda
+Creation date: 31.08.2020
+
+
+// Thousand arms (PSX) 
+// STM file format
+
+// little endian
+
+
+//CHUNK HEADER (32 bytes)
+{
+  4 bytes - ID    // always \x60\x01\x00\x00
+  2 bytes - counter1  // maybe chunk part counter?
+  2 bytes - number of chunk parts?    // always (?) \x04\x00
+  2 bytes - counter2   //chunk counter?
+  2 bytes - null
+  4 bytes - size of the chunk?
+  4 bytes - chunk type?
+             // \x02\x00\x00\x00 - file list
+             // \x14\x00\x00\x00 - file
+  12 bytes - unknown blob
+}
+
+
+//CHUNK DATA
+{
+  4 bytes - file id?
+  12 bytes - file name
+  4 bytes - file size
+}
+
+
+
