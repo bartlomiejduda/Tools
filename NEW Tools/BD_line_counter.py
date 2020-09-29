@@ -45,8 +45,8 @@ def count_all_files_in_folder_rec(in_folder_path, out_file_path):
             
 
 def main():
-    p_in_folder_path = 'C:\\Users\\bartlomej.duda\\Desktop\\alair-cms\\MIGRACJA' 
-    p_out_file_path = 'C:\\Users\\bartlomej.duda\\Desktop\\out.txt'
+    p_in_folder_path = 'C:\\Users\\User\\Desktop\\' 
+    p_out_file_path = 'C:\\Users\\User\\Desktop\\out.txt'
     count_all_files_in_folder_rec(p_in_folder_path, p_out_file_path)
     
     
