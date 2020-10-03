@@ -1,0 +1,35 @@
+Document created by Bartlomiej Duda
+Creation date: 03.10.2020
+
+
+// Spy Bot Chronicles (iphone)
+// PAK file format
+
+
+//big endian
+
+
+//header
+3 bytes - magic  // "IGL"
+3 bytes - unknown
+2 bytes (uint16) - number of entries
+4 bytes - unknown  // some CRC maybe?
+
+
+//some array (8 bytes per entry)
+num_of_entries *
+{
+   8 bytes - unknown entry
+}
+
+
+//files
+num_of_entries *
+{
+   4 bytes (uint32) - compressed size
+   4 bytes (uint32) - uncompressed size
+   x bytes - compressed file data
+}
+
+
+
