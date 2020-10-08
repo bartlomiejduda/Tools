@@ -1,0 +1,32 @@
+Document created by Bartlomiej Duda
+Creation date: 08.10.2020
+
+
+// Treasure Cove 2.0
+// TLD file format
+
+//little endian
+
+
+//header
+4 bytes - magic // "TLCD"
+4 bytes - nulls
+4 bytes (uint32) - number of entries
+
+
+//entry table
+num_of_entries *
+{
+   4 bytes (uint32) - entry ID
+   4 bytes - nulls
+   4 bytes - resource type // for example "SSND", "BNDL", "OTHR" etc.
+   4 bytes (uint32) - file offset
+   4 bytes (uint32) - file size
+}
+
+
+//file data
+num_of_entries *
+{
+   x bytes - file data
+}
