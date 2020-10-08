@@ -1,0 +1,20 @@
+Document created by Bartlomiej Duda
+Creation date: 08.10.2020
+
+
+// Treasure Cove 2.0
+// BNDL file format
+
+//little endian
+
+
+
+4 bytes - magic // "BNDL"
+4 bytes (uint32) - number of entries
+
+
+//list of IDs
+num_of_entries *
+{
+   4 bytes (uint32) - ID
+}
