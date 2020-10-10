@@ -1,0 +1,26 @@
+Document created by Bartlomiej Duda
+Creation date: 10.10.2020
+
+
+// Treasure Cove 1.0
+// DAT file format
+
+//little endian
+
+
+//header
+2 bytes - magic // "MR"
+2 bytes (uint16) - ID
+4 bytes (uint32) - data start offset
+
+
+num_of_entries *
+{
+   4 bytes (uint32) - file size
+}
+
+
+num_of_entries *
+{
+   x bytes - file data
+}
