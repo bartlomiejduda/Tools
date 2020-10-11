@@ -2,35 +2,27 @@ Document created by Bartlomiej Duda
 Creation date: 20.07.2020
 
 
-// Family Guy PSP
-// R4S file format
+// Family Guy Video Game! PSP
+// R4S / R4M file format
 
 
 // little endian
 
 
-
 //HEADER
-4 bytes - magic "BIGB"
-4 bytes - offset to entry
-4 bytes - size of header
-4 bytes - unknown
-1 byte - unknown
-64 bytes - description clob + padding
-43 bytes - author clob (?) + padding    // "JohnSanderson"
-4 bytes - unknown
-4 bytes - unknown
-4 bytes - some length?
-4 bytes - some length?
-4 bytes - unknown
-4 bytes - unknown
-260 bytes - command clob + padding
+4 bytes (char) - magic // "BIGB"
+4 bytes (uint32) - offset_of_data - 16
+4 bytes (uint32) - some offset
+4 bytes (uint32) - version number
+65 bytes - strat wad clob // "<Strat Wad>"
+43 bytes - author clob // "JohnSanderson"
+20 bytes - unknown
+264 bytes - build command line arguments clob // "-psp -disableerrors Maps\10_00.ent"
+101 bytes - unknown
 
 
-//SOME ENTRY
-51 bytes - unknown
-x bytes - padding
-
-
-//TODO
-
+num_of_entries *
+{
+  x bytes - file data
+  x bytes - padding
+}
