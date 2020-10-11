@@ -17,7 +17,7 @@ Creation date: 20.07.2020
 4 bytes - unknown
 1 byte - unknown
 64 bytes - description clob + padding
-43 bytes - author clob (?) + padding // (JohnSanderson)
+43 bytes - author clob (?) + padding    // "JohnSanderson"
 4 bytes - unknown
 4 bytes - unknown
 4 bytes - some length?
@@ -28,6 +28,9 @@ Creation date: 20.07.2020
 
 
 //SOME ENTRY
-51 bytes - data
+51 bytes - unknown
 x bytes - padding
+
+
+//TODO
 
