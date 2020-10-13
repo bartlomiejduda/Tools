@@ -4,12 +4,12 @@ Creation date: 11.03.2020
 // CT Special Forces: Fire for effect (PC)
 // DPC archive file format
 
-// Archives are compressesed
+// Files inside archive are compressesed
 // with custom compression algorithm
 
 
 //header
-256 bytes - version blob // "v1.81 - Asobo Studio..."
+256 bytes - version clob // "v1.81 - Asobo Studio - Internal Cross Technology"
 4 bytes - number of files
 24 bytes - unknown
 

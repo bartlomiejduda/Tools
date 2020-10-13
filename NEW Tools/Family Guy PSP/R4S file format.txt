@@ -3,7 +3,7 @@ Creation date: 20.07.2020
 
 
 // Family Guy Video Game! PSP
-// R4S / R4M file format
+// R4M / R4S file format
 
 
 // little endian
@@ -12,15 +12,17 @@ Creation date: 20.07.2020
 //HEADER
 4 bytes (char) - magic // "BIGB"
 4 bytes (uint32) - offset_of_data - 16
-4 bytes (uint32) - some offset
-4 bytes (uint32) - version number
-65 bytes - strat wad clob // "<Strat Wad>"
-43 bytes - author clob // "JohnSanderson"
-20 bytes - unknown
-264 bytes - build command line arguments clob // "-psp -disableerrors Maps\10_00.ent"
+4 bytes (uint32) - version number  // "\xA3\x00\x00\x00"
+4 bytes (uint32) - ID // always "\x01\x00\x00\x00"
+65 bytes - file description clob // "<Strat Wad>" or map name
+43 bytes - author clob // "JohnSanderson" (Lead programmer)
+22 bytes - unknown
+2 bytes (uint16) - nulls
+260 bytes - build command line arguments clob // "-psp -disableerrors Maps\10_00.ent"
 101 bytes - unknown
 
 
+//FILE DATA
 num_of_entries *
 {
   x bytes - file data

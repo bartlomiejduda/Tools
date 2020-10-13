@@ -32,13 +32,13 @@ Font data is stored in met file, Example file: font.met
 3rd line - unknown
 number_of_characters *
 {
-number - ascii number (32-127)
-number - left end of the character (in pixels)
-number - top end of the character (in pixels)
-number - right end of the character (in pixels)
-number - bottom end of the character (in pixels)
-# - separator
-'char' - character
+   number - ascii number (32-127)
+   number - left end of the character (in pixels)
+   number - top end of the character (in pixels)
+   number - right end of the character (in pixels)
+   number - bottom end of the character (in pixels)
+   # - separator
+   'char' - character
 }
 
 # dat files #

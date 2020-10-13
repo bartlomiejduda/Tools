@@ -1,0 +1,37 @@
+Document created by Bartlomiej Duda
+Creation date: 13.10.2020
+
+// Sitting Ducks (PS2)
+// DPS archive file format
+
+//little endian
+
+
+//Note: padding is set to multiplication of 1024 bytes.
+
+
+//header (2048 bytes)
+48 bytes (char) - version clob // "v1.19 - Asobo Studio - Internal Cross Technology"
+1 byte - null
+207 bytes - padding // "\xCD\xCD\xCD\xCD..."
+4 bytes (uint32) - next folder offset - 2048
+4 bytes (uint32) - unknown // always "214"
+4 bytes (uint32) - unknown // always "74"
+4 bytes (uint32) - unknown // always "59"
+1776 bytes - padding // "\xCD\xCD\xCD\xCD..."
+
+
+
+//data
+num_of_folders *
+{
+   4 bytes (uint32) - number of files in folder
+   num_of_files *
+   {
+      4 bytes (uint32) - file size + 4
+      x bytes - file data
+   }
+   x bytes - padding // "\xCD\xCD\xCD\xCD..."
+}
+
+
