@@ -1,0 +1,48 @@
+// Garfield 2 (PC)
+// DPC archive file format
+
+// little endian
+
+
+// Note: Files inside archive are 
+// compressed wih unknown compression
+ 
+
+//header
+256 bytes - version clob // "v1.08.40.02 - Asobo Studio - Internal Cross Technology"
+4 bytes (uint32) - number of entries
+4 bytes (uint32) - unknown
+4 bytes (uint32) - unknown
+4 bytes (uint32) - file_size - header_size
+4 bytes (uint32) - unknown // always "222"
+4 bytes (uint32) - unknown // always "139"
+4 bytes (uint32) - unknown // always "39"
+4 bytes (uint32) - number of files?
+
+
+//entries table (24 bytes per entry)
+num_of_entries *
+{
+   4 bytes (uint32) - data block size (data+padding?)
+   4 bytes (uint32) - data size
+   4 bytes (uint32) - padding size?
+   4 bytes (uint32) - CRC1?
+   4 bytes (uint32) - CRC2?
+   4 bytes (uint32) - data block ID?
+}
+
+x bytes - padding1 (up to offset=1820)  // "\x00\x00\x00\x00..."
+x bytes - padding2 (up to offset=2048)  // "\xFF\xFF\xFF\xFF..."
+
+
+//data
+num_of_entries *
+{
+   x bytes - data block
+}
+
+
+
+
+
+

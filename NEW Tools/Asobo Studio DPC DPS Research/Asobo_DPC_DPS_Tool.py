@@ -5,6 +5,7 @@
 
 # Ver    Date        Author
 # v0.1   13.10.2020  Bartlomiej Duda
+# v0.2   13.10.2020  Bartlomiej Duda
 
 
 import os
@@ -30,11 +31,11 @@ def calculate_jump_offset(in_offset, in_value):
 
 
 
-def export_sitting_ducks_PS2(in_file_path, out_folder_path):
+def export_data_type1(in_file_path, out_folder_path):
     '''
     Function for exporting data from DPS files
     '''    
-    bd_logger("Starting export_sitting_ducks_PS2...")    
+    bd_logger("Starting export_data_type1...")    
     
     dps_file = open(in_file_path, 'rb')
     
@@ -91,24 +92,79 @@ def export_sitting_ducks_PS2(in_file_path, out_folder_path):
   
     
     dps_file.close()
-    bd_logger("Ending export_sitting_ducks_PS2...")    
+    bd_logger("Ending export_data_type1...")    
+    
+
+
+def export_data_type2(in_file_path, out_folder_path):
+    '''
+    Function for exporting data from DPC files
+    '''    
+    bd_logger("Starting export_data_type2...")    
+    
+    dpc_file = open(in_file_path, 'rb')
+    
+    dpc_file.seek(256)
+    num_of_entries = struct.unpack("<L", dpc_file.read(4))[0]
+    print("num_of_entries: " + str(num_of_entries))
+    
+    data_block_size_arr = []
+    dpc_file.seek(288)
+    for i in range(num_of_entries):
+        data_block_size = struct.unpack("<L", dpc_file.read(4))[0]
+        data_size = struct.unpack("<L", dpc_file.read(4))[0]
+        x3 = struct.unpack("<L", dpc_file.read(4))[0]
+        x4 = struct.unpack("<L", dpc_file.read(4))[0]
+        x5 = struct.unpack("<L", dpc_file.read(4))[0]
+        x6 = struct.unpack("<L", dpc_file.read(4))[0]
+        data_block_size_arr.append(data_block_size)
+        #print("data_block_size: " + str(data_block_size) + " data_size: " + str(data_size) + " x3: " + str(x3) + " x4: " + str(x4) + " x5: " + str(x5) + " x6: " + str(x6) )
+    
+        if not os.path.exists(out_folder_path):
+            os.makedirs(out_folder_path)      
     
     
+    dpc_file.seek(2048)    
+    for i in range(num_of_entries):
+        size = data_block_size_arr[i]
+        block_data = dpc_file.read(size)
+        out_file_path = out_folder_path + "data_block_file" + str(i+1) + ".bin"
+        print(out_file_path)
+        
+        out_file = open(out_file_path, "wb+")
+        out_file.write(block_data)
+        out_file.close()
+        
+
+    
+    
+    dpc_file.close()
+    bd_logger("Ending export_data_type2...")      
     
     
 def main():
     
-    main_switch = 1
-    # 1 - export data from Sitting Ducks PS2 DPS files (v1.19)
+    main_switch = 2
+    # 1 - export data from those games:
+    #       * Sitting Ducks PS2 DPS files (v1.19)
+    #       * The Mummy: The Animated Series PS2 DPS files (v1.51)
+    # 2 - export data from those games:
+    #       * Garfield 2 PC DPC files (v1.08.40.02)
+    
 
     
     if main_switch == 1:
-        #p_in_file_path = "C:\\Users\\Arek\\Desktop\\DPC_RESEARCH\\Sitting Ducks PS2\\MENU.DPS"
-        #p_out_folder_path = "C:\\Users\\Arek\\Desktop\\DPC_RESEARCH\\Sitting Ducks PS2\\MENU.DPS_OUT\\"
+        p_in_file_path = "C:\\Users\\Arek\\Desktop\\DPC_RESEARCH\\Mummy PS2\\SHARED.DPS"
+        p_out_folder_path = "C:\\Users\\Arek\\Desktop\\DPC_RESEARCH\\Mummy PS2\\SHARED.DPS_OUT\\"           
+        export_data_type1(p_in_file_path, p_out_folder_path)
         
-        p_in_file_path = "C:\\Users\\Arek\\Desktop\\DPC_RESEARCH\\Sitting Ducks PS2\\SHARED.DPS"
-        p_out_folder_path = "C:\\Users\\Arek\\Desktop\\DPC_RESEARCH\\Sitting Ducks PS2\\SHARED.DPS_OUT\\"        
-        export_sitting_ducks_PS2(p_in_file_path, p_out_folder_path)
+    elif main_switch == 2:
+        #p_in_file_path = "C:\\Users\\Arek\\Desktop\\DPC_RESEARCH\\Garfield PC\\P_GARFLD.DPC"
+        #p_out_folder_path = "C:\\Users\\Arek\\Desktop\\DPC_RESEARCH\\Garfield PC\\P_GARFLD.DPC_OUT\\"    
+        
+        p_in_file_path = "C:\\Users\\Arek\\Desktop\\DPC_RESEARCH\\Garfield PC\\FONTES.DPC"
+        p_out_folder_path = "C:\\Users\\Arek\\Desktop\\DPC_RESEARCH\\Garfield PC\\FONTES.DPC_OUT\\"           
+        export_data_type2(p_in_file_path, p_out_folder_path)        
         
             
     else:
