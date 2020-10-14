@@ -1,0 +1,35 @@
+﻿Document created by Bartlomiej Duda
+Creation date: 11.03.2020
+
+// CT Special Forces: Fire for effect (PC)
+// DPC archive file format
+
+// Files inside archive are compressesed
+// with custom compression algorithm
+
+
+//header
+256 bytes - version clob // "v1.81 - Asobo Studio - Internal Cross Technology"
+4 bytes - number of files
+24 bytes - unknown
+
+
+//file info (24 bytes per entry)
+num_of_files *
+{
+  4 bytes - dummy
+  4 bytes - xsize / uncompressed size
+  4 bytes - size  / compressed size
+  4 bytes - unknwon
+  4 bytes - some CRC?
+  4 bytes - unknown
+}
+x bytes - padding 
+
+
+//file data
+num_of_files *
+{
+  x bytes - file data
+  x bytes - padding
+}

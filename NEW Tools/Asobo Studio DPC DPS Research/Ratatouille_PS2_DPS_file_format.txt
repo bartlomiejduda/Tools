@@ -1,16 +1,18 @@
-﻿Document created by Bartlomiej Duda
-Creation date: 11.03.2020
+Document created by Bartlomiej Duda
+Creation date: 14.10.2020
 
-// CT Special Forces: Fire for effect (PC)
-// DPC archive file format
+// Ratatouille (PS2)
+// DPS archive file format
 
 // Files inside archive are compressesed
 // with custom compression algorithm
 
+//little endian
 
 //header
-256 bytes - version clob // "v1.81 - Asobo Studio - Internal Cross Technology"
-4 bytes - number of files
+256 bytes - version clob // "v1.06.63.06 - Asobo Studio - Internal Cross Technology"
+4 bytes (uint32) - number of folders?
+4 bytes (uint32)- number of files
 24 bytes - unknown
 
 
@@ -24,6 +26,7 @@ num_of_files *
   4 bytes - some CRC?
   4 bytes - unknown
 }
+x bytes - padding 
 
 
 //file data
