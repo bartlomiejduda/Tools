@@ -1,0 +1,16 @@
+Document created by Bartlomiej Duda
+Creation date: 18.10.2020
+
+// Urban Chaos 
+// STY file format (Urban Chaos Story Script)
+
+UINT Object ID
+UINT Group ID
+UINT Parent
+UINT Parent-is-group
+UINT Type
+UINT Flags
+UINT District
+STRING Filename
+STRING Title
+STRING Briefing

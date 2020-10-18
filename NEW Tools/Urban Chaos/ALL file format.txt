@@ -1,0 +1,22 @@
+Document created by Bartlomiej Duda
+Creation date: 18.10.2020
+
+// Urban Chaos 
+// ALL file format
+
+//header
+SLONG save_type
+SLONG count
+
+ULONG unknown
+ULONG unknown
+ULONG unknown
+
+num_of_prims *
+{
+  32 bytes - prim name
+  x bytes - PrimObject
+}
+
+
+//TODO

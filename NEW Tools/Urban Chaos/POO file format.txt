@@ -1,0 +1,13 @@
+Document created by Bartlomiej Duda
+Creation date: 18.10.2020
+
+// Urban Chaos 
+// POO file format (star file)
+
+num_of_entries *
+{
+  char(x) - "Star:"
+  INT - Star longitude
+  INT - Star lattitude
+  INT - Star brightness
+}

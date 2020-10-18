@@ -1,0 +1,14 @@
+Document created by Bartlomiej Duda
+Creation date: 18.10.2020
+
+// Urban Chaos 
+// PAL file format (color palette)
+
+// Note: Typically there are 256 colors (768 bytes)
+
+num_of_colors *
+{
+   UBYTE red;
+   UBYTE green;
+   UBYTE blue;
+}

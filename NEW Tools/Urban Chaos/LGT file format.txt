@@ -1,0 +1,40 @@
+Document created by Bartlomiej Duda
+Creation date: 18.10.2020
+
+// Urban Chaos 
+// LGT file format
+
+
+//header
+SLONG     sizeof_ed_light
+SLONG     ed_max_lights
+SLONG     sizeof_night_colour
+
+ed_max_lights *
+{
+   (sizeof_ed_light) bytes - ED_Light el entry 
+    {
+       el.x,
+       el.y,
+       el.z,
+       el.range,
+       el.red,
+       el.green,
+       el.blue
+    }
+}
+
+SLONG        ed_light_free
+ULONG        flag
+ULONG        amb_d3d_colour
+ULONG        amb_d3d_specular
+SLONG        amb_red
+SLONG        amb_green
+SLONG        amb_blue
+SBYTE	     lampost_red
+SBYTE	     lampost_green
+SBYTE	     lampost_blue
+UBYTE        padding
+SLONG        lampost_radius
+
+(sizeof_night_colour) sky_colour

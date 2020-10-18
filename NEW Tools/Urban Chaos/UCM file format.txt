@@ -1,0 +1,30 @@
+Document created by Bartlomiej Duda
+Creation date: 18.10.2020
+
+// Urban Chaos 
+// UCM file format (Game Mission Files)
+
+
+
+UINT32 Version
+UINT32 Flags
+260 bytes - BriefName // can be empty
+260 bytes - LightMapName  // "Data\Lighting\gpost3.lgt"
+260 bytes - MapName  // "Data\gpost3.iam"
+260 bytes - MissionName  // "wstores11"
+260 bytes - CitSezMapName  // "text\wstores111.txt"
+UWORD MapIndex
+UWORD FreeEPoints
+UWORD UsedEPoints
+UBYTE CrimeRate
+UBYTE CivsRate
+MAX_EVENTPOINTS *
+{
+  EventPoint
+}
+UBYTE SkillLevels[254] // up to 254 AI types supported
+UBYTE BoredomRate
+UBYTE CarsRate
+UBYTE MusicWorld
+
+128*128 bytes - MissionZones

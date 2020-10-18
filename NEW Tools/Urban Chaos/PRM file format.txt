@@ -1,0 +1,64 @@
+Document created by Bartlomiej Duda
+Creation date: 18.10.2020
+
+// Urban Chaos 
+// PRM file format (3D Model)
+
+//header
+UINT16 Magic  // "\xA2\x16"
+char(x) - Model Name // for example "ambulance"
+UINT16 First point ID
+UINT16 Last point ID
+UINT16 First quadrangle ID
+UINT16 Last quadrangle ID
+UINT16 First triangle ID
+UINT16 Last triangle ID
+
+//properties
+UINT8 Collision type
+BOOL8 Reaction to an impact by a vehicle
+UINT8 Shadow type
+BOOL8 Various properties
+
+//points coordinates
+num_of_points *
+{
+   INT16 Position X
+   INT16 Position Y
+   INT16 Position Z
+}
+
+//quadrangles structure
+num_of_quadrangles *
+{
+   UINT8 Texture ID group
+   BOOL8 Properties
+   UINT16 Point A ID
+   UINT16 Point B ID
+   UINT16 Point C ID
+   UINT16 Point D ID
+
+   UINT8 U position of the point A on the texture grid (u)
+   UINT8 V position of the point A on the texture grid (v)
+   UINT8 U position of the point B on the texture grid (u)
+   UINT8 V position of the point B on the texture grid (v)
+   UINT8 U position of the point C on the texture grid (u)
+   UINT8 V position of the point C on the texture grid (v)
+   UINT8 U position of the point D on the texture grid (u)
+   UINT8 V position of the point D on the texture grid (v)
+
+   UINT16 Unknown
+   UINT16 Unknown
+   UINT16 Unknown
+   UINT16 Unknown
+   UINT32 Unknown
+   BOOL8 Properties
+   UINT8 More properties
+   UINT16 Unknown
+}
+
+//triangles structure
+num_of_triangles *
+{
+   // same as quadrangles but without the D point
+}

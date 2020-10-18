@@ -1,0 +1,27 @@
+Document created by Bartlomiej Duda
+Creation date: 18.10.2020
+
+// Urban Chaos 
+// TXC file format (texture clumps)
+
+
+// Note: file size or file offset may be "0".
+// In this case, empty file is stored.
+
+
+4 bytes (uint32) - number of files
+
+num_of_files *
+{
+  4 bytes (uint32) - file offset
+}
+
+num_of_files *
+{
+  4 bytes (uint32) - file size
+}
+
+num_of_files *
+{
+  x bytes - file data
+}

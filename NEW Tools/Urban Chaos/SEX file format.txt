@@ -1,0 +1,66 @@
+Document created by Bartlomiej Duda
+Creation date: 18.10.2020
+
+// Urban Chaos 
+// SEX file format
+
+char(x) - "Triangle mesh:" + mesh name
+char(x) - "Pivot:" +
+{
+   //  The pivot of the current object.
+   float x
+   float y
+   float z
+}
+char(x) - "Material: " +
+{
+   // New material
+   char(x) - "DiffuseRGB" +
+   {
+      float r
+      float g
+      float b
+   }
+   char(x) - "shininess" + float sh
+   char(x) - "shinstr" + float ss
+   char(x) - "sided" + float sided
+   char(x) - "alpha" + float alpha
+   char(x) - "diffuse" + float tname
+   char(x) - "bumpmap" + float bname
+}
+
+
+num_of_vertexes *
+{
+   //vertex
+   char(x) - "Vertex:" + float x + float y + float z
+}
+
+
+num_of_texture_vertexes *
+{
+   //texture vertex
+   char(x) - ""Texture Vertex:" + float u + float v
+}
+
+
+num_of_faces *
+{
+   //face data
+   char(x) - "Face: Material " + 
+   {
+      SLONG m
+      char(x) - "xyz"
+      SLONG p1
+      SLONG p2
+      SLONG p3
+      char(x) - "uv"
+      SLONG t1
+      SLONG t2
+      SLONG t3
+      char(x) - "edge"
+      SLONG e1
+      SLONG e2
+      SLONG e3
+      SLONG group
+}
