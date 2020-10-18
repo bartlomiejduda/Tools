@@ -1,6 +1,8 @@
 # -*- coding: utf-8 -*-
 
 
+#It was tested on Python 2.7
+
 #This tool was made by Ikskoks for Xentax community.
 #Please don't copy this tool to other forums and sites.
 
@@ -215,7 +217,7 @@ def replace_chars_in_regular_txt(txt_folder):
     
 ##REPACK ALL UCMs    
 game_folder = 'd:\\Steam\\steamapps\\common\\Urban Chaos\\' 
-txt_folder = 'c:\\Users\\User\\Desktop\\Urban Chaos OmegaT_33\\target\\UCM\\'
+txt_folder = 'c:\\Users\\User\\Desktop\\Urban Chaos OmegaT\\target\\UCM\\'
 pack_all_ucms(txt_folder, game_folder)
     
 ##################################################################################################
@@ -238,6 +240,6 @@ pack_all_ucms(txt_folder, game_folder)
 
 
 ##replace chars in txt
-#path_to_txt_folder = 'c:\\Users\\User\\Desktop\\Urban Chaos OmegaT_31\\target\\text\\'
+#path_to_txt_folder = 'c:\\Users\\User\\Desktop\\Urban Chaos OmegaT\\target\\text\\'
 #replace_chars_in_regular_txt(path_to_txt_folder)
 
