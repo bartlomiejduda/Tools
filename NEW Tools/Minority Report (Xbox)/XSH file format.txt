@@ -1,0 +1,26 @@
+Document created by Bartlomiej Duda
+Creation date: 22.10.2020
+
+// Minority Report - Everybody Runs (Xbox) 
+// XSH file format
+
+// little endian
+
+
+// Note: Actual data is stored in XSD files.
+
+//header
+4 bytes - unknown
+4 bytes - nulls
+4 bytes (uint32) - num of entries
+
+
+//info array
+num_of_entries *
+{
+   32 bytes (char) - file name + folder name?
+   4 bytes - unknown (some ID?)
+   4 bytes (uint32) - file offset
+   2 bytes (uint16) - file size
+   58 bytes - unknown
+}
