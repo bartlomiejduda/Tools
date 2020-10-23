@@ -1,0 +1,20 @@
+Document created by Bartlomiej Duda
+Creation date: 23.10.2020
+
+// Tony Hawk’s Underground (PS2)
+// HED file format
+
+// little endian
+
+
+// Note: Actual data is stored in WAD files.
+
+
+//info array
+num_of_entries *
+{
+   4 bytes (uint32) - file offset
+   4 bytes (uint32) - file size
+   16/20/24 bytes (char) - file path // "\Music\track01"   
+}
+4 bytes - EOF ID  // "\xFF\xFF\xFF\xFF"
