@@ -1,0 +1,19 @@
+Document created by Bartlomiej Duda
+Creation date: 17.04.2020
+
+
+// GameName (Java)
+// BIN file format
+
+
+1 byte - number of chunks
+
+
+//CHUNKS DATA
+num_of_chunks *
+{
+   1 byte - chunk name length
+   x bytes - chunk name
+   2 bytes (uint16) - data size
+   x bytes - file data
+}

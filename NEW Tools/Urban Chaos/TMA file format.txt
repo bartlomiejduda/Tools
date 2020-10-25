@@ -1,0 +1,49 @@
+// Document has been created by Bartlomiej Duda
+// Creation date: 25.10.2020
+// TMA file format (texture style)
+
+// little endian
+
+//header
+4 bytes (uint32) - save type // "5"
+
+
+//textures_xy block 
+2 bytes (uint16) - first dimension size // "200"
+2 bytes (uint16) - second dimension size // "5"
+
+//4000 bytes  (200 * 5 * sizeof(TXTY) )
+{
+   //TXTY structure
+   UBYTE Page
+   UBYTE Tx
+   UBYTE Ty
+   UBYTE Flip
+}
+
+
+
+
+//texture_style_names block
+2 bytes (uint16) - first dimension size // "200"
+2 bytes (uint16) - second dimension size // "21"
+
+//4200 bytes (200 * 21)
+{
+   char(x) - texture style name
+}
+
+
+
+
+//textures_flags block
+//this block occurs when save type is greater than "2"
+2 bytes (uint16) - first dimension size // "200"
+2 bytes (uint16) - second dimension size // "5"
+
+//1000 bytes (200 * 5)
+{
+   UBYTE - flag entry
+}
+
+

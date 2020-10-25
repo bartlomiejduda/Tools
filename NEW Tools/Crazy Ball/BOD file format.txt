@@ -1,0 +1,24 @@
+// Document has been created by Bartlomiej Duda
+// Creation date: 25.10.2020
+// BOD file format
+// Crazy Ball (PC)
+
+
+64 bytes (char) - magic string // "This is a Atomic Elbow BOD file"
+4 bytes (uint32) - number of files
+
+
+// info array
+num_of_files *
+{
+  256 bytes - file name
+  4 bytes (uint32) - file offset
+  4 bytes (uint32) - file size
+}
+
+
+//data
+num_of_files *
+{
+  x bytes - data
+}
