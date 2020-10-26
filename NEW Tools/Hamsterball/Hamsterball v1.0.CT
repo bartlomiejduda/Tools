@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="utf-8"?>
+<CheatTable CheatEngineTableVersion="31">
+  <CheatEntries>
+    <CheatEntry>
+      <ID>6</ID>
+      <Description>"Info"</Description>
+      <LastState Value="" RealAddress="00000000"/>
+      <Color>0080FF</Color>
+      <GroupHeader>1</GroupHeader>
+      <CheatEntries>
+        <CheatEntry>
+          <ID>4</ID>
+          <Description>"Author: Bartlomiej Duda (Ikskoks)"</Description>
+          <LastState Value="" RealAddress="00000000"/>
+          <Color>0080FF</Color>
+          <GroupHeader>1</GroupHeader>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>5</ID>
+          <Description>"Site: ikskoks.pl / facebook.com/ikskoks"</Description>
+          <LastState Value="" RealAddress="00000000"/>
+          <Color>0080FF</Color>
+          <GroupHeader>1</GroupHeader>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>8</ID>
+          <Description>"Game: Hamsterball v3.5"</Description>
+          <LastState Value="" RealAddress="00000000"/>
+          <Color>0080FF</Color>
+          <GroupHeader>1</GroupHeader>
+        </CheatEntry>
+      </CheatEntries>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>7</ID>
+      <Description>"Cheats"</Description>
+      <Options moActivateChildrenAsWell="1" moDeactivateChildrenAsWell="1"/>
+      <LastState Value="" Activated="1" RealAddress="00000000"/>
+      <GroupHeader>1</GroupHeader>
+      <CheatEntries>
+        <CheatEntry>
+          <ID>1</ID>
+          <Description>"Stop Timer"</Description>
+          <LastState Activated="1"/>
+          <VariableType>Auto Assembler Script</VariableType>
+          <AssemblerScript>[ENABLE]
+//code from here to '[DISABLE]' will be used to enable the cheat
+alloc(newmem,2048)
+label(returnhere)
+label(originalcode)
+label(exit)
+
+newmem: //this is allocated memory, you have read,write,execute access
+//place your code here
+
+originalcode:
+//dec [edi+1C]
+nop
+jns Hamsterball.exe+1B43D
+
+exit:
+jmp returnhere
+
+"Hamsterball.exe"+1B38B:
+jmp newmem
+nop 4
+returnhere:
+
+
+ 
+ 
+[DISABLE]
+//code from here till the end of the code will be used to disable the cheat
+dealloc(newmem)
+"Hamsterball.exe"+1B38B:
+dec [edi+1C]
+jns Hamsterball.exe+1B43D
+//Alt: db FF 4F 1C 0F 89 A9 00 00 00
+</AssemblerScript>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>3</ID>
+          <Description>"Points x20"</Description>
+          <LastState Activated="1"/>
+          <VariableType>Auto Assembler Script</VariableType>
+          <AssemblerScript>[ENABLE]
+//code from here to '[DISABLE]' will be used to enable the cheat
+alloc(newmem,2048)
+label(returnhere)
+label(originalcode)
+label(exit)
+//label(num1)
+
+newmem: //this is allocated memory, you have read,write,execute access
+//place your code here
+//num1:
+//dq 4.56
+
+
+originalcode:
+//fadd dword ptr [edi]
+
+//fld1
+
+//fld    qword [num1]
+//mov dword ptr [edi], 5.12
+//fadd st0,st0;
+
+
+
+// 5 000     x5
+// 20 000    x20
+// 50 000    x50
+add dword ptr [edi], 20000
+fadd dword ptr [edi]
+//add dword ptr [edi], 50000
+fstp dword ptr [edi]
+
+
+//fstp dword ptr [edi]
+mov byte ptr [esi+00000310],01
+
+exit:
+jmp returnhere
+
+"Hamsterball.exe"+6144:
+jmp newmem
+nop 6
+returnhere:
+
+
+ 
+ 
+[DISABLE]
+//code from here till the end of the code will be used to disable the cheat
+dealloc(newmem)
+"Hamsterball.exe"+6144:
+fadd dword ptr [edi]
+fstp dword ptr [edi]
+mov byte ptr [esi+00000310],01
+//Alt: db D8 07 D9 1F C6 86 10 03 00 00 01
+</AssemblerScript>
+        </CheatEntry>
+      </CheatEntries>
+    </CheatEntry>
+  </CheatEntries>
+  <UserdefinedSymbols/>
+</CheatTable>
