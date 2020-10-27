@@ -1,0 +1,40 @@
+// Document has been created by Bartlomiej Duda
+// Creation date: 27.10.2020
+// Hamsterball (PC)
+// font.description file format
+
+// little endian
+
+
+//header
+4 bytes (uint32) - version? // "1" or "2"
+4 bytes (uint32) - number of characters
+
+
+//char array (33 bytes per entry)
+num_of_chars *
+{
+   1 byte (char) - character // "A", "B", "C" etc.
+   6 bytes - nulls
+
+   1 byte (uint8) - Position X
+   1 byte - unknown // "43"
+   2 bytes - nulls
+
+   1 byte - Position Y
+   1 byte - unknown // "42"
+   2 bytes - nulls
+
+
+   1 byte (uint8) - width in bitmap
+   1 byte - unknown // "41"
+   2 bytes - nulls
+
+   1 byte (uint8) - height // min. height is half of the char
+   1 byte - unknown // "42"
+   1 byte (uint8) - character spacing from right
+   3 bytes - nulls
+
+   1 byte (uint8) - character spacing from left
+   7 bytes - nulls
+}
