@@ -1,0 +1,137 @@
+== DAT == 
+* ''' Format Type ''':    Archive <br> 
+* ''' [http://en.wikipedia.org/wiki/Endianness Endian Order] ''': Big Endian <br>
+
+
+=== Format Specifications === 
+
+Allegro DAT files can be compressed or encrypted.<br>
+Detailed description of the file format can be found in the [https://www.allegro.cc/manual/4/miscellaneous/datafile-format-information/ Allegro 4 documentation].<br>
+
+=== MultiEx BMS Script === 
+
+Not written yet.
+
+=== QuickBMS Script === 
+
+* [http://aluigi.org/bms/icy_tower.bms icy_tower.bms]
+
+=== Notes and Comments === 
+
+* Archives used by allegro game engine.
+* Passwords can be set in [https://www.allegro.cc/manual/4/tools/grabber/ Grabber tool] or in command-line DAT utility.
+* To edit data in Grabber tool you need to type password with "-p" command into command-line <br>when launching Grabber, for example:<br> '''grabber.exe -phappy'''   // password "happy"
+
+=== Games & Passwords === 
+Games using this file format:
+{| class="wikitable sortable"
+|- 
+!     Game Title                                    !! Archive Password     
+|-
+|     HappyLand Adventures <br>Happyland Adventures - Xmas Edition                         || happy
+|-
+|     Icy Tower (IcyTower)                          || <font color="green">No password</font> (v1.0 & v1.1) <br>wazup (v1.2) <br>gostflor (v1.3 & 1.3.1) <br> CHEESE (v1.4 & v1.5.1)  <br>(c) Free Lunch Design (v1.4 & v1.5.1)
+|-
+|     Zelda Classic                                 || longtan
+|-
+|     Alex the Allegator 1                          || allegator
+|-
+|     Alex the Allegator 2                          || speedhack
+|-
+|     Alex the Allegator 3                          || <font color="green">No password</font>
+|-
+|     Alex the Allegator 4 / Klabutong / <br>Super Monster Painter Extreme             || no_ripping_please
+|-
+|    Holiday Hills / Frog Hunt / <br>Zombiepox  / Harold's Hills           || piracy_is_theft
+|-
+|    Bamboozle Machinae                             || ROFFLELOLASLOMG
+|-
+|    Bamboozle Machinae II                          || create_bm_plane <br>bm_load_level
+|-
+|    Cylu                                           || NULU
+|-
+|    Dodger                                         || whateva
+|-
+|    Paranoid                                       || PARAHSCR
+|-
+|    Pin CHESS 3D                                   || Idea
+|-
+|    POP'EM                                         || popem
+|-
+|    TPong                                          || temp
+|-
+|    Unborn                                         || UBRNHSCR
+|-
+|    Freetris                                       || <font color="green">No password</font>
+|-
+|    Hellcarrier                                    || woodchuck
+|-
+|    Operation Spacehog                             || skidmarks
+|-
+|    Xelda                                          || <font color="green">No password</font>
+|-
+|    UFO 2000                                       || <font color="green">No password</font>
+|-
+|    TETRIS Queen                                   || <font color="green">No password</font>
+|-
+|    Deluxe Pacman 1                                || 473506368 (v1.02 & v1.22 & v1.99d)  <br><font color="green">No password</font> (v1.99d) 
+|-
+|    Worms for Linux!                               || <font color="green">No password</font>
+|-
+|    Adagio                                         || <font color="green">No password</font>
+|-
+|    Red Pixel                                      || <font color="green">No password</font>
+|-
+|    Super Metroid Classic                          || <font color="green">No password</font>
+|-
+|    Tetris Unlimited                               || <font color="green">No password</font>
+|-
+|    Desert of Doom                                 || <font color="green">No password</font>
+|-
+|    Duckie Dash                                    || <font color="green">No password</font>
+|-
+|    Perilous Peregrination                         || <font color="green">No password</font>
+|-
+|    Reflexion                                      || create_bitmap_ex
+|-
+|    Mantra                                         || musicman3320
+|-
+|    Last Survivor                                  || D0C6N05887
+|-
+|    Codigos jogo                                   || trabalhopp
+|-
+|    Commander Keen 7                               || billyblaze
+|-
+|    Raine                                          || pacsass
+|-
+|    KillGoblins                                    || kill
+|-
+|    Ultimate Blocks                                || ub-dat-4.0
+|-
+|    Tetris Clone                                   || TTRSHSCR
+
+|}
+Full list is available [https://www.allegro.cc/depot/action/listing here].
+
+=== Compatible Programs === 
+
+* [http://cdn.allegro.cc/file/library/allegro-4.2.3/allegro-misc-4.2.3.zip Allegro Tools] 
+* [https://www.allegro.cc/depot/Grabber Grabber]
+* [https://liballeg.org/old.html Allegro 4]
+
+==Gallery==
+<gallery bordercolor="transparent" spacing="small" orientation="landscape">
+grabber_happy.png
+grabber_font.png
+grabber_octopus.png
+</gallery>
+<br/><br>
+
+
+[[Category:Complete WIP|Allegro DAT]]
+[[Category:Platform PC|Allegro DAT]]
+[[Category:CE None|Allegro DAT]]
+[[Category:Format_Archive | Type: Archive]]
+[[Category:Extension_dat | Extension: dat]]
+[[Category:BMS_None | BMS: None]]
+[[Category:File Format]]
