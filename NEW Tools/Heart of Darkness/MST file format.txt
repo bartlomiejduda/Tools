@@ -1,0 +1,20 @@
+// Heart Of Darkness
+// MST file format
+
+// little endian
+
+//header
+4 bytes (uint32) - version // "160"
+4 bytes (uint32) - size of data
+116 bytes - unknown
+4 bytes (uint32) - size of code / 4
+4 bytes - unknown
+x bytes - padding
+
+
+//unknown
+x bytes - unknown
+
+
+//data
+x bytes - data

@@ -1,0 +1,30 @@
+// Heart Of Darkness
+// PAF file format
+
+// little endian
+
+
+//offset array
+num_of_files *
+{
+   4 bytes (uint32) - file offset
+}
+
+
+num_of_files *
+{
+   //PAF structure
+   56 bytes - PAF signature // "Packed Animation File V1.0.(c) 1992-96 Amazing Studio"
+   72 bytes - reserved
+   4 bytes (uint32) - frame count
+   4 bytes (uint32) - video width
+   4 bytes (uint32) - video height
+   4 bytes (uint32) - read buffer size
+   4 bytes (uint32) - num. of frame blocks
+   4 bytes (uint32) - frame blocks count
+   4 bytes (uint32) - offset of data
+   4 bytes (uint32) - max video frames
+   4 bytes (uint32) - max audio frames
+   x bytes - video and audio data
+}
+   

@@ -1,0 +1,68 @@
+// Heart Of Darkness
+// LVL file format
+
+//header
+4 bytes (char) - magic // ".DOH"
+1 byte (uint8) - screens count
+2 bytes - unknown
+1 byte (uint8) - sprites count
+
+
+//level map
+(screens_count *4) bytes - grid data
+
+
+//level screen x/y pos
+num_of_screens *
+{
+   4 bytes (uint32) - Position X
+   4 bytes (uint32) - Position Y
+}
+
+//level screen states
+num_of_screens *
+{
+   4 bytes - screen state entry
+}
+
+
+//level objects
+x bytes - level objects
+
+
+//screen masks
+x bytes - screen masks
+
+
+//background screens
+num_of_screens *
+{
+   4 bytes (uint32) - offset
+   4 bytes (uint32) - size
+   4 bytes (uint32) - read size
+   x bytes - background screens data
+}
+
+
+//sprites
+num_of_sprites *
+{
+   4 bytes (uint32) - offset
+   4 bytes (uint32) - size
+   4 bytes (uint32) - read size  
+   x bytes - sprite data
+}
+   
+
+
+
+
+
+
+
+
+
+
+
+
+
