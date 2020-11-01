@@ -1,0 +1,238 @@
+<?xml version="1.0" encoding="utf-8"?>
+<CheatTable CheatEngineTableVersion="31">
+  <CheatEntries>
+    <CheatEntry>
+      <ID>1</ID>
+      <Description>"Freeze energy meter"</Description>
+      <LastState Activated="1"/>
+      <VariableType>Auto Assembler Script</VariableType>
+      <AssemblerScript>[ENABLE]
+//code from here to '[DISABLE]' will be used to enable the cheat
+alloc(newmem,2048)
+label(returnhere)
+label(originalcode)
+label(exit)
+
+newmem: //this is allocated memory, you have read,write,execute access
+//place your code here
+
+originalcode:
+//mov [ecx+0C],edx
+ret 0004
+
+exit:
+jmp returnhere
+
+"Micro_Commandos.exe"+141546:
+jmp newmem
+nop
+returnhere:
+
+
+ 
+ 
+[DISABLE]
+//code from here till the end of the code will be used to disable the cheat
+dealloc(newmem)
+"Micro_Commandos.exe"+141546:
+mov [ecx+0C],edx
+ret 0004
+//Alt: db 89 51 0C C2 04 00
+</AssemblerScript>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>4</ID>
+      <Description>"Freeze vehicle energy meter"</Description>
+      <LastState Activated="1"/>
+      <VariableType>Auto Assembler Script</VariableType>
+      <AssemblerScript>[ENABLE]
+//code from here to '[DISABLE]' will be used to enable the cheat
+alloc(newmem,2048)
+label(returnhere)
+label(originalcode)
+label(exit)
+
+newmem: //this is allocated memory, you have read,write,execute access
+//place your code here
+
+originalcode:
+//mov [ecx+0000012C],edx
+
+exit:
+jmp returnhere
+
+"Micro_Commandos.exe"+FD49A:
+jmp newmem
+nop
+returnhere:
+
+
+ 
+ 
+[DISABLE]
+//code from here till the end of the code will be used to disable the cheat
+dealloc(newmem)
+"Micro_Commandos.exe"+FD49A:
+mov [ecx+0000012C],edx
+//Alt: db 89 91 2C 01 00 00
+</AssemblerScript>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>6</ID>
+      <Description>"Freeze food meter (not useful)"</Description>
+      <LastState/>
+      <VariableType>Auto Assembler Script</VariableType>
+      <AssemblerScript>[ENABLE]
+//code from here to '[DISABLE]' will be used to enable the cheat
+alloc(newmem,2048)
+label(returnhere)
+label(originalcode)
+label(exit)
+
+newmem: //this is allocated memory, you have read,write,execute access
+//place your code here
+
+originalcode:
+//mov [ecx+10],edx
+ret 0004
+
+exit:
+jmp returnhere
+
+"Micro_Commandos.exe"+141556:
+jmp newmem
+nop
+returnhere:
+
+
+ 
+ 
+[DISABLE]
+//code from here till the end of the code will be used to disable the cheat
+dealloc(newmem)
+"Micro_Commandos.exe"+141556:
+mov [ecx+10],edx
+ret 0004
+//Alt: db 89 51 10 C2 04 00
+</AssemblerScript>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>10</ID>
+      <Description>"Freeze unit sleep meter"</Description>
+      <LastState Activated="1"/>
+      <VariableType>Auto Assembler Script</VariableType>
+      <AssemblerScript>[ENABLE]
+//code from here to '[DISABLE]' will be used to enable the cheat
+alloc(newmem,2048)
+label(returnhere)
+label(originalcode)
+label(exit)
+
+newmem: //this is allocated memory, you have read,write,execute access
+//place your code here
+
+originalcode:
+//mov [ecx+10],eax
+add [ecx+10],5
+ret 0004
+
+exit:
+jmp returnhere
+
+"Micro_Commandos.exe"+132D74:
+jmp newmem
+nop
+returnhere:
+
+
+ 
+ 
+[DISABLE]
+//code from here till the end of the code will be used to disable the cheat
+dealloc(newmem)
+"Micro_Commandos.exe"+132D74:
+mov [ecx+10],eax
+ret 0004
+//Alt: db 89 41 10 C2 04 00
+</AssemblerScript>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>13</ID>
+      <Description>"Freeze unit food meter"</Description>
+      <LastState Activated="1"/>
+      <VariableType>Auto Assembler Script</VariableType>
+      <AssemblerScript>[ENABLE]
+//code from here to '[DISABLE]' will be used to enable the cheat
+alloc(newmem,2048)
+label(returnhere)
+label(originalcode)
+label(exit)
+
+newmem: //this is allocated memory, you have read,write,execute access
+//place your code here
+
+originalcode:
+//mov [ecx+14],eax
+ret 0004
+
+exit:
+jmp returnhere
+
+"Micro_Commandos.exe"+132DB4:
+jmp newmem
+nop
+returnhere:
+
+
+ 
+ 
+[DISABLE]
+//code from here till the end of the code will be used to disable the cheat
+dealloc(newmem)
+"Micro_Commandos.exe"+132DB4:
+mov [ecx+14],eax
+ret 0004
+//Alt: db 89 41 14 C2 04 00
+</AssemblerScript>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>15</ID>
+      <Description>"Freeze material meter (not useful)"</Description>
+      <LastState/>
+      <VariableType>Auto Assembler Script</VariableType>
+      <AssemblerScript>[ENABLE]
+//code from here to '[DISABLE]' will be used to enable the cheat
+alloc(newmem,2048)
+label(returnhere)
+label(originalcode)
+label(exit)
+
+newmem: //this is allocated memory, you have read,write,execute access
+//place your code here
+
+originalcode:
+//mov [edi+08],ecx
+mov ecx,esi
+
+exit:
+jmp returnhere
+
+"Micro_Commandos.exe"+1417A6:
+jmp newmem
+returnhere:
+
+
+ 
+ 
+[DISABLE]
+//code from here till the end of the code will be used to disable the cheat
+dealloc(newmem)
+"Micro_Commandos.exe"+1417A6:
+mov [edi+08],ecx
+mov ecx,esi
+//Alt: db 89 4F 08 8B CE
+</AssemblerScript>
+    </CheatEntry>
+  </CheatEntries>
+  <UserdefinedSymbols/>
+</CheatTable>
