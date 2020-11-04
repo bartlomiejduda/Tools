@@ -1,0 +1,25 @@
+// Legacy Of Kain: Soul Reaver
+// DAT file format
+
+// little endian
+
+//header
+4 bytes (uint32) - number of files
+
+//info array
+num_of_files *
+{
+   4 bytes (uint32) - hashed name of the file
+   4 bytes (uint32) - file size
+   4 bytes (uint32) - file offset
+   4 bytes (char) - last 4 characters of the filename without extension
+                    // for example "DING" for filename "loading.pti"
+}
+x bytes - padding
+
+
+//data
+num_of_files *
+{
+   x bytes - file data
+}
