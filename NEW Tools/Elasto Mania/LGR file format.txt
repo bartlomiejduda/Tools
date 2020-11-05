@@ -1,0 +1,54 @@
+// Elasto Mania
+// LGR file format
+
+
+// little endian
+
+//header
+5 bytes (char) - magic // "LGR12"
+4 bytes (uint32) - number of images
+4 bytes (uint32) - images list constant // "0xEA 0x03 0x00 0x00"
+4 bytes (uint32) - number of entries
+
+
+num_of_entries *
+{
+  10 bytes (char) - image name // ex. "QDOWN_1"
+}
+
+
+num_of_entries *
+{
+  4 bytes (uint32) - image type // picture, texture or mask
+}
+
+num_of_entries *
+{
+  4 bytes (uint32) - distance  // "400", "500", "600" etc.
+}
+
+num_of_entries *
+{
+  4 bytes (uint32) - clipping // 0 = "U", 1 = "G" or 2 = "S"
+}
+
+num_of_entries *
+{
+  4 bytes (uint32) - transparency
+}
+
+
+//image data
+num_of_images *
+{
+   12 bytes (char) - image name // ex. "Q1BODY.pcx"
+   8 bytes - unknown
+   4 bytes (uint32) - file size
+   x bytes - pcx file data  
+}
+
+
+
+
+
+
