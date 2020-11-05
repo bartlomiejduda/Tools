@@ -1,0 +1,24 @@
+// Elasto Mania
+// RES file format
+
+// little endian
+
+// Note: info array is encrypted
+// with custom XOR key.
+
+4 bytes (uint32) - number of files
+
+// info array (3604 bytes)
+num_of_files *
+{
+   16 bytes - filename + padding
+   4 bytes (uint32) - file size
+   4 bytes (uint32) - file offset
+}
+x bytes - unknown
+
+//offset=3608 data start
+num_of_files *
+{
+  x bytes - file data
+}
