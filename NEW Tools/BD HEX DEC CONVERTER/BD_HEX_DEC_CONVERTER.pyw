@@ -9,9 +9,10 @@ Copyright © 2020  Bartłomiej Duda
 
 # Ver    Date        Name               Comment
 # v0.1   13.09.2020  Bartlomiej Duda    -
+# v0.2   13.09.2020  Bartlomiej Duda    Removed Pillow lib
 
 
-VERSION_NUM = "v0.1"
+VERSION_NUM = "v0.2"
 
 
 import os
@@ -19,7 +20,6 @@ import sys
 import struct
 import tkinter as tk
 from tkinter import messagebox, StringVar, OptionMenu, filedialog, ttk, Text, LabelFrame, Radiobutton
-from PIL import ImageTk, Image
 import webbrowser
 import traceback
 import center_tk_window    # pip install center_tk_window

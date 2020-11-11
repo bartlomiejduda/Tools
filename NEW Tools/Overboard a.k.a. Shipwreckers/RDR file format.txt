@@ -1,0 +1,16 @@
+// Psygnosis games
+// RDR file format
+
+// little endian
+
+
+//header
+8 bytes (char) - magic // "RDR2   "
+4 bytes (uint32) - number of RDT files
+
+
+//filenames
+num_of_rdt_files *
+{
+   64 bytes (char) - file name + padding
+}

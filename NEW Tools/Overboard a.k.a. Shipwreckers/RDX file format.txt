@@ -1,0 +1,17 @@
+// Psygnosis games
+// RDX file format
+
+// little endian
+
+
+//header
+8 bytes (char) - magic // "RDX2   "
+4 bytes (uint32) - number of entries
+
+
+//entries
+num_of_entries *
+{
+   4 bytes - nulls
+   4 bytes - unknown
+}

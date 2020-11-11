@@ -1,0 +1,18 @@
+// Psygnosis games
+// RDI file format
+
+// little endian
+
+
+//header
+8 bytes (char) - magic // "RDI2   "
+4 bytes (uint32) - number of entries
+4 bytes (uint32) - unknown
+8 bytes - nulls
+
+//info array
+num_of_entries *
+{
+   45 bytes (char) - extension + '\x20' + filename // "WAV BOMBLETS"
+   4 bytes (uint32) - entry ID
+}

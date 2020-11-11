@@ -1,0 +1,92 @@
+
+// Overboard! / Shipwrecked
+// Save file format (.000, .001 etc.)
+
+// little endian
+
+
+32 bytes (char) - save name + padding
+1 byte - null
+1 byte (uint8) - current level number   // SINGLE PLAYER LEVELS:
+                                        // '\x00' - Region 1, Level 1
+                                        // '\x01' - Region 1, Level 2
+                                        // '\x02' - Region 1, Level 3
+                                        // '\x03' - Region 1, Level 4
+
+                                        // "\x04" - Region 2, Level 1
+                                        // "\x05" - Region 2, Level 2
+                                        // "\x06" - Region 2, Level 3
+                                        // "\x07" - Region 2, Level 4
+
+                                        // "\x08" - Region 3, Level 1
+                                        // "\x09" - Region 3, Level 2
+                                        // "\x0A" - Region 3, Level 3
+                                        // "\x0B" - Region 3, Level 4
+
+                                        // "\x0C" - Region 4, Level 1
+                                        // "\x0D" - Region 4, Level 2
+                                        // "\x0E" - Region 4, Level 3
+                                        // "\x0F" - Region 4, Level 4
+
+                                        // "\x10" - Region 5, Level 1
+                                        // "\x11" - Region 5, Level 2
+                                        // "\x12" - Region 5, Level 3
+                                        // "\x13" - Region 5, Level 4
+
+
+					// MULTIPLAYER LEVELS:
+                                        // "\x14" - Region 6, Level 1
+                                        // "\x15" - Region 6, Level 2
+                                        // "\x16" - Region 6, Level 3
+                                        // "\x17" - Region 6, Level 4
+
+                                        // "\x18" - Region 7, Level 1
+                                        // "\x19" - Region 7, Level 2
+                                        // "\x1A" - Region 7, Level 3
+                                        // "\x1B" - Region 7, Level 4
+
+                                        // "\x1C" - Region 8, Level 1
+                                        // "\x1D" - Region 8, Level 2
+
+1 byte - null
+3 bytes - unknown // always '\xD0\xB6\x01'
+
+
+//are weapons enabled array
+1 byte (bool) - are single cannon balls enabled
+1 byte (bool) - are multi cannon balls enabled
+1 byte (bool) - are barrels enabled
+1 byte (bool) - are rockets enabled
+1 byte (bool) - are green mines enabled
+1 byte (bool) - is napalm enabled
+1 byte (bool) - is lightning enabled
+1 byte (bool) - is fire enabled
+
+5 bytes - nulls
+
+//weapon enhancement array (values 0-4, where 4 is maximum level)
+1 byte (uint8) - single cannon balls enhancement level
+1 byte (uint8) - multi cannon balls enhancement level
+1 byte (uint8) - barrels enhancement level
+1 byte (uint8) - rockets enhancement level
+1 byte (uint8) - green mines enhancement level
+1 byte (uint8) - napalm enhancement level
+1 byte (uint8) - lightning enhancement level
+1 byte (uint8) - fire enhancement level
+
+5 bytes - nulls
+
+//amunition amount array
+2 bytes (uint16) - amount of cannon balls (single and multi)
+2 bytes (uint16) - amount of rockets
+2 bytes (uint16) - amount of green mines and barrels
+2 bytes (uint16) - amount of napalm and fire
+2 bytes (uint16) - amount of lightning
+
+1 byte (uint8) - number of lives  // 0-255
+3 bytes - nulls
+2 bytes (uint16) - health value // 0-16320
+
+293 bytes - unknown
+
+
