@@ -1,0 +1,14 @@
+
+// Psygnosis games
+// RDA file format
+
+// little endian
+
+8 bytes (char) - magic // "RDA2   "
+4 bytes (uint32) - number of entries
+3 bytes - nulls
+
+num_of_entries *
+{
+   4 bytes - enntry
+}

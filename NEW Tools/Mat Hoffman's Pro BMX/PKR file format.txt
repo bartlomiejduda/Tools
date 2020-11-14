@@ -1,0 +1,42 @@
+// Mat Hoffman's Pro BMX
+// PKR file format
+
+// little endian
+
+// Note: Data may be compressed with zlib
+
+
+// header
+4 bytes (char) - magic // "PKR3"
+4 bytes (uint32) - tail offset
+
+// data
+num_of_files *
+{
+   x bytes - file data (compressed or not)
+}
+
+
+// tail
+4 bytes (uint32) - unknown // "4"
+4 bytes (uint32) - number of folders
+4 bytes (uint32) - number of files
+
+
+num_of_folders *
+{
+   32 bytes (char) - folder path + padding // "data\movies\Intro\" etc.
+   4 bytes (uint32) - number of files in previous folders
+   4 bytes (uint32) - number of files in current folder
+}
+
+number_of_files *
+{
+   32 bytes (char) - filename + padding // "Act02.bik"
+   4 bytes - CRC32 value
+   4 bytes (int32) - compression marker // "-2" - uncompressed
+                                        // "2" - compressed
+   4 bytes (uint32) - file offset
+   4 bytes (uint32) - uncompressed file size
+   4 bytes (uint32) - compressed file size
+}

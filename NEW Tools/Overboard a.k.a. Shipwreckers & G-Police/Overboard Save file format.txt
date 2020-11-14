@@ -35,24 +35,24 @@
 
 
 					// MULTIPLAYER LEVELS:
-                                        // "\x14" - Region 6, Level 1
-                                        // "\x15" - Region 6, Level 2
-                                        // "\x16" - Region 6, Level 3
-                                        // "\x17" - Region 6, Level 4
+                                        // "\x14" - Region 6, Level 1 (Arena 1)
+                                        // "\x15" - Region 6, Level 2 (Arena 2)
+                                        // "\x16" - Region 6, Level 3 (Arena 3)
+                                        // "\x17" - Region 6, Level 4 (Arena 4)
 
-                                        // "\x18" - Region 7, Level 1
-                                        // "\x19" - Region 7, Level 2
-                                        // "\x1A" - Region 7, Level 3
-                                        // "\x1B" - Region 7, Level 4
+                                        // "\x18" - Region 7, Level 1 (Arena 5)
+                                        // "\x19" - Region 7, Level 2 (Arena 6)
+                                        // "\x1A" - Region 7, Level 3 (Arena 7)
+                                        // "\x1B" - Region 7, Level 4 (Arena 8)
 
-                                        // "\x1C" - Region 8, Level 1
-                                        // "\x1D" - Region 8, Level 2
+                                        // "\x1C" - Region 8, Level 1 (Arena 9)
+                                        // "\x1D" - Region 8, Level 2 (Arena 10)
 
 1 byte - null
-3 bytes - unknown // always '\xD0\xB6\x01'
+3 bytes - unknown // '\xD0\xB6\x01'
 
 
-//are weapons enabled array
+//are weapons enabled array (values 0-1)
 1 byte (bool) - are single cannon balls enabled
 1 byte (bool) - are multi cannon balls enabled
 1 byte (bool) - are barrels enabled
@@ -76,7 +76,7 @@
 
 5 bytes - nulls
 
-//amunition amount array
+//amunition amount array (values 0-999)
 2 bytes (uint16) - amount of cannon balls (single and multi)
 2 bytes (uint16) - amount of rockets
 2 bytes (uint16) - amount of green mines and barrels
