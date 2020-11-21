@@ -1,0 +1,23 @@
+// Giana Sisters : Twisted Dreams - Owltimate Edition
+// PAK file format
+
+// little endian
+
+//header (20 bytes)
+4 bytes (char) - magic // "RPMC"
+12 bytes - unknown
+4 bytes (uint32) - number of files
+
+
+//offset array
+num_of_files *
+{
+   4 bytes (uint32) - data offset
+   4 bytes - nulls
+}
+
+//data
+num_of_files *
+{
+   x bytes - file data  // gzip compressed
+}
