@@ -1,0 +1,24 @@
+// Giana's Return
+// ZDA file format
+
+// little endian
+
+// Note: Files are compressed with ZLIB
+
+//header
+4 bytes (char) - magic // "ZDA\x00"
+4 bytes (uint32) - number of files
+4 bytes (uint32) - data start offset
+
+num_of_files *
+{
+   40 bytes (char) - filename + padding
+   4 bytes (uint32) - uncompressed size
+   4 bytes (uint32) - compressed size
+   4 bytes (uint32) - relative file offset
+}
+
+num_of_files *
+{
+   x bytes - file data
+}

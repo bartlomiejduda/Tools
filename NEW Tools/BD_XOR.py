@@ -2,8 +2,9 @@
 
 # Tested on Python 3.8.0
 
-# Ver    Date        Author
-# v0.1   13.06.2020  Bartlomiej Duda
+# Ver    Date        Author             Comment
+# v0.1   13.06.2020  Bartlomiej Duda    Initial version
+# v0.2   26.11.2020  Bartlomiej Duda    Added "expected result" and "test xor"
 
 
 
@@ -25,7 +26,7 @@ def xore(data, key):
 
 
 
-def xor_1byte_all(in_XOR_data):
+def xor_1byte_all(in_XOR_data, in_expected_result):
     '''
     Function for XORing values from 0x00 to 0xFF
     '''    
@@ -36,7 +37,7 @@ def xor_1byte_all(in_XOR_data):
   
         #xoring data
         xor_res = xore(in_XOR_data, xor_key)
-        if (xor_res == b'\x00'):
+        if (xor_res == in_expected_result):
             print("FOUND_RES--> " + "in_xor_data: " + str(binascii.hexlify(in_XOR_data)) + " xor_res: " + str(binascii.hexlify(xor_res)) + " xor_key: " + str(binascii.hexlify(xor_key)) )
         
         #increment key
@@ -56,11 +57,15 @@ def main():
     
     main_switch = 1
     # 1 - xor all (0-255)
+    # 2 - xor test
   
 
     if main_switch == 1:
-        xor_1byte_all(b'\xE5')   #Atelier Marie + Elie (PS2 game)
-
+        xor_1byte_all(b'\x1A', b'\x20')  
+        
+    elif main_switch == 2:
+        xor_res = xore(b'\x1A', b'\x3A')
+        print(" xor_res: " + str(binascii.hexlify(xor_res)))
         
     else:
         print("Wrong option selected!")
