@@ -3,15 +3,31 @@
 # Tested on Python 3.8.0
 # This tool should be used with Giana's Return 
 
-# Ver    Date        Author
-# v0.1   26.11.2020  Bartlomiej Duda
+# Ver    Date        Author             Comment
+# v0.1   26.11.2020  Bartlomiej Duda    Initial version
+# v0.2   28.11.2020  Bartlomiej Duda    Added decryption method
 
 import os
 import sys
 import struct
 import zlib
 
+from itertools import cycle
+def xore(data, key):
+    return bytes(a ^ b for a, b in zip(data, cycle(key)))
 
+def decrypt_data(in_data):
+    xor_res = b'\xBB'
+    data_size = len(in_data)
+    out_data = bytearray()
+    
+    for curr_offset in range(data_size):
+        data_byte = struct.pack("B", in_data[curr_offset])
+        xor_res = xore(xor_res, data_byte)
+        out_data.extend(xor_res)
+    
+    return out_data
+    
 
 def bd_logger(in_str):
     import datetime
@@ -46,7 +62,8 @@ def export_data(in_file_path, out_folder_path):
         size_arr.append(f_comp_size)
         
     for i in range(num_of_files):
-        f_data = zlib.decompress(zda_file.read(size_arr[i]))
+        f_data = zlib.decompress(zda_file.read(size_arr[i])) # data decompression
+        f_data = decrypt_data(f_data) # data decryption
         f_name = name_arr[i]
         
         f_path = out_folder_path + f_name
@@ -66,14 +83,25 @@ def export_data(in_file_path, out_folder_path):
     
 def main():
     
-    main_switch = 1
+    main_switch = 2
     # 1 - data export 
+    # 2 - data export (all archives)
     
 
     if main_switch == 1:
-        p_in_file_path = "C:\\Users\\Adam\\Desktop\\Gianas Return\\data\\back0.zda"
-        p_out_folder_path = "C:\\Users\\Adam\\Desktop\\Gianas Return\\data\\back0.zda_OUT\\"
+        p_in_file_path = "C:\\Users\\Arek\\Desktop\\Gianas Return\\data\\sprites.zda"
+        p_out_folder_path = "C:\\Users\\Arek\\Desktop\\Gianas Return\\data\\sprites.zda_OUT\\"
         export_data(p_in_file_path, p_out_folder_path)
+        
+    elif main_switch == 2:
+        p_data_dir_path = "C:\\Users\\Arek\\Desktop\\Gianas Return\\data\\"
+        
+        for root, dirs, files in os.walk(p_data_dir_path):
+            for file in files:
+                if file.endswith(".zda"):
+                    in_archive = os.path.join(root, file)
+                    out_folder = in_archive + "_OUT\\"
+                    export_data(in_archive, out_folder)
         
     else:
         print("Wrong option selected!")

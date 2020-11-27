@@ -19,11 +19,11 @@ Copyright © 2020  Bartłomiej Duda
 # v0.9   05.07.2020  Bartlomiej Duda    -
 # v0.10  08.07.2020  Bartlomiej Duda    flag_manager, opening files
 # v0.11  18.07.2020  Bartlomiej Duda    opening files, closing files, removed flag_manager
-# v0.12  19.07.2020  Bartlomiej Duda 
+# v0.12  19.07.2020  Bartlomiej Duda    -
+# v0.13  23.11.2020  Bartlomiej Duda    Rewriting main class
 
 
-
-VERSION_NUM = "v0.12"
+VERSION_NUM = "v0.13"
 
 
 import os
@@ -34,6 +34,7 @@ from tkinter import messagebox, StringVar, OptionMenu, filedialog, ttk, Text, La
 from PIL import ImageTk, Image
 import webbrowser
 import traceback
+import center_tk_window 
 
 
 
@@ -93,53 +94,132 @@ def export_settings(self):
 
 
 
-#global variables
-LOADED_FILE = None
-LOADED_FILE_OPENED_FLAG = False
+                            
+                            
+class BDTexView:
+    def __init__(self, root):
+        self.root = root
+        
+        self.MAIN_WINDOW_HEIGHT: int = 700
+        self.MAIN_WINDOW_WIDTH: int = 730
+        
+        self.MIN_MAIN_WINDOW_HEIGHT: int = 700 
+        self.MIN_MAIN_WINDOW_WIDTH: int = 730
+        
+        self.canv_yellow_x: int = 10
+        self.canv_yellow_y: int = 40
+        self.canv_yellow_width: int = 450
+        self.canv_yellow_height: int = 300
+        self.canv_yellow_max_width: int = 500
+        self.canv_yellow_max_height: int = 490    
+        
+        self.LOADED_FILE = None
+        self.LOADED_FILE_OPENED_FLAG = False                
+        
+        self.root.title("BDTexView " + VERSION_NUM)
+        self.root.minsize(self.MIN_MAIN_WINDOW_WIDTH, self.MIN_MAIN_WINDOW_HEIGHT)         
+        
+        try:
+            self.iconbitmap('files\\icon_bd.ico')
+        except:
+            bd_logger("Icon not loaded!")
+        
+        
+        self.main_frame = tk.Frame(root, bg='light blue')
+        self.main_frame.place(x=0, y=0, relwidth=1, relheight=1)        
+        
+        
+        #browse image
+        self.loaded_file_label = tk.Label(self.main_frame, text="Loaded file: None", anchor='w')
+        self.loaded_file_label.place(x= 10, y= 10, width=5000, height=20)
+        self.loaded_file_label['bg'] = self.loaded_file_label.master['bg']
+
+
+        #PIXEL FORMATS
+        self.pixel_formats_box = LabelFrame(self.main_frame, text="Pixel Formats")
+        self.pixel_formats_box['bg'] = self.pixel_formats_box.master['bg']
+        self.pixel_formats_box.place(relx=1, x= -210, rely= 0, y=75, width=200, height=400)
+        v = StringVar()
+        v.set("M1")
+        self.radio_b_1 = Radiobutton(self.pixel_formats_box, text="16x4 = 48+16          ", variable=v, value="P1", bg="light blue", command=lambda: change_mode("M1"))
+        self.radio_b_1.place(relx=0, x=5, y= 10, width=110, height=20) 
+        self.radio_b_2 = Radiobutton(self.pixel_formats_box, text="16x3 = 48          ", variable=v, value="P2", bg="light blue", command=lambda: change_mode("M2"))
+        self.radio_b_2.place(relx=0, x=5, y= 40, width=95, height=20) 
+        
+        
+        #image showing 
+        self.pilImage = Image.new( 'RGB', (250,250), "black")
+        self.pixels = self.pilImage.load() # create the pixel map
+        
+        for i in range(self.pilImage.size[0]):    # for every col:
+            for j in range(self.pilImage.size[1]):    # For every row
+                self.pixels[i,j] = (i, j, 100) # set the colour accordingly
+        
+        self.image = ImageTk.PhotoImage(self.pilImage)
+        
+        self.canv_yellow = tk.Canvas(self.main_frame, bg='yellow')
+        self.canv_yellow.place(x= self.canv_yellow_x, y= self.canv_yellow_y, width= self.canv_yellow_width, height=self.canv_yellow_height)
+        
+        item4 = self.canv_yellow.create_image(30, 80, image=self.image)        
+
+
+        #INFO
+        self.canv_info_box = LabelFrame(self.main_frame, text="Info", padx=5, pady=5)
+        self.canv_info_box['bg'] = self.canv_info_box.master['bg']
+        self.canv_info_box.place(relx= 0, x=150, rely= 1, y=-120, width=135, height=110)   
+        
+        self.canv_h_label = tk.Label( self.canv_info_box, text="Canvas height: " + str(self.canv_yellow_height), anchor="w")
+        self.canv_h_label['bg'] = self.canv_h_label.master['bg']
+        self.canv_h_label.place(x= 5, y= 0, width=120, height=20)  
+        
+        self.canv_w_label = tk.Label( self.canv_info_box, text="Canvas width: " + str(self.canv_yellow_width), anchor="w")
+        self.canv_w_label['bg'] = self.canv_h_label.master['bg']
+        self.canv_w_label.place(x= 5, y= 15, width=120, height=20)    
+
+
 
 
 
 def main():
-    
+
     #default app settings
-    WINDOW_HEIGHT = 700
-    WINDOW_WIDTH = 730
+    #WINDOW_HEIGHT = 700
+    #WINDOW_WIDTH = 730
     
-    MIN_WINDOW_HEIGHT = 700
-    MIN_WINDOW_WIDTH = 730
+    #MIN_WINDOW_HEIGHT = 700
+    #MIN_WINDOW_WIDTH = 730
     
-    #default yellow canvas settings
-    canv_yellow_settings = [ 10,   40,  450,   300,    500,         490       ] 
-                            #x     y    width  height  max_width    max_height   
+    ##default yellow canvas settings
+    #canv_yellow_settings = [ 10,   40,  450,   300,    500,         490       ] 
+                            ##x     y    width  height  max_width    max_height       
     
     
+    ##main window
+    #root = tk.Tk("BDTexView", "BDTexView")
+    #root.minsize(MIN_WINDOW_WIDTH, MIN_WINDOW_HEIGHT) 
+    #root.winfo_toplevel().title("BDTexView " + VERSION_NUM)
     
-    #main window
-    root = tk.Tk("BDTexView", "BDTexView")
-    root.minsize(MIN_WINDOW_WIDTH, MIN_WINDOW_HEIGHT) 
-    root.winfo_toplevel().title("BDTexView " + VERSION_NUM)
-    
-    try:
-        root.iconbitmap('files\\icon_bd.ico')
-    except:
-        bd_logger("Icon not loaded!")
+    #try:
+        #root.iconbitmap('files\\icon_bd.ico')
+    #except:
+        #bd_logger("Icon not loaded!")
     
     
 
     
     #main canvas
-    canvas = tk.Canvas(root, height=WINDOW_HEIGHT, width=WINDOW_WIDTH) 
-    main_frame = tk.Frame(root, bg='light blue')
-    main_frame.place(x=0, y=0, relwidth=1, relheight=1)
+    #canvas = tk.Canvas(root, height=WINDOW_HEIGHT, width=WINDOW_WIDTH) 
+    #main_frame = tk.Frame(root, bg='light blue')
+    #main_frame.place(x=0, y=0, relwidth=1, relheight=1)
     
     
     
     
     
     #browse image
-    loaded_file_label = tk.Label(main_frame, text="Loaded file: None", anchor='w')
-    loaded_file_label.place(x= 10, y= 10, width=5000, height=20)
-    loaded_file_label['bg'] = loaded_file_label.master['bg']
+    #loaded_file_label = tk.Label(main_frame, text="Loaded file: None", anchor='w')
+    #loaded_file_label.place(x= 10, y= 10, width=5000, height=20)
+    #loaded_file_label['bg'] = loaded_file_label.master['bg']
     
     #txt_pack_text = tk.Text(main_frame, font=("Arial", 10), wrap='none')
     #txt_pack_text.place(x= 10, y= 40, width=500, height=20)
@@ -150,55 +230,55 @@ def main():
     
 
     
-    #PIXEL FORMATS
-    pixel_formats_box = LabelFrame(main_frame, text="Pixel Formats")
-    pixel_formats_box['bg'] = pixel_formats_box.master['bg']
-    pixel_formats_box.place(relx=1, x= -210, rely= 0, y=75, width=200, height=400)
-    v = StringVar()
-    v.set("M1")
-    radio_b_1 = Radiobutton(pixel_formats_box, text="16x4 = 48+16          ", variable=v, value="P1", bg="light blue", command=lambda: change_mode("M1"))
-    radio_b_1.place(relx=0, x=5, y= 10, width=110, height=20) 
-    radio_b_2 = Radiobutton(pixel_formats_box, text="16x3 = 48          ", variable=v, value="P2", bg="light blue", command=lambda: change_mode("M2"))
-    radio_b_2.place(relx=0, x=5, y= 40, width=95, height=20) 
+    ##PIXEL FORMATS
+    #pixel_formats_box = LabelFrame(main_frame, text="Pixel Formats")
+    #pixel_formats_box['bg'] = pixel_formats_box.master['bg']
+    #pixel_formats_box.place(relx=1, x= -210, rely= 0, y=75, width=200, height=400)
+    #v = StringVar()
+    #v.set("M1")
+    #radio_b_1 = Radiobutton(pixel_formats_box, text="16x4 = 48+16          ", variable=v, value="P1", bg="light blue", command=lambda: change_mode("M1"))
+    #radio_b_1.place(relx=0, x=5, y= 10, width=110, height=20) 
+    #radio_b_2 = Radiobutton(pixel_formats_box, text="16x3 = 48          ", variable=v, value="P2", bg="light blue", command=lambda: change_mode("M2"))
+    #radio_b_2.place(relx=0, x=5, y= 40, width=95, height=20) 
     
     
     
     
     
-    #image showing 
-    pilImage = Image.new( 'RGB', (250,250), "black")
-    pixels = pilImage.load() # create the pixel map
+    ##image showing 
+    #pilImage = Image.new( 'RGB', (250,250), "black")
+    #pixels = pilImage.load() # create the pixel map
     
-    for i in range(pilImage.size[0]):    # for every col:
-        for j in range(pilImage.size[1]):    # For every row
-            pixels[i,j] = (i, j, 100) # set the colour accordingly
+    #for i in range(pilImage.size[0]):    # for every col:
+        #for j in range(pilImage.size[1]):    # For every row
+            #pixels[i,j] = (i, j, 100) # set the colour accordingly
     
-    image = ImageTk.PhotoImage(pilImage)
+    #image = ImageTk.PhotoImage(pilImage)
     
     
 
     
-    canv_yellow = tk.Canvas(main_frame, bg='yellow')
-    canv_yellow.place(x= canv_yellow_settings[0], y= canv_yellow_settings[1], width=canv_yellow_settings[2], height=canv_yellow_settings[3])
+    #canv_yellow = tk.Canvas(main_frame, bg='yellow')
+    #canv_yellow.place(x= canv_yellow_settings[0], y= canv_yellow_settings[1], width=canv_yellow_settings[2], height=canv_yellow_settings[3])
     
-    item4 = canv_yellow.create_image(30, 80, image=image)
-    
-    
+    #item4 = canv_yellow.create_image(30, 80, image=image)
     
     
     
-    #INFO
-    canv_info_box = LabelFrame(main_frame, text="Info", padx=5, pady=5)
-    canv_info_box['bg'] = canv_info_box.master['bg']
-    canv_info_box.place(relx= 0, x=150, rely= 1, y=-120, width=135, height=110)   
     
-    canv_h_label = tk.Label( canv_info_box, text="Canvas height: " + str(canv_yellow_settings[3]), anchor="w")
-    canv_h_label['bg'] = canv_h_label.master['bg']
-    canv_h_label.place(x= 5, y= 0, width=120, height=20)  
     
-    canv_w_label = tk.Label( canv_info_box, text="Canvas width: " + str(canv_yellow_settings[2]), anchor="w")
-    canv_w_label['bg'] = canv_h_label.master['bg']
-    canv_w_label.place(x= 5, y= 15, width=120, height=20)    
+    ##INFO
+    #canv_info_box = LabelFrame(main_frame, text="Info", padx=5, pady=5)
+    #canv_info_box['bg'] = canv_info_box.master['bg']
+    #canv_info_box.place(relx= 0, x=150, rely= 1, y=-120, width=135, height=110)   
+    
+    #canv_h_label = tk.Label( canv_info_box, text="Canvas height: " + str(canv_yellow_settings[3]), anchor="w")
+    #canv_h_label['bg'] = canv_h_label.master['bg']
+    #canv_h_label.place(x= 5, y= 0, width=120, height=20)  
+    
+    #canv_w_label = tk.Label( canv_info_box, text="Canvas width: " + str(canv_yellow_settings[2]), anchor="w")
+    #canv_w_label['bg'] = canv_h_label.master['bg']
+    #canv_w_label.place(x= 5, y= 15, width=120, height=20)    
     
     
     
@@ -386,5 +466,18 @@ def change_canvas_height(in_h_label, in_canvas, in_canvas_settings, step):
     in_h_label.config(text="Canvas height: " + str(in_canvas_settings[3]) )
  
     
+   
+   
+   
+   
     
-main()
+#main()
+
+
+
+
+#main window
+root = tk.Tk()
+my_gui = BDTexView(root)
+center_tk_window.center_on_screen(root)
+root.mainloop()
