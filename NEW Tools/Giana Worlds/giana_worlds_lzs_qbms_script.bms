@@ -1,0 +1,16 @@
+# Giana Worlds script
+# made by Bartlomiej Duda
+# script for QuickBMS 
+
+# Note: This script can be only used to decompress files.
+
+comtype lzss
+get NAME filename
+get EXT extension
+get ZSIZE asize
+get SIZE asize
+math SIZE = ZSIZE
+math SIZE *= 20
+clog NAME 0 ZSIZE SIZE
+
+

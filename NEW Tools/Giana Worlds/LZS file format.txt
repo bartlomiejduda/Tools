@@ -1,0 +1,22 @@
+// Giana Worlds
+// LZS file format
+
+// Note: Files are compressed with LZSS
+
+//data
+num_of_files *
+{
+   x bytes - file data
+}
+
+//tail
+num_of_files *
+{
+   x bytes (char) - filename + null
+   4 bytes (uint32) - file offset
+   4 bytes (uint32) - file compressed size
+   4 bytes (uint32) - file uncompressed size
+   4 bytes - nulls
+}
+
+4 bytes (uint32) - tail start offset
