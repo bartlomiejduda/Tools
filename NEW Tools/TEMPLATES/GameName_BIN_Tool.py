@@ -1,19 +1,27 @@
 # -*- coding: utf-8 -*-
 
-# Tested on Python 3.8.0
-# This tool should be used with GameName (Java)
+'''
+Copyright © 2020  Bartłomiej Duda
+License: GPL-3.0 License 
+'''
 
-# Ver    Date        Author
-# v0.1   17.04.2020  Bartlomiej Duda
+
+# Program tested on Python 3.7.0
+# It should be used with GameName (Java)
+
+# Ver    Date        Author               Comment
+# v0.1   17.04.2020  Bartlomiej Duda      -
 
 import os
 import sys
 import struct
-
+import datetime
 
 
 def bd_logger(in_str):
-    import datetime
+    '''
+    Function for logging debug messages
+    '''   
     now = datetime.datetime.now()
     print(now.strftime("%d-%m-%Y %H:%M:%S") + " " + in_str)    
     
@@ -38,7 +46,10 @@ def export_data(in_file_path, out_folder_path):
     
     
 def main():
-    
+    '''
+    Main function of this program. If you are planning to use it,
+    you should adjust paths first.
+    '''   
     main_switch = 1
     # 1 - data export 
     
