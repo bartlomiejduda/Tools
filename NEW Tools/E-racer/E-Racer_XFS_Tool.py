@@ -7,7 +7,7 @@ License: GPL-3.0 License
 
 
 # Program tested on Python 3.7.0
-# It should be used with GameName (Java)
+# It should be used with E-racer (PC)
 
 # Ver    Date        Author               Comment
 # v0.1   02.12.2020  Bartlomiej Duda      -
