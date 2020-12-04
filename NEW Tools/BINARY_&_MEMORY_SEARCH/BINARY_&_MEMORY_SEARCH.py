@@ -1,12 +1,18 @@
 # -*- coding: utf-8 -*-
 
-# Tested on Python 3.8.0
+'''
+Copyright © 2020  Bartłomiej Duda
+License: GPL-3.0 License 
+'''
 
-# Ver    Date        Author
-# v0.1   03.08.2020  Bartlomiej Duda
-# v0.2   09.08.2020  Bartlomiej Duda
-# v0.3   10.08.2020  Bartlomiej Duda
-# v0.4   10.08.2020  Bartlomiej Duda
+# Tested on Python 3.7.0
+
+# Ver    Date        Author             Comment
+# v0.1   03.08.2020  Bartlomiej Duda    -
+# v0.2   09.08.2020  Bartlomiej Duda    -
+# v0.3   10.08.2020  Bartlomiej Duda    -
+# v0.4   10.08.2020  Bartlomiej Duda    -
+# v0.5   04.12.2020  Bartlomiej Duda    Minor changes
 
 
 
@@ -14,13 +20,15 @@
 import os
 import sys
 import struct
-from bitstring import ConstBitStream   #need to install it
+from bitstring import ConstBitStream   #need to install it ("pip install bitstring")
 import ctypes
-
+import datetime
 
 
 def bd_logger(in_str):
-    import datetime
+    '''
+    Function for logging debug messages
+    '''      
     now = datetime.datetime.now()
     print(now.strftime("%d-%m-%Y %H:%M:%S") + " " + in_str)    
     
@@ -142,7 +150,10 @@ def memory_search(pid, pattern_file_path, temp_file_path, start_addr, buffer_siz
     
     
 def main():
-    
+    '''
+    Main function of this program. If you are planning to use it,
+    you should adjust paths first.
+    '''       
     bd_logger("Starting main...") 
     
     main_switch = 4
@@ -152,11 +163,26 @@ def main():
     # 4 - binary search + match row from TotalDump output (experimental)
     
     
-    p_pattern_file_path = "C:\\Users\\Arek\\Desktop\\MeMory Dump IKS\\Tex_0019.dds.bin"
+    # HOW TO USE THIS PROGRAM - general notes 
+    # -You need to adjust main function for your needs
+    # e.g. adjust paths and variables 
+    # -Change main_switch value to the option you want to use
+    
+    # OPTIONS 1 & 2 INSTRUCTIONS:
+    # It's regular binary search, just adjust paths and execute function.
+    
+    # OPTION 3 INSTRUCTIONS:
+    # It's memory search. Define\change all required variables and execute function.
+    
+    # OPTION 4 INSTRUCTIONS:
+    # 1. Run TotalDump.exe to generate output. You need special version of TotalDump which is also able to generate TXT file as well.
+    # 2. Define paths to files outputted by TotalDump and execute the function.
+    
+    
+    p_pattern_file_path = "C:\\Users\\Arek\\Desktop\\did_dat.bin"
     
     if main_switch == 1:
         p_search_file_path = "C:\\Users\\Arek\\Desktop\\MeMory Dump IKS\\pdump_7388.bin"
-        #p_search_file_path = "C:\\Users\\Arek\\Desktop\\Dumped.exe"
         binary_search(p_pattern_file_path, p_search_file_path, 0, "")
 
 
@@ -170,8 +196,8 @@ def main():
                 #print(str(i) + ") " + "Searching in " + str(p_search_file_path) )  
                 binary_search(p_pattern_file_path, p_search_file_path, 0, "")
                 
+    
     elif main_switch == 3:
-        
         p_pid = 3344 
         p_temp_file_path = "C:\\Users\\Arek\\Desktop\\temp1.bin"
         p_start_addr = 0x400000  
@@ -179,9 +205,10 @@ def main():
         p_MAX_ADDRESS = 0x80000000        
         memory_search(p_pid, p_pattern_file_path, p_temp_file_path, p_start_addr, p_buffer_size, p_MAX_ADDRESS)
         
+    
     elif main_switch == 4:
-        p_search_file_path = "C:\\Users\\Arek\\Desktop\\MeMory Dump IKS\\pdump_8636.bin"
-        p_match_file_path = "C:\\Users\\Arek\\Desktop\\MeMory Dump IKS\\pdump_8636.txt"
+        p_search_file_path = "C:\\Users\\Arek\\Desktop\\pdump_5940.bin"
+        p_match_file_path = "C:\\Users\\Arek\\Desktop\\pdump_5940.txt"
         binary_search(p_pattern_file_path, p_search_file_path, 1, p_match_file_path)        
         
         
