@@ -1,24 +1,50 @@
 // XFS file format
+// E-racer DEMO PC
 
 // little endian
 
-//header (80 bytes)
+//header (16 bytes)
 8 bytes (char) - magic // "DID DAT\x1A"
-2 bytes (uint16) - unknown // "64"
-2 bytes (uint16) - separator? // "\xFF\xFF"
-4 bytes (uint32) - unknown // "8"
-4 bytes (uint32) - unknown // "3"
-4 bytes (uint32) - unknown // "80"
-4 bytes (uint32) - nulls
-52 bytes - unknown
+4 bytes (uint32) - section table checksum // "64" + "\xFF\xFF"
+4 bytes (uint32) - section table size/8   // "8"   // 8*8=64
+
+// section table (64 bytes)
+4 bytes (uint32) - number of sections // "3"
+4 bytes (uint32) - data start offset // "80"
+4 bytes (uint32) - section ID // "0"
+4 bytes (uint32) - data end offset / DAT info start offset
+4 bytes (uint32) - section ID // "1"
+4 bytes (uint32) - some structure offset
+4 bytes (uint32) - section ID // "2"
+4 bytes (uint32) - hash index offset
+32 bytes - reserved  // sections that are not used
+                     // probably left for future engine development
 
 
-//file array
+// file data section
 num_of_entries *
 {
-   4 bytes (uint32) - file size-8
-   4 bytes - unknown
+   4 bytes (uint32) - file size-8 / uncompressed file size
+   4 bytes (uint32) - compression flag  // "0" - uncompressed, 
+                                        // "1" - compressed with RA compression
    x bytes - file data
 }
 
 
+// DAT information section (16 bytes)
+4 bytes (uint32) - section size-4 // "12"
+4 bytes (uint32) - number of hash entries-1 / number of files
+8 bytes - nulls
+
+// some data (?)
+// Note: This section is not used by game at all.
+//       It is probably some random padding data.
+4 bytes (uint32) - section size-1
+x bytes - data
+
+// hash index section (8 bytes per entry)
+num_of_files+1 *
+{
+   4 bytes (uint32) - hash entry
+   4 bytes (uint32) - file offset
+}

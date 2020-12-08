@@ -13,7 +13,7 @@
 using namespace std;
 
 
-// E-Racer Hook
+// E-Racer DEMO Hook
 // Author: Bartlomiej Duda
 // Version: 0.1
 

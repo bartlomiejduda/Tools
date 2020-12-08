@@ -94,9 +94,9 @@ def main():
     
     
     
-    elif main_switch == 2:
+    elif main_switch == 2: # hash index dump from XFS file, use this only for debug!
     
-        hash_bin_file = open("hash_dump.bin", "rb")   # hash index dump from XFS file, use this only for debug!
+        hash_bin_file = open("hash_dump.bin", "rb")   
         bin_size = os.path.getsize("hash_dump.bin")
         
         num_of_entries = int(bin_size / 8)
@@ -120,11 +120,7 @@ def main():
     else:
         print("Wrong option selected!")
                                        
-                                       
-    
-        
-        
-        
+
     
     bd_logger("End of main...")    
     
