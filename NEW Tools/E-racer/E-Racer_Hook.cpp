@@ -94,6 +94,14 @@ unsigned int HookFunc2(char* p1)
 		endl;
 
 
+	ofstream out_file("C:\\Users\\Arek\\Desktop\\eracer_demo_filenames.txt", ios::out | ios::app);
+	if (out_file.is_open())
+	{
+		out_file << hex_string << "=" << p1 << endl;
+		out_file.close();
+	}
+	else cout << "Unable to open file";
+
 
 
 	return ret_hash;

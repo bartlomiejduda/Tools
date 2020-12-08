@@ -1,6 +1,16 @@
 # -*- coding: utf-8 -*-
 
+'''
+Copyright © 2020  Bartłomiej Duda
+License: GPL-3.0 License 
+'''
 
+
+# Program tested on Python 3.7.0
+# It should be used with E-Racer (PC)
+
+# Ver    Date        Author               Comment
+# v0.1   08.12.2020  Bartlomiej Duda      -
 
 import os
 import sys
