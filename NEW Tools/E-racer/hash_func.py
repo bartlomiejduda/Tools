@@ -11,6 +11,7 @@ License: GPL-3.0 License
 
 # Ver    Date        Author               Comment
 # v0.1   08.12.2020  Bartlomiej Duda      -
+# v0.2   08.12.2020  Bartlomiej Duda      -
 
 import os
 import sys
@@ -68,40 +69,59 @@ def print_dec_hex(in_char_idx, name, in_value):
     
 def main():
     
-    
-    #filename = "gui\\gui.ini"
-    #res_hash = calculate_eracer_hash(filename)
-    #compare_hash(filename, res_hash, 0x502CF816) # gui.ini
-
-    #filename = "control.txt"
-    #res_hash = calculate_eracer_hash(filename)
-    #compare_hash(filename, res_hash, 0xCBEC3EE6) # control
-     
+    main_switch = 2
+    # 1 - hash checking
+    # 2 - bin_hash dump analysis
     
     
     
-    # new_splash  --> 0xC395F695
-    # gui\textures\new_splash.bmp--> in_hash: 0xd52ace95 should_be: 0xc395f695 is_match: NO
-    # 0x11C395F695
-    
-    #filename = "gui\\textures\\new_splash.bmp"
-    #res_hash = calculate_eracer_hash(filename)
-    #compare_hash(filename, res_hash, 0xC395F695) # new_splash.bmp     
-    
-    
-    
-    
-    
-    
-    hash_dump_file = open("eracer_hash_dump.txt", "rt")
-    hash_count = 0
-    for line in hash_dump_file:
-        hash_count += 1
-        hash_entry = int(line.split("=")[0], 16)
-        name_entry = line.split("=")[1].rstrip("\n")
+    if main_switch == 1:
+        hash_dump_file = open("eracer_hash_dump.txt", "rt")
+        hash_count = 0
+        hash_arr = []
+        name_arr = []
+        for line in hash_dump_file:
+            hash_count += 1
+            hash_entry = int(line.split("=")[0], 16)
+            name_entry = line.split("=")[1].rstrip("\n")
+            
+            res_hash = calculate_eracer_hash(name_entry)
+            #compare_hash(name_entry, res_hash, hash_entry)  # use this for checking hashes
+            
+            hash_arr.append(hash_entry)
+            name_arr.append(name_entry)
         
-        res_hash = calculate_eracer_hash(name_entry)
-        compare_hash(name_entry, res_hash, hash_entry)
+    
+    
+    
+    elif main_switch == 2:
+    
+        hash_bin_file = open("hash_dump.bin", "rb")   # hash index dump from XFS file, use this only for debug!
+        bin_size = os.path.getsize("hash_dump.bin")
+        
+        num_of_entries = int(bin_size / 8)
+        offset_arr = []
+        
+        for i in range(num_of_entries):
+            hash_b_entry = hex(struct.unpack("<L", hash_bin_file.read(4))[0])
+            offset_b_entry = struct.unpack("<L", hash_bin_file.read(4))[0]
+            offset_arr.append(offset_b_entry)
+            
+            #print(str(i+1) + ") " + "hash: " + str(hash_b_entry) + "\toffset: " + str(offset_b_entry) )
+           
+           
+        offset_arr.sort()
+         
+        
+        for entry in offset_arr:
+            print(entry)
+            
+            
+    else:
+        print("Wrong option selected!")
+                                       
+                                       
+    
         
         
         
