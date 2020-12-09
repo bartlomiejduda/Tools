@@ -127,7 +127,7 @@ def export_data(in_file_path, out_folder_path, hash_dump_path):
       
     for hash_e_entry in hash_b_arr_sorted: # start data extraction process 
         file_e_offset = hash_e_entry[2]
-        file_e_comp_size = hash_e_entry[3]
+        file_e_comp_size = hash_e_entry[3] - 8
         file_e_name = hash_e_entry[4]
         
         xfs_file.seek(file_e_offset)
