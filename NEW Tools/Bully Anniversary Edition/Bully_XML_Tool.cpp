@@ -10,16 +10,17 @@ using namespace std;
 // Version   Date         Author               Comments
 // v0.1      -            Unknown              probably code decompiled directly from game?
 // v0.2      14.11.2020   Bartlomiej Duda      Code rewritten to C++, also I did some refactoring and I have added comments
+// v0.3      18.12.2020   Bartlomiej Duda      Minor changes
 
 
 #pragma warning(disable:4996)
+#pragma warning(disable:6387)
 unsigned char stringDecode_buffer[0x100];
 char* encryption_key = (char*)"6Ev2GlK1sWoCa5MfQ0pj43DH8Rzi9UnX"; // key_length=32
-const unsigned long magichash = 0x0ceb538d;
+unsigned long magichash = 0xCEB538D;
 
 void initStringDecode();
 void decode(char* str, char* decodestr, int* num);
-void decode2(char* buffer, char* decodestr, int size);
 
 
 
@@ -127,28 +128,25 @@ void decode(char* encoded_data, char* decoded_data, int* decoded_data_size)
         counter++;
     } while (l > counter);
 
-    decode2(decoded_data, decoded_data, *decoded_data_size);
-}
 
 
-
-
-void decode2(char* buffer, char* decodestr, int size)
-{
     cout << "DECODE2 START" << endl;
-
     int i;
-    char b;
-    unsigned long m = magichash;
+    char ch;
     unsigned int num = 0x12;
-    for (i = 0; i < size; i++)
+    for (i = 0; i < *decoded_data_size; i++)
     {
-        b = buffer[i];
-        m = 0xab * (m % 0xb1) - 2 * (m / 0xb1);
-        decodestr[i] = (b ^ num) + m;
+        ch = decoded_data[i];
+        magichash = 0xAB * (magichash % 0xB1) - 2 * (magichash / 0xB1);
+        unsigned int char_out = (ch ^ num) + magichash;
+        decoded_data[i] = char_out;
         num += 6;
     }
+
+
 }
+
+
 
 
 
@@ -156,7 +154,30 @@ void encode(char* decoded_data, char* encoded_data)
 {
     cout << "ENCODE START" << endl;
 
-    //TODO
+    unsigned int dec_data_size = strlen(decoded_data);
+    cout << "size: " << dec_data_size << endl;
+
+    char ch;
+    unsigned int num_last = 0x12 + (6 * dec_data_size);
+
+    for (int i = 0; i < dec_data_size; i++)
+    {
+        magichash = 0xAB * (magichash % 0xB1) - 2 * (magichash / 0xB1);
+        // TODO - arr append (add hash to arr for later use)
+    }
+
+    for (int i = 0; i < dec_data_size; i++)
+    {
+        ch = decoded_data[i];
+        cout << ch << endl;
+
+        unsigned int char_in = (ch ^ num_last) + magichash;
+        cout << "char_in: " << char_in << endl;
+
+        num_last -= 6;
+        break; //TODO
+
+    }
 
     cout << "ENCODE END" << endl;
 }
@@ -165,14 +186,17 @@ void encode(char* decoded_data, char* encoded_data)
 
 int main(int argc, char* argv[])
 {
-    cout << "MAIN START" << endl;
-
-    FILE* input_file = fopen("C:\\Users\\Arek\\Desktop\\bully\\input.xml", "rb");
-    FILE* output_file = fopen("C:\\Users\\Arek\\Desktop\\bully\\output.txt", "wb");
     char* p_encoded_data = (char*)malloc(0x1000000);
     char* p_decoded_data = (char*)malloc(0x1000000);
     int p_decoded_data_size = -1;
 
+
+
+
+
+    cout << "MAIN DECODE START" << endl;
+    FILE* input_file = fopen("C:\\Users\\Arek\\Desktop\\input.xml", "rb");
+    FILE* output_file = fopen("C:\\Users\\Arek\\Desktop\\output.txt", "wb");
 
     // data decode
     initStringDecode();
@@ -182,8 +206,21 @@ int main(int argc, char* argv[])
     fwrite(p_decoded_data, p_decoded_data_size, 1, output_file);
 
 
+
+
+
+
     // data encode
-    // TODO
+    /*cout << "MAIN ENCODE START" << endl;
+    FILE* input_file = fopen("C:\\Users\\Arek\\Desktop\\output.txt", "rb");
+    FILE* output_file = fopen("C:\\Users\\Arek\\Desktop\\output_test.xml", "wb");
+
+    memset(p_decoded_data, 0, 0x1000000);
+    fread(p_decoded_data, 0x1000000, 1, input_file);
+    encode(p_decoded_data, p_encoded_data);
+    //fwrite(p_encoded_data, p_encoded_data_size, 1, output_file);
+    */
+
 
 
     cout << "MAIN END" << endl;
