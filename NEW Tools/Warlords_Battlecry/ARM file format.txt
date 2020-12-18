@@ -1,0 +1,39 @@
+// Warlords: Battlecry 3
+// ARM file format
+
+// little endian
+
+4 bytes (char) - unit ID // "ATHX", "AHHX", "AHBX" etc.
+1 byte (uint8) - reserved // always "1"
+1 byte (uint8) - unit movement type //  0=Grounded 
+                                    //  1=Flyer 
+                                    //  2=Boat 
+                                    //  3=Floater (crosses water)
+
+20 bytes (char) - unit name         //  e.g. "Peasant" or "Human Hero"
+2 bytes (uint16) - unknown
+2 bytes (uint16) - unit production time (in seconds)
+2 bytes (uint16) - combat
+2 bytes (uint16) - speed
+2 bytes (uint16) - resistance
+2 bytes (uint16) - HP
+2 bytes (uint16) - View
+2 bytes (uint16) - Armor
+2 bytes (uint16) - Strong vs. // 0=Piercing 
+                              // 1=Frost 
+                              // 2=Electric 
+                              // 3=Fire 
+                              // 4=Magic 
+                              // 5=Crushing 
+                              // 6=Slashing 
+                              // 7=All Psychical 
+                              // 8=Piercing and Slashing 
+                              // 9=All Elemental 
+                              // 10=All damage 
+                              // E=Fire 
+                              // FFFF=none
+
+2 bytes (uint16) - Weak vs.   // as above
+
+
+x bytes - other unit data  //TODO
