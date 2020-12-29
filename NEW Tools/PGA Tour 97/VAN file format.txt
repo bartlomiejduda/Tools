@@ -1,0 +1,36 @@
+// VAN file format
+
+// little endian
+
+
+// VANM chunk
+4 bytes (char) - chunk name // "VANM"
+4 bytes (uint32) - size of the chunk data  
+4 bytes (uint32) - bytes to skip
+2 bytes (uint16) - version (major) // "1"
+2 bytes (uint16) - version (minor) // "15"
+
+
+// VCOL chunk (color palette chunk)
+4 bytes (char) - chunk name // "VCOL"
+4 bytes (uint32) - size of the chunk data 
+x bytes - palette data (one BGR16 value per entry)
+
+
+// VBRU chunk (brush chunk)
+4 bytes (char) - chunk name // "VBRU"
+4 bytes (uint32) - size of the chunk data 
+2 bytes (uint16) - width of the brush
+2 bytes (uint16) - height of the brush
+2 bytes (int16) - handle X position
+2 bytes (int16) - handle Y position
+1 byte (uint8) - compression type   // "0" - no compression
+                                    // "1" - LZ1 compression
+                                    // "2" - RLE compression
+                                    // "3" - SPS1 compression
+
+1 byte (uint8) - frame command      // "0" for none
+2 bytes (uint16) - command data?
+4 bytes (uint32) - size of the uncompressed GFX data?
+4 bytes (uint32) - size of the compressed GFX data?
+x bytes - brush data

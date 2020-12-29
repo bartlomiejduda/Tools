@@ -1,0 +1,63 @@
+// ASC file format
+
+
+// TPC Yardage data set
+"tpc" + 18 int values
+Rate float var for last tee
+Slope int var for last tee
+
+// Blue Tee Yardage data set
+"blue" + 18 int values
+Rate float var for last tee
+Slope int var for last tee
+
+// White Tee Yardage data set
+"white" + 18 int values
+Rate float var for last tee
+Slope int var for last tee
+
+// Red Tee Yardage data set
+"red" + 18 int values
+Rate float var for last tee
+Slope int var for last tee
+
+// 18 hole par data
+"par" + 18 int values
+
+// hole for sudden death
+"tournament" + int value
+
+// purse for tournaments
+"tourneypurse" + 70 int values
+
+// skins purse 1 per hole
+"skinspurse1" + 18 int values
+
+// skins purse 2 per hole
+"skinspurse2" + 18 int values
+
+// skins purse 3 per hole
+"skinspurse3" + 18 int values
+
+// skins purse 4 per hole
+"skinspurse4" + 18 int values
+
+// skins purse 5 per hole
+"skinspurse5" + 18 int values
+
+// Handicap data for 18 holes
+"handicap" + 18 int values
+
+// Ladies handicap data for 18 holes
+"handicapl" + 18 int values
+
+// special brush data
+"Roundpos"
+roundXPos int value
+roundYPos int value
+
+// Total frame count for each hole flyby movie
+"flybyframes" + 18 int values
+
+// END command
+"END"

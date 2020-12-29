@@ -1,0 +1,14 @@
+# Author: Bartlomiej Duda
+# Creation Date: 29.12.2020
+
+comtype dk2
+get ZSIZE asize
+set SIZE long 0
+if SIZE <= 0
+    math SIZE = ZSIZE
+    math SIZE *= 20
+endif
+
+get NAME basename
+string NAME + ".TIM"
+clog NAME 0 ZSIZE SIZE
