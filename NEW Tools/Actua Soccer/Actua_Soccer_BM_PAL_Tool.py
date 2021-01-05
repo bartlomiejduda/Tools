@@ -50,17 +50,13 @@ def convert_data(pal_file_path, bm_file_path, out_folder_path):
     h_offset = struct.pack("<L", 111) # !
     
     # create DIB header 
-    d_size = struct.pack("<L", 40)
-    d_width = struct.pack("<L", image_width)
-    d_height = struct.pack("<L", image_height)
+    d_size = struct.pack("<L", 12)
+    d_width = struct.pack("<H", image_width)
+    d_height = struct.pack("<H", image_height)
     d_planes = struct.pack("<H", 1)
     d_bpp = struct.pack("<H", image_bpp)
-    d_comp_type = struct.pack("<H", 0)
-    d_comp_size = struct.pack("<H", 0)
-    d_hor_res = struct.pack("<L", 222)
-    d_vert_res = struct.pack("<L", 222)
-    d_pal_col_num = struct.pack("<L", 256)
-    d_imp_colors = struct.pack("<L", 0)
+    
+
     
     # read palette and data
     bmp_pal = pal_file.read()
@@ -68,8 +64,8 @@ def convert_data(pal_file_path, bm_file_path, out_folder_path):
     
     
     # corrections 
-    h_size = struct.pack("<L", 14 + 40 + len(bmp_pal) + len(bmp_data) )
-    h_offset = struct.pack("<L", 14 + 40 + len(bmp_pal) )
+    h_size = struct.pack("<L", 14 + 12 + len(bmp_pal) + len(bmp_data) )
+    h_offset = struct.pack("<L", 14 + 12 + len(bmp_pal) )
     
     
     data_arr = []
@@ -106,12 +102,7 @@ def convert_data(pal_file_path, bm_file_path, out_folder_path):
     out_file.write(d_height)
     out_file.write(d_planes)
     out_file.write(d_bpp)
-    out_file.write(d_comp_type)
-    out_file.write(d_comp_size)
-    out_file.write(d_hor_res)
-    out_file.write(d_vert_res)
-    out_file.write(d_pal_col_num)
-    out_file.write(d_imp_colors)
+    
     
     # write palette and data
     out_file.write(bmp_pal)
