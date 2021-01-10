@@ -1,11 +1,11 @@
 #include <Windows.h>
 #include <iostream>
 #include <fstream>
-#include "sigscan.h"
+// #include "sigscan.h"
 #include <string>
 #include <stdint.h>
 #include <Memory.h>
-
+#include <stdlib.h>
 
 
 #pragma warning(disable:4996)
@@ -14,13 +14,13 @@ using namespace std;
 
 
 // <GAME_NAME> Hook
-// Copyright © 2020  Bartłomiej Duda
+// Copyright © 2021  Bartłomiej Duda
 // License: GPL-3.0 License 
 
 
 //Changelog:
 // VERSION     DATE          AUTHOR             COMMENT
-// v0.1        07.12.2020    Bartlomiej Duda    -
+// v0.1        06.01.2021    Bartlomiej Duda    -
 
 
 int stolen_bytes_len = 0;
@@ -57,6 +57,95 @@ char* TrampHook32(char* src, char* dst, const intptr_t len)
 
 
 
+
+/*    THISCALL / FASTCALL  HOOK TEMPLATE
+DWORD AddressOfFunc = 0;
+typedef void(__thiscall* original_func)(void*, int);               // (1)
+                                                                   //
+original_func pMemberFunc;
+void __fastcall HookFunc(void* pThis, void* edx, int p1)
+{
+	cout << "BD_HOOK1" <<
+		    "pThis=" << pThis <<
+		    "p1=" << p1 <<
+		endl; 
+
+	pMemberFunc(pThis, p1);
+}
+*/
+
+
+/*    CDECL HOOK TEMPLATE
+DWORD AddressOfFunc = 0;
+typedef int(*original_func)(const char*, const char*);                   // (1)  
+															    		 //       
+original_func pMemberFunc;
+int HookFunc(const char* dst, const char* src)
+{
+	
+	cout << "BD_HOOK1" <<
+		"dst=" << dst <<
+		" src=" << src <<
+		endl; 
+
+	return pMemberFunc(dst, src);
+}
+*/
+
+
+/*   WRITE TEXT DATA TO FILE TEMPLATE
+	ofstream out_file("C:\\Users\\Arek\\Desktop\\star_stable_filenames.txt", ios::out | ios::app);
+	if (out_file.is_open())
+	{
+		out_file << "PATH=" << ch_p1 << endl;
+		out_file.close();
+	}
+	else cout << "Unable to open file";
+*/
+
+
+
+/*   WRITE BINARY DATA TO FILE TEMPLATE
+ofstream out_file("C:\\Users\\Arek\\Desktop\\star_stable_data1.bin", ios::out | ios::app | ios::binary);
+	if (out_file.is_open())
+	{
+
+		char* out_buffer;
+
+		out_buffer = (char*)malloc(src_size_in_bytes);
+		if (out_buffer == NULL)
+		{
+			cout << "Malloc error!" << endl;
+			exit(1);
+		}
+
+		// write marker string to file
+		file_count += 1;
+		std::string marker_str("IKS" + std::to_string(file_count) + "  " + "SIZE: " + std::to_string(src_size_in_bytes) + "  END");
+		//size_t size = marker_str.size();
+		//out_file.write(&size, sizeof(size);
+		out_file << marker_str;
+
+
+		// write binary output to file
+		memcpy(out_buffer, pSrc, src_size_in_bytes);
+		for (int i = 0; i < src_size_in_bytes; i++)
+		{
+			out_file << out_buffer[i];
+		}
+
+		
+
+
+		out_file.close();
+	}
+	else cout << "Unable to open file";
+	*/
+
+
+
+
+
 DWORD AddressOfFunc = 0;
 typedef HANDLE(*original_func)(char*, int, DWORD); //            // (1)   
 original_func pMemberFunc;
@@ -66,13 +155,6 @@ HANDLE HookFunc(char* p1, int p2, DWORD p3)
 			"p1=" << p1 <<
 		endl;  */
 
-	/*ofstream out_file("C:\\Users\\Arek\\Desktop\\eracer_demo_filenames.txt", ios::out | ios::app);
-	if (out_file.is_open())
-	{
-		out_file << "PATH=" << p1 << endl;
-		out_file.close();
-	}
-	else cout << "Unable to open file";*/
 
 
 	return pMemberFunc(p1, p2, p3);
@@ -114,7 +196,7 @@ DWORD WINAPI MainThread(LPVOID param)
 	AllocConsole();
 	freopen("CONOUT$", "w", stdout);
 	cout << "HACK THREAD START" << endl;
-	SigScan Scanner;
+	//SigScan Scanner;
 
 	uintptr_t moduleBase = (uintptr_t)GetModuleHandle(NULL);
 	cout << "Module Base_dec: " << std::dec << moduleBase << " Module base_hex: " << std::hex << moduleBase << endl;

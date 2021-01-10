@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 '''
-Copyright © 2020  Bartłomiej Duda
+Copyright © 2021  Bartłomiej Duda
 License: GPL-3.0 License 
 '''
 
@@ -13,6 +13,7 @@ License: GPL-3.0 License
 # v0.3   10.08.2020  Bartlomiej Duda    -
 # v0.4   10.08.2020  Bartlomiej Duda    -
 # v0.5   04.12.2020  Bartlomiej Duda    Minor changes
+# v0.6   07.01.2021  Bartlomiej Duda    Added exception handling for nmap error in binary_search
 
 
 
@@ -47,8 +48,11 @@ def binary_search(pattern_file_path, search_file_path, match_flag, match_file_pa
     
     search_file_size = os.path.getsize(search_file_path)
     
-    
-    s = ConstBitStream(search_file)
+    try:
+        s = ConstBitStream(search_file)
+    except:
+        bd_logger("Couldn't nmap an empty file! --> " + search_file_path)
+        return
     occurances = s.findall(pattern_file, bytealigned=True)
     occurances = list(occurances)
     totalOccurances = len(occurances)  
@@ -161,6 +165,7 @@ def main():
     # 2 - binary search in multiple files
     # 3 - memory search (experimental)
     # 4 - binary search + match row from TotalDump output (experimental)
+
     
     
     # HOW TO USE THIS PROGRAM - general notes 
@@ -179,15 +184,16 @@ def main():
     # 2. Define paths to files outputted by TotalDump and execute the function.
     
     
-    p_pattern_file_path = "C:\\Users\\Arek\\Desktop\\did_dat.bin"
+    
+    p_pattern_file_path = "C:\\Users\\Arek\\Desktop\\BINARY_&_MEMORY_SEARCH\\dump3.bin"
     
     if main_switch == 1:
-        p_search_file_path = "C:\\Users\\Arek\\Desktop\\MeMory Dump IKS\\pdump_7388.bin"
+        p_search_file_path = "C:\\Users\\Arek\\Desktop\\CSA\\p_00000000.csa"
         binary_search(p_pattern_file_path, p_search_file_path, 0, "")
 
 
     elif main_switch == 2:
-        p_search_folder = "C:\\Users\\Arek\\Desktop\\TEMP1\\"
+        p_search_folder = "C:\\Users\\Arek\\Desktop\\CSA\\p_009_out\\"
         i = 0
         for root, dirs, files in os.walk(p_search_folder):
             for name in files:

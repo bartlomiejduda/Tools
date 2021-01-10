@@ -1,0 +1,37 @@
+// Star Stable Online
+// TGA file format
+
+
+// file header
+8 bytes - unknown
+4 bytes (char) - compression type  // e.g. "DXT1"
+13 bytes - unknown
+
+
+// crn texture header (big endian) - 74 bytes or more
+2 bytes (char) - magic // "Hx"
+2 bytes (uint16) - header size   // e.g. 106 
+2 bytes (uint16) - header CRC16 
+4 bytes (uint32) - data size  
+2 bytes (uint16) - data CRC16
+2 bytes (uint16) - width
+2 bytes (uint16) - height
+1 byte (uint8) - mipmap level index // 0 is the largest/first level
+1 byte (uint8) - number of faces
+1 byte (uint8) - format number
+2 bytes (uint16) - flags
+4 bytes (uint32) - reserved
+4 bytes (uint32) - user data 0
+4 bytes (uint32) - user data 1
+
+8 bytes - color endpoints (palette structure)
+8 bytes - color selectors (palette structure)
+8 bytes - alpha endpoints (palette structure)
+8 bytes - alpha selectors (palette structure)
+
+2 bytes (uint16) - tables size
+3 bytes - tables offsets
+4 bytes - levels offsets
+
+
+x bytes - encrypted image data
