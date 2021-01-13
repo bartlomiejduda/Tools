@@ -1,0 +1,31 @@
+// Mr Bean PC
+// BRA file format
+
+// little endian
+
+// header
+4 bytes (char) - magic // "PDA" + 0x00
+4 bytes (uint32) - version // "2"
+4 bytes (uint32) - directory offset
+4 bytes (uint32) - number of files
+
+
+// data
+num_of_files *
+{
+   x bytes - file data
+}
+
+
+// directory
+num_of_files *
+{
+   8 bytes (time_t) - creation time?
+   4 bytes (uint32) - compressed file size
+   4 bytes (uint32) - uncompressed file size
+   2 bytes (uint16) - file path length
+   2 bytes (uint16) - unknown
+   4 bytes (uint32) - data offset
+   x bytes (char) - file path  // e.g. "AUDIO\FOOTSTEP2.WAV"
+}
+

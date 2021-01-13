@@ -1,16 +1,16 @@
 # -*- coding: utf-8 -*-
 
 '''
-Copyright © 2020  Bartłomiej Duda
+Copyright © 2021  Bartłomiej Duda
 License: GPL-3.0 License 
 '''
 
 
 # Program tested on Python 3.7.0
-# It should be used with GameName (Java)
+# It should be used with GameName (PC)
 
 # Ver    Date        Author               Comment
-# v0.1   17.04.2020  Bartlomiej Duda      -
+# v0.1   14.01.2021  Bartlomiej Duda      -
 
 import os
 import sys
@@ -55,12 +55,12 @@ def main():
     
 
     if main_switch == 1:
-        p_in_file_path = "C:\\Users\\Arek\\Desktop\\Silent_Hill_Orphan_SPOL\\JAR_out\\chunks\\0.bin"
-        p_out_folder_path = "C:\\Users\\Arek\\Desktop\\Silent_Hill_Orphan_SPOL\\JAR_out\\chunks\\0.bin_out"
+        p_in_file_path = "C:\\Users\\Arek\\Desktop\\0.bin"
+        p_out_folder_path = "C:\\Users\\Arek\\Desktop\\0.bin_OUT\\"
         export_data(p_in_file_path, p_out_folder_path)
         
     else:
-        print("Wrong option selected!")
+        bd_logger("Wrong option selected!")
         
         
     

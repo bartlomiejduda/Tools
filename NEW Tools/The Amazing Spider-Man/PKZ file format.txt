@@ -1,0 +1,42 @@
+// The Amazing Spider-Man (PC)
+// PKZ file format
+
+// little endian or big endian
+
+// Note: Files are compressed with zlib
+
+
+//header
+4 bytes (uint32) - ID  // "\xB0\xB1\xBE\xBA" - big endian
+                       // "\xBA\xBE\xB1\xB0" - little endian
+
+4 bytes (uint32) - chunk size
+4 bytes (uint32) - data start offset
+4 bytes (uint32) - unknown
+4 bytes (uint32) - number of files
+4 bytes (uint32) - total compressed size (for all files)
+4 bytes (uint32) - total uncompressed size (for all files)
+
+
+//size array
+num_of_files *
+{
+   4 bytes (uint32) - file size   // comp size??
+}
+
+
+//some array
+num_of_entries *
+{
+   4 bytes (uint32) - entry
+}
+
+x bytes - padding
+
+
+
+//data
+num_of_files *
+{
+   x bytes - file data  
+}
