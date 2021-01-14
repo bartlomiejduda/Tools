@@ -1,0 +1,33 @@
+// Drakan
+// RRC file format
+
+// little endian
+
+// header
+4 bytes (char) - magic // "SRSC"
+2 bytes - version  // 0x00 0x01
+4 bytes (uint32) - directory offset
+2 bytes (uint16) - number of files
+
+
+// data
+number_of_files *
+{
+   x bytes - file data
+}
+
+
+// directory
+number_of_files *
+{
+   2 bytes (uint16) - file type  // "0x40 0x00" (64) - texture data
+                                 // "0x00 0x04" (1024) - encrypted text
+                                 // "0x01 0x04" (1025) - plain text
+                                 // etc. etc.
+   2 bytes (uint16) - file ID
+   2 bytes (uint16) - group ID
+   4 bytes (uint32) - file offset
+   4 bytes (uint32) - file size
+}
+
+
