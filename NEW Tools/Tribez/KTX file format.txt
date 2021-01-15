@@ -1,0 +1,40 @@
+// KTX 1.1 texture 
+// Khronos Texture file format
+
+
+// header (64 bytes)
+12 bytes - magic  // "AB 4B 54 58 20 31 31 BB 0D 0A 1A 0A"  (KTX 11)
+4 bytes (uint32) - endianess  // "01 02 03 04" - little endian
+                              // "04 03 02 01" - big endian
+4 bytes (uint32) - gl type  // can be "0"
+4 bytes (uint32) - type size  // "1"
+4 bytes (uint32) - gl format  // "0"
+4 bytes (uint32) - gl internal format
+4 bytes (uint32) - gl base internal format
+4 bytes (uint32) - pixel width
+4 bytes (uint32) - pixel height
+4 bytes (uint32) - pixel depth
+4 bytes (uint32) - number of array elements
+4 bytes (uint32) - number of faces
+4 bytes (uint32) - number of mipmap levels
+4 bytes (uint32) - size of key value data
+
+
+// key and value data
+num_of_key_value_entries *
+{
+   4 bytes (uint32) - size of key value entry
+   x bytes - key value entry  // e.g. "KTXorientation.S=r,T=d,R=i"
+   x bytes - padding
+}
+
+
+num_of_mipmap_levels *
+{
+   4 bytes (uint32) - image data size
+   x bytes - image data
+}
+
+x bytes - padding
+      
+
