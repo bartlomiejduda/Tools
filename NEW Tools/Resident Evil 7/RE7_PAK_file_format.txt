@@ -1,0 +1,26 @@
+// Resident Evil 7 "KITCHEN" Demo
+// PAK file format
+
+// little endian
+
+// header
+4 bytes (char) - magic // "KPKA"
+4 bytes (uint32) - version?  // "2"
+4 bytes (uint32) - number of files
+4 bytes (uint32) - nulls
+
+
+num_of_files *
+{
+   4 bytes (uint32) - file offset
+   4 bytes (uint32) - nulls
+   4 bytes (uint32) - file size
+   4 bytes (uint32) - nulls
+   4 bytes (uint32) - hash 1
+   4 bytes (uint32) - hash 2
+}
+
+num_of_files *
+{
+   x bytes - file data
+}
