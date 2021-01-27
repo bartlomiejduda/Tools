@@ -78,8 +78,8 @@ def export_text(in_file_path, out_folder_path):
     out_file = open(out_folder_path + "text_output.txt", "wt+", encoding="utf8")
     
     
-    pointer_arr_offset = 36308  # These value is hardcoded for decompressed NAM_1.DAT from The Godfather
-    num_of_entries = 6324       
+    pointer_arr_offset = 36308  # These values are hardcoded 
+    num_of_entries = 6324       # for decompressed NAM_1.DAT from The Godfather
     
     dat_file.seek(pointer_arr_offset)
     
