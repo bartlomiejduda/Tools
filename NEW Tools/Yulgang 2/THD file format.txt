@@ -1,0 +1,25 @@
+// THD file format
+
+// little endian
+
+// header
+4 bytes (char) - magic  // "YG2!"
+4 bytes - nulls
+20 bytes (char) - creation date?  // e.g. "2016-01-29 10:31:15."
+4 bytes - nulls
+
+// some array
+4 bytes (uint32) - number of entries
+num_of_entries *
+{
+   4 bytes (uint32) - some entry  // e.g. "6" or "7"
+}
+
+// offset array
+4 bytes (uint32) - number of entries 2
+num_of_entries2 *
+{
+   4 bytes (uint32) - entry ID
+   4 bytes (uint32) - file offset
+}
+
