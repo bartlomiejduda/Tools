@@ -13,7 +13,7 @@ License: GPL-3.0 License
 # v0.1   23.01.2021  Bartlomiej Duda      -
 # v0.2   28.01.2021  Bartlomiej Duda      -
 # v0.3   30.01.2021  Bartlomiej Duda      -
-# v0.4   31.01.2021  Bartlomiej Duda      -
+# v0.4   31.01.2021  Bartlomiej Duda      Added BMP class
 
 import os
 import sys
@@ -30,9 +30,87 @@ def bd_logger(in_str):
     print(now.strftime("%d-%m-%Y %H:%M:%S") + " " + in_str)    
 
 
+
+class BMP_IMG:
+    class BMP_HEADER:
+        def __init__(self, in_size, in_offset):
+            self.bmp_magic = b'BM'
+            self.bmp_size = in_size
+            self.reserved = 0
+            self.offset_im_data = in_offset 
+            
+        def get_binary(self):
+            return ( struct.pack("2s", self.bmp_magic) +
+                     struct.pack("<L", self.bmp_size) +
+                     struct.pack("<L", self.reserved) +  
+                     struct.pack("<L", self.offset_im_data) 
+                    )
+        
+    class BMP_INFO_HEADER:
+        def __init__(self, in_width, in_height, in_bpp):
+            self.info_header_size = 40
+            self.im_width = -1
+            self.im_height = -1
+            self.num_of_planes = 1
+            self.bpp = -1
+            self.comp_type = 0
+            self.comp_im_size = 0
+            self.pref_hor_res = 0
+            self.pref_vert_res = 0
+            self.num_of_used_colors = 0
+            self.num_of_imp_colors = 0
+            
+            self.im_width = in_width
+            self.im_height = in_height 
+            self.bpp = in_bpp 
+            
+        def get_binary(self):
+            return ( struct.pack("<L", self.info_header_size) +
+                     struct.pack("<L", self.im_width) +
+                     struct.pack("<L", self.im_height) +
+                     struct.pack("<H", self.num_of_planes) +
+                     struct.pack("<H", self.bpp) +
+                     struct.pack("<L", self.comp_type) +
+                     struct.pack("<L", self.comp_im_size) +
+                     struct.pack("<L", self.pref_hor_res) +
+                     struct.pack("<L", self.pref_vert_res) +
+                     struct.pack("<L", self.num_of_used_colors) +
+                     struct.pack("<L", self.num_of_imp_colors)
+                     )
+        
+    def __init__(self, in_width, in_height, in_bpp, in_image_data, in_palette_data):
+        self.bmp_width = in_width
+        self.bmp_height = in_height
+        self.bmp_bpp = in_bpp
+        self.bmp_data = in_image_data
+        self.bmp_palette = in_palette_data
+        
+        self.data_size = len(self.bmp_data)
+        self.palette_size = len(self.bmp_palette)
+        self.bmp_size = 14 + 40 + self.palette_size + self.data_size
+        self.data_offset = 14 + 40 + self.palette_size
+        
+        
+        self.header = self.BMP_HEADER(self.data_size, self.data_offset)
+        self.header_data = self.header.get_binary()
+        
+        self.info_header = self.BMP_INFO_HEADER(self.bmp_width, self.bmp_height, self.bmp_bpp)
+        self.info_header_data = self.info_header.get_binary()
+        
+    def get_bmp_file_data(self):
+        return ( self.header_data +
+                 self.info_header_data + 
+                 self.bmp_palette +
+                 self.bmp_data
+                )
+        
+
+
+
+
 def export_data(in_file_path, out_folder_path):
     '''
-    Function for exporting data from SSH files
+    Function for exporting data from EA graphics files
     '''    
     bd_logger("Starting export_data...")  
     
@@ -69,32 +147,14 @@ def export_data(in_file_path, out_folder_path):
             block_size = 0
         im_width = struct.unpack("<H", ssh_file.read(2))[0] 
         im_height = struct.unpack("<H", ssh_file.read(2))[0]
-        #im_width = int(im_size / im_height)
         im_size_calc = im_width * im_height
         temp = ssh_file.read(8)
         
         im_data_offset = ssh_file.tell()
         pal_data_offset = im_data_offset + block_size
         
-        
-        if block_size == im_size_calc + 12:
-            im_size = im_size_calc
-        else:
-            im_size = block_size
-            #im_width -= 0
-            #im_height += 150
-            #im_size = (im_width * im_height) 
-            #im_size = block_size - 12
-            #im_size = block_size
-            
-            #print("file_name: " + str(file_name) + 
-                  #" block_size: " + str(block_size) +
-                  #" im_size_calc: " + str(im_size_calc) +
-                  #" im_size: " + str(im_size) +
-                  #" im_width: " + str(im_width) + 
-                  #" im_height: " + str(im_height) + 
-                  #" diff: " + str(block_size - im_size_calc)
-                  #)
+
+ 
         
         
         print("file_name: " + str(file_name) +
@@ -102,11 +162,8 @@ def export_data(in_file_path, out_folder_path):
               )
                  
         
-        # reading image data + pixel data swap
+        # reading image data + skew fix
         ssh_file.seek(im_data_offset)
-        
-        
-
         
         bmp_data = b'' # SKEW FIX
         temp_row = b''
@@ -129,13 +186,9 @@ def export_data(in_file_path, out_folder_path):
             bmp_data += ssh_file.read(diff)
         
 
- 
-        
-        
         #reading palette 
         ssh_file.seek(pal_data_offset)
         pal_header_data = ssh_file.read(15) # palette header
-        
         palette_data = b''
         for i in range(256):
             pal_entry1 = ssh_file.read(1)
@@ -145,78 +198,17 @@ def export_data(in_file_path, out_folder_path):
             palette_data += pal_entry4 + pal_entry3 + pal_entry2 + pal_entry1 # RGBA swap
             
 
-        
-        
-        # BMP START
-        bmp_width = im_width
-        bmp_height = im_height
-        bmp_bpp = 8
-        bmp_pal = palette_data
-        #bmp_data = im_data
-        
-        
-        # create BMP header
-        first_header_size = 14
-        h_magic = struct.pack("2s", b"BM")
-        h_size = struct.pack("<L", 111)   # !
-        h_reserv = struct.pack("<L", 0)   
-        h_offset = struct.pack("<L", 111) # !
-        
-        # create DIB header 
-        dib_header_size = 40
-        d_size = struct.pack("<L", dib_header_size)
-        d_width = struct.pack("<L", bmp_width)
-        d_height = struct.pack("<L", bmp_height)
-        d_planes = struct.pack("<H", 1)
-        d_bpp = struct.pack("<H", bmp_bpp)  
-        d_comp = struct.pack("<L", 0)
-        d_size_image = struct.pack("<L", 0)   # ?!
-        d_hor_res = struct.pack("<L", 0)
-        d_vert_res = struct.pack("<L", 0)
-        d_num_pal_col = struct.pack("<L", 0)
-        d_imp_colors = struct.pack("<L", 0)
- 
-        
-        # corrections 
-        h_size_calc = first_header_size + dib_header_size +len(bmp_pal) + len(bmp_data)
-        h_size = struct.pack("<L",   h_size_calc)
-        h_offset = struct.pack("<L", first_header_size + dib_header_size + len(bmp_pal) )
-        
 
-        
-        # WRITING BMP
+        # writing bmp
+        bmp_object = BMP_IMG(im_width, im_height, 8, bmp_data, palette_data)
+        bmp_file_data = bmp_object.get_bmp_file_data()
         out_file_path = out_folder_path + file_name.replace(">", "0") + ".bmp"
-        #print(out_file_path)
-        out_file = open(out_file_path, "wb+")
-        
-        
-        # write header
-        out_file.write(h_magic)
-        out_file.write(h_size)
-        out_file.write(h_reserv)
-        out_file.write(h_offset)
-        
-        # write DIB header 
-        out_file.write(d_size)
-        out_file.write(d_width)
-        out_file.write(d_height)
-        out_file.write(d_planes)
-        out_file.write(d_bpp)
-        out_file.write(d_comp)
-        out_file.write(d_size_image)
-        out_file.write(d_hor_res)
-        out_file.write(d_vert_res)
-        out_file.write(d_num_pal_col)
-        out_file.write(d_imp_colors)
-
-        
-        # write palette and data
-        out_file.write(bmp_pal)
-        out_file.write(bmp_data)        
+        out_file = open(out_file_path, "wb+")  
+        out_file.write(bmp_file_data)
         out_file.close()
         
         
-        
+
         #BMP FLIP TOP BOTTOM FIX
         try:
             img = Image.open(out_file_path).transpose(Image.FLIP_TOP_BOTTOM)  
@@ -244,8 +236,8 @@ def main():
     
 
     if main_switch == 1:
-        p_in_file_path = "C:\\Users\\Arek\\Desktop\\NBA Live 97 PS1\\ZFONT3.PSH"
-        p_out_folder_path = "C:\\Users\\Arek\\Desktop\\NBA Live 97 PS1\\ZFONT3.PSH_OUT\\"
+        p_in_file_path = "C:\\Users\\Arek\\Desktop\\EA SAMPLES\\NHL 2002 SSH\\awards.ssh"
+        p_out_folder_path = "C:\\Users\\Arek\\Desktop\\EA SAMPLES\\NHL 2002 SSH\\awards.ssh_OUT\\"
         export_data(p_in_file_path, p_out_folder_path)
         
     else:
