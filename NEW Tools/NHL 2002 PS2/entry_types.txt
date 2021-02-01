@@ -1,0 +1,9 @@
+
+2  --> 8-bit skewed image with 256-colors swapped palette
+
+33 --> 256-colors palette
+35 --> 16-colors palette OR 256-colors 15-bit palette
+
+64 --> 4-bit image with 16-colors palette
+65 --> 8-bit image with 256-colors palette (15 bits per color in palette)
+66 --> 16-bit image, no palette
