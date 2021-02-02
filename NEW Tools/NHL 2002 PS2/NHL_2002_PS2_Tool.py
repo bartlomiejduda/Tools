@@ -14,6 +14,7 @@ License: GPL-3.0 License
 # v0.2   28.01.2021  Bartlomiej Duda      -
 # v0.3   30.01.2021  Bartlomiej Duda      -
 # v0.4   31.01.2021  Bartlomiej Duda      Added BMP class
+# v0.5   02.02.2021  Bartlomiej Duda      New image types partially reverse engineered
 
 import os
 import sys
@@ -122,7 +123,7 @@ def export_data(in_file_path, out_folder_path):
         bd_logger("Can't read magic! Aborting!")
         return
         
-    if magic not in ("SHPS", "SHPP"):
+    if magic not in ("SHPS", "SHPP", "SHPM"):
         bd_logger("It is not supported EA graphics file! Aborting!")
         return
     
@@ -199,8 +200,9 @@ def export_data(in_file_path, out_folder_path):
             
             
         elif image_type == 64: # 4-bit image with 16-colors palette  
-            im_size = int((im_width * im_height) / 2)
-            bmp_data = ssh_file.read(im_size)
+            im_size_calc = int((im_width * im_height) / 2)
+            bmp_data = ssh_file.read(im_size_calc)   # TODO - find better samples and fix this
+            
             
             ssh_file.read(15) # palette header 
             palette_data = ssh_file.read(16)
@@ -220,6 +222,11 @@ def export_data(in_file_path, out_folder_path):
             bmp_data = ssh_file.read(im_size)
             palette_data = b''
             im_bpp = 16
+        
+        elif image_type == 131: # refpack compressed 16-bpp image (no palette)
+            im_size = block_size 
+            bmp_data = ssh_file.read(im_size)  # TODO - use refpack decompressor
+        
             
             
         else:
@@ -229,13 +236,22 @@ def export_data(in_file_path, out_folder_path):
                       
 
 
-        # writing bmp
-        bmp_object = BMP_IMG(im_width, im_height, im_bpp, bmp_data, palette_data)
-        bmp_file_data = bmp_object.get_bmp_file_data()
-        out_file_path = out_folder_path + file_name.replace(">", "0") + "_" + str(f_count+1) + ".bmp"
-        out_file = open(out_file_path, "wb+")  
-        out_file.write(bmp_file_data)
-        out_file.close()
+
+
+        if image_type == 131:  # temporary data dump ( TODO - use refpack to handle this)
+            out_file_path = out_folder_path + file_name.replace(">", "0") + "_" + str(f_count+1) + ".bin"
+            out_file = open(out_file_path, "wb+")  
+            out_file.write(bmp_data)
+            out_file.close()            
+
+        else:
+            # writing bmp
+            bmp_object = BMP_IMG(im_width, im_height, im_bpp, bmp_data, palette_data)
+            bmp_file_data = bmp_object.get_bmp_file_data()
+            out_file_path = out_folder_path + file_name.replace(">", "0") + "_" + str(f_count+1) + ".bmp"
+            out_file = open(out_file_path, "wb+")  
+            out_file.write(bmp_file_data)
+            out_file.close()
         
         
 
@@ -268,9 +284,7 @@ def main():
     if main_switch == 1:
         p_in_file_path = "C:\\Users\\Arek\\Desktop\\EA SAMPLES\\NHL 2002 SSH\\awards.ssh"
         p_out_folder_path = "C:\\Users\\Arek\\Desktop\\EA SAMPLES\\NHL 2002 SSH\\awards.ssh_OUT\\"
-        
-        #p_in_file_path = "C:\\Users\\Arek\\Desktop\\EA SAMPLES\\NBA Live 97 PS1\\ZLOADSCR.PSH"
-        #p_out_folder_path = "C:\\Users\\Arek\\Desktop\\EA SAMPLES\\NBA Live 97 PS1\\ZLOADSCR.PSH_OUT\\"        
+              
         export_data(p_in_file_path, p_out_folder_path)
         
     else:
