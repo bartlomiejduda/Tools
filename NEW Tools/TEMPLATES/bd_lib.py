@@ -222,15 +222,132 @@ out_PNG.print_PNG_info()
 
 
 
-# TODO 
+class BMP_IMG:
+    class BMP_HEADER:
+        def __init__(self, in_size, in_offset):
+            self.bmp_magic = b'BM'
+            self.bmp_size = in_size
+            self.reserved = 0
+            self.offset_im_data = in_offset 
+            
+        def get_binary(self):
+            return ( struct.pack("2s", self.bmp_magic) +
+                     struct.pack("<L", self.bmp_size) +
+                     struct.pack("<L", self.reserved) +  
+                     struct.pack("<L", self.offset_im_data) 
+                    )
+        
+    class BMP_INFO_HEADER:
+        def __init__(self, in_width, in_height, in_bpp):
+            self.info_header_size = 40
+            self.num_of_planes = 1
+            self.comp_type = 0
+            self.comp_im_size = 0
+            self.pref_hor_res = 0
+            self.pref_vert_res = 0
+            self.num_of_used_colors = 0
+            self.num_of_imp_colors = 0
+            
+            self.im_width = in_width
+            self.im_height = in_height 
+            self.bpp = in_bpp 
+            
+        def get_binary(self):
+            return ( struct.pack("<L", self.info_header_size) +
+                     struct.pack("<L", self.im_width) +
+                     struct.pack("<L", self.im_height) +
+                     struct.pack("<H", self.num_of_planes) +
+                     struct.pack("<H", self.bpp) +
+                     struct.pack("<L", self.comp_type) +
+                     struct.pack("<L", self.comp_im_size) +
+                     struct.pack("<L", self.pref_hor_res) +
+                     struct.pack("<L", self.pref_vert_res) +
+                     struct.pack("<L", self.num_of_used_colors) +
+                     struct.pack("<L", self.num_of_imp_colors)
+                     )
+        
+    def __init__(self, in_width, in_height, in_bpp, in_image_data, in_palette_data):
+        self.bmp_width = in_width
+        self.bmp_height = in_height
+        self.bmp_bpp = in_bpp
+        self.bmp_data = in_image_data
+        self.bmp_palette = in_palette_data
+        
+        self.data_size = len(self.bmp_data)
+        self.palette_size = len(self.bmp_palette)
+        self.bmp_size = 14 + 40 + self.palette_size + self.data_size
+        self.data_offset = 14 + 40 + self.palette_size
+        
+        
+        self.header = self.BMP_HEADER(self.data_size, self.data_offset)
+        self.header_data = self.header.get_binary()
+        
+        self.info_header = self.BMP_INFO_HEADER(self.bmp_width, self.bmp_height, self.bmp_bpp)
+        self.info_header_data = self.info_header.get_binary()
+        
+    def get_bmp_file_data(self):
+        return ( self.header_data +
+                 self.info_header_data + 
+                 self.bmp_palette +
+                 self.bmp_data
+                )
+        
 
 
 
 
+# writing bmp
+bmp_object = BMP_IMG(im_width, im_height, im_bpp, bmp_data, palette_data)
+bmp_file_data = bmp_object.get_bmp_file_data()
+out_file_path = out_folder_path + file_name.replace(">", "0") + "_" + str(f_count+1) + ".bmp"
+out_file = open(out_file_path, "wb+")  
+out_file.write(bmp_file_data)
+out_file.close()
+        
+        
+
+#BMP FLIP TOP BOTTOM FIX
+try:
+    img = Image.open(out_file_path).transpose(Image.FLIP_TOP_BOTTOM)  
+    img.save(out_file_path)
+    img.close()
+except:
+    bd_logger("Can't flip image " + file_name + "...")
 
 
 
+#reading palette 
+ssh_file.seek(pal_data_offset)
+pal_header_data = ssh_file.read(15) # palette header
+palette_data = b''
+for i in range(256):
+    pal_entry1 = ssh_file.read(1)
+    pal_entry2 = ssh_file.read(1)
+    pal_entry3 = ssh_file.read(1)
+    pal_entry4 = ssh_file.read(1)
+    palette_data += pal_entry4 + pal_entry3 + pal_entry2 + pal_entry1 # RGBA swap
 
+
+
+# SKEW FIX
+bmp_data = b'' 
+temp_row = b''
+skew_val = im_width % 4      
+for i in range(im_height):
+    temp_row = b''
+    for j in range(im_width):
+        pixel = ssh_file.read(1)
+        temp_row += pixel
+    if skew_val == 1:
+        temp_row += b'\x00\x00'
+    elif skew_val == 2:
+        temp_row += b'x\00'
+        
+    row_len = len(temp_row)
+    bmp_data += temp_row
+
+diff = block_size - im_size_calc
+bmp_data += ssh_file.read(diff)
 
 
 
