@@ -1,0 +1,38 @@
+// Haven DAT
+// file format
+
+// little endian
+
+4 bytes (uint32) - number of entries
+
+num_of_entries *
+{
+   4 bytes (uint32) - entry ID length
+   x bytes (char) - entry ID // e.g. "FlowerTrailKayTakesLeadD01"
+                             // or "CAMPINGGPE_CURE"
+   x bytes - padding
+   4 bytes (uint32) - version string length // e.g. "7"
+   7 bytes (char) - version string  // "default" or "sony"
+   x bytes - padding
+
+
+   4 bytes (uint32) - num of languages per entry
+
+   num_of_languages *
+   {
+        4 bytes (uint32) - lang ID length
+        x bytes - lang ID // e.g. "EN"
+        x bytes - padding
+        4 bytes (uint32) - string length
+        x bytes (char) - string
+        x bytes - padding
+   }
+
+   4 bytes (uint32) - some flag
+
+
+   4 bytes (uint32) - person name length
+   x bytes (char) - person name string // e.g. "Yu"
+   x bytes - padding
+
+}

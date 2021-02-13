@@ -63,7 +63,10 @@ def calculate_padding_len_v3(in_len):
     padding_val = (4 - (in_len % 4)) % 4
     return padding_val   
 
-
+def calculate_padding_len_v4(in_len):
+    div = 4
+    padding_val = (div - (in_len % div)) % div
+    return padding_val  
 
 
 
