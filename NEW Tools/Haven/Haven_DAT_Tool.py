@@ -62,51 +62,27 @@ def export_data(in_file_path, out_folder_path):
     if not os.path.exists(out_folder_path):
         os.makedirs(out_folder_path)      
     
-    dat_file = open(in_file_path, 'rb')
-    out_file = open(out_folder_path + "out.txt", "wb+")
+    dat_file = open(in_file_path, "rb")
+    out_file = open(out_folder_path + "out.txt", "wt+", encoding="utf8")
     
     
-    for i in range(99999999):
+    num_of_entries = struct.unpack("<L", dat_file.read(4))[0]
+    
+    
+    for i in range(num_of_entries):
         
         
-        person_offset = dat_file.tell()
-        
-        
-        
-        person_string = struct.unpack("4s", dat_file.read(4))[0].decode("utf8").rstrip('\x00')
-        if person_string == "":
-            person_string = "None"
-            
-            
-        elif person_string in ('\x05'): # workaround!
-            dat_file.seek( dat_file.tell() - 4)
-            person_string_len = struct.unpack("<L", dat_file.read(4))[0]
-            person_string = dat_file.read(person_string_len).decode("utf8")
-            padding_len = calculate_padding_len(person_string_len)
-            dat_file.read(padding_len)             
-            
-            
-        elif person_string in ('\x02'): # workaround!
-            dat_file.read(4)
-            person_string = "Yu"
-        elif person_string in ('\x03'): # workaround!
-            dat_file.read(4)
-            person_string = "Kay"
-        elif person_string in ("Eren", "Horn", "Ozia"): # workaround!
-            dat_file.seek(person_offset)
-            person_string = struct.unpack("8s", dat_file.read(8))[0].decode("utf8").rstrip('\x00')
-            
-        print("PERSON: " + str(person_string))
-        
-        
-        
+
         curr_offset = dat_file.tell()
         entry_ID_len = struct.unpack("<L", dat_file.read(4))[0]
         entry_ID = dat_file.read(entry_ID_len).decode("utf8")
         print("entry_ID_off: " + str(curr_offset) + 
             " entry_ID: " + str(entry_ID))
         
-        padding_len = calculate_padding_len_v3(entry_ID_len) #1
+        out_file.write("[" + entry_ID + "]" + "\n")
+        
+        
+        padding_len = calculate_padding_len_v3(entry_ID_len)
         dat_file.read(padding_len)
         
         default_str_len = struct.unpack("<L", dat_file.read(4))[0]
@@ -117,10 +93,6 @@ def export_data(in_file_path, out_folder_path):
         
         num_of_languages = struct.unpack("<L", dat_file.read(4))[0]
         
-        #if num_of_languages == 0:
-            #dat_file.read(4)
-            #continue
-
         
         
         for j in range(num_of_languages):
@@ -134,8 +106,8 @@ def export_data(in_file_path, out_folder_path):
             string_length = struct.unpack("<L", dat_file.read(4))[0]
             str_offset = dat_file.tell()
             
-            if str_offset > 4375884 - 1:
-                a = 5 # debug
+            #if str_offset > 990676 - 1:
+                #a = 5 # debug
             
             
             if string_length == 0:
@@ -143,26 +115,37 @@ def export_data(in_file_path, out_folder_path):
             else:
                 out_string = dat_file.read(string_length).decode("utf8")
             
-            padding_len = calculate_padding_len_v3(string_length) # 2
+            padding_len = calculate_padding_len_v3(string_length) 
             dat_file.read(padding_len)  
 
             
             end_offset = dat_file.tell()
             
-            print(str(lang_ID.decode("utf8")) + "= " + 
-                  " str_offset: " + str(str_offset) + 
-                  " str_len: " + str(string_length) +
-                  " " + str(out_string))
+            #print(str(lang_ID.decode("utf8")) + "= " + 
+                  #" str_offset: " + str(str_offset) + 
+                  #" str_len: " + str(string_length) +
+                  #" " + str(out_string))
                 
-
+            out_file.write(lang_ID.decode("utf8") + "=" + out_string + "\n")
             
             
             
-        num_of_something = struct.unpack("<L", dat_file.read(4))[0]
+        some_flag1 = struct.unpack("<L", dat_file.read(4))[0]
         
-        for i in range(num_of_something):
-            some_value = dat_file.read(4)
-    
+        try:  # try to read person name
+            person_string_len = struct.unpack("<L", dat_file.read(4))[0]
+            person_string = dat_file.read(person_string_len).decode("utf8")
+            padding_len = calculate_padding_len_v3(person_string_len)
+            dat_file.read(padding_len)  
+        except: # there is no name
+            dat_file.read(4)
+            person_string = "None"
+            
+        #print("PERSON: " + str(person_string))   
+        out_file.write("PERSON=" + person_string + "\n\n\n")
+        
+        
+
    
     
     
