@@ -9,7 +9,7 @@ License: GPL-3.0 License
 
 # Ver    Date        Author               Comment
 # v0.1   27.01.2021  Bartlomiej Duda      -
-# v0.2   13.02.2021  Bartlomiej Duda      Added padding calculation function
+# v0.2   13.02.2021  Bartlomiej Duda      Added padding calculation functions
 
 
 
@@ -34,13 +34,41 @@ def xore(data, key):
 
 
 
+
+
+
+
+
+##################################################
+##################################################
+##                                              ##
+##  Padding Functions                           ##
+##                                              ##
+##################################################
+##################################################
+
 def calculate_padding_len(in_len):
+    padding_val = (8 - (in_len % 8)) % 8
+    return padding_val
+
+def calculate_padding_len_v2(in_len):
     mod_res = int(in_len % 4)
     if mod_res == 0:
         return mod_res
     else:
         res = 4 - mod_res
-        return res
+        return res  
+ 
+def calculate_padding_len_v3(in_len):
+    padding_val = (4 - (in_len % 4)) % 4
+    return padding_val   
+
+
+
+
+
+
+
 
 
 
@@ -52,6 +80,15 @@ def calculate_padding_len(in_len):
 ##                                              ##
 ##################################################
 ##################################################
+
+def read_nulls(in_file):
+    while 1:
+        back_offset = in_file.tell()
+        ch = struct.unpack('c', in_file.read(1))[0].decode("windows-1252")
+        if ord(ch) != 0:
+            in_file.seek(back_offset)
+            return
+
 
 def get_string2(in_file):
     '''
