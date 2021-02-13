@@ -9,6 +9,7 @@ License: GPL-3.0 License
 
 # Ver    Date        Author               Comment
 # v0.1   27.01.2021  Bartlomiej Duda      -
+# v0.2   13.02.2021  Bartlomiej Duda      Added padding calculation function
 
 
 
@@ -33,7 +34,13 @@ def xore(data, key):
 
 
 
-
+def calculate_padding_len(in_len):
+    mod_res = int(in_len % 4)
+    if mod_res == 0:
+        return mod_res
+    else:
+        res = 4 - mod_res
+        return res
 
 
 
