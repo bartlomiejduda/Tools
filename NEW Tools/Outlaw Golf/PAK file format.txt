@@ -1,0 +1,50 @@
+// Outlaw Golf PC
+// PAK file format
+
+
+// header (96 bytes)
+8 bytes (char) - magic // "PAXFILE\xFF"
+20 bytes - unknown
+4 bytes (uint32) - data offset
+4 bytes (uint32) - number of directories + 1
+4 bytes (uint32) - number of files
+4 bytes (uint32) - align value?
+36 bytes - nulls
+4 bytes (uint32) - unknown  // 1
+4 bytes (uint32) - unknown  // 12
+4 bytes - nulls
+4 bytes (uint32) - unknown  // 26
+
+
+// directories info
+num_of_directories *
+{
+   32 bytes (char) - directory name // e.g. "Audio"
+   4 bytes (uint32) - unknown // some ID, usually nulls
+   4 bytes (uint32) - unknown // some flags, usually nulls
+   4 bytes (uint32) - number of the first file in the directory
+   4 bytes (uint32) - number of files in directory?
+}
+
+
+// files info
+num_of_files *
+{
+  32 bytes (char) - file name
+  4 bytes (uint32) - file offset
+  4 bytes (uint32) - file size
+}
+
+x bytes - padding
+
+
+// files data
+num_of_files *
+{
+   x bytes - file data
+}
+
+
+
+
+
