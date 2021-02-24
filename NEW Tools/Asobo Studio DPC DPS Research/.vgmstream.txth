@@ -1,0 +1,8 @@
+# WALL-E (PC) SDX Audio files
+
+codec = MS_IMA
+interleave = 0x24
+sample_rate = 32000
+channels = 1
+start_offset = 0x800
+num_samples = data_size

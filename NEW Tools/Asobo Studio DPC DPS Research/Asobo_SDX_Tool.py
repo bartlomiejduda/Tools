@@ -11,6 +11,7 @@ License: GPL-3.0 License
 
 # Ver    Date        Author               Comment
 # v0.1   24.02.2021  Bartlomiej Duda      -
+# v0.2   24.02.2021  Bartlomiej Duda      Changed the extension to vgmstream
 
 import os
 import sys
@@ -55,7 +56,7 @@ def export_data(in_file_path, out_folder_path):
         sample_offset = struct.unpack("<L", sdx_file.read(4))[0]
         sample_size = struct.unpack("<L", sdx_file.read(4))[0]
         
-        file_name = "audio_file" + str(i+1) + ".bin"
+        file_name = "audio_file" + str(i+1) + ".vgmstream"
         back_offset = sdx_file.tell()
         
 
