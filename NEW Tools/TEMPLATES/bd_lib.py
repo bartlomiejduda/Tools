@@ -114,13 +114,14 @@ def get_string2(in_file):
     return out_name
 
 
-def get_string(in_file):
+def get_string(in_file, max_str_len):
     '''
     Function for reading null terminated string from binary file
     '''  
     out_name = ""
     b_out_name = b''
     file_size = os.path.getsize(in_file.name)
+    curr_str_len = 0
     while 1:  
         curr_offset = in_file.tell() 
         if curr_offset == file_size:  # EOF reached, aborting
@@ -130,8 +131,15 @@ def get_string(in_file):
         
         if ord(ch) != 0:
             b_out_name += ch  
+            curr_str_len += 1
+            if curr_str_len == max_str_len:
+                break
+            
         else:
             break
+        
+    back_offset = in_file.tell() - 1  # fix for wrong offset after reading null at the end
+    in_file.seek(back_offset)
         
     out_name = b_out_name.decode("utf8")
     return out_name        

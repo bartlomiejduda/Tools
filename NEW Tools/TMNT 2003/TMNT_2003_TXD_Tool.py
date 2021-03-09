@@ -11,6 +11,7 @@ License: GPL-3.0 License
 
 # Ver    Date        Author               Comment
 # v0.1   09.03.2021  Bartlomiej Duda      -
+# v0.2   09.03.2021  Bartlomiej Duda      -
 
 import os
 import sys
@@ -143,7 +144,6 @@ def export_data(in_file_path, out_folder_path):
     
     txd_file = open(in_file_path, 'rb')
     
-    PALETTE_SIZE = 1024
     HEADER_SIZE = 16
     CHUNK_HEADER_SIZE = 12
     
@@ -162,24 +162,24 @@ def export_data(in_file_path, out_folder_path):
         str_end_offset = txd_file.tell()
         padding_len = 16 - (str_end_offset - str_start_offset)
         txd_file.read(padding_len)
-        out_file_path = out_folder_path + texture_name + ".bmp"
-        #print(out_file_path)        
+        out_file_path = out_folder_path + texture_name + "_tex" + str(i+1) + ".bmp"      
         
         txd_file.read(56) # unknown
         
         chunk_type = struct.unpack("<L", txd_file.read(4))[0]
         if chunk_type != 24:
+            bd_logger("Chunk_type_offset: " + str(txd_file.tell() - 4))
             bd_logger("It is not valid Image chunk! Aborting!")
             return 
         
         chunk_size = struct.unpack("<L", txd_file.read(4))[0]
-        image_size = chunk_size - PALETTE_SIZE - HEADER_SIZE - CHUNK_HEADER_SIZE
         txd_file.read(4) # RW version ID
         
         
         
         chunk_type = struct.unpack("<L", txd_file.read(4))[0]
         if chunk_type != 1:
+            bd_logger("Chunk_type_offset: " + str(txd_file.tell() - 4))
             bd_logger("It is not valid Struct chunk! Aborting!")
             return 
         txd_file.read(4) # chunk size
@@ -188,25 +188,43 @@ def export_data(in_file_path, out_folder_path):
         image_width = struct.unpack("<L", txd_file.read(4))[0]
         image_height = struct.unpack("<L", txd_file.read(4))[0]
         bpp = struct.unpack("<L", txd_file.read(4))[0]
-        txd_file.read(4) # image stripe?
+        image_stride = struct.unpack("<L", txd_file.read(4))[0]
         
         
-        num_bytes = image_width * image_height 
-        if num_bytes != image_size:
-            bd_logger("Image size and image dimensions don't match! Aborting!")
-            return
+        num_bytes = image_width * image_height  # values for checking correct image data size 
+        num_bytes_stride = image_height * image_stride
+        
+        if bpp == 8:
+            PALETTE_SIZE = 1024
+        elif bpp == 4:
+            PALETTE_SIZE = 64
+        elif bpp == 32:
+            PALETTE_SIZE = 0
+            num_bytes *= 4
+        
+        
+        image_size = chunk_size - PALETTE_SIZE - HEADER_SIZE - CHUNK_HEADER_SIZE
+        
+        if (num_bytes != image_size and num_bytes_stride != image_size):
+            log_msg = "Image size and image dimensions don't match for texture \"" + str(texture_name) + "\"! Aborting!"
+            bd_logger(log_msg)
+            raise Exception(log_msg)
         
         image_data = txd_file.read(image_size)
-        palette_data = txd_file.read(PALETTE_SIZE)
         
         
-        #out_file_path += "_" + str(image_width) + "x" + str(image_height)  # only for debug!
-        print(out_file_path)
+        # read palette
+        palette_data = b''
+        for i in range( int(PALETTE_SIZE / 4) ):
+            pal_entry1 = txd_file.read(1)
+            pal_entry2 = txd_file.read(1)
+            pal_entry3 = txd_file.read(1)
+            pal_entry4 = txd_file.read(1)
+            palette_data += pal_entry3 + pal_entry2 + pal_entry1 + pal_entry4 # RGBA swap        
+
+        #print(out_file_path)
         
         out_file = open(out_file_path, "wb+")
-        #out_file.write(image_data)
-        #out_file.write(palette_data)
-        
         bmp_object = BMP_IMG(image_width, image_height, bpp, image_data, palette_data)
         bmp_file_data = bmp_object.get_bmp_file_data()  
         out_file.write(bmp_file_data)
@@ -235,7 +253,7 @@ def main():
     Main function of this program. If you are planning to use it,
     you should adjust paths first.
     '''   
-    main_switch = 3
+    main_switch = 2
     # 1 - data export, one TXD file
     # 2 - data export, all TXD files to separate directories
     # 3 - data export, all TXD files to one directory
@@ -254,7 +272,7 @@ def main():
                 if file.endswith('.txd'):
                     file_path = str(os.path.join(root, file))
                     out_path = file_path + "_OUT\\"
-                    print(file_path)
+                    print("Processing " + file_path)
                     export_data(file_path, out_path)
                     
     elif main_switch == 3:
