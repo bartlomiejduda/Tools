@@ -11,6 +11,7 @@ License: GPL-3.0 License
 
 # Ver    Date        Author               Comment
 # v0.1   13.03.2021  Bartlomiej Duda      -
+# v0.2   13.03.2021  Bartlomiej Duda      Fixed bug with japaneese file path
 
 import os
 import sys
@@ -41,11 +42,14 @@ def export_data(in_file_path, out_folder_path):
     
     for i in range(num_of_entries):
         path_len = struct.unpack("<L", pac_file.read(4))[0]
-        file_path = pac_file.read(path_len).decode("utf8").rstrip("\x00")
+        curr_offset = pac_file.tell()
+        file_path = pac_file.read(path_len).decode("shift-jis").rstrip("\x00")
         pac_file.read(8) # nulls 
         file_offset = struct.unpack("<L", pac_file.read(4))[0]
         comp_file_size = struct.unpack("<L", pac_file.read(4))[0]
         uncomp_file_size = struct.unpack("<L", pac_file.read(4))[0]
+        
+        
         
 
         out_path = out_folder_path + file_path
@@ -85,8 +89,8 @@ def main():
     
 
     if main_switch == 1:
-        p_in_file_path = "C:\\Users\\Arek\\Desktop\\SpeSystem.pac"
-        p_out_folder_path = "C:\\Users\\Arek\\Desktop\\SpeSystem.pac_OUT\\"
+        p_in_file_path = "C:\\Users\\Arek\\Desktop\\RS4th.pac"
+        p_out_folder_path = "C:\\Users\\Arek\\Desktop\\RS4th.pac_OUT\\"
         export_data(p_in_file_path, p_out_folder_path)
         
     else:
