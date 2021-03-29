@@ -32,8 +32,8 @@ def export_data(in_file_path, out_folder_path):
     '''    
     bd_logger("Starting export_data...")  
     
-    if not os.path.exists(out_folder_path):
-        os.makedirs(out_folder_path)      
+    if not os.path.exists(os.path.dirname(out_folder_path)):  
+        os.makedirs(os.path.dirname(out_folder_path))     
     
     bin_file = open(in_file_path, 'rb')
     
