@@ -1,0 +1,11 @@
+# Author: Bartlomiej Duda
+# Creation Date: 31.03.2021
+
+comtype lzma 
+get ZSIZE asize
+set SIZE long 0
+math SIZE = ZSIZE  
+
+get NAME basename
+string NAME + ".NEW"
+clog NAME 0 ZSIZE SIZE
