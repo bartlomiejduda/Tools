@@ -10,6 +10,7 @@ License: GPL-3.0 License
 # Ver    Date        Author               Comment
 # v0.1   27.01.2021  Bartlomiej Duda      -
 # v0.2   13.02.2021  Bartlomiej Duda      Added padding calculation functions
+# v0.3   12.05.2021  Bartlomiej Duda      BMP enhancements + bytes/bits conversions functions
 
 
 
@@ -33,6 +34,14 @@ def xore(data, key):
 
 
 
+def byte_to_bits(in_byte):
+    byte_int = struct.unpack("B", in_byte)[0]
+    bytes_str = bin(byte_int)[2:].rjust(8, '0')
+    return bytes_str
+
+def bits_to_byte(in_bits):
+    out_byte = int(in_bits, 2).to_bytes(1, 'little')
+    return out_byte
 
 
 
@@ -296,12 +305,14 @@ class BMP_IMG:
         def __init__(self, in_width, in_height, in_bpp):
             self.info_header_size = 40
             self.num_of_planes = 1
-            self.comp_type = 0
+            self.comp_type = 0   # "0" - no compression
+                                 # "1" - BI_RLE8, 8bit RLE encoding
+                                 # "2" - BI_RLE4, 4bit RLE encoding
             self.comp_im_size = 0
             self.pref_hor_res = 0
             self.pref_vert_res = 0
-            self.num_of_used_colors = 0
-            self.num_of_imp_colors = 0
+            self.num_of_used_colors = 0   # "0" for default 2^n
+            self.num_of_imp_colors = 0    # "0" means that all colors are important
             
             self.im_width = in_width
             self.im_height = in_height 
@@ -407,7 +418,24 @@ bmp_data += ssh_file.read(diff)
 
 
 
+# RLE decoding (RLEB, flag type) for Jack Orlando
+bmp_data = b''
+while 1:
+    curr_pos = pbm_file.tell()
+    if curr_pos >= pbm_size:
+        break
+        
+    color = struct.unpack("B", pbm_file.read(1))[0]
+    repeat = 1
 
+    if color & 1:
+        repeat = struct.unpack("B", pbm_file.read(1))[0]
+        
+    color = color >> 1
+    
+    for j in range(repeat):
+        p_byte = (palette_data[color]).to_bytes(1, byteorder='little')
+        bmp_data += p_byte
 
 
 
