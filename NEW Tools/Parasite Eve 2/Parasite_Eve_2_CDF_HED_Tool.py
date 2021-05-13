@@ -12,6 +12,7 @@ License: GPL-3.0 License
 # Ver    Date        Author               Comment
 # v0.1   07.05.2021  Bartlomiej Duda      -
 # v0.2   08.05.2021  Bartlomiej Duda      Export function for STAGE0 completed
+# v0.3   13.05.2021  Bartlomiej Duda      Added initial STAGE1-STAGE3 logic
 
 import os
 import sys
@@ -58,7 +59,7 @@ block_names_mapping = {
                          5: "Room backgrounds",  
                          6: "SPK/MPK music program",  
                          7: "ASCII text", 
-                         96: "Sounds", 
+                         #96: "Sounds", 
                       }
 
 file_ext_mapping = {
@@ -69,7 +70,7 @@ file_ext_mapping = {
                       5: ".bs",
                       6: ".spk",
                       7: ".txt",
-                      96: ".pe2snd"
+                      #96: ".pe2snd"
                    }
 
 
@@ -77,7 +78,7 @@ def get_block_name(in_block_type):
     return block_names_mapping.get(in_block_type, "Unknown_Block_Name")
 
 def get_file_ext(in_block_type):
-    return file_ext_mapping.get(in_block_type, "Unknown_File_Ext")
+    return file_ext_mapping.get(in_block_type, ".BIN")
 
 
 def export_data(in_hed_file_path, in_cdf_file_path, out_folder_path):
@@ -163,70 +164,97 @@ def export_data(in_hed_file_path, in_cdf_file_path, out_folder_path):
     else:
         global_toc = read_toc(cdf_file)
         num_of_glob_toc_entries = len(global_toc)
-        f_size_list = []
+        glob_offset_list = []
         
-        cdf_file.seek(2048) # go to first local TOC
+        glob_offset = 2048
+        cdf_file.seek(glob_offset) # go to first local TOC
 
-        for i in range(num_of_glob_toc_entries):
-            f_r_size = global_toc[i]   
-            #print("GLOB f_r_size: " + str(f_r_size).ljust(10) )  
+        glob_offset_list.append(glob_offset)
+        for glob_i in range(num_of_glob_toc_entries-1): # loop for calculating global offsets
+            glob_offset += global_toc[glob_i]
+            glob_offset_list.append(glob_offset)
             
-            f_data = cdf_file.read(f_r_size)
-            f_name = "file" + str(i+1) + ".bin"
-            f_path = out_folder_path + f_name
-            print(f_path)
+        for glob_j in range(num_of_glob_toc_entries): # FOLDER LOOP
+            fold_offset = glob_offset_list[glob_j]
+            fold_size = global_toc[glob_j]
+            fold_end_offset = fold_offset + fold_size
+            print("FOLDER " + str(glob_j+1) + ", off: " + str(fold_offset) + " size: " + str(fold_size) )
+        
             
-            out_file = open(f_path, "wb+")
-            out_file.write(f_data)
-            out_file.close()
-        
-        
-        
-        #loc_end_offset = 2048
-        #for g_num in range(num_of_glob_toc_entries):
-            #loc_start_offset = cdf_file.tell()
+            cdf_file.seek(fold_offset) # go to first local TOC in folder
             
-            #loc_end_offset += global_toc[g_num]
+            local_toc = read_toc(cdf_file)
+            num_of_loc_toc_entries = len(local_toc)
+            
+            
+            loc_offset_list = []
+            for loc_i in range(num_of_loc_toc_entries): # loop for calculating local offsets
+                file_offset = fold_offset + local_toc[loc_i]
+                loc_offset_list.append(file_offset)
 
-            #local_toc = read_toc(cdf_file)
-            #num_of_loc_toc_entries = len(local_toc)
-            #fold_name = "folder" + str(g_num + 1)
-
-            #cdf_file.seek(loc_start_offset + 2048) # skip local TOC 
+            loc_offset_list.append(fold_end_offset)
             
-            #f_count = 0
-            #while 1:
-                #f_count += 1
-                #back_offset = cdf_file.tell()
-                #b_type = struct.unpack("<B", cdf_file.read(1))[0] 
-                #comp_flag = struct.unpack("<B", cdf_file.read(1))[0] 
-                #cdf_file.read(2)
-                #if b_type == 96:
-                    #f_size = 2048 
-                    #cdf_file.seek(back_offset)
-                #else:
-                    #f_size = struct.unpack("<L", cdf_file.read(4))[0] * 2048 - 16
-                    #cdf_file.read(8) # skip second part of the header
-                #f_ext = get_file_ext(b_type)
-                #f_name = "file" + str(f_count) + f_ext
-                #f_path = out_folder_path + fold_name + "\\" + f_name
-                ##print(f_path)
+            loc_size_list =[]
+            for loc_j in range(num_of_loc_toc_entries): # loop for calculating local sizes
+                loc_size = loc_offset_list[loc_j+1] - loc_offset_list[loc_j] 
+                loc_size_list.append(loc_size)
+              
+                
+            for loc_k in range(num_of_loc_toc_entries):
+                subfold_start = loc_offset_list[loc_k]
+                subfold_size = loc_size_list[loc_k]
+                subfold_end = subfold_start + subfold_size
+                print("\t SUB_FOLD " + str(loc_k+1) + ", off: " + str(subfold_start) + " size: " + str(subfold_size) )
                 
                 
-                #temp_off2 = cdf_file.tell()             
-                #f_data = cdf_file.read(f_size)
-                #curr_offset = cdf_file.tell()
+                cdf_file.seek(subfold_start) # go to first file in subfolder
                 
-                #print ( "f_name: " + str(f_name).ljust(15) +
-                        #" data_start: " + str(temp_off2).ljust(10) +
-                        #" data_end: " + str(curr_offset).ljust(10)
-                        #)
+                f_count = 0
+                f_sum = 0
+                while 1:
+                    f_count += 1
+                    back_offset = cdf_file.tell()
+                    file_type = struct.unpack("B", cdf_file.read(1))[0]
+                    comp_flag = struct.unpack("B", cdf_file.read(1))[0]
+                    cdf_file.read(2) # unknown 
+                    file_ext = get_file_ext(file_type)
+                    file_desc = get_block_name(file_type)
+                    file_name = "fold" + str(glob_j) + "_sub" + str(loc_k+1) + "_file" + str(f_count) + file_ext
+                    file_path = out_folder_path + file_name
+                    if file_type < 10:
+                        file_size = struct.unpack("<L", cdf_file.read(4))[0] * 2048
+                    else:
+                        file_size = subfold_end - back_offset
+                        
+                    print("\t\t FILE " + str(f_count) + ", f_type: " + str(file_type) + " f_size: " + str(file_size) + " f_name: " + str(file_name) )
+                    
+                    #if file_type >= 10:
+                        #print ("\t\t !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!")
+                    f_sum += file_size
+                    
+                    if file_type < 10:
+                        cdf_file.seek(back_offset + 16)
+                        file_data = cdf_file.read(file_size - 16)
+                    else:
+                        cdf_file.seek(back_offset)
+                        file_data = cdf_file.read(file_size)                        
+                    #print("\t\t" + file_path)
+                    
+                    out_file = open(file_path, "wb+")
+                    out_file.write(file_data)
+                    out_file.close()
+                    
+                    
+                    
+                    
+                    
+                    cdf_file.seek(back_offset + file_size) # go to the next file in subfolder
+                    
+                    if cdf_file.tell() >= subfold_end:
+                        break
+                    
+                #print("\t\ttotal_f_sizes_in_subfolder: " + str(f_sum))
 
-                #if curr_offset >= loc_end_offset:
-                    #print("loc_end_off: " + str(loc_end_offset) )
-                    #print("BREAK!")
-                    #break
-            
 
 
    
