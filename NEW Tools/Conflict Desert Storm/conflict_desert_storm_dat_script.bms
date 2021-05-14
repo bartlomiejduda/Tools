@@ -1,0 +1,43 @@
+# Script by Bartlomiej Duda (Ikskoks)
+# Conflict: Desert Storm .DAT files
+
+set count long 0
+For
+	math count += 1
+	
+	get F_HASH long 
+	get F_OFFSET long 
+	get F_SIZE long 
+
+	if F_HASH == 0 and F_OFFSET == 0 and F_SIZE == 0
+		break
+	EndIf
+	
+	SavePos BACK_OFFSET
+	
+	goto F_OFFSET
+	get SIGN long
+	
+	
+	set F_OUT_NAME string "file"
+	string F_OUT_NAME += count + 1
+	
+	if SIGN == 1196314761
+		string F_OUT_NAME += ".png"
+	elif SIGN == 542327876
+		string F_OUT_NAME += ".dds"
+	elif SIGN == 1245859653
+		string F_OUT_NAME += ".obj"
+	elif SIGN == 2
+		string F_OUT_NAME += ".02"
+	else
+		string F_OUT_NAME += ".txt"
+	endif
+	
+	#print %F_OUT_NAME%
+	#print "Hash: %F_HASH%, Offset: %F_OFFSET%, Size: %F_SIZE%"
+	
+	log F_OUT_NAME F_OFFSET F_SIZE
+	
+	goto BACK_OFFSET
+Next 

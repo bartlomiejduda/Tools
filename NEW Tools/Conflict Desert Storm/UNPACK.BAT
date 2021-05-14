@@ -1,0 +1,2 @@
+quickbms.exe conflict_desert_storm_dat_script.bms mission1.dat out
+pause
