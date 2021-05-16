@@ -1,31 +1,29 @@
 # -*- coding: utf-8 -*-
 
 
-#This tool was made by Ikskoks for Xentax community.
-#Please don't copy this tool to other forums and sites.
 
-#If you like my tool, please consider visit my fanpage https://www.facebook.com/ikskoks/ and site http://ikskoks.pl/
+# Program tested on Python 3.7.0
+# It should be used with Asterix: The Gallic War (PS1)
 
-#edited by NoTeefy for rubi :* (code is ugly as shit but it works...)
+# Ver    Date        Author               Comment
+# v0.1   ??.??.????  Bartlomiej Duda      Initial version
+# v0.2   ??.??.????  NoTeefy              Added text export/import and DAT import
+# v0.3   16.05.2021  Bartlomiej Duda      Refactoring
 
 
 import argparse
 import os
-import sys
-import time
 import struct
-import binascii
-import re
-import io
-import glob
-import codecs
-import shutil
-from tempfile import mkstemp
-from shutil import move
-from os import remove, close
 
 
 def unpack_DAT(dat_path, output_folder):
+    
+    if not os.path.exists(os.path.dirname(dat_path)):  
+        os.makedirs(os.path.dirname(dat_path))   
+        
+    if not os.path.exists(os.path.dirname(output_folder)):  
+        os.makedirs(os.path.dirname(output_folder))      
+
     fileSanitized = dat_path+'\\ASTERIX.DAT'
     file = open(fileSanitized, 'rb')
     (DAT_path, DAT_name) = os.path.split(dat_path)
@@ -42,6 +40,7 @@ def unpack_DAT(dat_path, output_folder):
         VAG_file = open(VAG_path, 'wb+')
         VAG_file.write(file_data)
         VAG_file.close()
+    print("DAT export complete...")
 
 def pack_DAT(output_folder, dat_path):
     fileSanitized = dat_path+'\\ASTERIX.DAT'
@@ -64,8 +63,16 @@ def pack_DAT(output_folder, dat_path):
         outputFile.write(curChunkData)
         curChunkFile.close()
     outputFile.close()
+    print("DAT import complete...")
 
 def unpackTXT(vag_dir, output_dir):
+    
+    if not os.path.exists(os.path.dirname(vag_dir)):  
+        os.makedirs(os.path.dirname(vag_dir))   
+        
+    if not os.path.exists(os.path.dirname(output_dir)):  
+        os.makedirs(os.path.dirname(output_dir))      
+    
     print ('  » exporting options.txt from\n   ' + output_dir + '\\File3258.VAG\n  » into\n   ' + vag_dir + '\\options.txt')
     outputFile = open(vag_dir+'\\options.txt', 'wb+')
     chunkFile = open(output_dir+'\\File3258.VAG', 'rb')
@@ -79,12 +86,10 @@ def unpackTXT(vag_dir, output_dir):
     outputData = b''
     while True:
         chunkData = chunkFile.read(1) #read 8 bytes
-        #print('chunkData equals: ' + chunkData.hex()) #debugging stuff
         if chunkData == b'\0' * 1: #skip of the last chunkData and break
             break #break out of while loop
         outputData += lastChunk
         currentNumBytes += 1
-        #print('currently at: ' + str(currentNumBytes) + ' of allowed ' + str(chunkMaxSize))
         lastChunk = chunkData
         if currentNumBytes >= chunkMaxSize:
             break #break out of while loop
@@ -92,6 +97,7 @@ def unpackTXT(vag_dir, output_dir):
     outputLen = len(outputData)
     outputFile.write(outputData[0:outputLen-4])#get rid of ending
     outputFile.close()
+    print("TEXT export complete...")
 
 def packTXT(chunk_dir, txt_dir):
     print ('  » importing options.txt from\n   ' + txt_dir + '\\options.txt\n  » into\n   ' + chunk_dir + '\\File3258.VAG')
@@ -120,10 +126,16 @@ def packTXT(chunk_dir, txt_dir):
     chunkFile.write(chunkFileDataToWrite)
     chunkFile.close()
     txtFile.close()
+    print("TEXT import complete...")
+
+
+
 
 #CHANGE TO YOUR OWN PATHS       
-dat_path = 'C:\\Users\\Admin\\Documents\\Trad Asterix Gallic War\\FILES PSX' #path that leads to the extracted files from the image/disc
-out_path = 'C:\\Users\\Admin\\Documents\\Trad Asterix Gallic War\\FILES PSX\\OUT' #output path for the extracted VAGs (just create an OUT folder in the directory that you provided above)
+dat_path = 'C:\\Users\\Arek\\Desktop\\ASTERIX_OUT\\' #path that leads to the extracted files from the image/disc
+out_path = 'C:\\Users\\Arek\\Desktop\\ASTERIX_OUT\\VAG_OUT\\' #output path for the extracted VAGs (just create an OUT folder in the directory that you provided above)
+
+
 
 # uncomment whatever you need (packing/unpacking) and make sure your paths are correct!
 #DAT UNPACK
@@ -132,11 +144,11 @@ out_path = 'C:\\Users\\Admin\\Documents\\Trad Asterix Gallic War\\FILES PSX\\OUT
 #
 #DAT REPACK
 #
-pack_DAT(out_path, dat_path)
+#pack_DAT(out_path, dat_path)
 #
 #TXT(options.txt) UNPACK
 #
-#unpackTXT(dat_path, out_path)
+unpackTXT(dat_path, out_path)
 #
 #TXT (options.txt) REPACK
 #
