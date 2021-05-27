@@ -5,7 +5,7 @@
 
 // This product includes software developed by Seth A. Robinson ( www.rtsoft.com )
 
-// Dink Smallwood Text Tool
+// Dink Smallwood HD Text Tool
 // Copyright © 2021  Bart³omiej Duda
 // License: GPL-3.0 License 
 
@@ -112,7 +112,7 @@ int main( int argc, char * argv[] )
 	{
 		cout << "Dink Smallwood HD Text Tool" << endl;
 		cout << "Usage:" << endl;
-		cout << "Decompress --> tool.exe input.d output.txt" << endl;
+		cout << "Decompress --> tool.exe input.d output.c" << endl;
 	}
 	else
 	{

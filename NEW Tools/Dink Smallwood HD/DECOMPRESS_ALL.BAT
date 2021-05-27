@@ -19,7 +19,7 @@ echo %%f
 set out_path=%%f
 set out_path2=!out_path:~5!
 set out_path3=.\OUT\!out_path2!
-set out_path4=!out_path3:~0,-2!.txt
+set out_path4=!out_path3:~0,-2!.c
 echo !out_path4!
 
 ".\dink_smallwood_hd_text_tool.exe" "%%f" !out_path4!
