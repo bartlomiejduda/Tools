@@ -81,6 +81,8 @@ def import_text(in_file_path, out_file_path):
         out_file.write(bl_len)
         out_file.write(b_str)
     
+    in_file.close()
+    out_file.close()
     bd_logger("Ending import_text...")  
     
     
