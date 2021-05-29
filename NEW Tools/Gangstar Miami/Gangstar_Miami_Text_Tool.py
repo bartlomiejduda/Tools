@@ -11,6 +11,7 @@ License: GPL-3.0 License
 
 # Ver    Date        Author               Comment
 # v0.1   28.05.2021  Bartlomiej Duda      -
+# v0.2   29.05.2021  Bartlomiej Duda      Fix for import
 
 import os
 import sys
@@ -36,7 +37,7 @@ def export_text(in_file_path, out_file_path):
         os.makedirs(os.path.dirname(out_file_path))     
     
     in_file = open(in_file_path, 'rb')
-    out_file = open(out_file_path, 'wt+')
+    out_file = open(out_file_path, 'wt+', encoding="utf8")
     
     num_of_lines = struct.unpack("<H", in_file.read(2))[0]
     
@@ -59,15 +60,14 @@ def import_text(in_file_path, out_file_path):
     if not os.path.exists(os.path.dirname(out_file_path)):  
         os.makedirs(os.path.dirname(out_file_path))     
     
-    in_file = open(in_file_path, 'rt')
+    in_file = open(in_file_path, 'rt', encoding="utf8")
     out_file = open(out_file_path, 'wb+')   
     
     line_list = []
     line_count = 0
     for line in in_file:
         line_count += 1
-        line_list.append( line.rstrip("\n") )
-        
+        line_list.append( line.rstrip("\n") )      
      
     num_of_lines = struct.pack("<H", line_count)   
     out_file.write(num_of_lines)
@@ -76,7 +76,7 @@ def import_text(in_file_path, out_file_path):
         
         b_str = new_line.replace("\\n", "\n").replace("\\r", "\r").encode("utf8")
         l_len = len(b_str)
-        bl_len = struct.pack("<H", l_len)        
+        bl_len = struct.pack("<H", l_len)   
         
         out_file.write(bl_len)
         out_file.write(b_str)
