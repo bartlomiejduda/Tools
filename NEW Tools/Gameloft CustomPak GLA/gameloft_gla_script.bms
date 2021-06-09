@@ -5,6 +5,10 @@
 # Please note that data can be encrypted
 
 
+# Ver    Date        Author               Comment
+# v0.1   09.06.2021  Bartlomiej Duda      -
+
+
 endian big
 
 # read header
@@ -24,7 +28,7 @@ for i = 0 < NUM_OF_FILES
 	get F_OFFSET long 
 	get F_SIZE long
 	get FILENAME_OFFSET long 
-	get F_ATTRIBUTES long 
+	get F_ENCRYPTION_FLAG long 
 	
 	
 	#print "f_offset: %F_OFFSET%, f_size: %F_SIZE%"
@@ -36,7 +40,13 @@ for i = 0 < NUM_OF_FILES
 	goto F_OFFSET
 	set F_OUT_NAME string "file"
 	string F_OUT_NAME += count + 1
-	string F_OUT_NAME += ".BIN"
+	
+	if F_ENCRYPTION_FLAG == 1
+		string F_OUT_NAME += "_encrypted.BIN"
+	else
+		string F_OUT_NAME += ".BIN"
+	endif
+	
 	log F_OUT_NAME F_OFFSET F_SIZE
 	
 	goto BACK_OFFSET
