@@ -1,0 +1,63 @@
+# Script by Bartlomiej Duda (Ikskoks)
+# Gaelic Games Football 2 (PS2) 
+# RenderWare DAT archives
+
+# Tested on "DAY_DRY.DAT" archive
+
+
+# Ver    Date        Author               Comment
+# v0.1   14.06.2021  Bartlomiej Duda      -
+
+
+
+# read header
+idstring "\x95\x97\x9E\x91"
+get UNK1 long   # 6
+get UNK2 long   # 0
+get UNK3 long   # 1
+get INFO_ARRAY_OFFSET long
+
+
+comtype zlib_noerror
+set count long 0
+goto INFO_ARRAY_OFFSET
+get NUM_OF_ENTRIES long
+get ARCHIVE_SIZE asize
+
+For i < NUM_OF_ENTRIES
+	math count += 1
+	
+	# get file info
+	get FILENAME_LENGTH long 
+	GetDString F_NAME FILENAME_LENGTH
+	get F_OFFSET long 
+	get F_UNK1 long 
+	get F_UNK2 long  # 1
+	get F_UNK3 long
+	
+	
+	# get file data
+	SavePos BACK_OFFSET
+	goto F_OFFSET
+	get F_COMP_SIZE long
+	
+	
+	# set output name
+	set F_OUT_NAME string F_NAME
+	
+	
+	# save data
+	math F_OFFSET + 4
+	clog F_OUT_NAME F_OFFSET F_COMP_SIZE F_COMP_SIZE
+	
+	goto BACK_OFFSET
+	
+	#print "f_offset: %F_OFFSET%, f_size: %F_SIZE%"
+	
+	if BACK_OFFSET = ARCHIVE_SIZE
+		break
+	endif
+	
+
+Next i
+
