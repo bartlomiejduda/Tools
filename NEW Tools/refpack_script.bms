@@ -10,5 +10,5 @@ if SIZE <= 0
 endif
 
 get NAME basename
-string NAME + ".TIM"
+string NAME + ".decompressed"
 clog NAME 0 ZSIZE SIZE
