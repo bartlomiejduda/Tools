@@ -1,7 +1,7 @@
 # Author: Bartlomiej Duda
-# Creation Date: 29.12.2020
+# Creation Date: 14.07.2021
 
-comtype dk2
+comtype gzip
 get ZSIZE asize
 set SIZE long 0
 
