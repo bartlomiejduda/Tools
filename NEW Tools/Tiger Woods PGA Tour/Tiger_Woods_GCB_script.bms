@@ -1,0 +1,39 @@
+# Script by Bartlomiej Duda (Ikskoks)
+# Tiger Woods PGA Tour 07 (WII) (*.GCB)
+
+# Tested on "fend.gcb" archive
+
+
+# Ver    Date        Author               Comment
+# v0.1   17.07.2021  Bartlomiej Duda      -
+
+
+
+# read header
+idstring "CTRL"
+get HEADER_SIZE long
+endian big
+set count long 0
+comtype zlib_noerror
+
+
+
+for i = 0
+	math count += 1
+	
+	findloc ZDAT_CHUNK_OFFSET string "Zdat"
+	goto ZDAT_CHUNK_OFFSET
+	get CHUNK_SIGN long
+	get FILE_SIZE long
+	math FILE_SIZE - 8
+	SavePos FILE_OFFSET
+	
+	set F_OUT_NAME string "file"
+	string F_OUT_NAME += count
+	string F_OUT_NAME += ".bin"
+	
+	clog F_OUT_NAME FILE_OFFSET FILE_SIZE FILE_SIZE
+
+next i
+
+
