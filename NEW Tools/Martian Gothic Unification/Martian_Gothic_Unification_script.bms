@@ -1,0 +1,41 @@
+# Script by Bartlomiej Duda (Ikskoks)
+# Martian Gothic Unification PS1 (DAT file)
+
+# Tested on "UNI3.DAT" archive
+
+
+# Ver    Date        Author               Comment
+# v0.1   21.07.2021  Bartlomiej Duda      -
+
+
+
+
+set count long 0
+
+
+for i = 0 < 1212
+	math count += 1
+	
+	get F_OFFSET long 
+	get F_SIZE long 
+	SavePos BACK_OFFSET
+	
+	
+	goto F_OFFSET 
+	GetDString SIGN 4
+
+	if SIGN == "GT20"
+	   set F_EXT string ".gt20"
+	else
+	   set F_EXT string ".bin"
+	endif
+	
+	set F_OUT_NAME string "file"
+	string F_OUT_NAME += count
+	string F_OUT_NAME += F_EXT
+	
+	log F_OUT_NAME F_OFFSET F_SIZE
+	
+	goto BACK_OFFSET
+	
+next i

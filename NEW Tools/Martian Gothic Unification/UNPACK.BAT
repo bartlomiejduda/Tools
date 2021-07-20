@@ -1,0 +1,2 @@
+quickbms.exe Martian_Gothic_Unification_script.bms UNI3.DAT out1
+pause
