@@ -1,0 +1,53 @@
+# Script by Bartlomiej Duda (Ikskoks)
+# Unity3d (UnityFS) files
+
+
+# Ver    Date        Author               Comment
+# v0.1   25.07.2021  Bartlomiej Duda      -
+
+
+
+
+endian big
+set count long 0
+comtype lz4 
+
+idstring "UnityFS\x00"
+get VERSION long  # 6
+GetDString MIN_PLAYER_VERSION 6   # 5.x.x.
+GetDString FILE_ENGINE_VERSION 12 # 2018.4.24f1.
+get ARCH_SIZE longlong
+get COMP_BLOCKS_INFO_SIZE long 
+get UNCOMP_BLOCKS_INFO_SIZE long 
+get FLAGS long
+
+SavePos CURR_OFFSET
+
+set F_OFFSET long 0
+xmath F_OFFSET "CURR_OFFSET + COMP_BLOCKS_INFO_SIZE"
+
+
+log MEMORY_FILE 0 0           
+append
+
+clog MEMORY_FILE CURR_OFFSET COMP_BLOCKS_INFO_SIZE UNCOMP_BLOCKS_INFO_SIZE
+
+goto 0 MEMORY_FILE  
+GetDString HASH 16 MEMORY_FILE
+get NUM_OF_FILES long MEMORY_FILE
+
+for i = 0 < NUM_OF_FILES
+ 	math count += 1
+	get F_UNCOMP_SIZE long MEMORY_FILE
+	get F_COMP_SIZE long MEMORY_FILE
+	get F_FLAGS short MEMORY_FILE
+	
+	set F_OUT_NAME string "file"
+    string F_OUT_NAME += count
+    string F_OUT_NAME += ".bin"
+	
+	clog F_OUT_NAME F_OFFSET F_COMP_SIZE F_UNCOMP_SIZE
+	xmath F_OFFSET "F_OFFSET + F_COMP_SIZE"
+	
+next i
+
