@@ -1,0 +1,49 @@
+# Script by Bartlomiej Duda (Ikskoks)
+# Insane 1nsane IDF script
+
+
+# Ver    Date        Author               Comment
+# v0.1   25.09.2021  Bartlomiej Duda      -
+
+
+
+# get header 
+idstring "FFFL"
+get VERSION long  # 12
+get TOC_TYPE long
+get TOC_OFFSET long
+XMATH TOC_OFFSET "TOC_OFFSET ^ 0x123"
+get TOC_XOR_KEY long
+XMATH TOC_XOR_KEY "0x27 + (TOC_XOR_KEY & 0xFF)"
+
+
+# get TOC
+goto TOC_OFFSET
+get NUM_OF_FILES long
+
+set TOC_ENTRY_LENGTH 64
+XMATH TOC_LENGTH "NUM_OF_FILES * TOC_ENTRY_LENGTH"
+
+log MEMORY_FILE 0 0           
+append
+
+for i = 0 < TOC_LENGTH
+	# decrypting TOC
+	get NEW_BYTE byte
+	XMATH NEW_BYTE "NEW_BYTE ^ TOC_XOR_KEY"
+	XMATH TOC_XOR_KEY "(NEW_BYTE + i + (TOC_XOR_KEY * 5)) & 0xFF" 
+	PutVarChr MEMORY_FILE i NEW_BYTE
+next i
+
+
+for j = 0 < NUM_OF_FILES
+	# get info from TOC
+	GetDString F_NAME 52 MEMORY_FILE
+	get UNK1 long MEMORY_FILE
+	get F_OFFSET long MEMORY_FILE
+	get F_SIZE long MEMORY_FILE
+	
+	# save data
+	log F_NAME F_OFFSET F_SIZE
+next j
+
