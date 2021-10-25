@@ -1,0 +1,14 @@
+# Script by Bartlomiej Duda (Ikskoks)
+# Game of Nightmares script
+
+
+# Ver    Date        Author               Comment
+# v0.1   25.10.2021  Bartlomiej Duda      -
+
+
+get F_SIZE asize
+encryption xor "\x0B"
+get F_NAME basename
+string F_NAME += ".unity3d"
+log F_NAME 0 F_SIZE
+

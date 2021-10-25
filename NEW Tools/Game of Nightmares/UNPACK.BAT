@@ -1,0 +1,2 @@
+quickbms.exe Game_of_Nightmares_script.bms nw_0003 out1
+pause
