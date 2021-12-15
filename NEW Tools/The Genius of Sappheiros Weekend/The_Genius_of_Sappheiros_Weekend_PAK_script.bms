@@ -1,0 +1,317 @@
+# Script by Bartlomiej Duda (Ikskoks)
+# The Genius of Sappheiros v3.00 Weekend PAK script
+
+
+# Ver    Date        Author               Comment
+# v0.1   16.11.2021  Bartlomiej Duda      -
+# v0.2   28.11.2021  Bartlomiej Duda      Add MAKE_KEY_ARRAY function
+# v0.3   04.12.2021  Bartlomiej Duda      Add GENERATE_KEY function
+# v0.4   05.12.2021  Bartlomiej Duda      Add main TOC decrypting loop
+# v0.5   06.12.2021  Bartlomiej Duda      Fix for TOC decryption
+# v0.6   15.12.2021  Bartlomiej Duda      Add some logic for TOC parsing
+
+
+
+# Legend:
+# MEMORY_FILE - encrypted TOC
+# MEMORY_FILE2 - KEY ARRAY (used to calculate the key)
+# MEMORY_FILE3 - decrypted TOC
+
+# get archive size
+get ARCH_SIZE asize
+
+# get TOC length
+get TOC_LENGTH long 
+# log MEMORY_FILE 0 0           
+# append
+
+# get TOC data
+for i = 0 < TOC_LENGTH
+	get NEW_TOC_BYTE byte
+	PutVarChr MEMORY_FILE i NEW_TOC_BYTE
+next i
+
+# initialize array for decrypting TOC
+callfunction MAKE_KEY_ARRAY
+
+
+# main TOC decrypting loop
+SET GEN_KEY_CHECK LONG 1
+SET current_key_index LONG 0
+SET TOC_current_offset LONG 0
+SET GEN_KEY_func_counter LONG 0
+For i = 0 < TOC_LENGTH
+	XMATH GEN_KEY_CHECK "GEN_KEY_CHECK - 1"
+	IF GEN_KEY_CHECK == 0
+	
+		XMATH GEN_KEY_func_counter "GEN_KEY_func_counter + 1"
+		print "{yellow}[%GEN_KEY_func_counter%]: Starting GENERATE_KEY... Please wait.{/yellow}"
+	
+		callfunction GENERATE_KEY
+		SET GEN_KEY_CHECK LONG 624
+		SET current_key_index LONG 0
+	ENDIF
+	
+	
+	XMATH key_offset "(current_key_index+1) * 4" 
+    GetVarChr KEY_ARR_VALUE MEMORY_FILE2 key_offset LONG
+	
+	SET V6 LONG KEY_ARR_VALUE
+	
+	XMATH current_key_index "current_key_index + 1"
+	
+	SET V7 LONG 0
+	XMATH V7 "((((V6 >> 11) ^ V6) & 0xFF3A58AD) << 7) ^ (V6 >> 11) ^ V6"
+	
+	SET V5 LONG 0
+	XMATH V5 "((V7 & 0xFFFFDF8C) << 15) ^ V7"
+	
+	# get encrypted byte
+	GetVarChr CURR_ENCRYPTED_BYTE MEMORY_FILE TOC_current_offset BYTE
+	XMATH TOC_current_offset "TOC_current_offset + 1"
+	
+	SET V8 BYTE 0
+	XMATH V8 "(CURR_ENCRYPTED_BYTE ^ (V5 >> 18)) & 0xFF"
+	
+	SET DECRYPTED_BYTE BYTE 0
+	XMATH DECRYPTED_BYTE "(V5 ^ V8) & 0xFF"
+	
+	# log decrypted byte to memory file
+	PutVarChr MEMORY_FILE3 i DECRYPTED_BYTE
+	
+	# ## DEBUG PRINT
+	# print "{magenta}V6: %V6% / %V6|x%{/magenta}"
+	# print "{magenta}V7: %V7% / %V7|x%{/magenta}"
+	# print "{magenta}V5: %V5% / %V5|x%{/magenta}"
+	# print "{magenta}V8: %V8% / %V8|x%{/magenta}"
+	# print "{magenta}DECRYPTED_BYTE: %DECRYPTED_BYTE% / %DECRYPTED_BYTE|x%{/magenta}"
+	# ## END DEBUG PRINT
+	
+	# IF i > 1620
+	# 	break
+	# ENDIF
+
+Next i
+
+
+# DEBUG - log decrypted TOC
+log "ARCH_TOC.bin" 0 TOC_LENGTH -3
+
+
+# parse decrypted TOC 
+# codepage 932
+get CRC long -3
+set BASE_DATA_OFFSET LONG 0
+XMATH BASE_DATA_OFFSET "BASE_DATA_OFFSET + TOC_LENGTH"
+set REAL_FILE_OFFSET LONG 0
+set FILE_END_OFFSET LONG BASE_DATA_OFFSET
+
+
+For i = 0
+	set F_NUM LONG 0
+	XMATH F_NUM "i+1"
+	get F_NAME string -3
+	get F_SIZE long -3
+	get VAR2 long -3
+	get F_RELATIVE_OFFSET long -3
+	get VAR4 byte -3
+	get VAR5 long -3
+	XMATH REAL_FILE_OFFSET "BASE_DATA_OFFSET + F_RELATIVE_OFFSET"
+
+	
+	# set output filename (DEBUG ONLY)
+	set F_NAME string "file"
+    string F_NAME += F_NUM
+    string F_NAME += ".bin"
+	
+
+	print "[%F_NUM%] F_SIZE: %F_SIZE%, V2: %VAR2%, F_OFF: %F_RELATIVE_OFFSET%, V4: %VAR4%, F_R_OFF: %REAL_FILE_OFFSET%"
+	
+	# extract data (DEBUG ONLY)
+	log F_NAME REAL_FILE_OFFSET F_SIZE
+
+
+
+
+
+
+	XMATH FILE_END_OFFSET "FILE_END_OFFSET + F_SIZE"
+	# print "FILE_END_OFFSET: %FILE_END_OFFSET%, ARCH_SIZE: %ARCH_SIZE%"
+	IF FILE_END_OFFSET >= ARCH_SIZE
+		break
+	ENDIF
+	
+	
+Next i
+
+
+startfunction GENERATE_KEY
+	# print "{yellow}GENERATE_KEY START{/yellow}"
+	
+	XMATH key_offset "625 * 4"  # key_array[625]
+	PutVarChr MEMORY_FILE2 key_offset 624 LONG
+	
+	XMATH key_offset "626 * 4"  # key_array[626]
+	PutVarChr MEMORY_FILE2 key_offset -1 LONG  # TODO
+	
+	SET current_key_index LONG 0
+	For i = 0 < 227
+		XMATH key_offset "((current_key_index+1) * 4) + (397 * 4)" # ORIG_KEY_ARRAY + 1
+        GetVarChr key_arr_397 MEMORY_FILE2 key_offset LONG 
+		
+		XMATH key_offset "((current_key_index+1) * 4) + (1 * 4)" # ORIG_KEY_ARRAY + 1
+        GetVarChr key_arr_1 MEMORY_FILE2 key_offset LONG
+		
+		XMATH key_offset "(current_key_index+1) * 4" # ORIG_KEY_ARRAY + 1
+        GetVarChr key_arr_CURR MEMORY_FILE2 key_offset LONG
+
+		
+		SET part_result_1 LONG 0
+		XMATH part_result_1 "key_arr_1 & 1"
+		IF part_result_1 != 0
+			SET part_result_1 LONG 0x9908B0DF
+		ELSE
+			SET part_result_1 LONG 0
+		ENDIF
+		
+		## ## DEBUG PRINT
+		## print "{bright yellow}AAAAAA!!!!{/bright yellow}"
+		## print "{yellow}part_result_1: %part_result_1% / %part_result_1|x%{/yellow}"
+		## print "{yellow}key_arr_397: %key_arr_397% / %key_arr_397|x%{/yellow}"
+		## print "{yellow}key_arr_1: %key_arr_1% / %key_arr_1|x%{/yellow}"
+		## print "{yellow}key_arr_CURR: %key_arr_CURR% / %key_arr_CURR|x%{/yellow}"
+		## ## END DEBUG PRINT
+
+		SET NEW_KEY LONG 0
+		XMATH NEW_KEY "key_arr_397 ^ part_result_1 ^ ((key_arr_CURR ^ (key_arr_1 ^ key_arr_CURR) & 0x7FFFFFFE) >> 1)"
+		
+		XMATH current_key_index "current_key_index + 1"
+		
+		XMATH key_offset "current_key_index * 4"
+		PutVarChr MEMORY_FILE2 key_offset NEW_KEY LONG
+
+		## ## DEBUG PRINT
+		## XMATH key_offset "current_key_index * 4" #
+        ## GetVarChr KEY_ARR_VALUE MEMORY_FILE2 key_offset LONG
+		## print "{yellow}key_array[%current_key_index%]: %KEY_ARR_VALUE% / %KEY_ARR_VALUE|x%{/yellow}"
+		## ## END DEBUG PRINT
+
+	Next i
+	
+	
+	
+	For i = 0 < 396
+		XMATH key_offset "((current_key_index+1) * 4) + (1 * 4)" # ORIG_KEY_ARRAY + 1
+        GetVarChr key_arr_1 MEMORY_FILE2 key_offset LONG
+		
+		XMATH key_offset "(current_key_index+1) * 4" # ORIG_KEY_ARRAY + 1
+        GetVarChr key_arr_CURR MEMORY_FILE2 key_offset LONG
+		
+		XMATH key_offset "((current_key_index+1) * 4) - (227 * 4)" # ORIG_KEY_ARRAY + 1
+        GetVarChr key_arr_min_227 MEMORY_FILE2 key_offset LONG
+		
+		SET part_result_1 LONG 0
+		XMATH part_result_1 "key_arr_1 & 1"
+		IF part_result_1 != 0
+			SET part_result_1 LONG 0x9908B0DF
+		ELSE
+			SET part_result_1 LONG 0
+		ENDIF
+		
+		
+		
+		SET NEW_KEY LONG 0
+		XMATH NEW_KEY "key_arr_min_227 ^ part_result_1 ^ ((key_arr_CURR ^ (key_arr_1 ^ key_arr_CURR) & 0x7FFFFFFE) >> 1)"
+		
+		XMATH current_key_index "current_key_index + 1"
+		
+		XMATH key_offset "current_key_index * 4"
+		PutVarChr MEMORY_FILE2 key_offset NEW_KEY LONG
+		
+		
+	
+	Next i
+	
+	
+	XMATH key_offset "(1 * 4)" # ORIG_KEY_ARRAY
+	GetVarChr key_arr_1 MEMORY_FILE2 key_offset LONG
+	
+	XMATH key_offset "(current_key_index+1) * 4" # ORIG_KEY_ARRAY + 1
+	GetVarChr key_arr_CURR MEMORY_FILE2 key_offset LONG
+	
+	XMATH key_offset "((current_key_index+1) * 4) - (227 * 4)" # ORIG_KEY_ARRAY + 1
+	GetVarChr key_arr_min_227 MEMORY_FILE2 key_offset LONG
+	
+	SET part_result_1 LONG 0
+	XMATH part_result_1 "key_arr_1 & 1"
+	IF part_result_1 != 0
+		SET part_result_1 LONG 0x9908B0DF
+	ELSE
+		SET part_result_1 LONG 0
+	ENDIF
+	
+	SET NEW_KEY LONG 0
+	XMATH NEW_KEY "key_arr_min_227 ^ part_result_1 ^ ((key_arr_CURR ^ (key_arr_1 ^ key_arr_CURR) & 0x7FFFFFFE) >> 1)"
+	
+	XMATH current_key_index "current_key_index + 1"
+	
+	XMATH key_offset "current_key_index * 4"
+	PutVarChr MEMORY_FILE2 key_offset NEW_KEY LONG
+	
+	# print "current_key_index_END: %current_key_index%"
+	
+	# print "{yellow}GENERATE_KEY END{/yellow}"
+endfunction
+
+
+startfunction MAKE_KEY_ARRAY
+	print "{bright blue}MAKE KEY ARRAY START{/bright blue}"
+	For i = 0 < 650
+		  XMATH key_offset "i * 4" # multiplied by 4, because it's LONG
+          PutVarChr MEMORY_FILE2 key_offset 0x00 LONG # put zeroes here for initial allocation
+    Next i
+	
+	
+	# algorithm start
+	XMATH key_offset "627 * 4"  # key_array[627]
+	PutVarChr MEMORY_FILE2 key_offset TOC_LENGTH LONG
+	
+	XMATH key_offset "1 * 4"  # key_array[1]
+	PutVarChr MEMORY_FILE2 key_offset TOC_LENGTH LONG
+	
+	SET current_key_index LONG 1
+	FOR 
+		XMATH key_offset "current_key_index * 4"
+		GetVarChr old_key MEMORY_FILE2 key_offset LONG
+		XMATH new_key "current_key_index + 1812433253 * (old_key ^ old_key >> 30)"
+		XMATH new_key_offset "key_offset + 4"
+		PutVarChr MEMORY_FILE2 new_key_offset new_key LONG
+		#print "new_key_offset: %new_key_offset% new_key: %new_key%"
+		XMATH current_key_index "current_key_index + 1"
+		
+		IF current_key_index >= 624
+			break
+		ENDIF
+	Next
+	
+	XMATH key_offset "625 * 4"  # key_array[625]
+	PutVarChr MEMORY_FILE2 key_offset 1 LONG
+	
+	## DEBUG PRINT
+	For i = 0 < 15
+		  XMATH key_offset "i * 4" #
+          GetVarChr KEY_ARR_VALUE MEMORY_FILE2 key_offset LONG
+		  print "{green}key_array[%i%]: %KEY_ARR_VALUE% / %KEY_ARR_VALUE|x%{/green}"
+    Next i
+	
+	print "\n"
+	
+	For i = 620 < 630
+		  XMATH key_offset "i * 4" #
+          GetVarChr KEY_ARR_VALUE MEMORY_FILE2 key_offset LONG
+		  print "{green}key_array[%i%]: %KEY_ARR_VALUE% / %KEY_ARR_VALUE|x%{/green}"
+    Next i
+	## END DEBUG PRINT
+	
+	print "{bright blue}MAKE KEY ARRAY END{/bright blue}"
+endfunction
