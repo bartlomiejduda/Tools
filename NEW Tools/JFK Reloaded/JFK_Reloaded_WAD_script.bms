@@ -1,0 +1,77 @@
+# Script by Bartlomiej Duda (Ikskoks)
+# JFK Reloaded v1.1 WAD script
+
+
+# Ver    Date        Author               Comment
+# v0.1   20.12.2021  Bartlomiej Duda      -
+# v0.2   21.12.2021  Bartlomiej Duda      -
+
+
+
+# get info from header
+idstring "\x34\x12"
+get VERSION short
+get NULLS long
+get NAME_TABLE_SIZE long
+get NUM_OF_FILES long 
+get NUM_OF_FOLDERS long 
+savepos BASE_NAME_TABLE_OFFSET
+
+
+# calculate info array offset
+XMATH BASE_INFO_ARRAY_OFFSET "BASE_NAME_TABLE_OFFSET + NAME_TABLE_SIZE"
+
+# calculate info array size (16 bytes per entry)
+XMATH INFO_ARRAY_SIZE "16 * (NUM_OF_FILES + NUM_OF_FOLDERS)"
+
+# calculate data start offset
+XMATH BASE_DATA_START_OFFSET "BASE_INFO_ARRAY_OFFSET + INFO_ARRAY_SIZE"
+
+
+# print "BASE_INFO_ARRAY_OFFSET: %BASE_INFO_ARRAY_OFFSET%"
+# print "BASE_DATA_START_OFFSET: %BASE_DATA_START_OFFSET%\n\n"
+
+set INFO_ARR_REL_OFFSET long 0
+set F_COUNT long 0
+goto BASE_INFO_ARRAY_OFFSET
+
+For i = 0 
+	# get values from info array
+	get NAME_OFFSET long
+	get F_SIZE long
+	get F_OFFSET long
+	get NULLS long
+	
+
+	XMATH F_NUM "i+1"
+	# print "[%F_NUM%] N_OFF: %NAME_OFFSET%\t F_SIZE: %F_SIZE%\tF_OFFSET: %F_OFFSET%\t"
+	
+	XMATH INFO_ARR_REL_OFFSET "INFO_ARR_REL_OFFSET + 16"
+	
+	# get entry name
+	savepos BACK_OFFSET
+	XMATH REAL_NAME_OFFSET "BASE_NAME_TABLE_OFFSET + NAME_OFFSET"
+	goto REAL_NAME_OFFSET
+	get F_NAME string
+	goto BACK_OFFSET
+	# print "{yellow}[%F_NUM%] F_NAME: %F_NAME%\n\n{/yellow}"
+	
+	
+	IF F_OFFSET >= BASE_DATA_START_OFFSET
+		# set output file name
+		XMATH F_COUNT "F_COUNT + 1"
+		set F_OUT_NAME string F_COUNT
+		string F_OUT_NAME += "_"
+		string F_OUT_NAME += F_NAME
+		
+		# log data
+		log F_OUT_NAME F_OFFSET F_SIZE
+	ENDIF
+    
+	
+	
+	IF INFO_ARR_REL_OFFSET >= INFO_ARRAY_SIZE
+		break
+	ENDIF
+
+Next i
