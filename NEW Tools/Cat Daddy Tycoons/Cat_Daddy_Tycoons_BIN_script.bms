@@ -1,0 +1,57 @@
+# Script by Bartlomiej Duda (Ikskoks)
+# Cat Daddy Tycoons BIN script
+
+
+# Ver    Date        Author               Comment
+# v0.1   24.12.2021  Bartlomiej Duda      -
+
+
+
+# get info from header
+idstring "\x64\x00\x00\x00"
+goto 0x50
+get NUM_OF_FILES long
+get NUM_OF_FOLDERS long
+set F_COUNT long 0
+
+# get folder offsets
+For i = 0 < NUM_OF_FOLDERS
+	get FOLDER_OFFSET long
+Next i
+
+
+
+For i = 0 < NUM_OF_FILES
+	XMATH F_COUNT "F_COUNT + 1"
+	get ENTRY_OFFSET long
+	savepos BACK_OFFSET
+	
+	goto ENTRY_OFFSET
+	
+	# get filename
+	savepos NAME_START_OFFSET
+	get F_NAME string
+	savepos NAME_END_OFFSET
+	XMATH NAME_DIFF "NAME_END_OFFSET - NAME_START_OFFSET"
+	XMATH PADDING_SIZE "64 - NAME_DIFF"
+	savepos CURR_OFFSET
+	XMATH NAME_REAL_END_OFFSET "CURR_OFFSET + PADDING_SIZE"
+	goto NAME_REAL_END_OFFSET
+	
+	
+	get CD_VALUE short   # "CD"
+	get F_SIZE long
+	savepos F_OFFSET
+	XMATH F_SIZE "F_SIZE - 6"
+	
+	# set filename
+	set F_OUT_NAME string F_COUNT
+	string F_OUT_NAME += "_"
+	string F_OUT_NAME += F_NAME
+	
+	# log data
+	log F_OUT_NAME F_OFFSET F_SIZE
+	
+	goto BACK_OFFSET
+
+Next i
