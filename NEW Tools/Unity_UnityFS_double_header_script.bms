@@ -1,0 +1,21 @@
+# Script by Bartlomiej Duda (Ikskoks)
+# UnityFS files (double header)
+
+
+# Ver    Date        Author               Comment
+# v0.1   31.12.2021  Bartlomiej Duda      -
+
+
+goto 0x08 # skip first signature
+FindLoc SIGN_OFFSET STRING "UnityFS"
+get ARCH_SIZE asize
+
+XMATH F_SIZE "ARCH_SIZE - SIGN_OFFSET"
+
+# print "F_SIZE: %F_SIZE%, SIGN_OFFSET: %SIGN_OFFSET%"
+
+get F_NAME basename
+set F_OUT_NAME string F_NAME
+string F_OUT_NAME += "_decrypted.unity3d"
+log F_OUT_NAME SIGN_OFFSET F_SIZE
+
