@@ -1,0 +1,18 @@
+# Script by Bartlomiej Duda (Ikskoks)
+# Star Stable Online - PTE/TGA files
+
+# Info: This script converts PTE/TGA files 
+# to CRN files for crunch_unity.exe
+
+
+# Ver    Date        Author               Comment
+# v0.1   06.01.2022  Bartlomiej Duda      -
+
+
+FindLoc SIGN_OFFSET STRING "Hx"
+get ARCH_SIZE asize
+XMATH F_SIZE "ARCH_SIZE - SIGN_OFFSET"
+get F_NAME basename
+set F_OUT_NAME string F_NAME
+string F_OUT_NAME += "_new.crn"
+log F_OUT_NAME SIGN_OFFSET F_SIZE
