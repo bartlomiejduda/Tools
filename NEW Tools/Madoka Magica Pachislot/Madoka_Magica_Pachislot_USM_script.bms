@@ -1,0 +1,75 @@
+# Script by Bartlomiej Duda (Ikskoks)
+# Madoka Magica Pachislot (COMMSEED)
+# USM Videos Extract
+
+
+# Ver    Date        Author               Comment
+# v0.1   15.01.2022  Bartlomiej Duda      -
+
+
+
+Open FDSE "cri_add.bin"
+Open FDSE "cri.bin" 1
+set F_COUNT long 0
+get ARCH_SIZE asize 1
+
+
+# loop for getting file offsets
+For
+	get FILE_OFFSET long 
+	
+	IF FILE_OFFSET >= ARCH_SIZE 
+		break
+	ENDIF
+	
+	XMATH F_COUNT "F_COUNT + 1"
+	PutArray 0 F_COUNT FILE_OFFSET
+	
+	#print "%F_COUNT%) f_offset: %FILE_OFFSET%"
+	
+Next
+
+
+# loop for getting file sizes and data
+set F_SIZE_COUNT long 0
+For i = 0 < F_COUNT
+	XMATH F_SIZE_COUNT "F_SIZE_COUNT + 1"
+	XMATH F_SIZE_COUNT_NEXT "F_SIZE_COUNT + 1"
+	
+	GetArray F_OFFSET_CURR 0 F_SIZE_COUNT
+	#print "1: %F_SIZE_COUNT_NEXT%, 2: %F_COUNT%"
+	IF F_SIZE_COUNT_NEXT <= F_COUNT
+		GetArray F_OFFSET_NEXT 0 F_SIZE_COUNT_NEXT
+	ELSE
+		set F_OFFSET_NEXT long ARCH_SIZE
+	ENDIF
+	
+	XMATH F_SIZE "F_OFFSET_NEXT - F_OFFSET_CURR"
+	
+	#print "%F_SIZE_COUNT%) f_offset: %F_OFFSET_CURR%, f_size: %F_SIZE%"
+	
+	
+	goto F_OFFSET_CURR 1
+	GetDString SIGN 4 1
+	
+	IF SIGN == "CRID"
+		set F_EXTENSION string ".usm"
+	ELIF SIGN == "OggS"
+		set F_EXTENSION string ".ogg"
+	ELSE
+		set F_EXTENSION string ".dat"
+	ENDIF 
+	
+	
+	# set filename
+	set F_OUT_NAME string "file_"
+	string F_OUT_NAME += F_SIZE_COUNT
+	string F_OUT_NAME += F_EXTENSION
+	
+	
+	# log data 
+	log F_OUT_NAME F_OFFSET_CURR F_SIZE 1
+	
+	
+
+Next i

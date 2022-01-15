@@ -1,0 +1,24 @@
+# Script by Bartlomiej Duda (Ikskoks)
+# Madoka Magica Pachislot (COMMSEED)
+# OBB Archive
+
+
+# Ver    Date        Author               Comment
+# v0.1   15.01.2022  Bartlomiej Duda      -
+
+
+
+get NUM_OF_FILES long
+set F_COUNT long 0
+
+For i = 0 < NUM_OF_FILES
+	XMATH F_COUNT "F_COUNT + 1"
+	get FILE_OFFSET long 
+	get FILE_SIZE long 
+	get FILE_NAME_LENGTH byte
+	GetDString FILE_NAME FILE_NAME_LENGTH
+	# print "%F_COUNT%) f_name: %FILE_NAME%"
+	
+	log FILE_NAME FILE_OFFSET FILE_SIZE
+	
+Next i
