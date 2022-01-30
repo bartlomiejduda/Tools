@@ -1,0 +1,49 @@
+# Script by Bartlomiej Duda (Ikskoks)
+# The Prince and the Coward (Ksiaze i Tchorz) PTC script
+
+
+# Ver    Date        Author               Comment
+# v0.1   30.01.2022  Bartlomiej Duda      -
+
+
+
+# get info from header
+idstring "P&TC"
+get FILE_TABLE_OFFSET long
+get FILE_TABLE_SIZE long
+
+
+# calculate values
+XMATH FILE_TABLE_OFFSET "FILE_TABLE_OFFSET ^ 0x4D4F4B2D"  # xor with "MOK-"
+XMATH FILE_TABLE_SIZE "FILE_TABLE_SIZE ^ 0x534F4654"  # xor with "SOFT"
+XMATH NUM_OF_FILES "FILE_TABLE_SIZE / 32"
+
+
+goto FILE_TABLE_OFFSET
+
+
+# decrypting file table (TOC)
+set ENCRYPTION_KEY long 0xDEADF00D
+for i = 0 < FILE_TABLE_SIZE
+
+	# decrypting TOC
+	get NEW_BYTE byte
+	XMATH NEW_BYTE "NEW_BYTE + (ENCRYPTION_KEY & 0xFF)"
+	XMATH ENCRYPTION_KEY "ENCRYPTION_KEY ^ 0x2E84299A"
+	XMATH ENCRYPTION_KEY "ENCRYPTION_KEY + 0x424C4148"  # Add "BLAH" keyword
+	XMATH ENCRYPTION_KEY "((ENCRYPTION_KEY & 1) << 31) | (ENCRYPTION_KEY >> 1)"
+
+	PutVarChr MEMORY_FILE i NEW_BYTE
+next i
+
+
+
+# read decrypted file table (TOC) and log data
+goto 0 -1
+for i = 0 < NUM_OF_FILES
+	GetDString F_NAME 24 -1
+	get F_OFFSET long -1
+	get F_SIZE long -1
+	
+	log F_NAME F_OFFSET F_SIZE
+next i
