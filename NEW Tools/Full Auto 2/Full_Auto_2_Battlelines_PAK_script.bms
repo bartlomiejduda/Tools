@@ -1,0 +1,47 @@
+# Script by Bartlomiej Duda (Ikskoks)
+# Full Auto 2 Battlelines PSP *.PAK script
+
+
+# Ver    Date        Author               Comment
+# v0.1   10.02.2022  Bartlomiej Duda      -
+
+
+# get header
+get BASE_OFFSET long
+get NUM_OF_ENTRIES long
+
+# get index
+XMATH F_OFFSET "BASE_OFFSET + 8"
+for i = 0 < NUM_OF_ENTRIES
+	get F_HASH long
+	get F_SIZE long
+	get F_ID long
+
+	SET PADDING_DIV long 2048
+	XMATH PADDING_LENGTH "(PADDING_DIV - (F_OFFSET % PADDING_DIV)) % PADDING_DIV"   # calculate padding length
+	XMATH F_OFFSET "F_OFFSET + PADDING_LENGTH"
+	
+	XMATH F_COUNT "i+1"
+	set F_NAME string "file_"
+	string F_NAME += F_COUNT
+	set EXTENSION string ".bin"
+	
+	
+	SavePos BACK_OFFSET
+	Goto F_OFFSET
+	get SIGN short 
+	IF SIGN == 0x8B1F
+		set EXTENSION string ".gz"
+	ENDIF
+	Goto BACK_OFFSET
+	
+	string F_NAME += EXTENSION
+	
+	
+	# print "%F_NAME%, f_offset: %F_OFFSET%, f_size: %F_SIZE%, padding_len: %PADDING_LENGTH%"
+	log F_NAME F_OFFSET F_SIZE
+
+	
+	XMATH F_OFFSET "F_OFFSET + F_SIZE"   # set offset for the next file
+
+next i
