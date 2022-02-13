@@ -1,0 +1,52 @@
+# Script by Bartlomiej Duda (Ikskoks)
+# Robin Hood: The Legend of Sherwood (PC) *.PAK script
+
+
+# Ver    Date        Author               Comment
+# v0.1   13.02.2022  Bartlomiej Duda      -
+
+
+
+comtype bzip2
+get ARCH_SIZE asize
+
+for i = 0 < 5
+
+	get SIGN long   # 80 02 E0 01  OR   00 04 00 03
+	
+	IF SIGN != 0x01E00280 && SIGN != 0x03000400
+		print "Error! Wrong signature!"
+	ENDIF
+	
+	get VERSION long  # 2
+	get F_SIZE long 
+	SavePos F_OFFSET
+	
+	
+	get F_SIGN long
+	IF F_SIGN == 0x39685A42  # "BZh9"
+		set EXTENSION string ".bzip2"
+	ELSE
+		set EXTENSION string ".bin"
+	ENDIF
+
+	
+	XMATH F_COUNT "i+1"
+	set F_NAME string "file_"
+	string F_NAME += F_COUNT
+	string F_NAME += EXTENSION
+	
+	
+	log F_NAME F_OFFSET F_SIZE
+	
+	
+	XMATH NEXT_OFFSET "F_OFFSET + F_SIZE"
+	
+	IF NEXT_OFFSET >= ARCH_SIZE 
+		cleanexit
+	ENDIF
+	
+	Goto NEXT_OFFSET
+	
+
+next i
