@@ -1,0 +1,55 @@
+# Script by Bartlomiej Duda (Ikskoks)
+# Robin Hood: The Legend of Sherwood (PC) *.RES script
+
+
+# Ver    Date        Author               Comment
+# v0.1   14.02.2022  Bartlomiej Duda      -
+
+
+# get header
+idstring "SRES"
+get VERSION long  # 256
+get NUM_OF_CHUNKS long
+
+
+goto -4
+get OFFSET_TABLE_OFFSET long 
+goto OFFSET_TABLE_OFFSET
+
+for i = 0 < NUM_OF_CHUNKS
+	get CHUNK_OFFSET long
+	SavePos BACK_OFFSET
+	get NEXT_CHUNK_OFFSET long
+	
+	XMATH F_SIZE "NEXT_CHUNK_OFFSET - CHUNK_OFFSET - 12"
+	
+	goto CHUNK_OFFSET
+	
+	GetDString CHUNK_NAME 4
+	
+	if CHUNK_NAME == "WAVE"
+		set EXTENSION string ".wave"
+	elif CHUNK_NAME == "TEXT"
+		set EXTENSION string ".bin_text"
+	elif CHUNK_NAME == "PIC "
+		set EXTENSION string ".pic"
+	else
+		set EXTENSION string ".bin"
+	endif
+	
+	get CHUNK_ID long
+	get NULLS long
+	SavePos F_OFFSET
+	
+	
+	XMATH F_COUNT "i+1"
+	set F_NAME string "file_"
+ 	string F_NAME += F_COUNT
+ 	string F_NAME += EXTENSION
+	
+	log F_NAME F_OFFSET F_SIZE
+	
+	Goto BACK_OFFSET
+	
+
+next i

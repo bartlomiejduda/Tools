@@ -4,20 +4,16 @@
 
 # Ver    Date        Author               Comment
 # v0.1   13.02.2022  Bartlomiej Duda      -
+# v0.2   14.02.2022  Bartlomiej Duda      -
 
 
 
 comtype bzip2
 get ARCH_SIZE asize
 
-for i = 0 < 5
+for i = 0 < 100
 
-	get SIGN long   # 80 02 E0 01  OR   00 04 00 03
-	
-	IF SIGN != 0x01E00280 && SIGN != 0x03000400
-		print "Error! Wrong signature!"
-	ENDIF
-	
+	get SIGN long
 	get VERSION long  # 2
 	get F_SIZE long 
 	SavePos F_OFFSET
@@ -48,5 +44,4 @@ for i = 0 < 5
 	
 	Goto NEXT_OFFSET
 	
-
 next i
