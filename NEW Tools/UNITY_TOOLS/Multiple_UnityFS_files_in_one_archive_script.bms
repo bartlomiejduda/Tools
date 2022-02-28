@@ -1,0 +1,40 @@
+# Script by Bartlomiej Duda (Ikskoks)
+
+# This script should be used when multiple UnityFS files
+# are stored inside one big archive and you want to unpack
+# all of these UnityFS files and load them in AssetStudio
+
+
+# Ver    Date        Author               Comment
+# v0.1   28.02.2022  Bartlomiej Duda      -
+
+
+endian big  # this line needs to be adjusted
+
+for i = 0
+
+	FindLoc SIGN_OFFSET STRING "UnityFS"
+	
+	if SIGN_OFFSET == ""
+		cleanexit
+	endif
+	
+	goto SIGN_OFFSET
+	
+	GetDString SIGN 8  
+	get VERSION long  # 6 or 7
+	GetDString MIN_PLAYER_VERSION 6   # e.g. 5.x.x.
+	GetDString FILE_ENGINE_VERSION 12 # e.g. 2018.4.24f1.
+	get FS_FILE_SIZE longlong
+	
+	
+	XMATH F_COUNT "i+1"
+	set F_OUT_NAME string "file"
+	string F_OUT_NAME += F_COUNT
+	string F_OUT_NAME += ".unity3d"
+	
+	
+	log F_OUT_NAME SIGN_OFFSET FS_FILE_SIZE
+
+
+next i
