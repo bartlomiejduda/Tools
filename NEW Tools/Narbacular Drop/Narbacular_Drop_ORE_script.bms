@@ -1,0 +1,51 @@
+# Script by Bartlomiej Duda (Ikskoks)
+# Narbacular Drop (PC) *.ORE script
+
+
+# Ver    Date        Author               Comment
+# v0.1   03.03.2022  Bartlomiej Duda      -
+
+
+
+# get header
+get DIRECTORY_SIZE long
+
+
+# get data
+get NUM_OF_DIRECTORIES long 
+for i = 0 < NUM_OF_DIRECTORIES
+	get DIRECTORY_NAME string
+	get DIRECTORY_OFFSET long
+	
+	SavePos BACK_OFFSET
+	
+	goto DIRECTORY_OFFSET
+	get DIR_SIGNATURE longlong
+	if DIR_SIGNATURE != 8
+		print "Wrong dir signature!"
+	endif
+	
+	SavePos DIR_START_OFFSET
+	
+	get NUM_OF_FILES long
+	
+	for j = 0 < NUM_OF_FILES
+		get FILE_NAME string
+		get FILE_OFFSET long
+		get FILE_SIZE long
+		
+		XMATH FILE_OFFSET "DIR_START_OFFSET + FILE_OFFSET"
+		
+		set F_OUT_NAME string DIRECTORY_NAME
+		string F_OUT_NAME += "\\"
+		string F_OUT_NAME += FILE_NAME
+		
+		
+		log F_OUT_NAME FILE_OFFSET FILE_SIZE
+	
+	next j
+	
+	goto BACK_OFFSET
+	
+
+next i
