@@ -1,0 +1,56 @@
+# Script by Allen, modified by Bartlomiej Duda (Ikskoks)
+# Shiro Games *.PAK archives
+
+# Tested on PAK archive from "Wartales" PC game
+
+
+# Ver		Date		Author				Comment
+# v0.1		-		Allen				-
+# v0.2		10.03.2022	Bartlomiej Duda			-
+
+
+
+
+idstring "PAK\0"
+get DataOffset long
+get fileSize long
+get dummy short 
+get numFolder long
+for i = 0 < numFolder
+	set folderName string ""
+	CallFunction unpack 0 folderName
+next i
+
+StartFunction unpack folderName
+	get namelen byte
+	getdstring name namelen    
+	get type byte
+	if type == 0
+		get offset long
+		get size long
+		get dummy long
+		math offset += Dataoffset
+		set fname string FolderName
+		string fname += /
+		string fname += name
+		log fname offset size
+	elif type == 1
+		string folderName += /
+		string folderName += name        
+		get numEntry long
+		for j = 0 < numEntry
+			set folderName2 string folderName
+			CallFunction unpack 0 folderName2
+		next j
+	elif type == 2  # TODO - support this type
+		SavePos CURR_OFFSET
+		get var1 long
+		get var2 long
+		get var3 long
+		get var4 long
+		# print "c_of: %CURR_OFFSET%, v1: %var1%, v2: %var2%, v3: %var3%, v4: %var4%"
+	else
+		print "Error! This type is not supported!"
+		cleanexit
+    endif
+EndFunction
