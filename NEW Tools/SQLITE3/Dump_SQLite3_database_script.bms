@@ -1,0 +1,52 @@
+# Script by Bartlomiej Duda (Ikskoks)
+
+
+# This script should be used when you have some binary file (or archive)
+# and you want to dump SQLite3 databases from this file using quickbms
+
+
+
+# Ver    Date        Author               Comment
+# v0.1   18.03.2022  Bartlomiej Duda      -
+
+endian big
+Set F_COUNT long 0
+
+for i = 0
+
+	FindLoc START_OFFSET STRING "SQLite format 3\x00"
+	
+	if START_OFFSET == ""
+		cleanexit
+	endif
+	
+	goto START_OFFSET
+	GetDString SIGN 16
+	get PAGE_SIZE short
+	
+	if PAGE_SIZE < 1
+		continue
+	endif
+
+	XMATH NUM_OF_PAGES_OFFSET "START_OFFSET + 28"
+	goto NUM_OF_PAGES_OFFSET
+	get NUM_OF_PAGES long
+	
+	if NUM_OF_PAGES < 1
+		continue
+	endif
+
+	XMATH END_OFFSET "START_OFFSET + (PAGE_SIZE * NUM_OF_PAGES)"
+	XMATH DB_SIZE "END_OFFSET - START_OFFSET"
+	
+	XMATH F_COUNT "F_COUNT+1"
+	set F_OUT_NAME string "file"
+	string F_OUT_NAME += F_COUNT
+	string F_OUT_NAME += ".sqlite3"
+	
+	log F_OUT_NAME START_OFFSET DB_SIZE
+	
+	goto END_OFFSET
+
+
+next i
