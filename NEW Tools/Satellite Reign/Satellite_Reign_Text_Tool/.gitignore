@@ -1,0 +1,8 @@
+__pycache__/
+.mypy_cache/
+.pytest_cache/
+venv/
+.idea/
+dist/
+build/
+log.txt
