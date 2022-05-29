@@ -3,3 +3,4 @@ mypy==0.931
 pylint==2.12.2
 pytest==7.0.1
 xmltodict==0.13.0
+cx-Freeze==6.10
