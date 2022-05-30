@@ -8,10 +8,12 @@ License: GPL-3.0 License
 # Ver    Date        Author               Comment
 # v0.1   28.05.2022  Bartlomiej Duda      -
 # v0.2   29.05.2022  Bartlomiej Duda      -
+# v0.3   30.05.2022  Bartlomiej Duda      -
 
 
 # This program is for converting XML localization file
 # from game "Sattelite Reign" to INI file
+# and for converting INI file to XML file.
 
 import os
 import sys
@@ -22,8 +24,8 @@ from logger import get_logger
 
 logger = get_logger(__name__)
 
-VERSION_NUM = "v0.2"
-EXE_FILE_NAME = "satellite_reign_text_tool_" + VERSION_NUM + ".exe"
+VERSION_NUM = "v0.3"
+EXE_FILE_NAME = f"satellite_reign_text_tool_{VERSION_NUM}.exe"
 PROGRAM_NAME = f'Satellite Reign Text Tool {VERSION_NUM}'
 
 
@@ -71,6 +73,7 @@ def export_data(in_file_path: str, out_file_path: str) -> Optional[tuple]:
 
     ini_file.close()
     xml_file.close()
+    logger.info(f'File {out_file_path} has been saved.')
     logger.info("Ending export_data...")
     return "OK", ""
 
@@ -80,6 +83,30 @@ def import_data(xml_file_path: str, ini_file_path: str, new_xml_file_path) -> Op
     Function for importing data to XML files
     """
     logger.info("Starting import_data...")
+
+    if not os.path.isfile(xml_file_path):
+        return "NOT_XML_FILE_ERROR", "This is not a valid XML input file path!"
+
+    if not os.path.isfile(ini_file_path):
+        return "NOT_INI_FILE_ERROR", "This is not a valid INI input file path!"
+
+    xml_file_extension = xml_file_path.split(".")[-1]
+    if xml_file_extension.upper() != "XML":
+        return "NOT_XML_EXT_ERROR", f"{xml_file_path} is not a valid XML file!"
+
+    ini_file_extension = ini_file_path.split(".")[-1]
+    if ini_file_extension.upper() != "INI":
+        return "NOT_INI_EXT_ERROR", f"{ini_file_path} is not a valid INI file!"
+
+    if not os.path.exists(os.path.dirname(new_xml_file_path)):
+        try:
+            os.makedirs(os.path.dirname(new_xml_file_path))
+        except FileNotFoundError:
+            return "CANT_CREATE_DIR_ERROR", "Can't create output directory!"
+
+    out_file_extension = new_xml_file_path.split(".")[-1]
+    if out_file_extension.upper() != "XML":
+        return "NOT_XML_EXT_ERROR", f"{new_xml_file_path} is not a valid XML output file!"
 
     xml_file = open(xml_file_path, 'rt', encoding="utf8")
     ini_file = open(ini_file_path, 'rt', encoding="utf8")
@@ -101,13 +128,22 @@ def import_data(xml_file_path: str, ini_file_path: str, new_xml_file_path) -> Op
         line_dict['line_text'] = line.split('=')[-1]
         ini_array.append(line_dict)
 
+    # data replace
+    logger.info("Processing data in import function... Please wait.")
+    for line_entry in ini_array:
+        xml_row_entries = xml_dict['Sheets']['sheet']['row']
+        for row_entry in xml_row_entries:
+            if row_entry.get('@name') == line_entry['row_name']:
+                for column_entry in row_entry.get('col'):
+                    if column_entry.get('@name') == line_entry['column_name']:
+                        column_entry['#text'] = line_entry['line_text'].rstrip('\n').replace("\\n", "\n")
+    logger.info("Data have been processed.")
 
-    # xml_dict = None
-    # xml_out_data = xmltodict.unparse(xml_dict, pretty=True)
-    # xml_file_out = open("C:\\Users\\Lenovo\\Desktop\\out.xml", 'wt', encoding="utf8")
-    # xml_file_out.write(xml_out_data)
-    # xml_file_out.close()
-    # logger.info("Ending import_data...")
+    # Saving translated XML to file
+    xml_out_data = xmltodict.unparse(xml_dict, pretty=True, newl="\n", indent="  ")
+    new_xml_file.write(xml_out_data)
+    new_xml_file.close()
+    logger.info("Ending import_data...")
     return "OK", ""
 
 
