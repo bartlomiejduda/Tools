@@ -14,3 +14,11 @@ If you have any questions, you can **[raise an issue on Github](https://github.c
 or ask on **[XeNTaX forum](https://forum.xentax.com/index.php)**.
 
 ~Bartłomiej Duda
+
+
+
+![GitHub](https://img.shields.io/github/license/bartlomiejduda/Tools?style=plastic)
+![GitHub repo size](https://img.shields.io/github/repo-size/bartlomiejduda/Tools?style=plastic)
+![GitHub all releases](https://img.shields.io/github/downloads/bartlomiejduda/Tools/total)
+![GitHub last commit](https://img.shields.io/github/last-commit/bartlomiejduda/Tools?style=plastic)
+![GitHub commit activity](https://img.shields.io/github/commit-activity/y/bartlomiejduda/Tools?style=plastic)
