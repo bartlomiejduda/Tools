@@ -13,7 +13,7 @@ License: GPL-3.0 License
 import os
 import sys
 import argparse
-from typing import Optional
+from typing import Optional, Tuple
 from logger import get_logger
 
 logger = get_logger(__name__)
@@ -22,13 +22,18 @@ VERSION_NUM = "v0.1"
 EXE_FILE_NAME = f"some_game_text_tool_{VERSION_NUM}.exe"
 PROGRAM_NAME = f'Some Game Text Tool {VERSION_NUM}'
 
-def check_file(in_file_path, create_dirs=False):
-    if not os.path.isfile(in_file_path):
-        return "NOT_FILE_ERROR", "This is not a valid input file path!"
+def check_file(in_file_path: str, expected_extension: str, file_should_exist: bool, create_dirs=False,
+) -> Tuple[str, str]:
+    if file_should_exist:
+        if not os.path.isfile(in_file_path):
+            return "NOT_FILE_ERROR", f"{in_file_path} is not a valid input file path!"
 
-    in_file_extension = in_file_path.split(".")[-1]
-    if in_file_extension.upper() != "XML":
-        return "NOT_XML_ERROR", f"{in_file_path} is not a valid XML file!"
+    in_file_extension = os.path.splitext(in_file_path)[1]
+    if in_file_extension.upper() != expected_extension.upper():
+        return (
+            f"NOT_{expected_extension.upper()}_ERROR",
+            f"{in_file_path} is not a valid {expected_extension.upper()} file!",
+        )
 
     if create_dirs:
         if not os.path.exists(os.path.dirname(in_file_path)):
@@ -37,6 +42,7 @@ def check_file(in_file_path, create_dirs=False):
             except FileNotFoundError:
                 return "CANT_CREATE_DIR_ERROR", "Can't create output directory!"
 
+    return "OK", ""
 
 
 def check_directory(in_directory):
@@ -49,11 +55,11 @@ def export_data(in_file_path: str, out_file_path: str) -> Optional[tuple]:
     """
     logger.info("Starting export_data...")
 
-    code, status = check_file(in_file_path)
+    code, status = check_file(in_file_path, ".BIN", True)
     if code != "OK":
         return code, status
 
-    code, status = check_file(out_file_path)
+    code, status = check_file(out_file_path, ".INI", False)
     if code != "OK":
         return code, status
 
@@ -92,10 +98,12 @@ def main():
     """
     parser = argparse.ArgumentParser(prog=EXE_FILE_NAME,
                                      description=PROGRAM_NAME)
+    # fmt: off
     parser.add_argument('-e', '--ext', metavar=('<xml_file_path>', '<ini_file_path>'),
                         type=str, nargs=2, required=False, help='Extract data (convert XML to INI)')
     parser.add_argument('-i', '--imp', metavar=('<xml_file_path>', '<ini_file_path>', '<new_xml_path>'),
                         type=str, nargs=3, required=False, help='Import data (convert INI to XML)')
+    # fmt: on
 
     if len(sys.argv) == 1:
         parser.print_help()
