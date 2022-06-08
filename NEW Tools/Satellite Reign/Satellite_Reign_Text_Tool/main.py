@@ -9,6 +9,7 @@ License: GPL-3.0 License
 # v0.1   28.05.2022  Bartlomiej Duda      -
 # v0.2   29.05.2022  Bartlomiej Duda      -
 # v0.3   30.05.2022  Bartlomiej Duda      -
+# v0.4   09.06.2022  Bartlomiej Duda      Small fix to remove "Notes" from output INI file
 
 
 # This program is for converting XML localization file
@@ -24,7 +25,7 @@ from logger import get_logger
 
 logger = get_logger(__name__)
 
-VERSION_NUM = "v0.3"
+VERSION_NUM = "v0.4"
 EXE_FILE_NAME = f"satellite_reign_text_tool_{VERSION_NUM}.exe"
 PROGRAM_NAME = f'Satellite Reign Text Tool {VERSION_NUM}'
 
@@ -64,7 +65,7 @@ def export_data(in_file_path: str, out_file_path: str) -> Optional[tuple]:
         row_name = translation_row.get('@name')
         for translation_column in translation_row.get("col"):
             column_name = translation_column.get('@name')
-            if column_name not in ('id', 'cz', 'fr', 'ge', 'it', 'ru', 'sp'):
+            if column_name not in ('notes', 'id', 'cz', 'fr', 'ge', 'it', 'ru', 'sp'):
                 translation_text = translation_column.get('#text')
                 if translation_text:
                     translation_entry = row_name + "_###_" + column_name + "_###_" + "=" + \
