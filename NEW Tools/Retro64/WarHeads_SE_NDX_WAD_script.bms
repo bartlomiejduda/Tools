@@ -1,0 +1,22 @@
+# Script by Bartlomiej Duda (Ikskoks)
+# WarHeads SE (PC) NDX/WAD script
+
+
+# Ver    Date        Author               Comment
+# v0.1   15.06.2022  Bartlomiej Duda      -
+
+
+
+open FDDE "ndx"
+open FDDE "wad" 1
+get NDX_SIZE asize
+
+XMATH NUMBER_OF_ENTRIES "NDX_SIZE / 24"
+
+
+for i = 0 < NUMBER_OF_ENTRIES
+	getdstring FILE_NAME 16
+	get FILE_OFFSET long
+	get FILE_SIZE long
+	log FILE_NAME FILE_OFFSET FILE_SIZE 1
+next i
