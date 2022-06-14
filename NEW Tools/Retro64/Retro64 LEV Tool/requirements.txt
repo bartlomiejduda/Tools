@@ -1,0 +1,5 @@
+black==22.3.0
+mypy==0.960
+pylint==2.14.0
+pytest==7.1.2
+jcalg1==1.0.4
