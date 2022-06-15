@@ -3,7 +3,7 @@ Copyright © 2022  Bartłomiej Duda
 License: GPL-3.0 License
 """
 
-# Program tested on Python 3.10.4
+# Program tested on Python 3.9.13 (32-bit)
 
 # Ver    Date        Author                             Comment
 # v0.1   14.06.2022  Bartlomiej Duda                    -
@@ -14,7 +14,7 @@ import os
 import struct
 import sys
 import argparse
-import jcalg1
+import jcalg1  # 32-bit only!
 from typing import Optional, Tuple
 from logger import get_logger
 
