@@ -5,22 +5,22 @@ License: GPL-3.0 License
 
 # Program tested on Python 3.10.4
 
-# Ver    Date        Author               Comment
-# v0.1   14.06.2022  Bartlomiej Duda      -
+# Ver    Date        Author                             Comment
+# v0.1   14.06.2022  Bartlomiej Duda                    -
+# v0.2   15.06.2022  Bartlomiej Duda, barncastle        Added workaround for decompression
 
 
 import os
 import struct
 import sys
 import argparse
-# import jcalg1
-# import ctypes
+import jcalg1
 from typing import Optional, Tuple
 from logger import get_logger
 
 logger = get_logger(__name__)
 
-VERSION_NUM = "v0.1"
+VERSION_NUM = "v0.2"
 EXE_FILE_NAME = f"retro64_lev_tool_{VERSION_NUM}.exe"
 PROGRAM_NAME = f"Retro64 LEV Tool {VERSION_NUM}"
 
@@ -86,43 +86,32 @@ def export_data(lev_file_path: str, xml_file_path: str) -> Optional[tuple]:
     # check if file is compressed
     header_byte1 = struct.pack("B", encrypted_bytes_array[0])
     header_byte2 = struct.pack("B", encrypted_bytes_array[1])
-    check_value = struct.unpack("<H", header_byte1 + header_byte2)[0]
-    if check_value == 17226:  # 4A 43 ("JC" - JCALG1 compression signature)
-        size_byte1 = struct.pack("B", encrypted_bytes_array[2])
-        size_byte2 = struct.pack("B", encrypted_bytes_array[3])
-        size_byte3 = struct.pack("B", encrypted_bytes_array[4])
-        size_byte4 = struct.pack("B", encrypted_bytes_array[5])
-        data_size = struct.unpack("<L", size_byte1 + size_byte2 + size_byte3 + size_byte4)[0]
-        #print("data_size: ", data_size, " hex: ", "0x%02X" % int(data_size))
+    comp_check_value = struct.unpack("<H", header_byte1 + header_byte2)[0]
+    if comp_check_value == 17226:  # 4A 43 ("JC" - JCALG1 compression signature)
+        is_compressed = True
     else:
-        data_size = 0  # not compressed
+        is_compressed = False
 
-    # data_size += 4
-    # print("data_size: ", data_size, " hex: ", "0x%02X" % int(data_size))
-
-    # save decrypted data (but it may be compressed)
+    # save decrypted data
     for i in range(lev_file_size):
         xml_file.write(struct.pack("B", encrypted_bytes_array[i]))
     xml_file.close()
 
-    # TODO - add decompression
-    # # read decrypted data
-    # decrypted_xml_file = open(xml_file_path, "rb")
-    # decrypted_data = decrypted_xml_file.read()
-    # decrypted_xml_file.close()
+    if is_compressed:
+        # read and adjust data for decompression
+        decrypted_xml_file = open(xml_file_path, "rb")
+        comp_header = decrypted_xml_file.read(6)
+        comp_checksum = struct.pack("<L", 0)  # workaround - generate "0" checksum
+        comp_data = decrypted_xml_file.read()
+        decrypted_xml_file.close()
 
-    # decompressed_data: bytes = b''
-    # jcalg_library = ctypes.cdll.LoadLibrary(".\\JCALG1.dll")
+        comp_valid_data = comp_header + comp_checksum + comp_data
 
-    # src: ctypes.c_void_p = decrypted_data
-    # dest: ctypes.c_void_p = b''
-
-    # result1: ctypes.c_uint32 = jcalg_library.JCALG1_Decompress_Fast(decrypted_data, decompressed_data)
-
-    # decompressed_data = jcalg1.decompress(decrypted_data)
-    # decompressed_xml_file = open(xml_file_path, "wb")
-    # decompressed_xml_file.write(decompressed_data)
-    # decompressed_xml_file.close()
+        # save decompressed data
+        decompressed_data = jcalg1.decompress(comp_valid_data)
+        decompressed_xml_file = open(xml_file_path, "wb")
+        decompressed_xml_file.write(decompressed_data)
+        decompressed_xml_file.close()
 
     lev_file.close()
 
