@@ -1,0 +1,39 @@
+# Script by Bartlomiej Duda (Ikskoks)
+# Godot Engine STEX script
+
+
+# Ver    Date        Author               Comment
+# v0.1   16.06.2022  Bartlomiej Duda      -
+
+
+
+# get info from header
+idstring "GDST"
+goto 20
+get NUMBER_OF_FILES long
+Set FILE_COUNT long 0
+
+
+# get data
+for i = 0 < NUMBER_OF_FILES
+ 	get CHUNK_SIZE long
+	GetDString FILE_TYPE 4
+	XMATH FILE_SIZE "CHUNK_SIZE - 4"
+	
+	if FILE_TYPE == "WEBP"
+		set FILE_EXTENSION string ".webp"
+	else
+		print "File type %FILE_TYPE% is not supported! Using default BIN extension!"
+		set FILE_EXTENSION string ".bin"
+	endif
+	
+	XMATH FILE_COUNT "FILE_COUNT+1"
+	set F_OUT_NAME string "file"
+	string F_OUT_NAME += FILE_COUNT
+	string F_OUT_NAME += FILE_EXTENSION
+	
+	SavePos FILE_OFFSET
+	log F_OUT_NAME FILE_OFFSET FILE_SIZE
+	XMATH NEXT_CHUNK_OFFSET "FILE_OFFSET + FILE_SIZE"
+	goto NEXT_CHUNK_OFFSET
+next i
