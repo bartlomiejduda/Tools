@@ -1,0 +1,27 @@
+# Script by Bartlomiej Duda (Ikskoks)
+# Akuji the Demon (PC) QDA script
+
+
+# Ver    Date        Author               Comment
+# v0.1   19.06.2022  Bartlomiej Duda      -
+
+
+goto 4
+GetDString SIGN 4
+
+if SIGN != "QDA0"
+ 	print "It's not valid QDA archive!"
+ 	cleanexit
+endif
+
+get NUMBER_OF_FILES long
+goto 256
+
+
+for i = 0 < NUMBER_OF_FILES
+ 	get FILE_OFFSET long
+	get FILE_COMP_SIZE long
+	get FILE_UNCOMP_SIZE long
+	GetDString FILE_NAME 256
+	log FILE_NAME FILE_OFFSET FILE_COMP_SIZE
+next i
