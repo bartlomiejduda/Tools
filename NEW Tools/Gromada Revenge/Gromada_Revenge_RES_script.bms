@@ -1,0 +1,37 @@
+# Script by Bartlomiej Duda (Ikskoks)
+# Gromada Revenge (PC) RES script
+
+
+# Ver    Date        Author               Comment
+# v0.1   27.06.2022  Bartlomiej Duda      -
+
+
+
+
+get NUMBER_OF_FILES long
+Set FILE_COUNT long 0
+
+for i = 0 < NUMBER_OF_FILES
+ 	SavePos HEADER_OFFSET
+ 	get FILE_TYPE byte
+	get ENTRY_SIZE long
+	get UNKNOWN2 long  # 1
+	get UNKNOWN3 short  # 0
+	GetDString FILE_DESC 34
+	
+	XMATH DATA_SIZE "ENTRY_SIZE + 5"
+	XMATH REAL_ENTRY_SIZE "HEADER_OFFSET + ENTRY_SIZE + 5"
+	
+	XMATH FILE_COUNT "FILE_COUNT+1"
+	set F_OUT_NAME string "file"
+	string F_OUT_NAME += FILE_COUNT
+	string F_OUT_NAME += "_"
+	string F_OUT_NAME += FILE_TYPE
+	string F_OUT_NAME += "_"
+	string F_OUT_NAME += ".bin"
+	
+	log F_OUT_NAME HEADER_OFFSET DATA_SIZE
+	
+	goto REAL_ENTRY_SIZE
+	
+next i
