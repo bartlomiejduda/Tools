@@ -1,0 +1,51 @@
+# Script by Bartlomiej Duda (Ikskoks)
+# Archangel (PC) PAK script
+
+
+# Ver    Date        Author               Comment
+# v0.1   29.06.2022  Bartlomiej Duda      -
+
+
+comtype gzip
+get ARCHIVE_VERSION long  # 1
+get NUMBER_OF_FILES long
+goto -4
+get DIRECTORY_OFFSET long
+XMATH REAL_DIRECTORY_OFFSET "DIRECTORY_OFFSET - 0x4857"     # 0x4857 - for retail/en
+                                                            # 0x4858 - for retail/ru
+                                                            # 0 - for demo
+XMATH FILENAME_ARRAY_OFFSET "REAL_DIRECTORY_OFFSET + (NUMBER_OF_FILES * 8)"
+
+
+# parse directory
+goto REAL_DIRECTORY_OFFSET
+for i = 0 < NUMBER_OF_FILES
+    get ENTRY_OFFSET long
+    get ENTRY_SIZE long
+    putarray 0 i ENTRY_OFFSET
+    putarray 1 i ENTRY_SIZE	
+next i
+
+
+# parse filename array
+goto FILENAME_ARRAY_OFFSET
+for i = 0 < NUMBER_OF_FILES
+ 	get FILENAME_LENGTH long
+ 	getdstring FILE_NAME FILENAME_LENGTH
+ 	putarray 2 i FILE_NAME
+next i
+
+
+# main loop
+for i = 0 < NUMBER_OF_FILES
+ 	getarray ENTRY_OFFSET 0 i
+    getarray ENTRY_SIZE   1 i
+	getarray FILE_NAME    2 i
+	
+	goto ENTRY_OFFSET
+	get UNCOMP_FILE_SIZE long
+	get COMP_FILE_SIZE long
+	SavePos DATA_OFFSET
+	
+	clog FILE_NAME DATA_OFFSET COMP_FILE_SIZE UNCOMP_FILE_SIZE
+next i
