@@ -1,0 +1,46 @@
+# Script by Bartlomiej Duda (Ikskoks)
+
+
+# This script should be used when multiple XM tracker files
+# are stored in one Unity RESOURCE archive and you want to split them
+# More info here http://wiki.xentax.com/index.php/XM_Audio
+
+
+# Ver    Date        Author               Comment
+# v0.1   09.07.2022  Bartlomiej Duda      -
+
+
+# loop for finding file offsets
+Set FILE_COUNT long 0
+Get ARCHIVE_SIZE asize
+for i = 0
+	FindLoc SIGN_OFFSET string "Extended Module:" ""
+	
+	if SIGN_OFFSET == ""
+		putarray 0 i ARCHIVE_SIZE
+		break
+	endif
+	
+	XMATH TEMP_OFFSET "SIGN_OFFSET + 1"
+	goto TEMP_OFFSET
+	
+	putarray 0 i SIGN_OFFSET
+	XMATH FILE_COUNT "FILE_COUNT+1"
+next i
+
+
+# loop for unpacking data
+Set FILE_OUT_COUNT long 0
+for i = 0 < FILE_COUNT
+	XMATH FILE_OUT_COUNT "FILE_OUT_COUNT+1"
+	XMATH NEXT_ELEM_NUMBER "i+1"
+	getarray FILE_OFFSET 0 i
+	getarray FILE_END 0 NEXT_ELEM_NUMBER
+	XMATH FILE_SIZE "FILE_END - FILE_OFFSET"
+	
+	set F_OUT_NAME string "file"
+	string F_OUT_NAME += FILE_OUT_COUNT
+	string F_OUT_NAME += ".xm"
+	
+	log F_OUT_NAME FILE_OFFSET FILE_SIZE
+next i
