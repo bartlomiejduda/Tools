@@ -4,17 +4,22 @@
 # The Stanley Parable: Ultra Deluxe DAT fonts
 
 
-# FONT_OFFSET and FONT_SIZE are hardcoded
-# until better solution will be find...
-
-
 # Ver    Date        Author               Comment
 # v0.1   24.07.2022  Bartlomiej Duda      -
+# v0.2   25.07.2022  Bartlomiej Duda      -
 
 
 
-Set FONT_OFFSET long 116
-Set FONT_SIZE long 45461
+FindLoc FONT_OFFSET string "OTTO" ""
+
+if FONT_OFFSET == ""
+	print "Invalid DAT file! Exiting!"
+	cleanexit
+endif
+
+XMATH TEMP_OFFSET "FONT_OFFSET - 4"
+goto TEMP_OFFSET
+get FONT_SIZE long
 
 set F_OUT_NAME string "font_file_01.otf"
 
