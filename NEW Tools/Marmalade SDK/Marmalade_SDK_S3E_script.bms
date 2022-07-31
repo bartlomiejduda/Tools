@@ -1,0 +1,64 @@
+# Script by Bartlomiej Duda (Ikskoks)
+# Marmalade SDK S3E script
+
+
+# Ver    Date        Author               Comment
+# v0.1   31.07.2022  Bartlomiej Duda      -
+
+
+
+idstring "XE3U"
+get ARCHIVE_VERSION long
+get FLAGS short
+get ARCH short
+
+get FIXUP_SECTION_OFFSET long
+get FIXUP_SECTION_SIZE long
+
+get CODE_SECTION_OFFSET long
+get CODE_SECTION_SIZE long
+
+get BSS long
+
+get SIGNATURE_SECTION_OFFSET long
+get SIGNATURE_SECTION_SIZE long
+
+get ENTRY_POINT long
+
+get CONFIG_SECTION_OFFSET long
+get CONFIG_SECTION_SIZE long
+
+get BASE_ADDRESS long
+
+get EXTRA_SECTION_OFFSET long
+get EXTRA_SECTION_SIZE long
+
+
+if FIXUP_SECTION_OFFSET > 0 and FIXUP_SECTION_SIZE > 0
+  	set F_OUT_NAME string "fixup_section.bin"
+  	log F_OUT_NAME FIXUP_SECTION_OFFSET FIXUP_SECTION_SIZE
+endif
+
+
+if CODE_SECTION_OFFSET > 0 and CODE_SECTION_SIZE > 0
+  	set F_OUT_NAME string "code_section.bin"
+  	log F_OUT_NAME CODE_SECTION_OFFSET CODE_SECTION_SIZE
+endif
+
+
+if SIGNATURE_SECTION_OFFSET > 0 and SIGNATURE_SECTION_SIZE > 0
+  	set F_OUT_NAME string "signature_section.bin"
+  	log F_OUT_NAME SIGNATURE_SECTION_OFFSET SIGNATURE_SECTION_SIZE
+endif
+
+
+if CONFIG_SECTION_OFFSET > 0 and CONFIG_SECTION_SIZE > 0
+  	set F_OUT_NAME string "config_section.bin"
+  	log F_OUT_NAME CONFIG_SECTION_OFFSET CONFIG_SECTION_SIZE
+endif
+
+
+if EXTRA_SECTION_OFFSET > 0 and EXTRA_SECTION_SIZE > 0
+  	set F_OUT_NAME string "extra_section.bin"
+  	log F_OUT_NAME EXTRA_SECTION_OFFSET EXTRA_SECTION_SIZE
+endif
