@@ -1,0 +1,35 @@
+# Script by Bartlomiej Duda (Ikskoks)
+# Eldritch (PC) CPK script
+
+
+# Ver    Date        Author               Comment
+# v0.1   14.08.2022  Bartlomiej Duda      -
+
+
+comtype zlib
+idstring "DCPK"
+get NUMBER_OF_FILES long
+get DATA_OFFSET long
+get TOTAL_DATA_SIZE long
+
+
+for i = 0 < NUMBER_OF_FILES
+    get FILENAME_LENGTH long
+	GetDString FILE_NAME FILENAME_LENGTH
+	get FILE_OFFSET long
+	get COMP_FILE_SIZE long
+	get UNCOMP_FILE_SIZE long
+	get COMP_FLAG long
+	
+	XMATH REAL_FILE_OFFSET "DATA_OFFSET + FILE_OFFSET"
+	
+	if COMP_FLAG == 1
+		clog FILE_NAME REAL_FILE_OFFSET COMP_FILE_SIZE UNCOMP_FILE_SIZE
+	elif COMP_FLAG == 0
+		log FILE_NAME REAL_FILE_OFFSET COMP_FILE_SIZE
+	else
+		print "Error! Unknown compression flag!"
+		cleanexit
+	EndIf
+
+next i
