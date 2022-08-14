@@ -1,0 +1,26 @@
+# Script by Bartlomiej Duda (Ikskoks)
+# Antecrypt (PC) SGR script
+
+
+# Ver    Date        Author               Comment
+# v0.1   14.08.2022  Bartlomiej Duda      -
+
+get ARCH_SIZE asize
+
+for i = 0
+	SavePos CURRENT_OFFSET
+	
+	if CURRENT_OFFSET >= ARCH_SIZE
+		cleanexit
+	endif
+
+	get FILENAME_LENGTH byte
+	GetDString FILE_NAME FILENAME_LENGTH
+	get FILE_SIZE long
+	SavePos FILE_OFFSET
+	
+	log FILE_NAME FILE_OFFSET FILE_SIZE
+	
+	XMATH NEXT_ENTRY_OFFSET "FILE_OFFSET + FILE_SIZE"
+	goto NEXT_ENTRY_OFFSET
+next i
