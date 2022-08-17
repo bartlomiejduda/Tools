@@ -1,0 +1,19 @@
+# Script by Bartlomiej Duda (Ikskoks)
+# Touch Detective (Android) OBB script
+
+
+# Ver    Date        Author               Comment
+# v0.1   17.08.2022  Bartlomiej Duda      -
+
+
+
+idstring "BIND-008"
+get NUMBER_OF_FILES long
+get NULLS long
+
+for i = 0 < NUMBER_OF_FILES
+	get FILE_OFFSET long
+	get FILE_SIZE long
+	GetDString FILE_NAME 40
+	log FILE_NAME FILE_OFFSET FILE_SIZE
+next i
