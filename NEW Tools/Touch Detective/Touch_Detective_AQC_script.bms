@@ -1,0 +1,21 @@
+# Script by Bartlomiej Duda (Ikskoks)
+# Touch Detective (Android) AQC script
+
+
+# Ver    Date        Author               Comment
+# v0.1   18.08.2022  Bartlomiej Duda      -
+
+
+comtype lzss
+idstring "IZW:SDIC"
+get FILE_UNCOMP_SIZE long
+get ARCHIVE_SIZE asize
+get FILE_NAME basename
+
+SavePos FILE_OFFSET
+XMATH FILE_COMP_SIZE "ARCHIVE_SIZE - FILE_OFFSET"
+
+set F_OUT_NAME string FILE_NAME
+string F_OUT_NAME += "_out.bin"
+
+clog F_OUT_NAME FILE_OFFSET FILE_COMP_SIZE FILE_UNCOMP_SIZE
