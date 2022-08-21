@@ -4,21 +4,46 @@
 
 # Ver    Date        Author               Comment
 # v0.1   21.08.2022  Bartlomiej Duda      -
+# v0.2   21.08.2022  Bartlomiej Duda      -
 
 
 comtype lz4
 idstring "LZ4PNG"
-get UNK1 long
-get FILE_UNCOMP_SIZE long
-
-
 get ARCHIVE_SIZE asize
-get FILE_NAME basename
+Set FILE_COUNT long 0
 
-SavePos FILE_OFFSET
-XMATH FILE_COMP_SIZE "ARCHIVE_SIZE - FILE_OFFSET"
+for i = 0
+	
+	SavePos CURR_OFFSET
+	
+	if CURR_OFFSET >= ARCHIVE_SIZE
+		cleanexit
+	endif
+	
+	endian big
+	get FILE_COMP_SIZE long
+	
+	if FILE_COMP_SIZE == 0
+		cleanexit
+	endif
+	
+	XMATH FILE_COMP_SIZE "FILE_COMP_SIZE - 4"
+	endian little
+	get FILE_UNCOMP_SIZE long
+	
+	get FILE_NAME basename
 
-set F_OUT_NAME string FILE_NAME
-string F_OUT_NAME += "_out.pkm"
+	SavePos FILE_OFFSET
 
-clog F_OUT_NAME FILE_OFFSET FILE_COMP_SIZE FILE_UNCOMP_SIZE
+	XMATH FILE_COUNT "FILE_COUNT+1"
+	set F_OUT_NAME string FILE_NAME
+	string F_OUT_NAME += "_"
+	string F_OUT_NAME += FILE_COUNT
+	string F_OUT_NAME += "_out.pkm"
+
+	clog F_OUT_NAME FILE_OFFSET FILE_COMP_SIZE FILE_UNCOMP_SIZE
+	
+	XMATH NEXT_ENTRY_OFFSET "FILE_OFFSET + FILE_COMP_SIZE"
+	goto NEXT_ENTRY_OFFSET
+
+next i
