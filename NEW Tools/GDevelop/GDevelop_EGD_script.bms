@@ -1,0 +1,17 @@
+# Script by Bartlomiej Duda (Ikskoks)
+# GDevelop games EGD script
+
+
+# Ver    Date        Author               Comment
+# v1.0   22.08.2022  Bartlomiej Duda      -
+
+
+idstring "EXEGD0.1"
+get NUMBER_OF_FILES long
+
+for i = 0 < NUMBER_OF_FILES
+	GetDString FILE_NAME 1024
+	get FILE_SIZE long
+	get FILE_OFFSET long
+	log FILE_NAME FILE_OFFSET FILE_SIZE
+next i
