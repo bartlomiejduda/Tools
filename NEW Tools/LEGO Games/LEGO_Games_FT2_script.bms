@@ -1,0 +1,30 @@
+# Script by Bartlomiej Duda (Ikskoks)
+# LEGO Games FT2 script
+
+
+# Ver    Date        Author               Comment
+# v1.0   23.08.2022  Bartlomiej Duda      -
+
+
+
+endian big
+get UNK1 long
+get VERSION long
+GetDString DDS_SIGNATURE 4
+get TOTAL_FILE_SIZE asize
+get F_NAME basename
+
+
+FindLoc DDS_OFFSET string "DDS " ""
+	
+if DDS_OFFSET == ""
+	print "No DDS file was found!"
+	cleanexit
+endif
+
+xmath DDS_SIZE "TOTAL_FILE_SIZE - DDS_OFFSET"
+
+set F_OUT_NAME string F_NAME
+string F_OUT_NAME += ".dds"
+
+log F_OUT_NAME DDS_OFFSET DDS_SIZE
