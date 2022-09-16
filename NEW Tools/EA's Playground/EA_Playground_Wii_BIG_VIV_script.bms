@@ -1,0 +1,38 @@
+# Script by Bartlomiej Duda (Ikskoks)
+# EA's Playground (WII) BIG VIV script
+
+
+# Ver    Date        Author               Comment
+# v0.1   16.09.2022  Bartlomiej Duda      -
+
+
+endian little
+idstring "BIGF"
+get ARCHIVE_SIZE threebyte
+get SEPARATOR byte
+endian big
+get NUMBER_OF_FILES long
+get HEADER_SIZE long
+
+
+for i = 0 < NUMBER_OF_FILES
+	get SEPARATOR byte
+	get FILE_OFFSET threebyte
+	
+	get SEPARATOR byte
+	get FILE_SIZE threebyte
+	
+	
+	set FILE_NAME string ""
+	for j = 0
+		GetDString SINGLE_CHAR 1
+		if SINGLE_CHAR != " "
+				string FILE_NAME += SINGLE_CHAR
+		else
+			break
+		endif
+	next j
+	
+	log FILE_NAME FILE_OFFSET FILE_SIZE
+	
+next i
