@@ -1,0 +1,25 @@
+# Script by Bartlomiej Duda (Ikskoks)
+# Pacific Rim: The Video Game (DAT files)
+
+# Ver    Date        Author               Comment
+# v0.1   24.09.2022  Bartlomiej Duda      -
+
+
+get ARCHIVE_SIZE asize
+get ARCHIVE_NAME basename
+
+if ARCHIVE_SIZE < 700  # workaround!
+	print "Invalid DAT file! Exiting!"
+	cleanexit
+endif
+
+goto 40
+get DDS_OFFSET long
+
+
+XMATH DDS_SIZE "ARCHIVE_SIZE - DDS_OFFSET"
+
+set F_OUT_NAME string ARCHIVE_NAME
+string F_OUT_NAME += "_out.dds"
+
+log F_OUT_NAME DDS_OFFSET DDS_SIZE
