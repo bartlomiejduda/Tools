@@ -1,0 +1,61 @@
+# Script by Bartlomiej Duda (Ikskoks)
+# Abbey Games TIM (version 3) script
+
+
+# Ver    Date        Author               Comment
+# v0.1   21.09.2022  Bartlomiej Duda      -
+
+
+# TODO - this script is not finished yet, more research needed
+
+comtype lzham
+idstring "IRUY"
+get HEADER_SIZE long
+get FORMAT_VERSION short
+
+
+
+if FORMAT_VERSION != 3
+	print "Only version 3 is currently supported by this script! Exiting!"
+	cleanexit
+endif
+
+
+
+get NUMBER_OF_FILES long
+get DIR_LISTING_OFFSET longlong
+get DIR_LISTING_UNCOMP_SIZE long
+get DIR_LISTING_COMP_SIZE long
+
+get FILE_REGISTRY_OFFSET longlong
+get FILE_REGISTRY_COMP_SIZE long
+
+get HASH_TABLE_OFFSET longlong
+get HASH_TABLE_COMP_SIZE long
+
+get BUCKET_TABLE_OFFSET longlong
+get BUCKET_TABLE_COMP_SIZE long
+
+
+
+set F_OUT_NAME string "01_dir_listing.bin"
+clog F_OUT_NAME DIR_LISTING_OFFSET DIR_LISTING_COMP_SIZE DIR_LISTING_UNCOMP_SIZE
+
+
+set F_OUT_NAME string "02_file_registry.bin"
+XMATH FILE_REGISTRY_UNCOMP_SIZE "FILE_REGISTRY_COMP_SIZE * 20"
+clog F_OUT_NAME FILE_REGISTRY_OFFSET FILE_REGISTRY_COMP_SIZE FILE_REGISTRY_UNCOMP_SIZE
+
+
+set F_OUT_NAME string "03_hash_table.bin"
+XMATH HASH_TABLE_UNCOMP_SIZE "HASH_TABLE_COMP_SIZE * 20"
+clog F_OUT_NAME HASH_TABLE_OFFSET HASH_TABLE_COMP_SIZE HASH_TABLE_UNCOMP_SIZE
+
+
+set F_OUT_NAME string "04_bucket_table.bin"
+XMATH BUCKET_TABLE_UNCOMP_SIZE "BUCKET_TABLE_COMP_SIZE * 20"
+clog F_OUT_NAME BUCKET_TABLE_OFFSET BUCKET_TABLE_COMP_SIZE BUCKET_TABLE_UNCOMP_SIZE
+
+
+
+# TODO - this script is not finished yet, more research needed
