@@ -1,0 +1,27 @@
+# Script by Bartlomiej Duda (Ikskoks)
+
+
+# This script shoud be used when you want to
+# extract/import TTF font from Unity DAT 
+# file (initially extracted by Asset Bundle Extractor)
+
+
+
+# Ver    Date        Author               Comment
+# v0.1   26.09.2022  Bartlomiej Duda      -
+
+
+set SEEK_OFFSET long 84  # this needs to be adjusted!
+
+
+get FONT_NAME_LENGTH long
+GetDstring FONT_NAME FONT_NAME_LENGTH
+
+set F_OUT_NAME string FONT_NAME
+string F_OUT_NAME += ".ttf"
+
+goto SEEK_OFFSET
+get FONT_SIZE long
+SavePos FONT_OFFSET
+
+log F_OUT_NAME FONT_OFFSET FONT_SIZE
