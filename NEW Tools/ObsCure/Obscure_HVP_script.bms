@@ -1,0 +1,98 @@
+# Script by Bartlomiej Duda (Ikskoks)
+# Obscure (PC) HVP script
+
+
+# Ver    Date        Author               Comment
+# v0.1   26.09.2022  Bartlomiej Duda      -
+# v0.2   01.10.2022  Bartlomiej Duda      -
+
+
+idstring "HV PackFile\x00"
+endian big
+comtype zlib
+get ARCHIVE_TYPE long
+get NUMBER_OF_MAIN_LEVEL_DIRS long
+get NUMBER_OF_FILES_AND_DIRS long
+get NUMBER_OF_FILES long
+get DIRECTORY_SIZE long
+
+if ARCHIVE_TYPE == 196609
+	get HEADER_CRC32 long
+	get DIRECTORY_CRC32 long
+elif ARCHIVE_TYPE == 196608
+	print "Archive without CRC32 check."
+else
+	print "Error! Wrong archive type!"
+	cleanexit
+endif
+
+
+set FULL_OUTPUT_FILE_PATH string ""
+set FULL_PREVIOUS_OUTPUT_FILE_PATH string ""
+
+
+for i = 0 < NUMBER_OF_MAIN_LEVEL_DIRS
+	callfunction GET_ENTRY	
+next i
+
+
+
+startfunction GET_ENTRY
+	get ENTRY_SIZE long
+	get ENTRY_TYPE byte
+	
+	if ENTRY_TYPE == 0 # read directory
+		callfunction GET_DIRECTORY
+	else if ENTRY_TYPE == 1 # read file
+		callfunction GET_FILE
+	else
+		print "Error! Unknown entry type!"
+		cleanexit
+	endif
+endfunction
+
+
+
+startfunction GET_DIRECTORY
+	get COMPRESSION_FLAG long  # should be ignored for directories
+	get NUM_OF_FILES_IN_DIRECTORY long
+	get DIRECTORY_NAME_LENGTH long
+	GetDstring DIRECTORY_NAME DIRECTORY_NAME_LENGTH
+	
+	set FILE_PATH_BACKUP string FULL_OUTPUT_FILE_PATH
+	if FULL_OUTPUT_FILE_PATH != ""
+		string FULL_OUTPUT_FILE_PATH += "\"
+	endif
+	string FULL_OUTPUT_FILE_PATH += DIRECTORY_NAME
+		
+	# read files in this directory
+	for j = 0 < NUM_OF_FILES_IN_DIRECTORY
+		callfunction GET_ENTRY
+	next j
+	
+	set FULL_OUTPUT_FILE_PATH string FILE_PATH_BACKUP
+endfunction
+
+
+startfunction GET_FILE
+	get COMPRESSION_FLAG long
+	get COMPRESSED_FILE_SIZE long
+	get UNCOMPRESSED_FILE_SIZE long
+	get UNKNOWN_HASH long
+	get FILE_OFFSET long
+	get FILE_NAME_LENGTH long
+	GetDString FILE_NAME FILE_NAME_LENGTH
+	
+	set FILE_PATH_BACKUP string FULL_OUTPUT_FILE_PATH
+	string FULL_OUTPUT_FILE_PATH += "\"
+	string FULL_OUTPUT_FILE_PATH += FILE_NAME
+	
+	
+	if COMPRESSION_FLAG == 1
+		clog FULL_OUTPUT_FILE_PATH FILE_OFFSET COMPRESSED_FILE_SIZE UNCOMPRESSED_FILE_SIZE
+	else
+		log FULL_OUTPUT_FILE_PATH FILE_OFFSET UNCOMPRESSED_FILE_SIZE
+	endif
+	
+	set FULL_OUTPUT_FILE_PATH string FILE_PATH_BACKUP
+endfunction
