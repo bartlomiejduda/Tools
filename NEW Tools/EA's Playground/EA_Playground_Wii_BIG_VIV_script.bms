@@ -4,35 +4,42 @@
 
 # Ver    Date        Author               Comment
 # v0.1   16.09.2022  Bartlomiej Duda      -
+# v0.2   06.10.2022  Bartlomiej Duda      -
+
+
+# BIG/VIV archive needs to be correctly decompressed before using this script!
 
 
 endian little
 idstring "BIGF"
-get ARCHIVE_SIZE threebyte
-get SEPARATOR byte
+get ARCHIVE_SIZE long
+get ARCHIVE_NAME basename
+
 endian big
 get NUMBER_OF_FILES long
 get HEADER_SIZE long
 
 
 for i = 0 < NUMBER_OF_FILES
-	get SEPARATOR byte
-	get FILE_OFFSET threebyte
-	
-	get SEPARATOR byte
-	get FILE_SIZE threebyte
+
+	get FILE_OFFSET long
+	get FILE_SIZE long
 	
 	
-	set FILE_NAME string ""
+	set OUT_FILE_PATH string ARCHIVE_NAME
+	string OUT_FILE_PATH += "_out\"
 	for j = 0
+		SavePos BACK_OFFSET
+		get CHECK_BYTE byte
+		goto BACK_OFFSET
 		GetDString SINGLE_CHAR 1
-		if SINGLE_CHAR != " "
-				string FILE_NAME += SINGLE_CHAR
+		if CHECK_BYTE != 0x00
+				string OUT_FILE_PATH += SINGLE_CHAR
 		else
 			break
 		endif
 	next j
 	
-	log FILE_NAME FILE_OFFSET FILE_SIZE
+	log OUT_FILE_PATH FILE_OFFSET FILE_SIZE
 	
 next i
