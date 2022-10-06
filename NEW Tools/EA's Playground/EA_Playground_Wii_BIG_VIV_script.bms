@@ -34,7 +34,7 @@ for i = 0 < NUMBER_OF_FILES
 		goto BACK_OFFSET
 		GetDString SINGLE_CHAR 1
 		if CHECK_BYTE != 0x00
-				string OUT_FILE_PATH += SINGLE_CHAR
+			string OUT_FILE_PATH += SINGLE_CHAR
 		else
 			break
 		endif
