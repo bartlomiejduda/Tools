@@ -1,0 +1,107 @@
+# Script by Bartlomiej Duda (Ikskoks)
+# SpellForce 1 (PC) PAK script
+
+# Tested on SpellForce: Platinum Edition from GOG.com
+
+
+# Ver    Date        Author               Comment
+# v0.1   27.10.2022  Bartlomiej Duda      -
+
+
+
+get VERSION_NUMBER long
+if VERSION_NUMBER != 4
+ 	print "Version not supported! Exiting!
+	cleanexit
+endif
+
+GetDString VERSION_STRING 24
+if VERSION_STRING != "MASSIVE PAKFILE V 4.0\r\n\0"
+	print "Invalid signature! Exiting!"
+	cleanexit
+endif
+
+
+goto 76
+
+
+get NUMBER_OF_FILES long
+get ROOT_INDEX long
+get DATA_START_OFFSET long
+get ARCHIVE_SIZE long
+
+
+get ARCHIVE_NAME basename
+set OUTPUT_FILE_PATH string ARCHIVE_NAME
+
+
+set HEADER_SIZE long 92
+set DIRECTORY_ENTRY_SIZE long 16
+XMATH BASE_NAME_LIST_OFFSET "HEADER_SIZE + (NUMBER_OF_FILES * DIRECTORY_ENTRY_SIZE)"
+
+for i = 0 < NUMBER_OF_FILES
+	get FILE_SIZE long
+	get FILE_OFFSET long
+	get FILE_NAME_OFFSET long
+	get DIRECTORY_NAME_OFFSET long
+	
+	XMATH FILE_OFFSET "FILE_OFFSET + DATA_START_OFFSET"
+	XMATH FILE_NAME_OFFSET "BASE_NAME_LIST_OFFSET + (FILE_NAME_OFFSET & 0xffffff) + 2"
+	XMATH DIRECTORY_NAME_OFFSET "BASE_NAME_LIST_OFFSET + (DIRECTORY_NAME_OFFSET & 0xffffff)"
+	
+	SavePos PATH_BACK_OFFSET
+	
+	goto DIRECTORY_NAME_OFFSET
+	callfunction GET_STRING_AND_REVERSE_IT 1
+	set DIRECTORY_NAME string REVERSED_STRING
+	
+	goto FILE_NAME_OFFSET
+	callfunction GET_STRING_AND_REVERSE_IT 1
+	set FILE_NAME string REVERSED_STRING
+	
+	string OUTPUT_FILE_PATH += "/"
+	string OUTPUT_FILE_PATH += DIRECTORY_NAME
+	string OUTPUT_FILE_PATH += "/"
+	string OUTPUT_FILE_PATH += FILE_NAME
+	
+	log OUTPUT_FILE_PATH FILE_OFFSET FILE_SIZE
+	set OUTPUT_FILE_PATH string ARCHIVE_NAME
+	goto PATH_BACK_OFFSET
+	
+next i
+
+
+
+startfunction GET_STRING_AND_REVERSE_IT
+
+	set REVERSED_STRING string ""
+	
+	# loop for storing reversed text in memory file
+	set STR_LENGTH long 0
+	for j = 0
+		get TEMP_CHAR byte
+		if TEMP_CHAR == 0
+			break
+		endif
+		PutVarChr MEMORY_FILE j TEMP_CHAR
+		XMATH STR_LENGTH "STR_LENGTH + 1"
+	next j
+	set NULL_TERMINATOR byte 0
+	PutVarChr MEMORY_FILE j NULL_TERMINATOR
+	
+	XMATH CHAR_INDEX "STR_LENGTH - 1"
+
+
+	# loop for storing normal text in memory file
+	for k = 0 < j
+		GetVarChr TEMP_CHAR MEMORY_FILE CHAR_INDEX byte
+		PutVarChr MEMORY_FILE2 k TEMP_CHAR
+		XMATH CHAR_INDEX "CHAR_INDEX - 1"
+	next k
+	set NULL_TERMINATOR byte 0
+	PutVarChr MEMORY_FILE2 k NULL_TERMINATOR
+	
+	goto 0 -2 SEEK_SET
+	GetDString REVERSED_STRING STR_LENGTH -2
+
+endfunction

@@ -3,9 +3,13 @@
 
 
 # Ver    Date        Author               Comment
-# v0.1   08.10.2022  Bartlomiej Duda      -
+# v0.1   26.10.2022  Bartlomiej Duda      -
 
 
+
+
+# get string
+# GetDString NAME NAME_LENGTH
 
 # file log
 # clog FULL_OUTPUT_FILE_PATH FILE_OFFSET COMPRESSED_FILE_SIZE UNCOMPRESSED_FILE_SIZE
