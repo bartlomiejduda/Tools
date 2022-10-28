@@ -6,6 +6,7 @@
 
 # Ver    Date        Author               Comment
 # v0.1   27.10.2022  Bartlomiej Duda      -
+# v0.2   28.10.2022  Bartlomiej Duda      Refactor
 
 
 
@@ -52,56 +53,17 @@ for i = 0 < NUMBER_OF_FILES
 	SavePos PATH_BACK_OFFSET
 	
 	goto DIRECTORY_NAME_OFFSET
-	callfunction GET_STRING_AND_REVERSE_IT 1
-	set DIRECTORY_NAME string REVERSED_STRING
+	get DIRECTORY_NAME string
+	string DIRECTORY_NAME r DIRECTORY_NAME
 	
 	goto FILE_NAME_OFFSET
-	callfunction GET_STRING_AND_REVERSE_IT 1
-	set FILE_NAME string REVERSED_STRING
+	get FILE_NAME string
+	string FILE_NAME r FILE_NAME
 	
-	string OUTPUT_FILE_PATH += "/"
-	string OUTPUT_FILE_PATH += DIRECTORY_NAME
-	string OUTPUT_FILE_PATH += "/"
-	string OUTPUT_FILE_PATH += FILE_NAME
+	string OUTPUT_FILE_PATH p "%s/%s/%s" ARCHIVE_NAME DIRECTORY_NAME FILE_NAME
 	
 	log OUTPUT_FILE_PATH FILE_OFFSET FILE_SIZE
 	set OUTPUT_FILE_PATH string ARCHIVE_NAME
 	goto PATH_BACK_OFFSET
 	
 next i
-
-
-
-startfunction GET_STRING_AND_REVERSE_IT
-
-	set REVERSED_STRING string ""
-	
-	# loop for storing reversed text in memory file
-	set STR_LENGTH long 0
-	for j = 0
-		get TEMP_CHAR byte
-		if TEMP_CHAR == 0
-			break
-		endif
-		PutVarChr MEMORY_FILE j TEMP_CHAR
-		XMATH STR_LENGTH "STR_LENGTH + 1"
-	next j
-	set NULL_TERMINATOR byte 0
-	PutVarChr MEMORY_FILE j NULL_TERMINATOR
-	
-	XMATH CHAR_INDEX "STR_LENGTH - 1"
-
-
-	# loop for storing normal text in memory file
-	for k = 0 < j
-		GetVarChr TEMP_CHAR MEMORY_FILE CHAR_INDEX byte
-		PutVarChr MEMORY_FILE2 k TEMP_CHAR
-		XMATH CHAR_INDEX "CHAR_INDEX - 1"
-	next k
-	set NULL_TERMINATOR byte 0
-	PutVarChr MEMORY_FILE2 k NULL_TERMINATOR
-	
-	goto 0 -2 SEEK_SET
-	GetDString REVERSED_STRING STR_LENGTH -2
-
-endfunction
