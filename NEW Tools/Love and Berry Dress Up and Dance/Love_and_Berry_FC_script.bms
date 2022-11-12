@@ -1,0 +1,34 @@
+# Script by Bartlomiej Duda (Ikskoks)
+# Love and Berry: Dress Up and Dance! (NDS) *.FC script
+
+
+# Ver    Date        Author               Comment
+# v0.1   12.11.2022  Bartlomiej Duda      -
+
+
+idstring "SEGACOMP"
+comtype MSLZSS
+endian little
+get VERSION long  # 1
+get UNCOMP_SIZE long
+get F_NAME basename
+set F_EXTENSION string ".bin"  # default
+
+SavePos DATA_OFFSET
+get ARCHIVE_SIZE asize
+XMATH COMP_SIZE "ARCHIVE_SIZE - DATA_OFFSET"
+
+
+FindLoc SIGN_OFFSET string "PVRT" ""
+if SIGN_OFFSET != ""
+	set F_EXTENSION string ".pvr"  # PVR Image 
+endif
+
+FindLoc SIGN_OFFSET string "NJCM" ""
+if SIGN_OFFSET != ""
+	set F_EXTENSION string ".nj"  # Ninja Model
+endif
+
+
+string F_OUT_NAME p "%s%s" F_NAME F_EXTENSION
+clog F_OUT_NAME DATA_OFFSET COMP_SIZE UNCOMP_SIZE

@@ -7,6 +7,10 @@
 
 
 
+# logging names array to memory file
+# log MEMORY_FILE NAME_ARRAY_OFFSET NAME_ARRAY_SIZE
+# getting name from memory file
+# get NAME string MEMORY_FILE
 
 # combining output path
 # string OUTPUT_FILE_PATH p "%s/%s/%s" ARCHIVE_NAME DIRECTORY_NAME FILE_NAME
