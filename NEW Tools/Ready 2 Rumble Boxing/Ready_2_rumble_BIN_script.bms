@@ -8,6 +8,8 @@
 # v0.3   17.11.2022  Bartlomiej Duda      -
 # v0.4   19.11.2022  Bartlomiej Duda      -
 # v0.5   19.11.2022  Bartlomiej Duda      -
+# v0.6   19.11.2022  Bartlomiej Duda      -
+# v0.7   20.11.2022  Bartlomiej Duda      -
 
 
 
@@ -34,8 +36,8 @@ for j = 0
  	GetDString ENTRY_TYPE 4
 	get ENTRY_SIZE long
 	get UNK0 short
-	get UNK1 short
-	get UNK2 long
+	get NUMBER_OF_VAG_FILES_PER_ENTRY short
+	get ENTRY_TYPE_AS_NUMBER long
 	get ENTRY_SIZE long
 	GetDString FILE_NAME 12
 	
@@ -59,19 +61,20 @@ for j = 0
 	if ENTRY_TYPE == "MLST"
 		set FILE_EXTENSION string ".mlst"
 	endif
+	if ENTRY_TYPE == "ILST"
+		set FILE_EXTENSION string ".ilst"
+	endif
+	if ENTRY_TYPE == "DAT "
+		set FILE_EXTENSION string ".dat"
+	endif
 	
 	
-	# if for dumping whole entries (workaround!)
 	if ENTRY_TYPE != "TIM " && ENTRY_TYPE != "SFX "
-		print "Unsupported entry type %ENTRY_TYPE%. Dumping only!"
-		
 		XMATH NEXT_ENTRY_OFFSET "ENTRY_START_OFFSET + ENTRY_HEADER_SIZE + ENTRY_SIZE"
 		XMATH DUMP_SIZE "NEXT_ENTRY_OFFSET - ENTRY_START_OFFSET"
 		string OUTPUT_FILE_PATH p "%s/%s%s%s%s" ARCHIVE_NAME FILE_NAME "_" j FILE_EXTENSION
 		log OUTPUT_FILE_PATH ENTRY_START_OFFSET DUMP_SIZE
 		goto NEXT_ENTRY_OFFSET
-		
-		#print "f_name: %OUTPUT_FILE_PATH%, st_off: %ENTRY_START_OFFSET%, f_size: %DUMP_SIZE%, next_en_off: %NEXT_ENTRY_OFFSET%" 
 	
 	else
 		
@@ -92,22 +95,23 @@ for j = 0
 			XMATH DATA_SIZE "DATA_REAL_END_OFFSET - DATA_REAL_START_OFFSET"
 			string OUTPUT_FILE_PATH p "%s/%s%s%s%s" ARCHIVE_NAME FILE_NAME "_" k FILE_EXTENSION
 			
-			#print "AAA f_name: %OUTPUT_FILE_PATH%, r_st_offset: %DATA_REAL_START_OFFSET%, r_end_off: %DATA_REAL_END_OFFSET%, f_size: %DATA_SIZE%, e_off: %END_OFFSET%"
-			log OUTPUT_FILE_PATH DATA_REAL_START_OFFSET DATA_SIZE
+			set LOG_OFFSET long DATA_REAL_START_OFFSET
+			set LOG_SIZE long DATA_SIZE
+			if ENTRY_TYPE == "SFX "
+				XMATH LOG_OFFSET "LOG_OFFSET + 4"
+				XMATH LOG_SIZE "LOG_SIZE - 4"
+			endif
+			log OUTPUT_FILE_PATH LOG_OFFSET LOG_SIZE
 			XMATH CURRENT_DATA_OFFSET "CURRENT_DATA_OFFSET + DATA_SIZE"
-
-			
 		next k
 		
 		
 		XMATH NEXT_ENTRY_OFFSET "ENTRY_START_OFFSET + ENTRY_HEADER_SIZE + ENTRY_SIZE"
 		goto NEXT_ENTRY_OFFSET
 		
-		
 	endif
 	
 	if NEXT_ENTRY_OFFSET >= ARCHIVE_SIZE
-		print "end of archive..."
 		break
 	endif
 	
