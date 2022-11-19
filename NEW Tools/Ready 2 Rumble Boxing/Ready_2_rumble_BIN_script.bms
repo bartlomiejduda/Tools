@@ -29,7 +29,6 @@ goto 0 -1 SEEK_SET
 
 
 for j = 0
-    print "AAA %j%"
  	SavePos ENTRY_OFFSET
  	GetDString ENTRY_TYPE 4
 	get ENTRY_SIZE long
@@ -54,66 +53,71 @@ for j = 0
 	if ENTRY_TYPE == "PHM "
 		set FILE_EXTENSION string ".phm"
 	endif
+	if ENTRY_TYPE == "MODL"
+		set FILE_EXTENSION string ".modl"
+	endif
+	if ENTRY_TYPE == "MLST"
+		set FILE_EXTENSION string ".mlst"
+	endif
 	
 	
 	# if for dumping whole entries (workaround!)
 	if ENTRY_TYPE != "TIM "
 		print "Unsupported entry type %ENTRY_TYPE%. Dumping only!"
+		
 		XMATH NEXT_ENTRY_OFFSET "BASE_OFFSET + ENTRY_SIZE - 4"
+		XMATH DUMP_SIZE "NEXT_ENTRY_OFFSET - ENTRY_OFFSET"
+		string OUTPUT_FILE_PATH p "%s/%s%s%s%s" ARCHIVE_NAME FILE_NAME "_" j FILE_EXTENSION
+		log OUTPUT_FILE_PATH ENTRY_OFFSET DUMP_SIZE
 		goto NEXT_ENTRY_OFFSET 0 SEEK_SET
-		Continue
 		
-		#XMATH NEXT_ENTRY_OFFSET "BASE_OFFSET + ENTRY_SIZE - 4"
-		#XMATH DUMP_SIZE "NEXT_ENTRY_OFFSET - ENTRY_OFFSET"
-		#string OUTPUT_FILE_PATH p "%s/%s%s%s%s" ARCHIVE_NAME FILE_NAME "_" j FILE_EXTENSION
-		#log OUTPUT_FILE_PATH ENTRY_OFFSET DUMP_SIZE
-		#goto NEXT_ENTRY_OFFSET 0 SEEK_SET
-		#print "e_off: %ENTRY_OFFSET%, e_size: %DUMP_SIZE%, next_e_offset: %NEXT_ENTRY_OFFSET%"
-		#Continue
-	endif
-	print "BBBBBB e_off: %ENTRY_OFFSET%, e_size: %DUMP_SIZE%, next_e_offset: %NEXT_ENTRY_OFFSET%"
+		if NEXT_ENTRY_OFFSET >= ARCHIVE_SIZE
+			print "end of archive..."
+			break
+		endif
 	
-	get TEMP_OFFSET long
-	
-	
-	XMATH LAST_FILE_INDEX "NUMBER_OF_FILES - 1"
-	set TOTAL_DIR_SIZE long 0
-	for k = 0 < NUMBER_OF_FILES
-		
-		set START_OFFSET long TEMP_OFFSET
+	else
+
 		get TEMP_OFFSET long
-		set END_OFFSET long TEMP_OFFSET
 		
-		if k == LAST_FILE_INDEX
-			#print "DDDD entr_size: %ENTRY_SIZE%, b_offset: %BASE_OFFSET%"
-			#XMATH START_OFFSET "START_OFFSET + BASE_OFFSET"
-			XMATH END_OFFSET "ENTRY_SIZE - 4"
-			#print "EEEE: end_off: %END_OFFSET%"
+		
+		XMATH LAST_FILE_INDEX "NUMBER_OF_FILES - 1"
+		set TOTAL_DIR_SIZE long 0
+		for k = 0 < NUMBER_OF_FILES
+			
+			set START_OFFSET long TEMP_OFFSET
+			get TEMP_OFFSET long
+			set END_OFFSET long TEMP_OFFSET
+			
+			if k == LAST_FILE_INDEX
+				XMATH END_OFFSET "ENTRY_SIZE - 4"
+			endif
+			
+			XMATH REAL_START_OFFSET "BASE_OFFSET + START_OFFSET - 4"
+			XMATH REAL_END_OFFSET "BASE_OFFSET + END_OFFSET - 4"
+			XMATH FILE_SIZE "REAL_END_OFFSET - REAL_START_OFFSET"
+			
+			if ENTRY_TYPE == "SFX "
+				XMATH REAL_START_OFFSET "REAL_START_OFFSET + 4"
+			endif
+			
+			string OUTPUT_FILE_PATH p "%s/%s%s%s%s" ARCHIVE_NAME FILE_NAME "_" k FILE_EXTENSION
+			#print "f_name: %OUTPUT_FILE_PATH% f_size: %FILE_SIZE%, f_off: %REAL_START_OFFSET%"
+			log OUTPUT_FILE_PATH REAL_START_OFFSET FILE_SIZE
+			
+			XMATH TOTAL_DIR_SIZE "TOTAL_DIR_SIZE + FILE_SIZE"
+			
+		next k
+		
+		SavePos TEMP_OFF
+		XMATH NEXT_DIR_OFFSET "TEMP_OFF + TOTAL_DIR_SIZE"
+		goto NEXT_DIR_OFFSET
+		
+		if NEXT_DIR_OFFSET >= ARCHIVE_SIZE
+			print "end of archive..."
+			break
 		endif
 		
-		XMATH REAL_START_OFFSET "BASE_OFFSET + START_OFFSET - 4"
-		XMATH REAL_END_OFFSET "BASE_OFFSET + END_OFFSET - 4"
-		XMATH FILE_SIZE "REAL_END_OFFSET - REAL_START_OFFSET"
-		
-		if ENTRY_TYPE == "SFX "
-			XMATH REAL_START_OFFSET "REAL_START_OFFSET + 4"
-		endif
-		
-		string OUTPUT_FILE_PATH p "%s/%s%s%s%s" ARCHIVE_NAME FILE_NAME "_" k FILE_EXTENSION
-		print "f_name: %OUTPUT_FILE_PATH% f_size: %FILE_SIZE%, f_off: %REAL_START_OFFSET%"
-		log OUTPUT_FILE_PATH REAL_START_OFFSET FILE_SIZE
-		
-		XMATH TOTAL_DIR_SIZE "TOTAL_DIR_SIZE + FILE_SIZE"
-		
-	next k
-	
-	SavePos TEMP_OFF
-	XMATH NEXT_DIR_OFFSET "TEMP_OFF + TOTAL_DIR_SIZE"
-	goto NEXT_DIR_OFFSET
-	
-	if NEXT_DIR_OFFSET >= ARCHIVE_SIZE
-		print "end of archive..."
-		break
 	endif
 	
 next j
