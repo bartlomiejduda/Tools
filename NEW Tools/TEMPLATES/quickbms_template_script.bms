@@ -29,6 +29,8 @@
 # go to -1 offset from current position
 # goto -1 0 SEEK_CUR
 
+# go to 0 offset in memory file1 (absolute offset)
+# goto 0 -1 SEEK_SET
 
 # string append
 # set FILE_COUNT long 0
