@@ -1,11 +1,11 @@
 #include <Windows.h>
 #include <iostream>
 #include <fstream>
-// #include "sigscan.h"
 #include <string>
 #include <stdint.h>
 #include <Memory.h>
 #include <stdlib.h>
+#include <stdio.h>
 
 
 #pragma warning(disable:4996)
@@ -14,13 +14,13 @@ using namespace std;
 
 
 // <GAME_NAME> Hook
-// Copyright © 2021  Bartłomiej Duda
+// Copyright © 2023  Bartłomiej Duda
 // License: GPL-3.0 License 
 
 
-//Changelog:
+// Changelog:
 // VERSION     DATE          AUTHOR             COMMENT
-// v0.1        06.01.2021    Bartlomiej Duda    -
+// v0.1        06.01.2023    Bartlomiej Duda    -
 
 
 int stolen_bytes_len = 0;
@@ -196,7 +196,6 @@ DWORD WINAPI MainThread(LPVOID param)
 	AllocConsole();
 	freopen("CONOUT$", "w", stdout);
 	cout << "HACK THREAD START" << endl;
-	//SigScan Scanner;
 
 	uintptr_t moduleBase = (uintptr_t)GetModuleHandle(NULL);
 	cout << "Module Base_dec: " << std::dec << moduleBase << " Module base_hex: " << std::hex << moduleBase << endl;
