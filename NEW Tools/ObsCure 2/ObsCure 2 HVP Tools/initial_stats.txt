@@ -1,0 +1,28 @@
+# These are initial stats (for clean list only)
+# Hopefully final stats will be much better ;)
+
+# creation date: 06.12.2022
+
+== Stats for  cachpack.hvp  ==
+All entries:  316
+Known hashes:  16
+Unknown hashes:  300
+Progress:  5.06%
+
+== Stats for  kinepack.hvp  ==
+All entries:  56
+Known hashes:  8
+Unknown hashes:  48
+Progress:  14.29%
+
+== Stats for  datapack.hvp  ==
+All entries:  1449
+Known hashes:  602
+Unknown hashes:  847
+Progress:  41.55%
+
+== Stats for  loadpack.hvp  ==
+All entries:  727
+Known hashes:  471
+Unknown hashes:  256
+Progress:  64.79%
