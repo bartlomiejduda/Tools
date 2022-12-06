@@ -54,7 +54,7 @@ hash_list_without_duplicates: list[HashDumpObject] = sorted(hash_list_without_du
 output_file = open("hash_lists/obscure_2_hash_clean_list.txt", "wt")
 
 for hash_clean_entry in hash_list_without_duplicates:
-    out_line = hash_clean_entry.crc + "|||" + str(hash_clean_entry.path_length) + "|||" +  hash_clean_entry.file_path + "\n"
+    out_line = hash_clean_entry.crc + "|||" + str(hash_clean_entry.path_length) + "|||" + hash_clean_entry.file_path + "\n"
     output_file.write(out_line)
 
 
