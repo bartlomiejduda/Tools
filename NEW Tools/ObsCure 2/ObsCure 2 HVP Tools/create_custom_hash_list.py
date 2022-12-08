@@ -14,7 +14,7 @@ License: GPL-3.0 License
 
 from operator import attrgetter
 from typing import List
-from custom_hashes import CUSTOM_HASHES
+from custom_filenames import CUSTOM_FILENAMES
 from objects import HashEntryObject
 from reversebox.common.common import convert_int_to_hex_string
 from reversebox.checksum import checksum_crc32_iso_hdlc
@@ -42,10 +42,21 @@ for line in hook_list_file:
 
 # add entries to custom hash list
 # (also check for issues, e.g. duplicates, wrong length etc.)
-for custom_hash_entry in CUSTOM_HASHES:
+for custom_filename in CUSTOM_FILENAMES:
+    custom_hash_entry: HashEntryObject = HashEntryObject(
+        crc=crc32_handler.calculate_crc32(bytes(custom_filename.encode("utf8"))),
+        path_length=len(custom_filename),
+        file_path=custom_filename
+    )
+
+    for check_entry in custom_hash_list:
+        if check_entry.crc == custom_hash_entry.crc:
+            raise Exception(f"[CUSTOM LIST] Duplicate CRC = {convert_int_to_hex_string(custom_hash_entry.crc)}"
+                            f" for path {custom_hash_entry.file_path}! Please remove it!")
+
     for hook_list_entry in hook_list:
         if custom_hash_entry.crc == hook_list_entry.crc:
-            raise Exception(f"Duplicate CRC = {convert_int_to_hex_string(custom_hash_entry.crc)}"
+            raise Exception(f"[HOOK LIST] Duplicate CRC = {convert_int_to_hex_string(custom_hash_entry.crc)}"
                             f" for path {custom_hash_entry.file_path}! Please remove it!")
 
     calculated_crc = crc32_handler.calculate_crc32(

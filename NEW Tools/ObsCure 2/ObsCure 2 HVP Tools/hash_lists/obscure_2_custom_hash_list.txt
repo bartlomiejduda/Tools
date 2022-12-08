@@ -73,7 +73,6 @@
 0xC002B89F|||15|||energydrink.zwo
 0xC100B1F7|||10|||jemmy2.zwo
 0xC26E55D8|||7|||RowBoat
-0xC26E55D8|||7|||RowBoat
 0xC45B7B05|||10|||woosh4.wav
 0xC547B3BD|||9|||Obscure 2
 0xD87F7E0C|||4|||test
@@ -82,7 +81,6 @@
 0xDA52023A|||18|||obscure_record.inp
 0xDFA625DE|||13|||flashball.zwo
 0xE262213B|||13|||progeclat.zwo
-0xE2A57F71|||14|||TheRowBoat.zwo
 0xE2A57F71|||14|||TheRowBoat.zwo
 0xE3A4779E|||12|||Obscure2.pdb
 0xE5BEB5C4|||13|||flashbang.zwo
