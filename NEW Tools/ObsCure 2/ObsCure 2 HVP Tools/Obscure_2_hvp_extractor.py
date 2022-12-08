@@ -23,7 +23,7 @@ print("Starting HVP extract script...")
 # kinepack.hvp - BIK
 # datapack.hvp - ZWO, DIC, XMC
 # loadpack.hvp  - WAV
-hvp_path = "C:\\GRY\\Obscure 2\\datapack.hvp"
+hvp_path = "C:\\GRY\\Obscure 2\\kinepack.hvp"
 hvp_handler = FileHandler(hvp_path, "rb")
 
 hvp_handler.open()
