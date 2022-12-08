@@ -20,10 +20,10 @@ from objects import HashEntryObject
 print("Starting HVP extract script...")
 
 # cachpack.hvp
-# kinepack.hvp
-# datapack.hvp
-# loadpack.hvp
-hvp_path = "C:\\GRY\\Obscure 2\\loadpack.hvp"
+# kinepack.hvp - BIK
+# datapack.hvp - ZWO, DIC, XMC
+# loadpack.hvp  - WAV
+hvp_path = "C:\\GRY\\Obscure 2\\datapack.hvp"
 hvp_handler = FileHandler(hvp_path, "rb")
 
 hvp_handler.open()
