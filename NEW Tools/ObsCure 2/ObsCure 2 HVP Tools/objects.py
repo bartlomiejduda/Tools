@@ -14,3 +14,13 @@ class HashDumpObject:
     path_length: int
     file_path: str
 
+
+@dataclass
+class DirectoryEntryObject:
+    entry_hash: str
+    entry_name: str
+    entry_type: int
+    value1: int  # CRC / zero
+    value2: int  # file uncomp size / zero
+    value3: int  # file offset / number of files in directory
+    value4: int  # file comp size / start index
