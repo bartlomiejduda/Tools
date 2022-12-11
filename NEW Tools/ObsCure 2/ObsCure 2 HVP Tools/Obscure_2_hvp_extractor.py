@@ -24,8 +24,8 @@ print("Starting HVP extract script...")
 # cachpack.hvp - ZWO, DAT, HOE
 # kinepack.hvp - BIK
 # datapack.hvp - ZWO, DIC, XMC
-# loadpack.hvp  - WAV
-hvp_path = "C:\\GRY\\Obscure 2\\loadpack.hvp"
+# loadpack.hvp  - WAV, SUB, ZWO
+hvp_path = "C:\\GRY\\Obscure 2\\kinepack.hvp"
 hvp_handler = FileHandler(hvp_path, "rb")
 
 hvp_handler.open()
@@ -73,10 +73,12 @@ for i in range(number_of_entries):
     value4 = hvp_handler.read_uint32()
 
     entry_type_str = None
+    if entry_type == 0:
+        entry_type_str = "VID "
     if entry_type == 1:
         entry_type_str = "FILE"
     if entry_type == 4:
-        entry_type_str = "DIRECTORY"
+        entry_type_str = "DIR "
 
     matched_name: Optional[str] = None
     full_path: Optional[str] = None
@@ -89,8 +91,9 @@ for i in range(number_of_entries):
     print(str(i) + ") ",
           #"hvp_hash=", crc_hash,
           "\thvp_hash_str=", crc_hash_hex,
-          "\tmatched_name=", matched_name,
+          # "\te_type_INT=", entry_type,
           "\te_type=", entry_type_str,
+          "\tmatched_name=", matched_name,
           #"\tfull_path=", full_path,
           # "\tval1=", value1,
           # "\tval2=", value2,
@@ -124,7 +127,7 @@ def get_subentries(dir_entries: List[DirectoryEntryObject], entry_number: int, f
         for _ in range(entry.value3):
             get_subentries(dir_entries, current_entry_number, file_path, output_path)
             current_entry_number += 1
-    if entry.entry_type == 1:
+    if entry.entry_type in (0, 1):
         absolute_file_path = os.path.join(output_path, *file_path.split("\\"))
         absolute_dir_path = os.path.dirname(absolute_file_path)
         #print("FILE->", file_path)
@@ -136,7 +139,8 @@ def get_subentries(dir_entries: List[DirectoryEntryObject], entry_number: int, f
                 exit(1)
         hvp_handler.seek(entry.value3)
         file_data = hvp_handler.read_bytes(entry.value4)
-        file_data = lzokay.decompress(file_data)
+        if entry.entry_type == 1:
+            file_data = lzokay.decompress(file_data)
         output_file = open(absolute_file_path, "wb")
         output_file.write(file_data)
         output_file.close()
