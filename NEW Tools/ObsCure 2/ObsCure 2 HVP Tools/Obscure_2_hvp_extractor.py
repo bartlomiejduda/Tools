@@ -8,6 +8,7 @@ License: GPL-3.0 License
 # Ver    Date        Author               Comment
 # v0.1   04.12.2022  Bartlomiej Duda      -
 # v0.2   06.12.2022  Bartlomiej Duda      -
+# v0.3   12.12.2022  Bartlomiej Duda      -
 import os
 from dataclasses import dataclass
 from typing import List, Optional
@@ -23,9 +24,9 @@ print("Starting HVP extract script...")
 
 # cachpack.hvp - ZWO, DAT, HOE
 # kinepack.hvp - BIK
-# datapack.hvp - ZWO, DIC, XMC
+# datapack.hvp - ZWO, DIC, XMC, DAT
 # loadpack.hvp  - WAV, SUB, ZWO
-hvp_path = "C:\\GRY\\Obscure 2\\kinepack.hvp"
+hvp_path = "C:\\GRY\\Obscure 2\\datapack.hvp"
 hvp_handler = FileHandler(hvp_path, "rb")
 
 hvp_handler.open()
@@ -102,7 +103,7 @@ for i in range(number_of_entries):
           )
 
     unknown_entry_name: str = "unknown_entry" + str(i)
-    if entry_type == 1:  # file
+    if entry_type in (0, 1):  # asset or video
         unknown_entry_name += ".bin"
 
     directory_entries.append(DirectoryEntryObject(
