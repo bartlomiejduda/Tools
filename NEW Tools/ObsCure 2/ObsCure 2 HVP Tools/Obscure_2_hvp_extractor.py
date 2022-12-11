@@ -12,6 +12,8 @@ import os
 from dataclasses import dataclass
 from typing import List, Optional
 
+import lzokay
+
 from reversebox.common.common import convert_int_to_hex_string
 from reversebox.io_files.file_handler import FileHandler
 
@@ -23,7 +25,7 @@ print("Starting HVP extract script...")
 # kinepack.hvp - BIK
 # datapack.hvp - ZWO, DIC, XMC
 # loadpack.hvp  - WAV
-hvp_path = "C:\\GRY\\Obscure 2\\cachpack.hvp"
+hvp_path = "C:\\GRY\\Obscure 2\\loadpack.hvp"
 hvp_handler = FileHandler(hvp_path, "rb")
 
 hvp_handler.open()
@@ -90,10 +92,10 @@ for i in range(number_of_entries):
           "\tmatched_name=", matched_name,
           "\te_type=", entry_type_str,
           #"\tfull_path=", full_path,
-          "\tunk1=", value1,
-          "\tunk2=", value2,
-          "\tunk3=", value3,
-          "\tunk4=", value4,
+          # "\tval1=", value1,
+          # "\tval2=", value2,
+          # "\tval3=", value3,
+          # "\tval4=", value4,
           )
 
     unknown_entry_name: str = "unknown_entry" + str(i)
@@ -125,7 +127,7 @@ def get_subentries(dir_entries: List[DirectoryEntryObject], entry_number: int, f
     if entry.entry_type == 1:
         absolute_file_path = os.path.join(output_path, *file_path.split("\\"))
         absolute_dir_path = os.path.dirname(absolute_file_path)
-        print("FILE->", file_path)
+        #print("FILE->", file_path)
         if not os.path.exists(absolute_dir_path):
             try:
                 os.makedirs(absolute_dir_path)
@@ -134,6 +136,7 @@ def get_subentries(dir_entries: List[DirectoryEntryObject], entry_number: int, f
                 exit(1)
         hvp_handler.seek(entry.value3)
         file_data = hvp_handler.read_bytes(entry.value4)
+        file_data = lzokay.decompress(file_data)
         output_file = open(absolute_file_path, "wb")
         output_file.write(file_data)
         output_file.close()
