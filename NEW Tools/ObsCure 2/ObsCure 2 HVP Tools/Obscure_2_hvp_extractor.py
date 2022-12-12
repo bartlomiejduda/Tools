@@ -22,11 +22,18 @@ from objects import HashEntryObject, DirectoryEntryObject
 
 print("Starting HVP extract script...")
 
+# PC
 # cachpack.hvp - ZWO, DAT, HOE
 # kinepack.hvp - BIK
 # datapack.hvp - ZWO, DIC, XMC, DAT, HOE
 # loadpack.hvp  - WAV, SUB, ZWO
-hvp_path = "C:\\GRY\\Obscure 2\\cachpack.hvp"
+
+# PS2
+# KINEPACK.HVP
+# STRMPACK.HVP
+# CACHPACK.HVP
+hvp_path = "C:\\GRY\\Obscure 2\\loadpack.hvp"
+#hvp_path = "C:\\GRY\\Obscure 2\\PS2_HVP\\STRMPACK.HVP"
 hvp_handler = FileHandler(hvp_path, "rb")
 
 hvp_handler.open()
@@ -75,11 +82,13 @@ for i in range(number_of_entries):
 
     entry_type_str = None
     if entry_type == 0:
-        entry_type_str = "VID "
-    if entry_type == 1:
-        entry_type_str = "FILE"
-    if entry_type == 4:
-        entry_type_str = "DIR "
+        entry_type_str = "FILE0"
+    elif entry_type == 1:
+        entry_type_str = "FILE1"
+    elif entry_type == 4:
+        entry_type_str = "DIR_4"
+    else:
+        entry_type_str = "UNK  "
 
     matched_name: Optional[str] = None
     full_path: Optional[str] = None
@@ -90,9 +99,7 @@ for i in range(number_of_entries):
             known_hashes_counter += 1
 
     print(str(i) + ") ",
-          #"hvp_hash=", crc_hash,
           "\thvp_hash_str=", crc_hash_hex,
-          # "\te_type_INT=", entry_type,
           "\te_type=", entry_type_str,
           "\tmatched_name=", matched_name,
           #"\tfull_path=", full_path,
