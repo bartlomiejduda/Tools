@@ -794,5 +794,222 @@ CUSTOM_FILENAMES: List[str] = [
     "b901_ast_cam.hoe",
     "b901_optim.noe",
 
+    "c004.hoe",
+    "c004_ast_cam.hoe",
+    "c004_optim.noe",
+
+    "c007.hoe",
+    "c007_ast_cam.hoe",
+    "c007_optim.noe",
+
+    "c104.hoe",
+    "c104_ast_cam.hoe",
+    "c104_optim.noe",
+
+    "d000.hoe",
+    "d000_ast_cam.hoe",
+    "d000_optim.noe",
+
+    "d001.hoe",
+    "d001_ast_cam.hoe",
+    "d001_optim.noe",
+
+    "e000.hoe",
+    "e000_ast_cam.hoe",
+    "e000_optim.noe",
+
+    "e001.hoe",
+    "e001_ast_cam.hoe",
+    "e001_optim.noe",
+
+    "e002.hoe",
+    "e002_ast_cam.hoe",
+    "e002_optim.noe",
+
+    "e004.hoe",
+    "e004_ast_cam.hoe",
+    "e004_optim.noe",
+
+    "e005.hoe",
+    "e005_ast_cam.hoe",
+    "e005_optim.noe",
+
+    "e007.hoe",
+    "e007_ast_cam.hoe",
+    "e007_optim.noe",
+
+    "e101.hoe",
+    "e101_ast_cam.hoe",
+    "e101_optim.noe",
+
+    "e102.hoe",
+    "e102_ast_cam.hoe",
+    "e102_optim.noe",
+
+    "e104.hoe",
+    "e104_ast_cam.hoe",
+    "e104_optim.noe",
+
+    "e106.hoe",
+    "e106_ast_cam.hoe",
+    "e106_optim.noe",
+
+    "e107.hoe",
+    "e107_ast_cam.hoe",
+    "e107_optim.noe",
+
+    "f000.hoe",
+    "f000_ast_cam.hoe",
+    "f000_optim.noe",
+
+    "f002.hoe",
+    "f002_ast_cam.hoe",
+    "f002_optim.noe",
+
+    "f003.hoe",
+    "f003_ast_cam.hoe",
+    "f003_optim.noe",
+
+    "f004.hoe",
+    "f004_ast_cam.hoe",
+    "f004_optim.noe",
+
+    "f007.hoe",
+    "f007_ast_cam.hoe",
+    "f007_optim.noe",
+
+    "f008.hoe",
+    "f008_ast_cam.hoe",
+    "f008_optim.noe",
+
+    "g000.hoe",
+    "g000_ast_cam.hoe",
+    "g000_optim.noe",
+
+    "g001.hoe",
+    "g001_ast_cam.hoe",
+    "g001_optim.noe",
+
+    "g002.hoe",
+    "g002_ast_cam.hoe",
+    "g002_optim.noe",
+
+    "g004.hoe",
+    "g004_ast_cam.hoe",
+    "g004_optim.noe",
+
+    "g005.hoe",
+    "g005_ast_cam.hoe",
+    "g005_optim.noe",
+
+    "h001.hoe",
+    "h001_ast_cam.hoe",
+    "h001_optim.noe",
+
+    "h002.hoe",
+    "h002_ast_cam.hoe",
+    "h002_optim.noe",
+
+    "h003.hoe",
+    "h003_ast_cam.hoe",
+    "h003_optim.noe",
+
+    "h004.hoe",
+    "h004_ast_cam.hoe",
+    "h004_optim.noe",
+
+    "h005.hoe",
+    "h005_ast_cam.hoe",
+    "h005_optim.noe",
+
+    "h006.hoe",
+    "h006_ast_cam.hoe",
+    "h006_optim.noe",
+
+    "i000.hoe",
+    "i000_ast_cam.hoe",
+    "i000_optim.noe",
+
+    "i001.hoe",
+    "i001_ast_cam.hoe",
+    "i001_optim.noe",
+
+    "i002.hoe",
+    "i002_ast_cam.hoe",
+    "i002_optim.noe",
+
+    "i003.hoe",
+    "i003_ast_cam.hoe",
+    "i003_optim.noe",
+
+    "i005.hoe",
+    "i005_ast_cam.hoe",
+    "i005_optim.noe",
+
+    "i006.hoe",
+    "i006_ast_cam.hoe",
+    "i006_optim.noe",
+
+    "i008.hoe",
+    "i008_ast_cam.hoe",
+    "i008_optim.noe",
+
+    "i009.hoe",
+    "i009_ast_cam.hoe",
+    "i009_optim.noe",
+
+    "i010.hoe",
+    "i010_ast_cam.hoe",
+    "i010_optim.noe",
+
+    "i011.hoe",
+    "i011_ast_cam.hoe",
+    "i011_optim.noe",
+
+    "i012.hoe",
+    "i012_ast_cam.hoe",
+    "i012_optim.noe",
+
+    "i013.hoe",
+    "i013_ast_cam.hoe",
+    "i013_optim.noe",
+
+    "i014.hoe",
+    "i014_ast_cam.hoe",
+    "i014_optim.noe",
+
+    "j000.hoe",
+    "j000_ast_cam.hoe",
+    "j000_optim.noe",
+
+    "j001.hoe",
+    "j001_ast_cam.hoe",
+    "j001_optim.noe",
+
+    "j003.hoe",
+    "j003_ast_cam.hoe",
+    "j003_optim.noe",
+
+    "j004.hoe",
+    "j004_ast_cam.hoe",
+    "j004_optim.noe",
+
+    "j005.hoe",
+    "j005_ast_cam.hoe",
+    "j005_optim.noe",
+
+    "j006.hoe",
+    "j006_ast_cam.hoe",
+    "j006_optim.noe",
+
+    "lucida_console.xmc",
+    "font_lucida_console.xmc",
+
+    "b000.dat",
+    "b001.dat",
+    "b003.dat",
+    "b900.dat",
+    "b901.dat",
+
 
 ]

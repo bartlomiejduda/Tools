@@ -24,9 +24,9 @@ print("Starting HVP extract script...")
 
 # cachpack.hvp - ZWO, DAT, HOE
 # kinepack.hvp - BIK
-# datapack.hvp - ZWO, DIC, XMC, DAT
+# datapack.hvp - ZWO, DIC, XMC, DAT, HOE
 # loadpack.hvp  - WAV, SUB, ZWO
-hvp_path = "C:\\GRY\\Obscure 2\\datapack.hvp"
+hvp_path = "C:\\GRY\\Obscure 2\\cachpack.hvp"
 hvp_handler = FileHandler(hvp_path, "rb")
 
 hvp_handler.open()
@@ -96,7 +96,7 @@ for i in range(number_of_entries):
           "\te_type=", entry_type_str,
           "\tmatched_name=", matched_name,
           #"\tfull_path=", full_path,
-          # "\tval1=", value1,
+          "\tval1=", convert_int_to_hex_string(value1),
           # "\tval2=", value2,
           # "\tval3=", value3,
           # "\tval4=", value4,
@@ -158,7 +158,8 @@ if not main_output_path:
             exit(1)
 
 
-
+print("Extracting data...")
+print("Please wait. It may take a while.")
 get_subentries(directory_entries, 0, "", main_output_path)
 hvp_handler.close()
 
@@ -167,7 +168,8 @@ print("== Stats for", hvp_path.split("\\")[-1], " ==")
 print("All entries:", number_of_entries)
 print("Known hashes:", known_hashes_counter)
 print("Unknown hashes:", number_of_entries - known_hashes_counter)
-progress = str(round(known_hashes_counter / number_of_entries * 100, 2)) + "%"
-print("Hash progress:", progress)
+hash_progress = str(round(known_hashes_counter / number_of_entries * 100, 2)) + "%"
+print("Hash progress:", hash_progress)
 
+print("Data extracted to", main_output_path, "directory.")
 print("Export script finished successfully!")

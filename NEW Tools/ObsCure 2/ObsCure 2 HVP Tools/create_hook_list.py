@@ -18,7 +18,6 @@ from operator import attrgetter
 from objects import HashDumpObject
 
 print("Starting create hook list script...")
-print("Please wait. It may take a few minutes.")
 
 hash_objects_from_dump: list = []
 crc_list: list = []
@@ -52,6 +51,7 @@ for r, d, f in os.walk("hash_dumps"):
 
 # removing duplicates
 print("Removing duplicates...")
+print("Please wait. It may take a while.")
 for hash_object in hash_objects_from_dump:
     if hash_object.crc not in crc_list:
         hash_list_without_duplicates.append(hash_object)
