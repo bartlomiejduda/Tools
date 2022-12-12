@@ -28,7 +28,7 @@ hook_list: List[HashEntryObject] = []
 print("Starting to create custom hash list...")
 
 # read hook list (to check for duplicates)
-hook_list_file = open("hash_lists\obscure_2_hook_list.txt", "rt")
+hook_list_file = open("hash_lists\\obscure_2_hook_list.txt", "rt")
 for line in hook_list_file:
     if line.startswith("#"):
         continue
@@ -73,7 +73,7 @@ for custom_filename in CUSTOM_FILENAMES:
 custom_hash_list: list[HashEntryObject] = sorted(custom_hash_list, key=attrgetter('crc'))
 
 # write results to file if no exception occurred at checking phase
-custom_hash_file = open("hash_lists\obscure_2_custom_hash_list.txt", "wt")
+custom_hash_file = open("hash_lists\\obscure_2_custom_hash_list.txt", "wt")
 for custom_entry in custom_hash_list:
     out_line: str = convert_int_to_hex_string(custom_entry.crc) + "|||" + str(
         custom_entry.path_length) + "|||" + custom_entry.file_path + "\n"

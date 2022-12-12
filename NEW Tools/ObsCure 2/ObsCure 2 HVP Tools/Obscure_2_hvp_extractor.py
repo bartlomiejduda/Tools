@@ -9,31 +9,31 @@ License: GPL-3.0 License
 # v0.1   04.12.2022  Bartlomiej Duda      -
 # v0.2   06.12.2022  Bartlomiej Duda      -
 # v0.3   12.12.2022  Bartlomiej Duda      -
+
+
 import os
-from dataclasses import dataclass
 from typing import List, Optional
-
 import lzokay
-
 from reversebox.common.common import convert_int_to_hex_string
 from reversebox.io_files.file_handler import FileHandler
-
 from objects import HashEntryObject, DirectoryEntryObject
 
 print("Starting HVP extract script...")
 
-# PC
+# PC archives:
 # cachpack.hvp - ZWO, DAT, HOE
 # kinepack.hvp - BIK
 # datapack.hvp - ZWO, DIC, XMC, DAT, HOE
 # loadpack.hvp  - WAV, SUB, ZWO
 
-# PS2
+# PS2 archives:
 # KINEPACK.HVP
 # STRMPACK.HVP
 # CACHPACK.HVP
-hvp_path = "C:\\GRY\\Obscure 2\\loadpack.hvp"
+
+hvp_path = "C:\\GRY\\Obscure 2\\cachpack.hvp"
 #hvp_path = "C:\\GRY\\Obscure 2\\PS2_HVP\\STRMPACK.HVP"
+
 hvp_handler = FileHandler(hvp_path, "rb")
 
 hvp_handler.open()
@@ -102,11 +102,7 @@ for i in range(number_of_entries):
           "\thvp_hash_str=", crc_hash_hex,
           "\te_type=", entry_type_str,
           "\tmatched_name=", matched_name,
-          #"\tfull_path=", full_path,
           "\tval1=", convert_int_to_hex_string(value1),
-          # "\tval2=", value2,
-          # "\tval3=", value3,
-          # "\tval4=", value4,
           )
 
     unknown_entry_name: str = "unknown_entry" + str(i)
@@ -154,7 +150,7 @@ def get_subentries(dir_entries: List[DirectoryEntryObject], entry_number: int, f
         output_file.close()
 
 
-main_output_path = None  # TODO - add passing this as argument by cmd
+main_output_path = None
 if not main_output_path:
     main_output_path = hvp_path + "_out"
     if not os.path.exists(main_output_path):
@@ -178,5 +174,6 @@ print("Unknown hashes:", number_of_entries - known_hashes_counter)
 hash_progress = str(round(known_hashes_counter / number_of_entries * 100, 2)) + "%"
 print("Hash progress:", hash_progress)
 
+print("")
 print("Data extracted to", main_output_path, "directory.")
 print("Export script finished successfully!")

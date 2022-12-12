@@ -1,4 +1,4 @@
-# These are initial stats (for clean list only)
+# These are initial stats (for hook list only)
 # Hopefully final stats will be much better ;)
 
 # creation date: 06.12.2022
