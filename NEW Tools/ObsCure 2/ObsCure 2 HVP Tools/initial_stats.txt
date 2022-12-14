@@ -3,6 +3,8 @@
 
 # creation date: 06.12.2022
 
+====== PC =====================================================
+
 == Stats for  cachpack.hvp  ==
 All entries:  316
 Known hashes:  16
@@ -26,3 +28,49 @@ All entries:  727
 Known hashes:  471
 Unknown hashes:  256
 Progress:  64.79%
+
+
+
+====== PS2 =====================================================
+
+== Stats for CACHPACK.HVP  ==
+All entries: 96
+Known hashes: 52
+Unknown hashes: 44
+Hash progress: 54.17%
+
+== Stats for KINEPACK.HVP  ==
+All entries: 57
+Known hashes: 3
+Unknown hashes: 54
+Hash progress: 5.26%
+
+== Stats for DATAPACK.HVP  ==
+All entries: 1513
+Known hashes: 674
+Unknown hashes: 839
+Hash progress: 44.55%
+
+== Stats for LOADPACK.HVP  ==
+All entries: 534
+Known hashes: 162
+Unknown hashes: 372
+Hash progress: 30.34%
+
+== Stats for STRMPACK.HVP  ==
+All entries: 338
+Known hashes: 3
+Unknown hashes: 335
+Hash progress: 0.89%
+
+== Stats for MIB_EN.HVP  ==
+All entries: 1674
+Known hashes: 16
+Unknown hashes: 1658
+Hash progress: 0.96%
+
+== Stats for MIH_EN.HVP  ==
+All entries: 1674
+Known hashes: 16
+Unknown hashes: 1658
+Hash progress: 0.96%

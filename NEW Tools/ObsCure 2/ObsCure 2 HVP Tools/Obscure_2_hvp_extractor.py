@@ -16,7 +16,7 @@ from typing import List, Optional
 import lzokay
 from reversebox.common.common import convert_int_to_hex_string
 from reversebox.io_files.file_handler import FileHandler
-from objects import HashEntryObject, DirectoryEntryObject
+from objects import HashEntryObject, DirectoryEntryObject, RepackInfoObject
 
 print("Starting HVP extract script...")
 
@@ -25,14 +25,19 @@ print("Starting HVP extract script...")
 # kinepack.hvp - BIK
 # datapack.hvp - ZWO, DIC, XMC, DAT, HOE
 # loadpack.hvp  - WAV, SUB, ZWO
+# strmpack ???
 
 # PS2 archives:
-# KINEPACK.HVP
-# STRMPACK.HVP
 # CACHPACK.HVP
+# KINEPACK.HVP
+# DATAPACK.HVP
+# LOADPACK.HVP
+# STRMPACK.HVP
+# MIB_EN.HVP
+# MIH_EN.HVP
 
-hvp_path = "C:\\GRY\\Obscure 2\\cachpack.hvp"
-#hvp_path = "C:\\GRY\\Obscure 2\\PS2_HVP\\STRMPACK.HVP"
+# hvp_path = "C:\\GRY\\Obscure 2\\loadpack.hvp"
+hvp_path = "C:\\Users\\Lenovo\\Desktop\\Obscure_2_RESEARCH\\PS2_HVP\\MIH_EN.HVP"
 
 hvp_handler = FileHandler(hvp_path, "rb")
 
@@ -41,6 +46,7 @@ hvp_handler.open()
 known_hashes_counter: int = 0
 all_hashes_list: List[HashEntryObject] = []
 directory_entries: List[DirectoryEntryObject] = []
+repack_info_list: List[RepackInfoObject] = []
 
 # read header
 signature = hvp_handler.read_uint32()
@@ -125,6 +131,12 @@ for i in range(number_of_entries):
 def get_subentries(dir_entries: List[DirectoryEntryObject], entry_number: int, file_path: str, output_path: str):
     entry = dir_entries[entry_number]
     file_path += entry.entry_name
+    # repack_info_list.append(RepackInfoObject(
+    #     entry_hash=entry.entry_hash,
+    #     entry_name=entry.entry_name,
+    #     entry_val1=convert_int_to_hex_string(entry.value1),
+    #     entry_type=entry.entry_type
+    # ))
     if entry.entry_type == 4:
         file_path += "\\"
         current_entry_number: int = entry.value4
@@ -165,6 +177,18 @@ print("Extracting data...")
 print("Please wait. It may take a while.")
 get_subentries(directory_entries, 0, "", main_output_path)
 hvp_handler.close()
+
+
+# print("Generating repack info...")
+# repack_info_file_path = hvp_path + "_repack_info.txt"
+# repack_info_file = open(repack_info_file_path, "wt")
+# for repack_entry in repack_info_list:
+#     out_line = repack_entry.entry_hash + \
+#                "|||" + str(repack_entry.entry_type) + \
+#                "|||" + repack_entry.entry_val1 + \
+#                "|||" + repack_entry.entry_name + "\n"
+#     repack_info_file.write(out_line)
+# repack_info_file.close()
 
 
 print("== Stats for", hvp_path.split("\\")[-1], " ==")
