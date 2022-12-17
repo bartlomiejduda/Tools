@@ -43,9 +43,9 @@ print("Starting HVP extract script...")
 # loadpack.hvp
 # animpack.hvp
 
-# hvp_path = "C:\\GRY\\Obscure 2\\loadpack.hvp"
+hvp_path = "C:\\GRY\\Obscure 2\\cachpack.hvp"
 # hvp_path = "C:\\Users\\Lenovo\\Desktop\\Obscure_2_RESEARCH\\PS2_HVP\\MIH_EN.HVP"
-hvp_path = "C:\\Users\\Lenovo\\Desktop\\Obscure_2_RESEARCH\\PSP_HVP\\loadpack.hvp"
+# hvp_path = "C:\\Users\\Lenovo\\Desktop\\Obscure_2_RESEARCH\\PSP_HVP\\loadpack.hvp"
 
 hvp_handler = FileHandler(hvp_path, "rb")
 
