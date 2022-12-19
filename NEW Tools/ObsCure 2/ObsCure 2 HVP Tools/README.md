@@ -44,4 +44,10 @@ decompress files with the proper filenames and then it saves
 them in the proper directories on your hard drive.
 
 How to use it:
-- TODO
+1. Execute "Obscure_2_hvp_extractor.py" script with 
+required parameters.
+
+For example:
+```
+python Obscure_2_hvp_extractor.py -e "C:\\Obscure 2\loadpack.hvp"
+```
