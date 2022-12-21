@@ -36,7 +36,11 @@ def export_data(hvp_path: str) -> Optional[tuple]:
 
     hvp_handler = FileHandler(hvp_path, "rb")
 
-    hvp_handler.open()
+    try:
+        hvp_handler.open()
+    except FileNotFoundError:
+        print("Error! Invalid file path: ", hvp_path)
+        exit(-1)
 
     known_hashes_counter: int = 0
     all_hashes_list: List[HashEntryObject] = []
