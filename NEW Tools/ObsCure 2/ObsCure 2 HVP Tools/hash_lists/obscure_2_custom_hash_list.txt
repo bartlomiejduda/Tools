@@ -36,6 +36,7 @@
 0x33F2AB3|||14|||jemmy2a_pc.zwo
 0x3430A31|||12|||rhand_pc.zwo
 0x35227F1|||17|||recharge_c004.bmp
+0x36250C6|||8|||x008.dat
 0x3BA0930|||19|||34C00019_Boy4_3.ogg
 0x3C4EC33|||19|||1CC00003_boy2_0.ogg
 0x3DD121D|||25|||boss_kenny_whoosh_1_4.wav
@@ -45,6 +46,7 @@
 0x46024ED|||19|||10C0000C_boy2_0.ogg
 0x476B14D|||12|||npcd_psp.dic
 0x4795654|||19|||18C0000D_boy4_0.ogg
+0x4832CC4|||4|||w008
 0x495E5E4|||19|||34C0002D_Boy4_3.ogg
 0x4989516|||16|||f004_ast_cam.hoe
 0x4A34597|||10|||BerkSplash
@@ -139,6 +141,7 @@
 0xA2A0871|||19|||34C00017_Gir1_1.ogg
 0xA454BD5|||12|||prog_kine.so
 0xA52A049|||16|||i011_ast_cam.hoe
+0xA58A4F6|||4|||w000
 0xA685E38|||7|||gun.zwo
 0xA773CE8|||8|||b106.hoe
 0xA7F9F3E|||31|||ch02_12_transfo_students1_b.ogg
@@ -179,6 +182,7 @@
 0xCD8CE8A|||10|||10_001.ogg
 0xCDEDCB1|||13|||b3hair_ps.zwo
 0xCE74855|||19|||08C00013_boy1_0.ogg
+0xD3560EF|||4|||w004
 0xD38F8F3|||12|||adid_015.bmp
 0xD4E9955|||14|||doorid_psp.zwo
 0xD5C1232|||22|||ch05_02_downwall_b.ogg
@@ -196,6 +200,7 @@
 0xE449926|||19|||34C00019_Gir3_3.ogg
 0xE46EADB|||10|||key005.zwo
 0xE565D1D|||8|||b203.dat
+0xE7232B7|||8|||x001.dat
 0xEBCF336|||16|||prog_impact5.wav
 0xEE7A9B4|||20|||ch02_exterieur_l.ogg
 0xEF36137|||16|||statuette_pc.zwo
@@ -270,6 +275,7 @@
 0x130DA50E|||12|||npce_psp.dic
 0x132811C6|||19|||34C00015_Boy1_0.ogg
 0x1334E55E|||19|||24C00010_boy1_0.ogg
+0x134395B7|||4|||w010
 0x13521588|||13|||sphere_pc.zwo
 0x1374E1F4|||23|||ch06_19_kennyboss_l.ogg
 0x1376973B|||19|||34C00009_boy3_0.ogg
@@ -324,6 +330,7 @@
 0x1704D871|||8|||attr.bik
 0x170531E7|||19|||04C00026_prof_0.ogg
 0x170D45D2|||11|||fx_id01.zwo
+0x1732DA53|||31|||ch09_01_avance jardin jed_b.ogg
 0x17351755|||14|||pass001_ps.zwo
 0x173DAE96|||15|||jemmy2a_psp.zwo
 0x17464BD7|||8|||a003.dat
@@ -389,6 +396,7 @@
 0x1BEBB585|||11|||boy3_ps.dic
 0x1BEEBC54|||8|||save.at3
 0x1C0E4895|||11|||boy2_ps.zwo
+0x1C0EF3BE|||8|||w011.dat
 0x1C1A19F2|||13|||chair_brk.wav
 0x1C2CA29A|||19|||34C00035_Boy4_1.ogg
 0x1C3CC60C|||19|||34C0001B_Gir3_0.ogg
@@ -456,6 +464,7 @@
 0x1F7DA701|||19|||2CC0000B_boy2_0.ogg
 0x1F8430F9|||4|||e102
 0x1FA022EB|||19|||34C00015_Boy2_1.ogg
+0x1FB2AF6B|||8|||w004.dat
 0x1FD3D0E5|||14|||g2_hair_ps.zwo
 0x1FE61A83|||11|||hcraise.zwo
 0x200FDAA5|||12|||tbattery.zwo
@@ -491,6 +500,7 @@
 0x215AFF79|||22|||ch08_zik_svein_amy.ogg
 0x215CEFBC|||19|||34C0001B_Gir3_1.ogg
 0x216D1D40|||19|||fx_start001_psp.zwo
+0x216EDA0E|||8|||w010.dat
 0x21816A56|||19|||2CC00005_gir3_0.ogg
 0x2192BAD9|||10|||12_014.ogg
 0x219AB062|||13|||ram_imp07.wav
@@ -507,6 +517,7 @@
 0x2209F024|||10|||05_038.ogg
 0x2220002E|||10|||06_006.ogg
 0x2226ECB7|||13|||ram_imp12.wav
+0x2251402F|||4|||x005
 0x226D87DB|||20|||ch12_parc_baston.ogg
 0x22726530|||19|||34C00014_Boy3_1.ogg
 0x22875129|||19|||2CC00001_gir3_0.ogg
@@ -514,6 +525,7 @@
 0x22B47C08|||19|||18C00013_gir2_0.ogg
 0x22C00B5B|||19|||34C00015_Boy2_0.ogg
 0x22CE39FE|||8|||12_9.pmf
+0x22D286DB|||8|||w005.dat
 0x22D8A14E|||19|||04C0001E_gir2_0.ogg
 0x22DCFFC3|||19|||24C00010_boy2_0.ogg
 0x2316B9E6|||19|||34C00016_Boy1_3.ogg
@@ -553,6 +565,7 @@
 0x24FF172C|||19|||34C0001A_gir3_0.ogg
 0x2501DB21|||15|||batclout_ps.zwo
 0x2507EAF6|||11|||run_tb5.wav
+0x253C8436|||4|||x001
 0x2549FF14|||19|||18104068_gir1_0.ogg
 0x256616D3|||8|||d001.dat
 0x25661FE3|||14|||0CC00013_0.ogg
@@ -641,6 +654,7 @@
 0x2BAE9D61|||19|||34C00004_boy2_0.ogg
 0x2BB2A073|||25|||ch06_zik_arrivee_stan.ogg
 0x2BC525EE|||10|||02_069.ogg
+0x2BE70C04|||4|||x009
 0x2BF48720|||10|||06_030.ogg
 0x2BFA6102|||10|||12_037.ogg
 0x2C6D9923|||19|||34C0002D_Boy1_1.ogg
@@ -738,6 +752,7 @@
 0x32AC84D6|||19|||34C00006_gir2_1.ogg
 0x32CEC3D8|||15|||bsdpull1_ps.zwo
 0x330353EA|||8|||rtcw.bik
+0x33121B07|||8|||x000.dat
 0x3315C164|||19|||34C00030_boy3_0.ogg
 0x3324B096|||19|||34C00019_Gir3_2.ogg
 0x3326C36B|||10|||key004.zwo
@@ -880,6 +895,7 @@
 0x3DD21C41|||8|||e107.hoe
 0x3DD7FFA7|||1|||C
 0x3DF451BA|||11|||default.ipt
+0x3E027976|||8|||x009.dat
 0x3E0C8116|||8|||07_6.pmf
 0x3E24B7FB|||19|||34C00006_gir1_0.ogg
 0x3E495B8F|||19|||34C0001F_boy2_0.ogg
@@ -1015,6 +1031,7 @@
 0x49568D9D|||19|||34C00018_Gir2_1.ogg
 0x4999047D|||19|||1810402C_boy2_0.ogg
 0x499F8141|||11|||root_ps.dic
+0x49D24867|||8|||x002.dat
 0x49D3D7F2|||19|||14C00010_gir2_0.ogg
 0x49D7897F|||19|||34C0001E_boy2_0.ogg
 0x49E4E3F6|||19|||34C00019_Gir3_0.ogg
@@ -1033,6 +1050,7 @@
 0x4AD3A97B|||19|||34C00034_boy3_2.ogg
 0x4AE47BC9|||12|||B105_hoeB109
 0x4B0D3CDB|||19|||20C0000A_boy2_0.ogg
+0x4B2085E1|||4|||x010
 0x4B765278|||10|||04_005.ogg
 0x4B78B45A|||10|||10_002.ogg
 0x4BB775AD|||19|||34C00036_boy1_0.ogg
@@ -1126,6 +1144,7 @@
 0x51CD17AB|||12|||prog_psp.zwo
 0x51CD71E9|||15|||imp_mouill4.wav
 0x522E545A|||15|||bsdpull1_pc.zwo
+0x523BB4A0|||4|||x000
 0x524BB89E|||16|||g3hair02_psp.zwo
 0x524DFF5F|||11|||Pass001.zwo
 0x52888895|||10|||06_027.ogg
@@ -1148,6 +1167,7 @@
 0x53CB5D0F|||21|||ch01_bt_boucher_l.ogg
 0x53D3ABB7|||19|||34C0001C_gir2_1.ogg
 0x53D542BA|||15|||ram_chute09.wav
+0x53F9DE97|||4|||x100
 0x53FD216F|||4|||i006
 0x54012EBE|||14|||1CC0001C_0.ogg
 0x54267BA5|||19|||ch04_01_car_1_b.ogg
@@ -1167,6 +1187,7 @@
 0x553335DF|||19|||34C0000F_Gir1_0.ogg
 0x55422D33|||19|||24C00013_boy2_0.ogg
 0x5556372B|||21|||ch01_bt_violons_b.ogg
+0x555670B9|||4|||x004
 0x555ED9AB|||19|||34C00016_Boy2_0.ogg
 0x556EC24D|||19|||04C00014_boy2_0.ogg
 0x55870789|||16|||chainsaw_psp.zwo
@@ -1212,6 +1233,7 @@
 0x57E8D8D0|||15|||bsdpush2_pc.zwo
 0x57EBC705|||10|||max_pc.zwo
 0x57F1C3F0|||19|||34C0000C_Boy4_0.ogg
+0x5812D5BB|||8|||w007.dat
 0x582AF2B3|||19|||34C00032_Gir3_0.ogg
 0x585F6A01|||16|||ch01_abt_zik.ogg
 0x58627160|||21|||boss_jedi_growl_1.wav
@@ -1275,6 +1297,7 @@
 0x5B7E5B79|||10|||08_014.ogg
 0x5B89F99B|||15|||dynamite_ps.zwo
 0x5B8CD84A|||19|||34C00035_Boy4_2.ogg
+0x5BAE896E|||8|||w012.dat
 0x5BBC5251|||27|||ch06_18_kenny_scream5_b.ogg
 0x5BF22E3D|||23|||ch01_bt_05_flash1_b.ogg
 0x5C03A019|||10|||11_002.ogg
@@ -1287,6 +1310,7 @@
 0x5C567360|||19|||1810403C_gir2_0.ogg
 0x5C9E0A34|||12|||glycerin.zwo
 0x5CC6B1AC|||15|||ch06_wall_b.ogg
+0x5CE03C92|||4|||x008
 0x5CE9F565|||8|||11_3.bik
 0x5CF4799D|||19|||18104015_boy4_0.ogg
 0x5CF89501|||19|||amy_off_c101_01.bmp
@@ -1363,6 +1387,7 @@
 0x62904466|||19|||18C00004_Gir3_0.ogg
 0x62A79026|||11|||run_tb6.wav
 0x62AABE37|||19|||18104034_boy3_0.ogg
+0x62BC26EA|||21|||ch03_c004_projo_b.ogg
 0x62CE8533|||19|||2CC0000F_Boy1_0.ogg
 0x62E31CD7|||19|||24C00009_boy2_0.ogg
 0x62F62576|||10|||12_028.ogg
@@ -1387,6 +1412,7 @@
 0x64328A7A|||13|||lever_psp.zwo
 0x64386A5E|||19|||18104054_boy2_0.ogg
 0x643B6378|||19|||ch06_evilbass_l.ogg
+0x6444A521|||4|||w011
 0x64493E59|||19|||04C00022_boy4_0.ogg
 0x6455862A|||19|||1810404D_gir1_0.ogg
 0x64666A4A|||14|||bg_team_de.bmp
@@ -1408,6 +1434,7 @@
 0x65302A91|||16|||shotflame_ps.zwo
 0x655E0886|||19|||30C0000A_gir1_0.ogg
 0x6569862D|||13|||g4hair_ps.zwo
+0x6572FC0B|||8|||w006.dat
 0x65761C00|||19|||18104071_gir1_0.ogg
 0x6576B975|||19|||30C00003_boy1_0.ogg
 0x65807AFE|||10|||06_005.ogg
@@ -1483,6 +1510,7 @@
 0x6A163299|||11|||npcd_ps.zwo
 0x6A37B6A0|||21|||ch02_11_transfo_l.ogg
 0x6A496E11|||16|||g000_ast_cam.hoe
+0x6A4AA001|||8|||hydr.bik
 0x6A4AC1BC|||18|||splinter001_ps.zwo
 0x6A4E81C1|||19|||10C0000C_gir3_0.ogg
 0x6A5373DF|||8|||f008.dat
@@ -1578,6 +1606,7 @@
 0x712443B9|||19|||04C0001D_boy2_0.ogg
 0x7129F20C|||12|||clue_015.bmp
 0x712E9641|||19|||34C00016_Boy4_3.ogg
+0x712EA935|||27|||ch12_entrée_confrérie_b.ogg
 0x713CE9AC|||19|||34C00014_Gir2_0.ogg
 0x71433C22|||10|||06_088.ogg
 0x71473268|||10|||07_010.ogg
@@ -1619,6 +1648,7 @@
 0x7331F90A|||19|||34C00027_Boy2_0.ogg
 0x733ABCDB|||8|||i009.hoe
 0x73458E59|||19|||18C00021_gir2_0.ogg
+0x73841C52|||4|||w009
 0x738F34EF|||11|||ken2_ps.dic
 0x73AB2692|||19|||34C0002D_Gir3_1.ogg
 0x73B2820A|||13|||sphere_ps.zwo
@@ -1634,6 +1664,7 @@
 0x747CA056|||16|||prog_impact7.wav
 0x7484CA46|||19|||34C00019_Gir3_1.ogg
 0x74960E7D|||8|||b201.dat
+0x74B261D7|||8|||x003.dat
 0x74B7A0CF|||19|||34C0001E_boy2_1.ogg
 0x7508C3DC|||11|||anims.zwo-e
 0x7511CB00|||4|||C000
@@ -1704,6 +1735,7 @@
 0x79ACFBC6|||8|||07_5.pmf
 0x79EB934E|||16|||f003_ast_cam.hoe
 0x79F43623|||11|||nleo_ps.zwo
+0x7A325079|||4|||w005
 0x7A331B73|||15|||D@sound_psp.zwo
 0x7A35C427|||8|||ubfl.bik
 0x7A59D6BB|||5|||texps
@@ -1753,6 +1785,7 @@
 0x7D3EBF7E|||15|||chestkey_ps.zwo
 0x7D56C7E8|||15|||jerrycan_pc.zwo
 0x7D583217|||19|||34C00009_gir2_0.ogg
+0x7D5F9460|||4|||w001
 0x7D695F6B|||19|||2CC0000C_gir1_0.ogg
 0x7D75EC5B|||19|||08C00018_boy1_0.ogg
 0x7D881D82|||19|||18104057_gir3_0.ogg
@@ -1806,6 +1839,7 @@
 0x8106E0C7|||8|||beat.pmf
 0x810F2305|||19|||34C00018_Boy2_1.ogg
 0x812CE7AC|||18|||uberflashlight.zwo
+0x8132C717|||8|||x007.dat
 0x815ADEFB|||12|||Obscure2.exe
 0x8176B981|||19|||18104049_boy3_0.ogg
 0x818A3118|||13|||prog_atk7.wav
@@ -1852,6 +1886,7 @@
 0x84C76E99|||19|||0CC00008_Gir3_0.ogg
 0x84C9394C|||10|||01_020.ogg
 0x84CCE42D|||11|||jedi_pc.zwo
+0x84D1E8A8|||8|||pllo.bik
 0x84D8EB6E|||19|||2CC0000C_boy2_0.ogg
 0x84DF8DAA|||10|||12_040.ogg
 0x84E63170|||12|||npc7_psp.zwo
@@ -2033,6 +2068,7 @@
 0x90B364E0|||8|||rtc4.pss
 0x90C43569|||16|||bdhopen2b_ps.zwo
 0x90E47398|||8|||Game.xmc
+0x90F25ACB|||8|||w002.dat
 0x90F4EC44|||19|||ch09_03_serre_l.ogg
 0x90FF4773|||27|||ch05_14_jundeath_b_demo.ogg
 0x913F2D80|||19|||2CC00011_boy2_0.ogg
@@ -2064,6 +2100,7 @@
 0x93011007|||19|||18C00030_gir3_0.ogg
 0x93022E2C|||14|||d000_optim.noe
 0x934DB231|||19|||34C00013_Boy4_1.ogg
+0x9351F54C|||4|||w003
 0x935C49A6|||12|||menu_psp.xmc
 0x935FCDDC|||19|||34C00011_Gir2_2.ogg
 0x936CE7CE|||8|||rtck.pmf
@@ -2080,6 +2117,7 @@
 0x9402D988|||13|||TheBat_pc.zwo
 0x9410690E|||8|||menu.pmf
 0x941D965A|||19|||18C00001_Boy2_0.ogg
+0x943C3155|||4|||w007
 0x94434B81|||19|||34C00020_boy3_2.ogg
 0x945EE91A|||12|||ogr_imp5.wav
 0x949C391D|||12|||ch06_6-5.ogg
@@ -2096,6 +2134,7 @@
 0x953C3B5C|||8|||01_3.pmf
 0x9544D45E|||15|||disc002_psp.zwo
 0x9553BB22|||19|||34C00019_Gir2_2.ogg
+0x956510B3|||8|||x100.dat
 0x9599F36E|||15|||ram_chute10.wav
 0x95BA6D24|||10|||Pass02.zwo
 0x95E1D549|||19|||34C00018_Gir3_3.ogg
@@ -2210,6 +2249,7 @@
 0x9E2414D6|||12|||run_grav.wav
 0x9E34A7B5|||14|||g005_optim.noe
 0x9E3BBF32|||14|||i008_optim.noe
+0x9E3FEF9A|||20|||ch12_confrérie_l.ogg
 0x9E6CA038|||19|||34C0000B_Boy1_0.ogg
 0x9E6EA7CD|||19|||2CC0000D_gir3_0.ogg
 0x9E753B1F|||19|||18C00014_boy2_0.ogg
@@ -2436,6 +2476,7 @@
 0xAD6AEF1F|||19|||18104063_boy2_0.ogg
 0xAD6F721F|||8|||09_4.pss
 0xAD8BB178|||19|||34C00014_Gir3_2.ogg
+0xAD92737B|||8|||w003.dat
 0xADDADFC9|||16|||b003_ast_cam.hoe
 0xADDEA539|||8|||pda2.tga
 0xADE1C37A|||7|||rowboat
@@ -2631,6 +2672,7 @@
 0xBB3F0F15|||8|||flba.bik
 0xBB40E661|||19|||34C0002E_Boy2_0.ogg
 0xBB4BA9E2|||19|||34C0002D_Gir3_4.ogg
+0xBB581195|||4|||x006
 0xBB738CE8|||19|||34C00029_gir3_0.ogg
 0xBBB5CEF6|||19|||34C00013_Boy1_3.ogg
 0xBBE3E1A5|||6|||it.lng
@@ -2642,7 +2684,9 @@
 0xBC1D6F16|||8|||c104.hoe
 0xBC233549|||12|||npcb_psp.zwo
 0xBC342078|||15|||prog_suck_0.wav
+0xBC35D58C|||4|||x002
 0xBC41C43B|||15|||bsdpull2_ps.zwo
+0xBC52EEA7|||8|||x006.dat
 0xBC5377EE|||10|||TheLeftOar
 0xBC6636CB|||10|||key002.zwo
 0xBC6F0AB5|||19|||34C00018_Boy2_0.ogg
@@ -2781,6 +2825,7 @@
 0xC6747D46|||13|||welder_ps.zwo
 0xC683F52A|||8|||rtcs.bik
 0xC68E0EC8|||15|||crossbow_pc.zwo
+0xC692BDC7|||8|||x004.dat
 0xC69E2827|||19|||34C00031_gir2_0.ogg
 0xC6AF59D5|||19|||34C00018_Boy2_2.ogg
 0xC6B46DB7|||28|||ch09_04_jeddidiah_attk_l.ogg
@@ -2837,6 +2882,7 @@
 0xCABDC492|||10|||01_015.ogg
 0xCAEAE90F|||18|||kenny3_zik_1_l.ogg
 0xCB185A90|||17|||ch05_depart_b.ogg
+0xCB32E51A|||4|||x003
 0xCB421E95|||12|||jedi_psp.dic
 0xCB4C1E37|||16|||prog_impact9.wav
 0xCB8C27D6|||8|||07_2.pmf
@@ -2854,6 +2900,7 @@
 0xCC4D9434|||14|||i006_optim.noe
 0xCC509DF9|||19|||1810406D_boy1_0.ogg
 0xCC548F9F|||19|||34C0000B_Boy4_0.ogg
+0xCC5F2103|||4|||x007
 0xCC65EFD3|||14|||medikit_ps.zwo
 0xCC782C0A|||19|||18104066_gir1_0.ogg
 0xCC7F0179|||24|||ch08_zik_combatemere.ogg
@@ -3007,6 +3054,7 @@
 0xD7252D40|||12|||imp_dur0.wav
 0xD741B51B|||11|||boy2_ps.dic
 0xD74BE218|||19|||34C00014_Gir3_0.ogg
+0xD752201B|||8|||w001.dat
 0xD7571680|||19|||24C00011_gir3_0.ogg
 0xD782F20C|||10|||08_007.ogg
 0xD7A0A6EE|||10|||06_002.ogg
@@ -3063,6 +3111,7 @@
 0xDA0E0983|||14|||walk_wood3.wav
 0xDA156388|||19|||34C00017_Gir3_2.ogg
 0xDA3FC900|||19|||34C00030_Boy2_0.ogg
+0xDA42426A|||8|||w008.dat
 0xDA52023A|||18|||obscure_record.inp
 0xDA614112|||11|||boy4_ps.zwo
 0xDA7A9487|||19|||34C00022_Boy1_0.ogg
@@ -3177,12 +3226,14 @@
 0xE31BB406|||19|||1810401D_boy4_0.ogg
 0xE31BDB6F|||19|||34C00019_Gir1_1.ogg
 0xE3377640|||12|||turb_psp.zwo
+0xE33B01C3|||4|||w006
 0xE35C0F03|||16|||bddopen1b_pc.zwo
 0xE37CC86A|||11|||npcf_ps.dic
 0xE38344AA|||19|||18C00002_Boy2_0.ogg
 0xE3A4779E|||12|||Obscure2.pdb
 0xE3B9BEFB|||19|||18104032_gir2_0.ogg
 0xE3DBDC87|||19|||14C00003_gir2_0.ogg
+0xE3DCB933|||26|||ch12_musée_confrerie_b.ogg
 0xE3DCF365|||19|||04C00008_gir3_0.ogg
 0xE3E2348C|||15|||bdcrank_psp.zwo
 0xE3EDADF9|||15|||imp_mouill3.wav
@@ -3191,6 +3242,7 @@
 0xE442507B|||16|||ch05_03_re_l.ogg
 0xE44541F0|||10|||05_021.ogg
 0xE44F7419|||16|||bshpull1_psp.zwo
+0xE456C5DA|||4|||w002
 0xE459DBCF|||19|||34C00034_Boy2_1.ogg
 0xE45D1334|||10|||02_046.ogg
 0xE48D1653|||19|||34C0002D_Boy1_4.ogg
@@ -3231,6 +3283,7 @@
 0xE6FD7E78|||19|||34C00008_gir2_0.ogg
 0xE708919C|||10|||obb_ps.zwo
 0xE71ABD37|||19|||34C00022_Boy1_1.ogg
+0xE7226BDA|||8|||w009.dat
 0xE731ABD9|||14|||i012_optim.noe
 0xE74390BA|||8|||c004.dat
 0xE782A3BD|||22|||ch09_09_svencri2_b.ogg
@@ -3285,6 +3338,7 @@
 0xE9EE8650|||19|||24C0000D_boy1_0.ogg
 0xEA2BCBA8|||19|||34C00014_Gir3_1.ogg
 0xEA2E4767|||16|||i006_ast_cam.hoe
+0xEA3209AB|||8|||w000.dat
 0xEA34CBEE|||18|||ch11_01_prof_b.ogg
 0xEA47BE31|||7|||bat.zwo
 0xEA64F1DA|||30|||ch11_zik_leafmorenostalgia.ogg
@@ -3504,6 +3558,7 @@
 0xF81D8CE0|||10|||hcfall.zwo
 0xF825A38C|||19|||34C00001_boy1_2.ogg
 0xF83D1517|||19|||1CC00022_boy2_0.ogg
+0xF84EC8A2|||8|||x010.dat
 0xF86768F0|||13|||taser_psp.zwo
 0xF87F48D6|||16|||theheart_psp.zwo
 0xF87F4E7D|||8|||C001_hoe
@@ -3557,6 +3612,7 @@
 0xFBCF7065|||19|||34C00018_Boy2_3.ogg
 0xFBE3DC9A|||8|||rtcr.bik
 0xFBF0A5EB|||30|||boss_nleo_tentacle1_attack.wav
+0xFBF29477|||8|||x005.dat
 0xFC0940BE|||19|||24C00016_boy1_0.ogg
 0xFC15B426|||19|||34C00013_Boy1_0.ogg
 0xFC249EF2|||19|||18C00007_gir2_0.ogg
@@ -3576,6 +3632,7 @@
 0xFD1E9FFF|||19|||34C00024_Gir1_0.ogg
 0xFD2FB52B|||19|||18C00030_boy2_0.ogg
 0xFD3D048E|||11|||prof_ps.dic
+0xFD4DF49B|||4|||w012
 0xFD7168F0|||19|||34C00011_Boy3_2.ogg
 0xFD855C6B|||25|||ch06_13_hopitaldown_l.ogg
 0xFD89F63C|||8|||h007.dat

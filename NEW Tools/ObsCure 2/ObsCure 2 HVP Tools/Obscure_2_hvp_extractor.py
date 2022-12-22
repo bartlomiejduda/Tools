@@ -19,6 +19,8 @@ from typing import List, Optional
 import lzokay
 from reversebox.common.common import convert_int_to_hex_string
 from reversebox.io_files.file_handler import FileHandler
+
+from constants import STR_ENCODING
 from objects import HashEntryObject, DirectoryEntryObject, RepackInfoObject
 
 
@@ -62,7 +64,7 @@ def export_data(hvp_path: str) -> Optional[tuple]:
         for file in f:
             if file.endswith(".txt"):
                 hash_list_path = os.path.join(r, file)
-                hash_list_file = open(hash_list_path, "rt")
+                hash_list_file = open(hash_list_path, "rt", encoding=STR_ENCODING)
                 for line in hash_list_file:
                     if line.startswith("#"):
                         continue
@@ -176,7 +178,7 @@ def export_data(hvp_path: str) -> Optional[tuple]:
 
     # print("Generating repack info...")
     # repack_info_file_path = hvp_path + "_repack_info.txt"
-    # repack_info_file = open(repack_info_file_path, "wt")
+    # repack_info_file = open(repack_info_file_path, "wt", encoding=STR_ENCODING)
     # for repack_entry in repack_info_list:
     #     out_line = repack_entry.entry_hash + \
     #                "|||" + str(repack_entry.entry_type) + \

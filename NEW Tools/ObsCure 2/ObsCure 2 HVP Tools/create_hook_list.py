@@ -15,6 +15,8 @@ License: GPL-3.0 License
 
 import os
 from operator import attrgetter
+
+from constants import STR_ENCODING
 from objects import HashDumpObject
 
 print("Starting create hook list script...")
@@ -32,7 +34,7 @@ for r, d, f in os.walk("hash_dumps"):
         if file.endswith(".txt"):
             print("Opening file ", file)
             hash_dump_path = os.path.join(r, file)
-            hash_dump_file = open(hash_dump_path, "rt")
+            hash_dump_file = open(hash_dump_path, "rt", encoding=STR_ENCODING)
             for line in hash_dump_file:
                 if line.startswith("#"):
                     continue
@@ -64,7 +66,7 @@ print("Sorting list...")
 hash_list_without_duplicates: list[HashDumpObject] = sorted(hash_list_without_duplicates, key=attrgetter('crc'))
 
 
-output_file = open("hash_lists/obscure_2_hook_list.txt", "wt")
+output_file = open("hash_lists/obscure_2_hook_list.txt", "wt", encoding=STR_ENCODING)
 
 for hash_clean_entry in hash_list_without_duplicates:
     out_line = "0x" + hash_clean_entry.crc + "|||" + str(hash_clean_entry.path_length) \
