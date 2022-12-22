@@ -16,7 +16,7 @@ from operator import attrgetter
 from typing import List
 
 from constants import STR_ENCODING
-from custom_filenames import CUSTOM_FILENAMES
+from custom_filenames import CUSTOM_FILENAMES, TEMPORARY_CUSTOM_FILENAMES
 from objects import HashEntryObject
 from reversebox.common.common import convert_int_to_hex_string
 from reversebox.checksum import checksum_crc32_iso_hdlc
@@ -24,6 +24,7 @@ from reversebox.checksum import checksum_crc32_iso_hdlc
 crc32_handler = checksum_crc32_iso_hdlc.CRC32Handler()
 
 
+temporary_custom_hash_list: List[HashEntryObject] = []
 custom_hash_list: List[HashEntryObject] = []
 hook_list: List[HashEntryObject] = []
 
@@ -41,6 +42,41 @@ for line in hook_list_file:
         path_length=int(len_value),
         file_path=str(path_value).rstrip('\n')
     ))
+
+
+# check if there are any UNIQUE entries in temporary filenames list
+# If YES, then they should be printed for later adding them in custom hash list
+if len(TEMPORARY_CUSTOM_FILENAMES) > 0:
+    print("Printing unique temporary custom filenames:")
+    for temporary_custom_filename in TEMPORARY_CUSTOM_FILENAMES:
+        should_be_added = 1
+        temporary_custom_hash_entry: HashEntryObject = HashEntryObject(
+            crc=crc32_handler.calculate_crc32(bytes(temporary_custom_filename.encode(STR_ENCODING))),
+            path_length=len(temporary_custom_filename),
+            file_path=temporary_custom_filename
+        )
+
+        for hook_list_entry in hook_list:
+            if temporary_custom_hash_entry.crc == hook_list_entry.crc:
+                should_be_added = 0
+                break
+
+        for custom_filename in CUSTOM_FILENAMES:
+            if custom_filename == temporary_custom_filename:
+                should_be_added = 0
+                break
+
+        for temp_custom_entry in temporary_custom_hash_list:
+            if temp_custom_entry.crc == temporary_custom_hash_entry.crc:
+                should_be_added = 0
+                break
+
+        if should_be_added:
+            temporary_custom_hash_list.append(temporary_custom_hash_entry)
+
+    for temporary_custom_entry in temporary_custom_hash_list:
+        print(f"\t\"{temporary_custom_entry.file_path}\",")
+
 
 # add entries to custom hash list
 # (also check for issues, e.g. duplicates, wrong length etc.)
