@@ -40,14 +40,6 @@ def export_data(pak_path: str) -> Optional[tuple]:
     """
 
     print("Starting PAK extract function...")
-
-    # For debug only:
-    # pak_path = "C:\\Users\\Lenovo\\Desktop\\PAK_RESEARCH\\launcher_dd.pak"
-    # pak_path = "C:\\Users\\Lenovo\\Desktop\\PAK_RESEARCH\\pacman.pak"  - dont work
-    # pak_path = "C:\\Users\\Lenovo\\Desktop\\PAK_RESEARCH\\launcher_pm.pak"
-    # pak_path = "C:\\Users\\Lenovo\\Desktop\\PAK_RESEARCH\\digdug.pak"
-    # pak_path = "C:\\Users\\Lenovo\\Desktop\\PAK_RESEARCH\\data.pak" - dont work
-
     pak_handler = FileHandler(pak_path, "rb")
 
     try:
@@ -59,7 +51,8 @@ def export_data(pak_path: str) -> Optional[tuple]:
     # read header
     signature = pak_handler.read_str(6)
     if signature != "RWPACK":
-        raise Exception("Wrong PAK file! Exiting!")
+        print("Wrong PAK file! Exiting!")
+        exit(-2)
 
     pak_handler.seek(12)
     number_of_entries = pak_handler.read_uint32()
@@ -81,7 +74,7 @@ def export_data(pak_path: str) -> Optional[tuple]:
                 os.makedirs(main_output_path)
             except FileNotFoundError:
                 print("Can't create output directory! Exiting!")
-                exit(1)
+                exit(-3)
 
     # decrypt and parse directory
     for i in range(number_of_entries):
@@ -116,7 +109,7 @@ def export_data(pak_path: str) -> Optional[tuple]:
                 os.makedirs(absolute_dir_path)
             except (FileNotFoundError, ValueError):
                 print("Can't create output directory! Exiting!")
-                exit(1)
+                exit(-4)
 
         print(f"Writing {filepath_str}...")
         out_file = open(absolute_file_path, "wb")
