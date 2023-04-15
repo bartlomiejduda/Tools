@@ -1,45 +1,26 @@
-# -*- coding: utf-8 -*-
-
-# Tested on Python 3.8.0
-# This tool should be used with Giana's Return 
+# Tested on Python 3.11
+# This tool should be used with Giana's Return
+# You need "ReverseBox" package to use this tool
 
 # Ver    Date        Author             Comment
 # v0.1   26.11.2020  Bartlomiej Duda    Initial version
 # v0.2   28.11.2020  Bartlomiej Duda    Added decryption method
+# v0.3   15.04.2023  Bartlomiej Duda    Add ReverseBox integration
 
 import os
-import sys
 import struct
 import zlib
+from reversebox.encryption.encryption_xor_gianas_return_zda import xor_zda_decrypt_data
+from reversebox.common.logger import get_logger
 
-from itertools import cycle
-def xore(data, key):
-    return bytes(a ^ b for a, b in zip(data, cycle(key)))
+logger = get_logger(__name__)
 
-def decrypt_data(in_data):
-    xor_res = b'\xBB'
-    data_size = len(in_data)
-    out_data = bytearray()
-    
-    for curr_offset in range(data_size):
-        data_byte = struct.pack("B", in_data[curr_offset])
-        xor_res = xore(xor_res, data_byte)
-        out_data.extend(xor_res)
-    
-    return out_data
-    
-
-def bd_logger(in_str):
-    import datetime
-    now = datetime.datetime.now()
-    print(now.strftime("%d-%m-%Y %H:%M:%S") + " " + in_str)    
-  
 
 def export_data(in_file_path, out_folder_path):
-    '''
+    """
     Function for exporting data from ZDA files
-    '''    
-    bd_logger("Starting export_data...")  
+    """
+    logger.info("Starting export_data...")
     
     if not os.path.exists(out_folder_path):
         os.makedirs(out_folder_path)      
@@ -62,39 +43,35 @@ def export_data(in_file_path, out_folder_path):
         size_arr.append(f_comp_size)
         
     for i in range(num_of_files):
-        f_data = zlib.decompress(zda_file.read(size_arr[i])) # data decompression
-        f_data = decrypt_data(f_data) # data decryption
+        f_data = zlib.decompress(zda_file.read(size_arr[i]))  # data decompression
         f_name = name_arr[i]
-        
         f_path = out_folder_path + f_name
+        f_data = xor_zda_decrypt_data(f_data) # data decryption
         print(f_path)
         
         out_file = open(f_path, "wb+")
         out_file.write(f_data)
         out_file.close()
-        
-   
-    
+
     zda_file.close()
-    bd_logger("Ending export_data...")    
-    
-    
-    
-    
-def main():
-    
-    main_switch = 2
-    # 1 - data export 
-    # 2 - data export (all archives)
+    logger.info("Ending export_data...")
     
 
+def main():
+    
+    main_switch = 1
+    # 1 - data export 
+    # 2 - data export (all archives)
+
     if main_switch == 1:
-        p_in_file_path = "C:\\Users\\Arek\\Desktop\\Gianas Return\\data\\sprites.zda"
-        p_out_folder_path = "C:\\Users\\Arek\\Desktop\\Gianas Return\\data\\sprites.zda_OUT\\"
+        logger.info("Option 1 start")
+        p_in_file_path = "C:\\Users\\User\\Desktop\\data\\music0.zda"
+        p_out_folder_path = "C:\\Users\\User\\Desktop\\data\\music0.zda_OUT\\"
         export_data(p_in_file_path, p_out_folder_path)
         
     elif main_switch == 2:
-        p_data_dir_path = "C:\\Users\\Arek\\Desktop\\Gianas Return\\data\\"
+        logger.info("Option 2 start")
+        p_data_dir_path = "C:\\Users\\User\\Desktop\\data\\"
         
         for root, dirs, files in os.walk(p_data_dir_path):
             for file in files:
@@ -105,11 +82,9 @@ def main():
         
     else:
         print("Wrong option selected!")
-        
-        
-    
-    bd_logger("End of main...")    
-    
-    
-    
-main()
+
+    logger.info("End of main...")
+
+
+if __name__ == "__main__":
+    main()
