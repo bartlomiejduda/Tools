@@ -1,0 +1,61 @@
+from typing import List
+
+from reversebox.io_files.translation_text_handler import TranslationEntry
+
+translation_memory: List[TranslationEntry] = [
+    TranslationEntry(text_offset=546820, text_export_length=9),
+    TranslationEntry(text_offset=546832, text_export_length=10),
+    TranslationEntry(text_offset=546844, text_export_length=11),
+    TranslationEntry(text_offset=546856, text_export_length=6),
+    TranslationEntry(text_offset=546864, text_export_length=14),
+    TranslationEntry(text_offset=546880, text_export_length=20),
+    TranslationEntry(text_offset=546904, text_export_length=20),
+    TranslationEntry(text_offset=546928, text_export_length=24),
+    TranslationEntry(text_offset=546956, text_export_length=12),
+    TranslationEntry(text_offset=546972, text_export_length=21),
+    TranslationEntry(text_offset=546996, text_export_length=26),
+    TranslationEntry(text_offset=547028, text_export_length=6),
+    TranslationEntry(text_offset=547036, text_export_length=8),
+    TranslationEntry(text_offset=547048, text_export_length=6),
+    TranslationEntry(text_offset=547056, text_export_length=22),
+    TranslationEntry(text_offset=547080, text_export_length=15),
+    TranslationEntry(text_offset=547100, text_export_length=14),
+    TranslationEntry(text_offset=547116, text_export_length=6),
+    TranslationEntry(text_offset=547124, text_export_length=5),
+    TranslationEntry(text_offset=547132, text_export_length=8),
+    TranslationEntry(text_offset=547144, text_export_length=6),
+    TranslationEntry(text_offset=547156, text_export_length=12),
+    TranslationEntry(text_offset=547280, text_export_length=9),
+
+
+
+    # overwriting save data + credits
+    TranslationEntry(text_offset=4837380, text_export_length=27),
+    TranslationEntry(text_offset=4837412, text_export_length=25),
+    TranslationEntry(text_offset=4837440, text_export_length=32),
+    TranslationEntry(text_offset=4837476, text_export_length=11),
+    TranslationEntry(text_offset=4837492, text_export_length=23),
+    TranslationEntry(text_offset=4837516, text_export_length=26),
+    TranslationEntry(text_offset=4837544, text_export_length=27),
+    TranslationEntry(text_offset=4837572, text_export_length=4),
+    TranslationEntry(text_offset=4837580, text_export_length=5),
+    TranslationEntry(text_offset=4837592, text_export_length=12),
+    TranslationEntry(text_offset=4837612, text_export_length=9),
+    TranslationEntry(text_offset=4837804, text_export_length=15),
+    TranslationEntry(text_offset=4837880, text_export_length=13),
+    TranslationEntry(text_offset=4837940, text_export_length=10),
+    TranslationEntry(text_offset=4837952, text_export_length=20),
+    TranslationEntry(text_offset=4838028, text_export_length=17),
+    TranslationEntry(text_offset=4838064, text_export_length=12),
+    TranslationEntry(text_offset=4838100, text_export_length=21),
+    TranslationEntry(text_offset=4838144, text_export_length=18),
+    TranslationEntry(text_offset=4838180, text_export_length=13),
+    TranslationEntry(text_offset=4838212, text_export_length=15),
+    TranslationEntry(text_offset=4838244, text_export_length=18),
+    TranslationEntry(text_offset=4838284, text_export_length=11),
+    TranslationEntry(text_offset=4838296, text_export_length=9),
+    TranslationEntry(text_offset=4838308, text_export_length=13),
+    TranslationEntry(text_offset=4838324, text_export_length=13),
+    TranslationEntry(text_offset=4838376, text_export_length=8),
+
+]
