@@ -8,31 +8,49 @@ License: GPL-3.0 License
 # Ver    Date        Author               Comment
 # v0.1   12.04.2023  Bartlomiej Duda      -
 # v0.2   23.04.2023  Bartlomiej Duda      Add ReverseBox Translation Handler
+# v0.3   25.04.2023  Bartlomiej Duda      Add more entries
+# v0.4   01.05.2023  Bartlomiej Duda      Add more entries, update ReverseBox, add character mapping
 
 from reversebox.common.logger import get_logger
 from reversebox.io_files.translation_text_handler import TranslationTextHandler
+
+from character_mapping import tail_concerto_import_transform
 from translation_memory import translation_memory
 
 logger = get_logger(__name__)
 
 
 # Adjust parameters below before using this tool!
+# Read README file for more details
 bin_file_path: str = "C:\\EMULACJA\\AA_GRY_PS1\\Tail Concerto\\OUT\\DATA.BIN"
 po_file_path: str = "C:\\EMULACJA\\AA_GRY_PS1\\Tail Concerto\\OUT\\DATA.BIN.po"
-option: int = 1  # 1 - export   /   2 - import
+
+option: int = 2     # 1 - export text   /   2 - import text
+
+
+def get_datetime_string() -> str:
+    return "21/01/2003 20:06:57"
+
+
+def get_tail_concerto_encoding() -> str:
+    return "windows-1250"
 
 
 def main():
     translation_handler = TranslationTextHandler(
-            translation_memory=translation_memory, file_path=bin_file_path
+            translation_memory=translation_memory, file_path=bin_file_path,
+            global_import_function=tail_concerto_import_transform,
         )
 
-    if option == 1 and translation_handler.export_all_text(po_file_path):
+    if option == 1 and translation_handler.export_all_text(po_file_path, creation_date_string=get_datetime_string(),
+                                                           revision_date_string=get_datetime_string(),
+                                                           encoding=get_tail_concerto_encoding()):
         logger.info("Text exported successfully!")
-    elif option == 2 and translation_handler.import_all_text(po_file_path):
+    elif option == 2 and translation_handler.import_all_text(po_file_path, create_backup_file=False,
+                                                             encoding=get_tail_concerto_encoding()):
         logger.info("Text imported successfully!")
     else:
-        logger.info("Error with export occurred.")
+        logger.error("Wrong option or some error occurred! See the logs for more details.")
 
 
 if __name__ == "__main__":
