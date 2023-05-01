@@ -10,9 +10,12 @@ License: GPL-3.0 License
 # v0.2   23.04.2023  Bartlomiej Duda      Add ReverseBox Translation Handler
 # v0.3   25.04.2023  Bartlomiej Duda      Add more entries
 # v0.4   01.05.2023  Bartlomiej Duda      Add more entries, update ReverseBox, add character mapping
+# v0.5   01.05.2023  Bartlomiej Duda      Add more entries, List reverse
+
+from typing import List
 
 from reversebox.common.logger import get_logger
-from reversebox.io_files.translation_text_handler import TranslationTextHandler
+from reversebox.io_files.translation_text_handler import TranslationTextHandler, TranslationEntry
 
 from character_mapping import tail_concerto_import_transform
 from translation_memory import translation_memory
@@ -25,11 +28,11 @@ logger = get_logger(__name__)
 bin_file_path: str = "C:\\EMULACJA\\AA_GRY_PS1\\Tail Concerto\\OUT\\DATA.BIN"
 po_file_path: str = "C:\\EMULACJA\\AA_GRY_PS1\\Tail Concerto\\OUT\\DATA.BIN.po"
 
-option: int = 2     # 1 - export text   /   2 - import text
+option: int = 1     # 1 - export text   /   2 - import text
 
 
 def get_datetime_string() -> str:
-    return "21/01/2003 20:06:57"
+    return "29/04/2023 20:06:57"
 
 
 def get_tail_concerto_encoding() -> str:
@@ -37,8 +40,9 @@ def get_tail_concerto_encoding() -> str:
 
 
 def main():
+    reversed_translation_memory: List[TranslationEntry] = list(reversed(translation_memory))
     translation_handler = TranslationTextHandler(
-            translation_memory=translation_memory, file_path=bin_file_path,
+            translation_memory=reversed_translation_memory, file_path=bin_file_path,
             global_import_function=tail_concerto_import_transform,
         )
 
