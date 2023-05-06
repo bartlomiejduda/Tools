@@ -39,6 +39,23 @@ def get_tail_concerto_encoding() -> str:
     return "windows-1250"
 
 
+def generate_entries(txt_file_path: str, text_key: str = "text_to_translate") -> bool:  # TODO - move it to reversebox
+    try:
+        txt_file = open(txt_file_path, "rt")
+    except Exception as error:
+        logger.error(f"Error with opening file: {error}")
+        return False
+
+    for line in txt_file:
+        line = line.strip()
+        offset = line.split(":")[0]
+        text = line.split(":")[-1]
+        output_entry = f"\tTranslationEntry(text_offset={offset}, text_export_length={len(text)}, text_key=\"{text_key}\"),"
+        print(output_entry)
+
+    return True
+
+
 def main():
     reversed_translation_memory: List[TranslationEntry] = list(reversed(translation_memory))
     translation_handler = TranslationTextHandler(
