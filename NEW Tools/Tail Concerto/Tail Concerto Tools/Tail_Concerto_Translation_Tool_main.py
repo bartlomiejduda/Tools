@@ -39,7 +39,13 @@ def get_tail_concerto_encoding() -> str:
     return "windows-1250"
 
 
-def generate_entries(txt_file_path: str, text_key: str = "text_to_translate") -> bool:  # TODO - move it to reversebox
+def generate_translation_entries(txt_file_path: str, text_key: str = "text_to_translate") -> bool:  # TODO - move it to reversebox
+    """
+    This function should be used along with "strings" program from SysInternals https://learn.microsoft.com/en-us/sysinternals/downloads/strings
+    First, you should generate text dump using command "strings64.exe -o <binary_file_path> > <output_path>.
+    Then you should search for text entries in the dump and copy them to some output file e.g. "entries.txt"
+    Then you just need to run this function with your "entries.txt" as an input parameter for this function.
+    """
     try:
         txt_file = open(txt_file_path, "rt")
     except Exception as error:
@@ -56,8 +62,30 @@ def generate_entries(txt_file_path: str, text_key: str = "text_to_translate") ->
     return True
 
 
+def check_translation_entries(translation_memory_to_check: List[TranslationEntry]) -> bool:
+    """
+    Default function for checking if entries in Translation Memory are correct.
+    """
+    check_offsets_list: List[int] = []
+
+    for translation_entry in translation_memory_to_check:
+        if translation_entry.text_offset in check_offsets_list:
+            logger.error(f"Duplicated text_offset: {translation_entry.text_offset}")
+            return False
+
+        if translation_entry.text_import_length and translation_entry.text_import_length < translation_entry.text_export_length:
+            logger.error(f"Import length is lower than export length for entry with offset {translation_entry.text_offset}")
+            return False
+
+        check_offsets_list.append(translation_entry.text_offset)
+    return True
+
+
 def main():
     reversed_translation_memory: List[TranslationEntry] = list(reversed(translation_memory))
+    if not check_translation_entries(reversed_translation_memory):
+        logger.error("Error while checking translation memory")
+        return
     translation_handler = TranslationTextHandler(
             translation_memory=reversed_translation_memory, file_path=bin_file_path,
             global_import_function=tail_concerto_import_transform,
