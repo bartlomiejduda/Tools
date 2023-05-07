@@ -3,6 +3,8 @@ from typing import List
 from reversebox.io_files.translation_text_handler import TranslationEntry
 
 translation_memory: List[TranslationEntry] = [
+
+    # Options@
     TranslationEntry(text_offset=546820, text_export_length=10, text_key="tail_concerto_1"),
     TranslationEntry(text_offset=546832, text_export_length=10, text_key="tail_concerto_2"),
     TranslationEntry(text_offset=546844, text_export_length=11, text_key="tail_concerto_3"),
