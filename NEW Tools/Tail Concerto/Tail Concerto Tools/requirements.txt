@@ -1,1 +1,1 @@
-ReverseBox==0.5.6
+ReverseBox==0.6.0
