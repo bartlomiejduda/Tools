@@ -1,0 +1,27 @@
+# Script by Bartlomiej Duda (Ikskoks)
+# Tiny Thor (PC) TPK script
+
+
+# Ver    Date        Author               Comment
+# v0.1   11.06.2023  Bartlomiej Duda      -
+
+
+idstring "TiPK"
+get NUMBER_OF_FILES long
+
+for i = 0 < NUMBER_OF_FILES
+	get FILEPATH_LENGTH long
+	GetDString FILEPATH FILEPATH_LENGTH
+	get FILE_SIZE long
+	PutArray 0 i FILEPATH
+	PutArray 1 i FILE_SIZE
+next i
+
+SavePos FILE_DATA_OFFSET
+
+for i = 0 < NUMBER_OF_FILES
+	GetArray OUTPUT_FILE_PATH 0 i
+	GetArray OUTPUT_FILE_SIZE 1 i
+	log OUTPUT_FILE_PATH FILE_DATA_OFFSET OUTPUT_FILE_SIZE
+	xmath FILE_DATA_OFFSET "FILE_DATA_OFFSET + OUTPUT_FILE_SIZE"
+next i
