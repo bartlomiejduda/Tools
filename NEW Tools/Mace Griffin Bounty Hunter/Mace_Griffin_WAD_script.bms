@@ -1,0 +1,38 @@
+# Script by Bartlomiej Duda (Ikskoks)
+# Mace Griffin: Bounty Hunter (PS2) WAD script
+
+
+# Ver    Date        Author               Comment
+# v0.1   25.06.2023  Bartlomiej Duda      -
+
+
+idstring "BHPS2WAD"
+goto 12
+get DATA_BASE_OFFSET long
+set NUMBER_OF_ENTRIES long 90  # Hardcoded value! Adjust it if needed!
+
+
+for i = 0 < NUMBER_OF_ENTRIES
+	get NUMBER_OF_FILES long
+	get NUMBER_OF_SUBDIRECTORIES long
+	get UNKNOWN long
+	GetDString BASE_PATH 260
+	
+	for j = 0 < NUMBER_OF_FILES
+		GetDString FILE_NAME 32
+		get FILE_OFFSET long
+		get FILE_SIZE long
+		get UNKNOWN long
+		xmath FILE_OFFSET "FILE_OFFSET + DATA_BASE_OFFSET"
+		string OUTPUT_FILE_PATH p "%s%s" BASE_PATH FILE_NAME
+		log OUTPUT_FILE_PATH FILE_OFFSET FILE_SIZE
+	next j
+	
+	for k = 0 < NUMBER_OF_SUBDIRECTORIES
+		GetDString FILE_NAME 32
+		get DIR_OFFSET long
+		get DIR_SIZE long
+		get UNKNOWN long
+	next k
+	
+next i
