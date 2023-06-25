@@ -1,0 +1,29 @@
+# Script by Bartlomiej Duda (Ikskoks)
+# City Interactive / CI Games DPK script
+
+
+# Ver    Date        Author               Comment
+# v0.1   25.06.2023  Bartlomiej Duda      -
+
+
+idstring "DPK4"
+comtype zlib
+get TOTAL_ARCHIVE_SIZE long
+get INDEX_SIZE long
+get NUMBER_OF_FILES long
+
+for i = 0 < NUMBER_OF_FILES
+	SavePos ENTRY_START_OFFSET
+	get ENTRY_SIZE long
+	get UNCOMPRESSED_FILE_SIZE long
+	get COMPRESSED_FILE_SIZE long
+	get FILE_OFFSET long
+	get FILE_NAME string
+	xmath NEXT_ENTRY_OFFSET "ENTRY_START_OFFSET + ENTRY_SIZE"
+	goto NEXT_ENTRY_OFFSET
+	if UNCOMPRESSED_FILE_SIZE != COMPRESSED_FILE_SIZE
+		clog FILE_NAME FILE_OFFSET COMPRESSED_FILE_SIZE UNCOMPRESSED_FILE_SIZE
+	else
+		log FILE_NAME FILE_OFFSET UNCOMPRESSED_FILE_SIZE
+	endif
+next i
