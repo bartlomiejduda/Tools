@@ -1,0 +1,29 @@
+# Script by Bartlomiej Duda (Ikskoks)
+# Red Comrades Save The Galaxy (PC) SFX script
+
+
+# Ver    Date        Author               Comment
+# v0.1   15.07.2023  Bartlomiej Duda      -
+
+
+idstring "StOR"
+get DIRECTORY_OFFSET long
+goto DIRECTORY_OFFSET
+get NUMBER_OF_ENTRIES long
+
+
+for i = 0 < NUMBER_OF_ENTRIES
+	get UNKNOWN long
+	get FILE_OFFSET long
+	get FILE_SIZE long
+	putarray 0 i FILE_OFFSET
+	putarray 1 i FILE_SIZE
+next i
+
+
+for i = 0 < NUMBER_OF_ENTRIES
+	get FILE_NAME string
+	getarray FILE_OFFSET 0 i
+	getarray FILE_SIZE 1 i
+	log FILE_NAME FILE_OFFSET FILE_SIZE
+next i
