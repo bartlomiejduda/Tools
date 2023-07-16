@@ -1,0 +1,22 @@
+# Script by Bartlomiej Duda (Ikskoks)
+# ShtyrliTz Discovery of America (PC) RES script
+
+
+# Ver    Date        Author               Comment
+# v0.1   16.07.2023  Bartlomiej Duda      -
+
+
+get DATA_OFFSET long
+xmath NUMBER_OF_ENTRIES "DATA_OFFSET / 64"
+goto 0
+
+for i = 0 < NUMBER_OF_ENTRIES
+	get FILE_OFFSET long
+	get FILE_SIZE long
+	get NULLS1 long
+	get NULLS2 short
+	GetDString FILE_NAME 50
+	if FILE_SIZE > 0
+		log FILE_NAME FILE_OFFSET FILE_SIZE
+	endif
+next i
