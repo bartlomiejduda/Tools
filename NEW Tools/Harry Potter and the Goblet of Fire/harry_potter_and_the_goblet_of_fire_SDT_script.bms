@@ -1,0 +1,30 @@
+# Script by Bartlomiej Duda (Ikskoks)
+# Harry Potter and the Goblet of Fire SDT script
+
+
+# Ver    Date        Author               Comment
+# v0.1   06.08.2023  Bartlomiej Duda      -
+
+
+
+get ARCHIVE_SIZE asize
+get NUMBER_OF_FILES long
+
+for i = 0 < NUMBER_OF_FILES
+	get FILE_OFFSET long
+	get UNKNOWN long
+	SavePos BACK_OFFSET
+	xmath COUNTER "i + 1"
+	
+	if COUNTER == NUMBER_OF_FILES
+		set FILE_SIZE long ARCHIVE_SIZE
+		xmath FILE_SIZE "FILE_SIZE - FILE_OFFSET"
+	else
+		get FILE_SIZE long
+		xmath FILE_SIZE "FILE_SIZE - FILE_OFFSET"
+		goto BACK_OFFSET
+	endif
+	
+	string FILE_NAME p "file%s.asf" COUNTER
+	log FILE_NAME FILE_OFFSET FILE_SIZE
+next i
