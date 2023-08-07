@@ -1,0 +1,31 @@
+# Script by Bartlomiej Duda (Ikskoks)
+# Harry Potter and the Goblet of Fire SDT script 2
+
+# Ver    Date        Author               Comment
+# v0.1   07.08.2023  Bartlomiej Duda      -
+
+
+for i = 0
+
+	FindLoc FILE_OFFSET STRING "SCHl"
+	
+	if FILE_OFFSET == ""
+		cleanexit
+	endif
+	
+	xmath TEMP_OFFSET "FILE_OFFSET + 4"
+	goto TEMP_OFFSET
+	
+	FindLoc END_OFFSET STRING "SCHl"
+	if END_OFFSET == ""
+		cleanexit
+	endif
+	
+	xmath FILE_SIZE "END_OFFSET - FILE_OFFSET"
+
+	
+	xmath COUNTER "i + 1"
+	string FILE_NAME p "file%s.asf" COUNTER
+	log FILE_NAME FILE_OFFSET FILE_SIZE
+
+next i
