@@ -1,0 +1,13 @@
+# Script by Bartlomiej Duda (Ikskoks)
+
+
+# Ver    Date        Author               Comment
+# v0.1   09.08.2023  Bartlomiej Duda      -
+
+
+get ARCHIVE_SIZE asize
+get ARCHIVE_NAME basename
+FindLoc FILE_OFFSET STRING "OggS"
+xmath FILE_SIZE "ARCHIVE_SIZE - FILE_OFFSET"
+string FILE_NAME p "%s.ogg" ARCHIVE_NAME
+log FILE_NAME FILE_OFFSET FILE_SIZE
