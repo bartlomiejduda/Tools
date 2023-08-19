@@ -1,0 +1,18 @@
+# Script by Bartlomiej Duda (Ikskoks)
+# Action Hero 3D: Wild Dog (Zeebo) RES script
+
+
+# Ver    Date        Author               Comment
+# v0.1   19.08.2023  Bartlomiej Duda      -
+
+
+get NUMBER_OF_FILES long
+xmath BASE_OFFSET "NUMBER_OF_FILES * 72 + 4" 
+
+for i = 0 < NUMBER_OF_FILES
+	GetDString FILE_NAME 64
+	get FILE_OFFSET long
+	get FILE_SIZE long
+	xmath FILE_OFFSET "BASE_OFFSET + FILE_OFFSET"
+	log FILE_NAME FILE_OFFSET FILE_SIZE
+next i
