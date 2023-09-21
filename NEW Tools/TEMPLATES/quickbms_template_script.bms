@@ -129,3 +129,14 @@
 # 	set FULL_OUTPUT_FILE_PATH string FILE_PATH_BACKUP
 # endfunction
 # 
+#
+#
+# checking signature / condition logic
+#get SIGN long
+#
+#if SIGN == 0x58504854
+# 	callfunction PRINT_AAA
+#else
+# 	callfunction PRINT_BBB
+#endif	
+#
