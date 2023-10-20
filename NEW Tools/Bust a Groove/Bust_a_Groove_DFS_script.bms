@@ -1,0 +1,40 @@
+# Script by Bartlomiej Duda (Ikskoks)
+# Bust a Groove (PS1) DFS script
+
+
+# Ver    Date        Author               Comment
+# v0.1   20.10.2023  Bartlomiej Duda      -
+
+
+idstring "DFS_"
+endian little
+get NUMBER_OF_FILES long
+
+
+for i = 0 < NUMBER_OF_FILES
+	get FILE_OFFSET long
+	get FILE_SIZE long
+	
+	SavePos BACK_OFFSET
+	goto FILE_OFFSET
+	get FILE_SIGN long
+	goto BACK_OFFSET
+	
+	
+	set FILE_EXTENSION string ".bin"
+	if FILE_SIGN == 1413760339  # SEDT
+		set FILE_EXTENSION string ".sedt"
+	else if FILE_SIGN == 16
+		set FILE_EXTENSION string ".tim"
+	else if FILE_SIGN == 1598636612  # DBI_
+		set FILE_EXTENSION string ".dbi"
+	endif
+	
+	
+	set FILE_NAME string "file"
+	string FILE_NAME += i
+	string FILE_NAME += FILE_EXTENSION
+	
+	log FILE_NAME FILE_OFFSET FILE_SIZE
+	
+next i
