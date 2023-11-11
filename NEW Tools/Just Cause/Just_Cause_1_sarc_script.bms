@@ -1,0 +1,30 @@
+# Script by Bartlomiej Duda (Ikskoks)
+# Just Cause 1 (PC) SARC script
+
+
+# Ver    Date        Author               Comment
+# v0.1   11.11.2023  Bartlomiej Duda      -
+
+
+get UNKNOWN1 long
+GetDString SIGNATURE 4
+
+if SIGNATURE != "SARC"
+	print "Wrong signature! Exiting!"
+	cleanexit
+endif
+
+get UNKNOWN2 long
+get INFO_SIZE long
+
+
+for i = 0
+	get FILENAME_LENGTH long
+	if FILENAME_LENGTH == 0
+		break
+	endif
+	GetDString FILENAME FILENAME_LENGTH
+	get FILE_OFFSET long
+	get FILE_SIZE long
+	log FILENAME FILE_OFFSET FILE_SIZE
+next i
