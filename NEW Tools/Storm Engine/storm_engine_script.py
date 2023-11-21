@@ -5,8 +5,9 @@ from inc_noesis import *
 # License: GPL-3.0 License
 
 
-# Ver    Date        Author               Comment
-# v0.1   18.11.2023  Bartlomiej Duda      -
+# Ver    Date        Author                             Comment
+# v0.1   18.11.2023  Bartlomiej Duda                    -
+# v0.2   21.11.2023  Bartlomiej Duda/BloodRaynare       -
 
 
 # fmt: off
@@ -44,6 +45,7 @@ def image_load(image_file_data, tex_list):
     number_of_mipmaps = bs.readUInt()
     tx_format = bs.readUInt()
     mip0_size = bs.readUInt()
+    print("tx_format: " + str(tx_format))
     
     
     if tx_format == 21: # TXF_A8R8G8B8
@@ -78,6 +80,8 @@ def image_load(image_file_data, tex_list):
         
     elif tx_format == 827611204:  # DXT1
         pixel_size = (img_width * img_height)
+        if pixel_size >= len(image_file_data):
+            pixel_size = len(image_file_data) - 24
         pixel_data = bs.readBytes(pixel_size)
         pixel_data = rapi.imageDecodeDXT(pixel_data, img_width, img_height, noesis.FOURCC_DXT1)
         
