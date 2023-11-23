@@ -1,0 +1,26 @@
+# Script by Bartlomiej Duda (Ikskoks)
+# EA Games (PC/WII/PS2) BIG/VIV (C0FB) script
+
+
+# Ver    Date        Author               Comment
+# v0.1   23.11.2023  Bartlomiej Duda      -
+
+
+# Note: Some file paths may be identical. Use "r" option in quickbms to automatically rename them.
+
+
+idstring "\xC0\xFB"
+comtype dk2
+endian big
+
+get DIRECTORY_SIZE short
+get NUMBER_OF_FILES short
+
+
+for i = 0 < NUMBER_OF_FILES
+	get FILE_OFFSET threebyte
+	get FILE_SIZE threebyte
+	get FILE_PATH string
+	log FILE_PATH FILE_OFFSET FILE_SIZE
+	#clog FILE_PATH FILE_OFFSET FILE_SIZE FILE_SIZE   # uncomment this and comment line above if the files are compressed
+next i
