@@ -6,7 +6,7 @@
 from inc_noesis import *
 
 # fmt: off
-debug_mode_enabled = True
+debug_mode_enabled = False
 
 def registerNoesisTypes():
     handle = noesis.register("Transformers 2004 PS2 ITF Texture", ".ITF")
@@ -29,10 +29,10 @@ def noepyLoadRGBA(data, tex_list):
     bs.seek(20, NOESEEK_ABS)  # go to PS2 chunk
     chunk_signature = bs.readBytes(3)
     chunk_type = bs.readUByte()
-    unk1 = bs.readUInt()  # bpp?
+    unk1 = bs.readUInt()
     img_width = bs.readUInt()
     img_height = bs.readUInt()
-    unk2 = bs.readUInt()  # palette type?
+    unk2 = bs.readUInt()
     number_of_pals = bs.readUInt()
     bs.readBytes(8)  # read nulls
     
@@ -78,6 +78,9 @@ def noepyLoadRGBA(data, tex_list):
         palette_size = 1024
         bits_per_pixel = 8
         pixel_size = img_width * img_height
+    elif chunk_type == 12:  # 24-bit RGB888 (not swizzled)
+        bits_per_pixel = 8
+        pixel_size = (img_width * img_height) * 3
     elif chunk_type == 138:  # 4-bit RGBA8888 PAL + PS2 SWIZZLE
         if number_of_pals == 0:
             number_of_pals = 1
@@ -91,14 +94,14 @@ def noepyLoadRGBA(data, tex_list):
         number_of_palettes = number_of_pals
         palette_size = 1024
         bits_per_pixel = 8
-        pixel_size = (img_width * img_height)
+        pixel_size = img_width * img_height
     else:
         message = "Chunk type " + str(chunk_type) + " is not supported!"
         noesis.messagePrompt(message)
         return 0
     
     
-    
+    # palettes logic
     palettes_list = []
     palettes_offsets_list = []
     for i in range(number_of_palettes):
@@ -106,6 +109,7 @@ def noepyLoadRGBA(data, tex_list):
         palette_data = bs.readBytes(palette_size)
         palettes_list.append(palette_data)
     
+    # image data reading
     image_data_offset = bs.tell()
     pixel_data = bs.readBytes(pixel_size)
     
@@ -142,7 +146,9 @@ def noepyLoadRGBA(data, tex_list):
         elif chunk_type == 10:
             pixel_data_conv = rapi.imageDecodeRawPal(pixel_data, palettes_list[i], img_width, img_height, bits_per_pixel, "r8 g8 b8 a8")
         elif chunk_type == 11:
-            pixel_data_conv = rapi.imageDecodeRawPal(pixel_data, palettes_list[i], img_width, img_height, bits_per_pixel, "r8 g8 b8 p8")
+            pixel_data_conv = rapi.imageDecodeRawPal(pixel_data, palettes_list[i], img_width, img_height, bits_per_pixel, "r8 g8 b8 a8")
+        elif chunk_type == 12:
+            pixel_data_conv = rapi.imageDecodeRaw(pixel_data, img_width, img_height, "R8 G8 B8")  
         elif chunk_type == 138:
             pixel_data_conv = rapi.imageUntwiddlePS2(pixel_data, img_width, img_height, bits_per_pixel)
             pixel_data_conv = rapi.imageDecodeRawPal(pixel_data_conv, palettes_list[i], img_width, img_height, bits_per_pixel, "r8 g8 b8 a8")
@@ -155,5 +161,6 @@ def noepyLoadRGBA(data, tex_list):
         tex_list.append(NoeTexture(texture_name, img_width, img_height, pixel_data_conv, texture_format))
 
 
-    print("End of main.")
+    print("End of noepyLoadRGBA.")
+    print("\n")
     return 0
