@@ -1,0 +1,33 @@
+# Script by Bartlomiej Duda (Ikskoks)
+# Yogurting (PC) IRH IRD script
+
+
+# Ver    Date        Author               Comment
+# v0.1   04.12.2023  Bartlomiej Duda      -
+
+
+open FDDE IRH 0
+open FDDE IRD 1
+
+
+idstring "IRD0"
+goto 16
+get NUMBER_OF_FILES long
+goto 396
+
+for i = 0 < NUMBER_OF_FILES
+	get FILE_ID long
+	get UNK1 long
+	get UNK2 long
+	get FILE_OFFSET long
+	get FILE_SIZE long
+	get ENTRY_TYPE long  # 32 - file  / 16 - directory
+	GetDString UNK_HASH 24
+	GetDString FILE_NAME 256
+	GetDString UNK_HASH2 64
+	
+	if ENTRY_TYPE == 32
+		string FILE_PATH p "%d_%s" i FILE_NAME
+		log FILE_PATH FILE_OFFSET FILE_SIZE 1
+	endif
+next i
