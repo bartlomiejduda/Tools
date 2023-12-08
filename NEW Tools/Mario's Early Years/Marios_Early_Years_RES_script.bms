@@ -1,0 +1,53 @@
+# Script by Bartlomiej Duda (Ikskoks)
+# Mario's Early Years: Fun with Letters (PC/DOS) RES script
+
+
+# Ver    Date        Author               Comment
+# v0.1   08.12.2023  Bartlomiej Duda      -
+
+
+
+comtype pkware
+GetDString COPYRIGHT_STRING 130
+GetDString SIGNATURE 6
+
+if SIGNATURE != "RICKBO"
+	print "This is not valid Software Toolworks RES Archive! Exiting!"
+	cleanexit
+endif
+
+get NULL byte
+GetDString VERSION_STRING 6
+GetDString BUILD_STRING 18
+get NUMBER_OF_FILES short
+GetDString DIRECTORY_NAME 17
+get UNK1 short
+get UNK2 short
+
+
+for i = 0 < NUMBER_OF_FILES
+	get FILE_OFFSET long
+	get FILE_COMP_SIZE long
+	GetDString FILE_NAME 17
+	get FILE_TYPE short
+	
+	if FILE_TYPE == 256 or FILE_TYPE == 128 or FILE_TYPE == 1344 or FILE_TYPE == 5697
+		string FILE_PATH p "%s/%s_RAWDUMP_%d" DIRECTORY_NAME FILE_NAME i
+		set FILE_UNCOMP_SIZE long FILE_COMP_SIZE
+		log FILE_PATH FILE_OFFSET FILE_UNCOMP_SIZE
+
+
+	else
+		string FILE_PATH p "%s/%s_%d" DIRECTORY_NAME FILE_NAME i
+		SavePos BACK_OFFSET
+		goto FILE_OFFSET
+		get FILE_UNCOMP_SIZE long
+		goto BACK_OFFSET
+		
+		XMATH FILE_OFFSET "FILE_OFFSET + 4"
+		XMATH FILE_COMP_SIZE "FILE_COMP_SIZE - 4"
+		clog FILE_PATH FILE_OFFSET FILE_COMP_SIZE FILE_UNCOMP_SIZE
+	endif
+	
+
+next i
