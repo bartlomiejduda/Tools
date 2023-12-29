@@ -1,0 +1,56 @@
+##################################################
+# GAMES: Commandos: Behind Enemy Lines           #
+#        Commandos: Beyond the Call of Duty      #
+# FILES: DIR archives                            #
+##################################################
+# DATE:    Dec 13, 2012                          #
+# TIME:    23:24                                 #
+# AUTHOR:  ferdinand.graf.zeppelin@gmail.com     #
+##################################################
+# script for QuickBMS http://quickbms.aluigi.org #
+##################################################
+
+
+# Script fixed by Bartlomiej Duda (Ikskoks)
+
+# Ver    Date        Author               			Comment
+# v1.0   13.12.2012  ferdinand.graf.zeppelin	    -
+# v1.1   29.12.2023  Bartlomiej Duda      			-
+
+
+
+set EOF long 1
+set HEAD long 0
+set TAIL long 0
+set PATH string ""
+
+do
+    getdstring NAME 32
+    get TYPE byte
+    padding 4
+    get SIZE long
+    get OFFSET long
+    
+    if TYPE == 0
+        # file
+        set FNAME string PATH
+        string FNAME += NAME
+        log FNAME OFFSET SIZE
+    elif TYPE == 1
+        # directory
+        set FNAME string PATH
+        string FNAME += NAME
+        string FNAME += \
+        putarray TAIL 0 FNAME
+        math TAIL += 1
+        math EOF += 1
+    else
+        # end of current directory
+        math EOF -= 1
+        if EOF == 0
+            break
+        endif
+        getarray PATH HEAD 0
+        math HEAD += 1
+    endif
+while EOF > 0
