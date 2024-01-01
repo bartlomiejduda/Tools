@@ -1,0 +1,41 @@
+# Script by Bartlomiej Duda (Ikskoks)
+# EA Games MUS Extractor
+# e.g. "Harry Potter and the Order of the Phoenix" (PC)
+
+
+# Info: This script should be used when there are 
+# multiple ASF files stored in the MUS container
+# and you want to extract all songs to play them in foobar2000
+# with vgmstream plugin.
+
+
+# Ver    Date        Author               Comment
+# v0.1   01.01.2024  Bartlomiej Duda      -
+
+
+for i = 0
+
+	FindLoc FILE_START_OFFSET STRING "SCHl"
+	
+	if FILE_START_OFFSET == ""
+		cleanexit
+	endif
+	
+	XMATH TEMP_OFFSET "FILE_START_OFFSET + 4"
+	goto TEMP_OFFSET
+	
+	FindLoc FILE_END_OFFSET STRING "SCEl"
+	
+	if FILE_END_OFFSET == ""
+		cleanexit
+	endif
+	
+	XMATH TEMP_OFFSET "FILE_END_OFFSET + 4"
+	goto TEMP_OFFSET
+	
+	XMATH FILE_END_OFFSET "FILE_END_OFFSET + 12"
+	XMATH FILE_SIZE "FILE_END_OFFSET - FILE_START_OFFSET"
+	string OUTPUT_FILE_NAME p "file%s.asf" i
+	log OUTPUT_FILE_NAME FILE_START_OFFSET FILE_SIZE
+
+next i
