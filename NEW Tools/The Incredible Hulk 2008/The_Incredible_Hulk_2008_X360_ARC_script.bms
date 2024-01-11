@@ -1,0 +1,25 @@
+# Script by Bartlomiej Duda (Ikskoks)
+# The Incredible Hulk (2008) (X360) ARC script
+
+
+# Ver    Date        Author               Comment
+# v0.1   11.01.2024  Bartlomiej Duda      -
+
+
+endian little
+get TAIL_OFFSET long
+goto TAIL_OFFSET
+
+endian big
+get NUMBER_OF_FILES long
+
+for i = 0 < NUMBER_OF_FILES
+	get FILE_ID long
+	get FILE_OFFSET long
+	get FILE_SIZE long
+	get FILE_NAME string
+	get UNKNOWN1 long
+	get UNKNOWN2 long
+	get UNKNOWN3 long
+	log FILE_NAME FILE_OFFSET FILE_SIZE
+next i
