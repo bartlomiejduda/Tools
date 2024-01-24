@@ -11,7 +11,7 @@ to run properly e.g. **[Python Interpreter](https://www.python.org/downloads/)**
 Feel free to use my tools for your game modding projects.
 
 If you have any questions, you can **[raise an issue on Github](https://github.com/bartlomiejduda/Tools/issues)**
-or ask on **[XeNTaX forum](https://forum.xentax.com/index.php)**.
+or ask on **[ResHax forum](https://reshax.com/)**.
 
 ~Bartłomiej Duda
 
