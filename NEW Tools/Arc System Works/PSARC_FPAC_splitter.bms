@@ -1,0 +1,36 @@
+# Script by Bartlomiej Duda (Ikskoks)
+
+# This script should be used when multiple PAC files
+# are stored inside one big PSARC archive and you want
+# to unpack all of these PAC files
+
+# Tested on "data_nocomp.psarc" file from Xblaze Code:Embryo (PS VITA)
+
+# Ver    Date        Author               Comment
+# v0.1   24.01.2024  Bartlomiej Duda      -
+
+
+endian little
+
+for i = 0
+
+	FindLoc SIGN_OFFSET STRING "FPAC"
+	
+	if SIGN_OFFSET == ""
+		cleanexit
+	endif
+	
+	goto SIGN_OFFSET
+	
+	GetDString SIGN 4  
+	get BASE_DATA_OFFSET long
+	get TOTAL_ARCHIVE_SIZE long
+	
+	
+	XMATH END_OFFSET "SIGN_OFFSET + TOTAL_ARCHIVE_SIZE"
+	string OUTPUT_FILE_NAME p "file%s.pac" i
+	log OUTPUT_FILE_NAME SIGN_OFFSET TOTAL_ARCHIVE_SIZE
+
+	goto END_OFFSET
+
+next i
