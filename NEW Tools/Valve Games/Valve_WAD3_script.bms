@@ -1,0 +1,32 @@
+# Script by Bartlomiej Duda (Ikskoks)
+# Valve WAD3 script
+# Used in Half-Life, Deathmatch Classic and other Valve games
+
+
+# Ver    Date        Author               Comment
+# v1.0   03.03.2024  Bartlomiej Duda      -
+
+
+idstring "WAD3"
+get NUMBER_OF_FILES long
+get DIRECTORY_OFFSET long
+goto DIRECTORY_OFFSET
+
+
+for i = 0 < NUMBER_OF_FILES
+	get FILE_OFFSET long
+	get FILE_COMPRESSED_SIZE long
+	get FILE_UNCOMPRESSED_SIZE long
+	get FILE_TYPE byte
+	get COMPRESSION_FLAG byte
+	get UNUSED short
+	GetDString FILE_NAME 16
+	
+	if COMPRESSION_FLAG != 0
+		print "Compression not supported!"
+		cleanexit
+	endif
+	
+	log FILE_NAME FILE_OFFSET FILE_UNCOMPRESSED_SIZE
+	
+next i
