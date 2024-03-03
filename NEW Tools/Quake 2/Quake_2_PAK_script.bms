@@ -1,0 +1,21 @@
+# Script by Bartlomiej Duda (Ikskoks)
+# Quake 2 (PC) PAK script
+# Used by games made on Quake/GoldSrc engines e.g. Hexen II, Half-Life
+
+
+# Ver    Date        Author               Comment
+# v1.0   03.03.2024  Bartlomiej Duda      -
+
+
+idstring "PACK"
+get DIRECTORY_OFFSET long
+get DIRECTORY_SIZE long
+XMATH NUMBER_OF_FILES "DIRECTORY_SIZE / 64"
+goto DIRECTORY_OFFSET
+
+for i = 0 < NUMBER_OF_FILES
+	GetDString FILE_PATH 56
+	get FILE_OFFSET long
+	get FILE_SIZE long
+	log FILE_PATH FILE_OFFSET FILE_SIZE
+next i
