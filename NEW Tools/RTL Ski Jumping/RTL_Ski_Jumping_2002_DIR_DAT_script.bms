@@ -1,0 +1,31 @@
+# Script by Bartlomiej Duda (Ikskoks)
+# RTL Ski Jumping 2002 (PS1) DIR/DAT script
+
+
+# Ver    Date        Author               Comment
+# v1.0   12.03.2024  Bartlomiej Duda      -
+
+
+open FDDE DIR 0
+open FDDE DAT 1
+
+# compression method is currently unknown!
+
+for i = 0
+	get FILE_UNCOMPRESSED_SIZE long
+	if FILE_UNCOMPRESSED_SIZE == 0
+			cleanexit
+	endif
+	get FILE_COMPRESSED_SIZE long
+	get FILE_OFFSET long
+	get FILENAME_OFFSET long
+	
+	SavePos BACK_OFFSET
+	goto FILENAME_OFFSET
+	get FILE_NAME string
+	goto BACK_OFFSET
+	
+	# print "f_name: %FILE_NAME%, f_offset: %FILE_OFFSET%, f_comp_size: %FILE_COMPRESSED_SIZE%, f_uncomp_size: %FILE_UNCOMPRESSED_SIZE%"
+	log FILE_NAME FILE_OFFSET FILE_COMPRESSED_SIZE 1
+	
+next i
