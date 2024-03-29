@@ -1,0 +1,28 @@
+# Script by Bartlomiej Duda (Ikskoks)
+# The End Is Nigh (PC) GPAK script
+
+
+# Ver    Date        Author               Comment
+# v1.0   29.03.2024  Bartlomiej Duda      -
+
+
+get NUMBER_OF_FILES long
+
+for i = 0 < NUMBER_OF_FILES
+	get FILE_PATH_LENGTH short
+	GetDString FILE_PATH FILE_PATH_LENGTH
+	get FILE_SIZE long
+	
+	putarray 0 i FILE_PATH
+	putarray 1 i FILE_SIZE
+next i
+
+for i = 0 < NUMBER_OF_FILES
+	getarray FILE_PATH 0 i
+	getarray FILE_SIZE 1 i
+	SavePos FILE_OFFSET
+	xmath FILE_END_OFFSET "FILE_OFFSET + FILE_SIZE"
+	goto FILE_END_OFFSET
+	
+	log FILE_PATH FILE_OFFSET FILE_SIZE
+next i
