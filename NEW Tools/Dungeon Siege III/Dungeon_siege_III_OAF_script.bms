@@ -1,0 +1,43 @@
+# Script by Bartlomiej Duda (Ikskoks)
+# Dungeon Siege III (PC) OAF script
+
+
+# Ver    Date        Author               Comment
+# v1.0   03.04.2024  Bartlomiej Duda      -
+
+
+
+idstring "OAF!"
+comtype zlib
+get UNKNOWN1 short
+get UNKNOWN2 short
+get UNKNOWN3 long
+get FILE_PATH_ARRAY_OFFSET long
+get NULLS long
+get NUMBER_OF_FILES long
+SavePos BACK_OFFSET
+
+
+goto FILE_PATH_ARRAY_OFFSET
+for i = 0 < NUMBER_OF_FILES
+	get FILE_PATH string
+	putarray 0 i FILE_PATH
+next i
+
+
+goto BACK_OFFSET
+for i = 0 < NUMBER_OF_FILES
+	getarray FILE_PATH 0 i
+	get HASH long
+	get FILE_OFFSET long
+	get NULLS threebyte
+	get COMPRESSION_FLAG byte
+	get UNCOMPRESSED_SIZE long
+	get COMPRESSED_SIZE long
+	
+	if COMPRESSION_FLAG == 0
+		log FILE_PATH FILE_OFFSET UNCOMPRESSED_SIZE
+	else
+		clog FILE_PATH FILE_OFFSET COMPRESSED_SIZE UNCOMPRESSED_SIZE
+	endif
+next i
