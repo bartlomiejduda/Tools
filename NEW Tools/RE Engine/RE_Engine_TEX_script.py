@@ -7,6 +7,7 @@ from inc_noesis import *
 
 # Ver    Date        Author                             Comment
 # v1.0   09.04.2024  Bartlomiej Duda                    -
+# v1.1   10.04.2024  Bartlomiej Duda                    Add img type 10 support
 
 
 # supported versions:
@@ -95,8 +96,9 @@ def image_load(image_file_data, tex_list):
         
         print("Decoding image " + str(k) + "..." + " img_offset: " + str(out_image_offset) + " img_size: " + str(out_image_size) + " img_width: " + str(img_width) + " img_height: " + str(img_height) + " img_type: " + str(image_type))
         
-        
-        if image_type in (95, 96):
+        if image_type == 10:
+            pixel_data = rapi.imageDecodeRaw(pixel_data, img_width, img_height, "R16G16B16A16_FLOAT")
+        elif image_type in (95, 96):
             pixel_data = rapi.imageDecodeDXT(pixel_data, img_width, img_height, noesis.FOURCC_BC6H)
         elif image_type in (98, 99):
             pixel_data = rapi.imageDecodeDXT(pixel_data, img_width, img_height, noesis.FOURCC_BC7)
