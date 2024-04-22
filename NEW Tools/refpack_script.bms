@@ -1,13 +1,15 @@
 # Author: Bartlomiej Duda
-# Creation Date: 29.12.2020
+# Creation Date: 25.01.2021
 
 comtype dk2
 get ZSIZE asize
 set SIZE long 0
-
-math SIZE = ZSIZE
-math SIZE *= 20
+if SIZE <= 0
+    math SIZE = ZSIZE
+    math SIZE *= 20
+endif
 
 get NAME basename
-string NAME + "_new.decompressed"
+get EXTENSION extension
+string NAME + ".decompressed." + EXTENSION
 clog NAME 0 ZSIZE SIZE
