@@ -1,0 +1,21 @@
+# Script by Bartlomiej Duda (Ikskoks)
+# Broken Sword: Director's Cut (PC) DAT script
+
+
+# Ver    Date        Author               Comment
+# v1.0   03.05.2024  Bartlomiej Duda      -
+
+
+idstring "HSFS"
+comtype zlib
+get NUMBER_OF_FILES long
+
+
+for i = 0 < NUMBER_OF_FILES
+	get UNKNOWN1 long
+	get FILE_OFFSET long
+	get FILE_UNCOMPRESSED_SIZE long
+	get FILE_COMPRESSED_SIZE long
+	string OUTPUT_FILE_NAME p "file_%d.dat" i
+	clog OUTPUT_FILE_NAME FILE_OFFSET FILE_COMPRESSED_SIZE FILE_UNCOMPRESSED_SIZE
+next i
