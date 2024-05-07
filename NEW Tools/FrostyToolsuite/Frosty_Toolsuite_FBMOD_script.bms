@@ -18,5 +18,6 @@ for i = 0 < NUMBER_OF_FILES
 	get FILE_OFFSET longlong
 	get FILE_SIZE longlong
 	xmath REAL_FILE_OFFSET "BASE_OFFSET + FILE_OFFSET"
-	log "" REAL_FILE_OFFSET FILE_SIZE
+	string OUTPUT_FILE_NAME p "file%d.dat" i 
+	log OUTPUT_FILE_NAME REAL_FILE_OFFSET FILE_SIZE
 next i
