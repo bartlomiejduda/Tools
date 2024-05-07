@@ -152,3 +152,12 @@
 # 	callfunction PRINT_BBB
 #endif	
 #
+#
+#check for archive extension
+#get EXT extension
+#if EXT & "mod"
+#    # fbmod or fifamod
+#else
+#    print "Error: you must select the FBMOD file"
+#    cleanexit
+#endif

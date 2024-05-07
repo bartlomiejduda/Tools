@@ -1,0 +1,22 @@
+# Script by Bartlomiej Duda (Ikskoks)
+# Frosty Toolsuite FBMOD script
+
+
+# Ver    Date        Author               Comment
+# v1.0   06.05.2024  Bartlomiej Duda      -
+
+
+idstring "FROSTY"
+goto 12
+get INFO_OFFSET longlong
+get NUMBER_OF_FILES long
+goto INFO_OFFSET
+xmath BASE_OFFSET "INFO_OFFSET + (NUMBER_OF_FILES * 16)"
+
+
+for i = 0 < NUMBER_OF_FILES
+	get FILE_OFFSET longlong
+	get FILE_SIZE longlong
+	xmath REAL_FILE_OFFSET "BASE_OFFSET + FILE_OFFSET"
+	log "" REAL_FILE_OFFSET FILE_SIZE
+next i
