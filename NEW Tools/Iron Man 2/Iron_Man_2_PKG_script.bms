@@ -1,0 +1,34 @@
+# Script by Bartlomiej Duda (Ikskoks)
+# Iron Man 2 (PS3) PKG script
+
+
+# Ver    Date        Author               Comment
+# v1.0   09.05.2024  Bartlomiej Duda      -
+
+
+idstring "\x02\x07\x01\x00"
+endian big
+comtype zlib
+get TABLE_SIZE long
+goto 28
+get NUMBER_OF_FILES long
+
+
+for i = 0 < NUMBER_OF_FILES
+	get FLAGS long
+	get FILE_OFFSET long
+	get FILE_UNCOMPRESSED_SIZE long
+	get UNK1 long
+	get UNK2 long
+	get FILE_COMPRESSED_SIZE long
+	get UNK3 long
+	get UNK4 long
+	get UNK5 long
+	string OUTPUT_FILE_NAME p "file%d.dat" i
+	
+	if FILE_UNCOMPRESSED_SIZE == FILE_COMPRESSED_SIZE
+		log OUTPUT_FILE_NAME FILE_OFFSET FILE_UNCOMPRESSED_SIZE
+	else
+		clog OUTPUT_FILE_NAME FILE_OFFSET FILE_COMPRESSED_SIZE FILE_UNCOMPRESSED_SIZE
+	endif
+next i
