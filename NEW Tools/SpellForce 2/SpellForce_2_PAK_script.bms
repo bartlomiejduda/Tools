@@ -1,0 +1,27 @@
+# Script by Bartlomiej Duda (Ikskoks)
+# SpellForce 2 - Anniversary Edition (PC) PAK script
+
+
+# Ver    Date        Author               Comment
+# v1.0   21.05.2024  Bartlomiej Duda      -
+
+
+idstring "PAK"
+comtype zlib
+get ARCHIVE_VERSION byte  # 1
+get TAIL_OFFSET long
+get UNCOMPRESSED_TAIL_SIZE long
+get COMPRESSED_TAIL_SIZE long
+
+clog memory_file TAIL_OFFSET COMPRESSED_TAIL_SIZE UNCOMPRESSED_TAIL_SIZE
+
+get NUMBER_OF_FILES long -1
+
+for i = 0 < NUMBER_OF_FILES
+	get FILE_PATH_LENGTH long -1
+	GetDString FILE_PATH FILE_PATH_LENGTH -1
+	get FILE_OFFSET long -1
+	get FILE_END_OFFSET long -1
+	xmath FILE_SIZE "FILE_END_OFFSET - FILE_OFFSET"
+	log FILE_PATH FILE_OFFSET FILE_SIZE
+next i
