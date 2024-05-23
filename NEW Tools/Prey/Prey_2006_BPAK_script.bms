@@ -1,0 +1,36 @@
+# Script by Bartlomiej Duda (Ikskoks)
+# Prey 2006 (XBOX) BPAK script
+
+
+# Ver    Date        Author               Comment
+# v1.0   23.05.2024  Bartlomiej Duda      -
+
+
+
+idstring "VENOMBINPAK1.0"
+goto 22
+get NUMBER_OF_FILES short
+goto 27
+
+
+for i = 0 < NUMBER_OF_FILES
+	GetCT FILE_PATH string 0x0a
+	GetCT FILE_SIZE string 0x0a
+	GetCT FILE_OFFSET string 0x0a
+	GetCT UNKNOWN_FLAG string 0x0a
+	
+	PutArray 0 i FILE_PATH
+	PutArray 1 i FILE_SIZE
+	PutArray 2 i FILE_OFFSET
+next i
+
+SavePos BASE_OFFSET
+
+for i = 0 < NUMBER_OF_FILES
+	GetArray FILE_PATH 0 i
+	GetArray FILE_SIZE 1 i
+	GetArray FILE_OFFSET 2 i
+	xmath REAL_FILE_OFFSET "BASE_OFFSET + FILE_OFFSET"
+	
+	log FILE_PATH REAL_FILE_OFFSET FILE_SIZE
+next i
