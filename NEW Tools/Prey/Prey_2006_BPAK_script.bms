@@ -4,11 +4,13 @@
 
 # Ver    Date        Author               Comment
 # v1.0   23.05.2024  Bartlomiej Duda      -
+# v1.1   24.05.2024  Bartlomiej Duda      endianess fix
 
 
 
 idstring "VENOMBINPAK1.0"
-goto 22
+endian big
+goto 21
 get NUMBER_OF_FILES short
 goto 27
 
