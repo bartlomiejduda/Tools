@@ -1,0 +1,74 @@
+# Script by Bartlomiej Duda (Ikskoks)
+# EA Games BIG VIV EB script
+# e.g. Fight Night Champion (X360) (*.BIG)
+
+
+# Ver    Date        Author               Comment
+# v1.0   27.05.2024  Bartlomiej Duda      -
+
+
+idstring "EB"
+endian big
+get VERSION short  # 3
+get NUMBER_OF_FILES long
+get HASH_TYPE short
+get ALIGNMENT_BIT_COUNT byte
+get RESERVED byte
+get BASE_HEADER_SIZE long
+get NAME_HEADER_SIZE long
+get MAX_FILENAME_SIZE byte
+xmath MAX_FILENAME_SIZE "MAX_FILENAME_SIZE - 2"
+get MAX_DIRECTORY_SIZE byte
+get NUMBER_OF_DIRECTORIES short
+
+goto 48
+
+for i = 0 < NUMBER_OF_FILES
+	get FILE_OFFSET long
+	xmath FILE_OFFSET "FILE_OFFSET << ALIGNMENT_BIT_COUNT"
+	get NULLS long
+	get FILE_SIZE long
+	
+	if HASH_TYPE == 16
+		get HASH long
+	elif HASH_TYPE == 17
+		get HASH longlong
+	else
+		print "Hash type not supported!"
+		cleanexit
+	endif
+	
+	PutArray 0 i FILE_OFFSET
+	PutArray 1 i FILE_SIZE
+next i
+
+
+goto BASE_HEADER_SIZE
+
+
+for i = 0 < NUMBER_OF_FILES
+	get DIRECTORY_INDEX short
+	GetDString FILE_NAME MAX_FILENAME_SIZE
+	PutArray 2 i DIRECTORY_INDEX
+	PutArray 3 i FILE_NAME
+next i
+
+Padding 16
+
+for i = 0 < NUMBER_OF_DIRECTORIES
+	GetDString DIRECTORY_PATH MAX_DIRECTORY_SIZE
+	PutArray 4 i DIRECTORY_PATH
+next i
+
+
+for i = 0 < NUMBER_OF_FILES
+	GetArray FILE_OFFSET 0 i
+	GetArray FILE_SIZE 1 i
+	GetArray DIRECTORY_INDEX 2 i
+	GetArray FILE_NAME 3 i
+	GetArray DIRECTORY_PATH 4 DIRECTORY_INDEX
+	
+	string OUTPUT_FILE_PATH p "%s/%s" DIRECTORY_PATH FILE_NAME
+	
+	log OUTPUT_FILE_PATH FILE_OFFSET FILE_SIZE
+next i
