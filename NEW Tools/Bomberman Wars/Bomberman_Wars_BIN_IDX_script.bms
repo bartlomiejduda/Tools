@@ -1,0 +1,25 @@
+# Script by Bartlomiej Duda (Ikskoks)
+# Bomberman Wars (PS1) BIN/IDX script
+
+
+# Ver    Date        Author               Comment
+# v1.0   15.06.2024  Bartlomiej Duda      -
+
+
+open FDDE IDX 0
+open FDDE BIN 1
+
+get ARCHIVE_SIZE asize
+
+for i = 0
+	SavePos CURR_OFFSET
+	if CURR_OFFSET >= ARCHIVE_SIZE
+		cleanexit
+	endif
+	
+	GetDString FILE_NAME 24
+	get FILE_OFFSET long
+	get FILE_SIZE long
+	
+	log FILE_NAME FILE_OFFSET FILE_SIZE 1
+next i
