@@ -1,0 +1,32 @@
+# Script by Bartlomiej Duda (Ikskoks)
+# Crazy Taxi (PC) JPK script
+
+
+# Ver    Date        Author               Comment
+# v1.0   15.06.2024  Bartlomiej Duda      -
+
+
+get ARCHIVE_SIZE asize
+
+for i = 0
+	SavePos CURR_OFFSET
+	if CURR_OFFSET >= ARCHIVE_SIZE
+		cleanexit
+	endif
+	
+	GetDString SIGN 1  # "J"
+	GetDString EXTENSION 3  e.g. # "dds"
+	get FILE_SIZE long
+	get UNKNOWN1 long
+	get IMG_WIDTH long
+	get IMG_HEIGHT long
+	get UNKNOWN2 long
+	SavePos FILE_OFFSET
+	
+	string FILE_NAME p "file%d.%s" i EXTENSION
+	log FILE_NAME FILE_OFFSET FILE_SIZE
+	
+	xmath NEXT_ENTRY_OFFSET "FILE_OFFSET + FILE_SIZE"
+	goto NEXT_ENTRY_OFFSET
+
+next i
