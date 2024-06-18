@@ -1,0 +1,39 @@
+# Script by Bartlomiej Duda (Ikskoks)
+# Deep Silver Volition VPP script
+
+# Should work with games like:
+# * Summoner
+# * Red Faction
+
+
+# Ver    Date        Author               Comment
+# v1.0   18.06.2024  Bartlomiej Duda      -
+
+
+idstring "\xCE\x0A\x89\x51"
+get ARCHIVE_VERSION long  # 1
+get NUMBER_OF_FILES long
+get ARCHIVE_SIZE long
+
+
+xmath FILE_OFFSET "2048 + (NUMBER_OF_FILES * 64)"
+goto FILE_OFFSET
+Padding 2048
+SavePos FILE_OFFSET
+
+goto 2048
+
+for i = 0 < NUMBER_OF_FILES
+	GetDString FILE_NAME 60
+	get FILE_SIZE long
+	SavePos BACK_OFFSET
+	string OUTPUT_FILE_NAME p "%i_%s" i FILE_NAME
+	log OUTPUT_FILE_NAME FILE_OFFSET FILE_SIZE
+	
+	xmath FILE_END_OFFSET "FILE_OFFSET + FILE_SIZE"
+	goto FILE_END_OFFSET
+	Padding 2048
+	SavePos FILE_OFFSET
+	
+	goto BACK_OFFSET
+next i

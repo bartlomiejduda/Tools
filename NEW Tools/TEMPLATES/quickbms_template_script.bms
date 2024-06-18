@@ -6,7 +6,7 @@
 # v1.0   03.03.2024  Bartlomiej Duda      -
 
 
-
+# idstring "\xCE\x0A\x89\x51"
 
 
 
@@ -31,8 +31,9 @@
 # string DIRECTORY_NAME r DIRECTORY_NAME
 # string FILE_NAME r FILE_NAME
 
-# get string
+# get string (2 variants)
 # GetDString NAME NAME_LENGTH
+# get FILE_PATH string
 
 # file log
 # clog FULL_OUTPUT_FILE_PATH FILE_OFFSET COMPRESSED_FILE_SIZE UNCOMPRESSED_FILE_SIZE
