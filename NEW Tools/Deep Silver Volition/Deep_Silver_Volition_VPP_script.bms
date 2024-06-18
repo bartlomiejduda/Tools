@@ -4,19 +4,30 @@
 # Should work with games like:
 # * Summoner
 # * Red Faction
+# * The Punisher
 
 
 # Ver    Date        Author               Comment
 # v1.0   18.06.2024  Bartlomiej Duda      -
+# v1.1   18.06.2024  Bartlomiej Duda      Fix for "The Punisher"
 
 
 idstring "\xCE\x0A\x89\x51"
-get ARCHIVE_VERSION long  # 1
+comtype zlib
+get ARCHIVE_VERSION long  # 1 or 3
 get NUMBER_OF_FILES long
 get ARCHIVE_SIZE long
 
+if ARCHIVE_VERSION == 1
+	set ENTRY_LENGTH long 64
+else if ARCHIVE_VERSION == 3
+	set ENTRY_LENGTH long 32
+else
+	print "Version %ARCHIVE_VERSION% not supported!"
+	cleanexit
+endif
 
-xmath FILE_OFFSET "2048 + (NUMBER_OF_FILES * 64)"
+xmath FILE_OFFSET "2048 + (NUMBER_OF_FILES * ENTRY_LENGTH)"
 goto FILE_OFFSET
 Padding 2048
 SavePos FILE_OFFSET
@@ -24,11 +35,32 @@ SavePos FILE_OFFSET
 goto 2048
 
 for i = 0 < NUMBER_OF_FILES
-	GetDString FILE_NAME 60
-	get FILE_SIZE long
+	if ARCHIVE_VERSION == 1
+		GetDString FILE_NAME 60
+		get FILE_SIZE long
+	else if ARCHIVE_VERSION == 3
+		GetDString FILE_NAME 24
+		get UNCOMPRESSED_FILE_SIZE long
+		get FILE_SIZE long
+	else
+		print "Version %ARCHIVE_VERSION% not supported!"
+		cleanexit
+	endif
 	SavePos BACK_OFFSET
 	string OUTPUT_FILE_NAME p "%i_%s" i FILE_NAME
-	log OUTPUT_FILE_NAME FILE_OFFSET FILE_SIZE
+	
+	if ARCHIVE_VERSION == 1
+		log OUTPUT_FILE_NAME FILE_OFFSET FILE_SIZE
+	else if ARCHIVE_VERSION == 3
+		if FILE_SIZE != UNCOMPRESSED_FILE_SIZE
+			clog OUTPUT_FILE_NAME FILE_OFFSET FILE_SIZE UNCOMPRESSED_FILE_SIZE
+		else
+			log OUTPUT_FILE_NAME FILE_OFFSET UNCOMPRESSED_FILE_SIZE
+		endif
+	else
+		print "Version %ARCHIVE_VERSION% not supported!"
+		cleanexit
+	endif
 	
 	xmath FILE_END_OFFSET "FILE_OFFSET + FILE_SIZE"
 	goto FILE_END_OFFSET
