@@ -1,0 +1,27 @@
+# Script by Bartlomiej Duda (Ikskoks)
+# Critical Velocity (PS2) PAC script
+
+
+# Ver    Date        Author               Comment
+# v1.0   23.06.2024  Bartlomiej Duda      -
+
+
+idstring "FPAC"
+get UNKNOWN1 long  # 513
+get NUMBER_OF_FILES long
+get UNKNOWN2 long  # 985
+
+
+for i = 0 < NUMBER_OF_FILES
+	get FILENAME_OFFSET long
+	get UNKNOWN3 long
+	get FILE_OFFSET long
+	get FILE_SIZE long
+	SavePos BACK_OFFSET
+	
+	goto FILENAME_OFFSET
+	get FILE_PATH string
+	
+	log FILE_PATH FILE_OFFSET FILE_SIZE
+	goto BACK_OFFSET
+next i
