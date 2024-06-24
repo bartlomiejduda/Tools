@@ -7,7 +7,7 @@
 
 
 # idstring "\xCE\x0A\x89\x51"
-
+# get NUMBER_OF_FILES long
 
 
 # for i = 0 < NUMBER_OF_FILES

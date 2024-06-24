@@ -1,0 +1,20 @@
+# Script by Bartlomiej Duda (Ikskoks)
+# Turok Evolution (GameCube) TRE script
+
+
+# Ver    Date        Author               Comment
+# v1.0   24.06.2024  Bartlomiej Duda      -
+
+
+endian big
+get NUMBER_OF_FILES long
+
+
+for i = 0 < NUMBER_OF_FILES
+	get FILE_OFFSET long
+	get FILE_SIZE long
+	get NAME_CRC long
+	get DATA_CRC long
+	
+	log "" FILE_OFFSET FILE_SIZE
+next i
