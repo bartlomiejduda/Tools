@@ -1,0 +1,33 @@
+# Script by Bartlomiej Duda (Ikskoks)
+# Beyond Good and Evil - 20th Anniversary Edition (PC) PAK script
+
+
+# Ver    Date        Author               Comment
+# v1.0   25.06.2024  Bartlomiej Duda      -
+
+
+idstring "BPAK"
+comtype lz4
+goto 16
+get NUMBER_OF_FILES long
+get INDEX_SIZE long
+get ARCHIVE_SIZE asize
+set BASE_OFFSET long 24
+
+xmath INDEX_OFFSET "ARCHIVE_SIZE - INDEX_SIZE"
+goto INDEX_OFFSET
+
+
+for i = 0 < NUMBER_OF_FILES
+	get UNKNOWN1 byte
+	get FILE_NAME_LENGTH long
+	GetDString FILE_NAME FILE_NAME_LENGTH
+	
+	get UNCOMPRESSED_FILE_SIZE long
+	get COMPRESSED_FILE_SIZE long
+	get UNKNOWN2 longlong
+	get FILE_OFFSET longlong
+	xmath FILE_OFFSET "BASE_OFFSET + FILE_OFFSET"
+
+	clog FILE_NAME FILE_OFFSET COMPRESSED_FILE_SIZE UNCOMPRESSED_FILE_SIZE
+next i
