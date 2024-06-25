@@ -4,6 +4,7 @@
 
 # Ver    Date        Author               Comment
 # v1.0   25.06.2024  Bartlomiej Duda      -
+# v1.1   25.06.2024  Bartlomiej Duda      Fix for "Resources.pak" file
 
 
 idstring "BPAK"
@@ -17,11 +18,19 @@ set BASE_OFFSET long 24
 xmath INDEX_OFFSET "ARCHIVE_SIZE - INDEX_SIZE"
 goto INDEX_OFFSET
 
-
 for i = 0 < NUMBER_OF_FILES
-	get UNKNOWN1 byte
-	get FILE_NAME_LENGTH long
-	GetDString FILE_NAME FILE_NAME_LENGTH
+	get ENCRYPTION_FLAG byte
+	
+	if ENCRYPTION_FLAG == 0
+		get FILE_NAME_LENGTH long
+		GetDString FILE_NAME FILE_NAME_LENGTH
+	else if ENCRYPTION_FLAG == 1
+		get FILE_NAME_HASH long
+		string FILE_NAME p "file%d.bin" i
+	else
+		print "Flag %ENCRYPTION_FLAG% not supported! Exiting!"
+		cleanexit
+	endif
 	
 	get UNCOMPRESSED_FILE_SIZE long
 	get COMPRESSED_FILE_SIZE long
