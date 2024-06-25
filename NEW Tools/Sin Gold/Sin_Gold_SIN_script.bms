@@ -1,0 +1,23 @@
+# Script by Bartlomiej Duda (Ikskoks)
+# Sin Gold (PC) SIN script
+
+
+# Ver    Date        Author               Comment
+# v1.0   25.06.2024  Bartlomiej Duda      -
+
+
+idstring "SPAK"
+get INDEX_OFFSET long
+get INDEX_SIZE long
+xmath NUMBER_OF_FILES "INDEX_SIZE / 128"
+
+goto INDEX_OFFSET
+
+
+for i = 0 < NUMBER_OF_FILES
+	GetDString FILE_PATH 120
+	get FILE_OFFSET long
+	get FILE_SIZE long
+	
+	log FILE_PATH FILE_OFFSET FILE_SIZE
+next i
