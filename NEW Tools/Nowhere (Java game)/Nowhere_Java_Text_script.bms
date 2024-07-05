@@ -1,0 +1,29 @@
+# Script by Bartlomiej Duda (Ikskoks)
+# Nowhere (Java) text script
+
+
+# Ver    Date        Author               Comment
+# v1.0   05.07.2024  Bartlomiej Duda      -
+
+
+get NUMBER_OF_LINES long
+set STRINGS_FILE string "strings.txt"
+
+xmath NUMBER_OF_OFFSETS "NUMBER_OF_LINES + 1"
+
+for i = 0 < NUMBER_OF_OFFSETS
+	get LINE_OFFSET long
+	putarray 0 i LINE_OFFSET
+next i
+
+
+for j = 0 < NUMBER_OF_LINES
+	getarray LINE_OFFSET 0 j
+	xmath NEXT_LINE_NUMBER "j+1"'
+	getarray NEXT_LINE_OFFSET 0 NEXT_LINE_NUMBER
+	xmath LINE_LENGTH "NEXT_LINE_OFFSET - LINE_OFFSET - 1"
+	
+	xmath LINE_OFFSET "LINE_OFFSET + 1"
+	goto LINE_OFFSET
+	slog STRINGS_FILE LINE_OFFSET LINE_LENGTH string
+next j
