@@ -1,0 +1,27 @@
+# Script by Bartlomiej Duda (Ikskoks)
+# Nowhere (Java) image script
+
+
+# Ver    Date        Author               Comment
+# v1.0   06.07.2024  Bartlomiej Duda      -
+
+
+get NUMBER_OF_FILES long
+xmath NUMBER_OF_OFFSETS "NUMBER_OF_FILES + 1"
+
+for i = 0 < NUMBER_OF_OFFSETS
+	get FILE_OFFSET long
+	putarray 0 i FILE_OFFSET
+next i
+
+
+for j = 0 < NUMBER_OF_FILES
+	getarray FILE_OFFSET 0 j
+	xmath NEXT_FILE_NUMBER "j+1"'
+	getarray NEXT_FILE_OFFSET 0 NEXT_FILE_NUMBER
+	xmath FILE_SIZE "NEXT_FILE_OFFSET - FILE_OFFSET - 16"
+	string FILE_NAME p "file%d.png" j
+	
+	xmath FILE_OFFSET "FILE_OFFSET + 16"
+	log FILE_NAME FILE_OFFSET FILE_SIZE
+next j
