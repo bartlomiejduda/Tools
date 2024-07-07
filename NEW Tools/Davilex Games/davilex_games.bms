@@ -1,0 +1,55 @@
+# Script by aluigi / Modified by Bartlomiej Duda (Ikskoks)
+# script for QuickBMS http://quickbms.aluigi.org
+
+# Should work with games made by "Davilex Games" studio such as:
+# * Alarm for Cobra 11 - Vol. 2
+# * Knight Rider 2
+# * London Racer: Police Madness
+# * London Racer: World Challenge
+
+
+# Ver    Date        Author               Comment
+# v1.0   --          aluigi               -
+# v1.1   07.07.2024  Bartlomiej Duda      -
+
+
+open FDDE "idx"
+open FDDE "img" 1
+
+get VERSION long  # 275
+idstring "Davilex Games BV"
+goto 0x20
+
+set PATH string ""
+set NAME string ""
+math ENTRIES = 1
+callfunction EXTRACT 1
+
+startfunction EXTRACT
+    string PATH + NAME
+    string PATH + /
+    for ENTRY = ENTRIES > 0
+        get IS_FILE short
+        get NAMESZ short
+        get ZERO long
+        get ZERO long
+        getdstring NAME NAMESZ
+        if IS_FILE == 0
+            get ENTRIES long
+            callfunction EXTRACT
+        else
+            get ZSIZE long
+            get SIZE long
+			if ZSIZE == SIZE
+                string NAME p "%s%s" PATH NAME
+			else
+                string NAME p "%sCOMPRESSED_%s" PATH NAME
+			endif
+            get VERSIONS long
+            for x = 0 < VERSIONS
+                get OFFSET long
+            next x
+            log NAME OFFSET ZSIZE 1
+        endif
+    prev ENTRY
+endfunction
