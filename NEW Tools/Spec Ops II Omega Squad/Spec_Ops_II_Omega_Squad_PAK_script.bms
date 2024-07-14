@@ -1,0 +1,46 @@
+# Script by Bartlomiej Duda (Ikskoks)
+# Spec Ops II Omega Squad (DC) PAK script
+
+
+# Ver    Date        Author               Comment
+# v1.0   14.07.2024  Bartlomiej Duda      -
+
+
+idstring "PACK"
+get NUMBER_OF_DIRECTORIES long
+set FILE_COUNT long 0
+
+
+for i = 0 < NUMBER_OF_DIRECTORIES
+	SavePos DIRECTORY_NAME_OFFSET
+	get DIRECTORY_NAME string
+	xmath DIRECTORY_NAME_END_OFFSET "DIRECTORY_NAME_OFFSET + 24"
+	goto DIRECTORY_NAME_END_OFFSET
+	get NUMBER_OF_FILES long
+	
+	for j = 0 < NUMBER_OF_FILES
+		SavePos FILE_NAME_OFFSET
+		get FILE_NAME string
+		xmath FILE_NAME_END_OFFSET "FILE_NAME_OFFSET + 32"
+		goto FILE_NAME_END_OFFSET
+		get FILE_OFFSET long
+		get FILE_SIZE long
+		string OUTPUT_FILE_PATH p "%s/%d_%s" DIRECTORY_NAME FILE_COUNT FILE_NAME
+		putarray 0 FILE_COUNT OUTPUT_FILE_PATH
+		putarray 1 FILE_COUNT FILE_OFFSET
+		putarray 2 FILE_COUNT FILE_SIZE
+		xmath FILE_COUNT "FILE_COUNT + 1"
+	next j
+
+next i
+
+SavePos BASE_OFFSET
+
+
+for k = 0 < FILE_COUNT
+	getarray OUTPUT_FILE_PATH 0 k
+	getarray FILE_OFFSET 1 k
+	getarray FILE_SIZE 2 k
+	xmath FILE_OFFSET "BASE_OFFSET + FILE_OFFSET"
+	log OUTPUT_FILE_PATH FILE_OFFSET FILE_SIZE
+next k
