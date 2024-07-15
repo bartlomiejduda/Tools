@@ -1,0 +1,21 @@
+# Script by Bartlomiej Duda (Ikskoks)
+# The Longest Journey (PC) XARC script
+
+
+# Ver    Date        Author               Comment
+# v1.0   15.07.2024  Bartlomiej Duda      -
+
+
+get VERSION long  # 1
+get NUMBER_OF_FILES long
+get BASE_OFFSET long
+set FILE_OFFSET long BASE_OFFSET
+
+
+for i = 0 < NUMBER_OF_FILES
+	get FILE_NAME string
+	get FILE_SIZE long
+	get UNKNOWN long
+	log FILE_NAME FILE_OFFSET FILE_SIZE
+	xmath FILE_OFFSET "FILE_OFFSET + FILE_SIZE"
+next i
