@@ -1,0 +1,22 @@
+# Script by Bartlomiej Duda (Ikskoks)
+# World of Goo 2 (PC) IMAGE script
+
+
+# Ver    Date        Author               Comment
+# v1.0   02.08.2024  Bartlomiej Duda      -
+
+
+idstring "boyi"
+comtype zstd
+get VERSION long  # 1
+get OG_WIDTH short
+get OG_HEIGHT short
+get IMG_WIDTH short
+get IMG_HEIGHT short
+get COMPRESSED_FILE_SIZE long
+get UNCOMPRESSED_FILE_SIZE long
+set FILE_OFFSET long 36
+
+get F_NAME basename
+string OUTPUT_FILE_PATH p "%s_%dx%d_decompressed.ktx" F_NAME IMG_WIDTH IMG_HEIGHT
+clog OUTPUT_FILE_PATH FILE_OFFSET COMPRESSED_FILE_SIZE UNCOMPRESSED_FILE_SIZE
