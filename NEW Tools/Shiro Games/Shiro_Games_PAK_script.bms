@@ -1,14 +1,12 @@
 # Script by Allen, modified by Bartlomiej Duda (Ikskoks)
 # Shiro Games *.PAK archives
-
 # Tested on PAK archive from "Wartales" PC game
 
 
 # Ver		Date		Author				Comment
-# v0.1		-		Allen				-
-# v0.2		10.03.2022	Bartlomiej Duda			-
-
-
+# v0.1		-			Allen				-
+# v0.2		10.03.2022	Bartlomiej Duda		-
+# v0.3		20.04.2023	Allgames-kari		Type 2 analysis completed
 
 
 idstring "PAK\0"
@@ -25,8 +23,12 @@ StartFunction unpack folderName
 	get namelen byte
 	getdstring name namelen    
 	get type byte
-	if type == 0
-		get offset long
+	if type == 0 || type == 2
+		if type == 0
+			get offset long
+		elif type == 2
+			get offset double
+		endif
 		get size long
 		get dummy long
 		math offset += Dataoffset
@@ -42,13 +44,6 @@ StartFunction unpack folderName
 			set folderName2 string folderName
 			CallFunction unpack 0 folderName2
 		next j
-	elif type == 2  # TODO - support this type
-		SavePos CURR_OFFSET
-		get var1 long
-		get var2 long
-		get var3 long
-		get var4 long
-		# print "c_of: %CURR_OFFSET%, v1: %var1%, v2: %var2%, v3: %var3%, v4: %var4%"
 	else
 		print "Error! This type is not supported!"
 		cleanexit
