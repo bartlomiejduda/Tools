@@ -22,7 +22,6 @@ def parse_dtex(dtex_file_path: str) -> bool:
     image_decoder = ImageDecoder()
     wrapper = PillowWrapper()
     dtex_file = FileHandler(dtex_file_path, "rb", "little")
-    dtex_file.open()
 
     file_id = dtex_file.read_bytes(4)
     if file_id != b'DTEX':
@@ -35,11 +34,26 @@ def parse_dtex(dtex_file_path: str) -> bool:
     pixel_format = get_bits(image_type, 3, 27)
     image_data = dtex_file.read_bytes(image_size)
     unswizzled_image_data: bytes = unswizzle_morton_dreamcast(image_data, image_width, image_height, 16)
+    decoded_image_data: bytes = b''
 
-    if pixel_format == 1:  # RGB565
+    if pixel_format == 0:  # ARGB1555
+        pass  # TODO
+    elif pixel_format == 1:  # RGB565
         decoded_image_data: bytes = image_decoder.decode_image(
             unswizzled_image_data, image_width, image_height, ImageFormats.RGB565, "little"
         )
+    elif pixel_format == 2:  # ARGB4444
+        pass  # TODO
+    elif pixel_format == 3:  # YUV422
+        decoded_image_data: bytes = image_decoder.decode_yuv_image(
+            unswizzled_image_data, image_width, image_height, ImageFormats.YUY2  # TODO
+        )
+    elif pixel_format == 4:  # BUMPMAP
+        pass  # TODO
+    elif pixel_format == 5:  # PAL4BPP
+        pass  # TODO
+    elif pixel_format == 6:  # PAL8BPP
+        pass  # TODO
     else:
         raise Exception(f"Pixel format not supported! Pixel_format: {pixel_format}")
 
