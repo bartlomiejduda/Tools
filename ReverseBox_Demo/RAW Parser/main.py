@@ -44,7 +44,18 @@ def main():
     path_base: str = os.environ["IMG_PATH_BASE"]
 
     # decode_raw(os.path.join(path_base, "RGB\\rgb565_380x504.bin"), "generic", 380, 504, ImageFormats.RGB565)
-    decode_raw(os.path.join(path_base, "RGB\\Lena_512x512_RGB_888"), "generic", 512, 512, ImageFormats.RGB888)
+    # decode_raw(os.path.join(path_base, "RGB\\Lena_512x512_RGB_888"), "generic", 512, 512, ImageFormats.RGB888)
+    # decode_raw(os.path.join(path_base, "RGB\\rgb888_256x128.bin"), "generic", 256, 128, ImageFormats.RGB888)
+    # decode_raw(os.path.join(path_base, "RGB\\bgr888_256x128.bin"), "generic", 256, 128, ImageFormats.BGR888)
+    # decode_raw(os.path.join(path_base, "RGB\\PIX_FMT_RGB8.bin"), "generic", 256, 128, ImageFormats.RGB332)
+    # decode_raw(os.path.join(path_base, "PIX_FMT_BGR8.bin"), "generic", 256, 128, ImageFormats.BGR332)
+    # decode_raw(os.path.join(path_base, "PIX_FMT_RGB4_BYTE.bin"), "generic", 256, 128, ImageFormats.RGB121_BYTE)
+    # decode_raw(os.path.join(path_base, "PIX_FMT_RGB4.bin"), "generic", 256, 128, ImageFormats.RGB121)
+    # decode_raw(os.path.join(path_base, "PIX_FMT_RGBA.bin"), "generic", 256, 128, ImageFormats.RGBA8888)
+    # decode_raw(os.path.join(path_base, "PIX_FMT_BGRA.bin"), "generic", 256, 128, ImageFormats.BGRA8888)
+    # decode_raw(os.path.join(path_base, "RGB\\PIX_FMT_ARGB.bin"), "generic", 256, 128, ImageFormats.ARGB8888)
+    # decode_raw(os.path.join(path_base, "PIX_FMT_ABGR.bin"), "generic", 256, 128, ImageFormats.ABGR8888)
+    decode_raw(os.path.join(path_base, "PIX_FMT_GRAY8.bin"), "generic", 256, 128, ImageFormats.GRAY8)
 
 
 
