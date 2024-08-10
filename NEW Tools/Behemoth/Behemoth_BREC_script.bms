@@ -1,0 +1,31 @@
+# Script by Bartlomiej Duda (Ikskoks)
+# Behemoth BREC script
+
+
+# Ver    Date        Author               Comment
+# v1.0   10.08.2024  Bartlomiej Duda      -
+
+
+Set FILE_COUNT long 0
+get F_NAME basename
+
+for i = 0
+	FindLoc SIGN_OFFSET string "FWS"
+	
+	if SIGN_OFFSET == ""
+		break
+	endif
+	
+	XMATH FILE_COUNT "FILE_COUNT+1"
+	string OUTPUT_FILE_NAME p "%s_%d.swf" F_NAME FILE_COUNT
+	
+	goto SIGN_OFFSET
+	GetDString SIGN 3
+	get VERSION byte
+	get FILE_SIZE long
+	
+	log OUTPUT_FILE_NAME SIGN_OFFSET FILE_SIZE
+	xmath FILE_END_OFFSET "SIGN_OFFSET + FILE_SIZE"
+	goto FILE_END_OFFSET
+	
+next i
