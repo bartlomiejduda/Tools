@@ -1,0 +1,24 @@
+# Script by Bartlomiej Duda (Ikskoks)
+# Star Wars Jedi Knight Jedi Academy (XBOX) BNK/TBL script
+
+
+# Ver    Date        Author               Comment
+# v1.0   12.08.2024  Bartlomiej Duda      -
+
+
+open FDDE "tbl"
+open FDDE "bnk" 1
+
+get TBL_SIZE asize
+xmath NUMBER_OF_FILES "TBL_SIZE / 13"
+
+
+for i = 0 < NUMBER_OF_FILES
+	get FILENAME_CRC32 long
+	get FILE_OFFSET long
+	get FILE_SIZE long
+	get FLAGS byte
+	
+	string FILE_NAME p "file%d.wxb" i
+	log FILE_NAME FILE_OFFSET FILE_SIZE 1
+next i

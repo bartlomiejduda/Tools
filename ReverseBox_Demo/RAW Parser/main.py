@@ -26,6 +26,10 @@ def decode_raw(raw_file_path: str, decoder_type: str, image_width: int, image_he
         decoded_image_data: bytes = image_decoder.decode_image(
             raw_file_data, image_width, image_height, image_format, image_endianess
         )
+    elif decoder_type == "yuv":
+        decoded_image_data: bytes = image_decoder.decode_yuv_image(
+            raw_file_data, image_width, image_height, image_format
+        )
     else:
         raise Exception(f"Decoder type not supported! Decoder_type: {decoder_type}")
 
@@ -55,8 +59,23 @@ def main():
     # decode_raw(os.path.join(path_base, "PIX_FMT_BGRA.bin"), "generic", 256, 128, ImageFormats.BGRA8888)
     # decode_raw(os.path.join(path_base, "RGB\\PIX_FMT_ARGB.bin"), "generic", 256, 128, ImageFormats.ARGB8888)
     # decode_raw(os.path.join(path_base, "PIX_FMT_ABGR.bin"), "generic", 256, 128, ImageFormats.ABGR8888)
-    decode_raw(os.path.join(path_base, "PIX_FMT_GRAY8.bin"), "generic", 256, 128, ImageFormats.GRAY8)
-
+    # decode_raw(os.path.join(path_base, "PIX_FMT_GRAY8.bin"), "generic", 256, 128, ImageFormats.GRAY8)
+    # decode_raw(os.path.join(path_base, "PIX_FMT_YUYV422.bin"), "yuv", 256, 128, ImageFormats.YUY2)
+    # decode_raw(os.path.join(path_base, "YUV\\PIX_FMT_NV12.bin"), "yuv", 256, 128, ImageFormats.NV12)
+    # decode_raw(os.path.join(path_base, "PIX_FMT_NV21.bin"), "yuv", 256, 128, ImageFormats.NV21)
+    # decode_raw(os.path.join(path_base, "PIX_FMT_UYVY422.bin"), "yuv", 256, 128, ImageFormats.UYVY)
+    # decode_raw(os.path.join(path_base, "PIX_FMT_YUV444P.bin"), "yuv", 256, 128, ImageFormats.YUV444P)
+    # decode_raw(os.path.join(path_base, "PIX_FMT_YUV410P.bin"), "yuv", 256, 128, ImageFormats.YUV410P)
+    # decode_raw(os.path.join(path_base, "PIX_FMT_YUV420P.bin"), "yuv", 256, 128, ImageFormats.YUV420P)
+    # decode_raw(os.path.join(path_base, "PIX_FMT_YUV422P.bin"), "yuv", 256, 128, ImageFormats.YUV422P)
+    # decode_raw(os.path.join(path_base, "PIX_FMT_YUV411P.bin"), "yuv", 256, 128, ImageFormats.YUV411P)
+    # decode_raw(os.path.join(path_base, "PIX_FMT_YUV411P.bin"), "yuv", 256, 128, ImageFormats.UYYVYY411)
+    # decode_raw(os.path.join(path_base, "tulips_yuyv422_prog_packed_qcif.yuv"), "yuv", 176, 144, ImageFormats.YUY2)
+    # decode_raw(os.path.join(path_base, "PIX_FMT_YUV440P.bin"), "yuv", 256, 128, ImageFormats.YUV440P)
+    # decode_raw(os.path.join(path_base, "PIX_FMT_YUVA420P.bin"), "yuv", 256, 128, ImageFormats.YUVA420P)
+    # decode_raw(os.path.join(path_base, "PIX_FMT_GRAY8A.bin"), "generic", 256, 128, ImageFormats.GRAY8A)
+    # decode_raw(os.path.join(path_base, "PIX_FMT_GRAY16LE.bin"), "generic", 256, 128, ImageFormats.GRAY16, "little")
+    decode_raw(os.path.join(path_base, "PIX_FMT_GRAY16BE.bin"), "generic", 256, 128, ImageFormats.GRAY16, "big")
 
 
     logger.info("End of main... Program has been executed successfully!")
