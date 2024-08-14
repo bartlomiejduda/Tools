@@ -1,0 +1,42 @@
+# Script by Bartlomiej Duda (Ikskoks)
+# Sonic The Hedgehog (2006) (X360) ARC script
+
+
+# Ver    Date        Author               Comment
+# v1.0   14.08.2024  Bartlomiej Duda      -
+
+
+idstring "\x55\xAA\x38\x2D"
+endian big
+comtype zlib
+get FIRST_NODE_OFFSET long
+get SIZE_OF_ALL_NODES long
+get BASE_DATA_OFFSET long
+
+xmath NODE_COUNT_OFFSET "FIRST_NODE_OFFSET + 8"
+goto NODE_COUNT_OFFSET
+get NUMBER_OF_NODES long
+
+xmath BASE_FILENAME_OFFSET "32 + (NUMBER_OF_NODES * 16)"
+
+
+goto FIRST_NODE_OFFSET
+for i = 0 < NUMBER_OF_NODES
+	get NODE_TYPE byte
+	get FILENAME_OFFSET threebyte
+	get FILE_OFFSET_OR_INDEX long
+	get DATA_COMP_SIZE_OR_INDEX long
+	get DATA_UNCOMP_SIZE long
+	SavePos BACK_OFFSET
+	
+	if NODE_TYPE == 0
+		xmath FILENAME_OFFSET "BASE_FILENAME_OFFSET + FILENAME_OFFSET"
+		goto FILENAME_OFFSET
+		get FILE_NAME string
+	
+		string OUTPUT_FILE_NAME p "%d_%s" i FILE_NAME
+		clog OUTPUT_FILE_NAME FILE_OFFSET_OR_INDEX DATA_COMP_SIZE_OR_INDEX DATA_UNCOMP_SIZE
+		goto BACK_OFFSET
+	endif
+
+next i
