@@ -1,0 +1,17 @@
+# Script by Bartlomiej Duda (Ikskoks)
+# Ninja Shadow of Darkness (PS1) PAK script
+
+
+# Ver    Date        Author               Comment
+# v1.0   15.08.2024  Bartlomiej Duda      -
+
+
+idstring "VRAM-WAD"
+comtype LHA_lz5
+get COMPRESSED_SIZE long
+get UNCOMPRESSED_SIZE long
+get F_NAME basename
+get F_EXTENSION extension
+string OUTPUT_FILE_NAME p "%s_uncompressed.%s" F_NAME F_EXTENSION
+
+clog OUTPUT_FILE_NAME 16 COMPRESSED_SIZE UNCOMPRESSED_SIZE
