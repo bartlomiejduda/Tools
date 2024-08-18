@@ -1,0 +1,93 @@
+# Script by Bartlomiej Duda (Ikskoks)
+# Sacred (PC) PAK script
+
+
+# Ver    Date        Author               Comment
+# v1.0   18.08.2024  Bartlomiej Duda      -
+
+
+# Currently this script can only dump raw texture data from "texture.pak" file
+# No further support is planned for this file format in the future...
+
+
+GetDString SIGNATURE 3
+comtype zlib_noerror
+
+if SIGNATURE == "TEX"
+	get VERSION byte
+	get NUMBER_OF_FILES long
+	get UNKNOWN long
+	goto 268
+	
+	for i = 0 < NUMBER_OF_FILES
+		SavePos INDEX_OFFSET
+		get TYPE_ID long
+		get FILE_OFFSET long
+		get COMPRESSED_FILE_SIZE long
+		
+		putarray 0 i TYPE_ID
+		putarray 1 i FILE_OFFSET
+		putarray 2 i COMPRESSED_FILE_SIZE
+		putarray 3 i INDEX_OFFSET
+	next i
+	
+	get ARCHIVE_SIZE asize
+	putarray 0 i 0
+	putarray 1 i ARCHIVE_SIZE
+	putarray 2 i 0
+	putarray 3 i 0
+	
+	SavePos TEMP_OFFSET
+	xmath TEMP_OFFSET "TEMP_OFFSET + 68"
+	goto TEMP_OFFSET
+	
+	for j = 0 < NUMBER_OF_FILES
+		GetDString FILE_NAME 32
+		get IMAGE_X short
+		get IMAGE_Y short
+		get TYPE_ID_AGAIN byte
+		get COMPRESSED_FILE_SIZE_AGAIN long
+		SavePos TEMP_OFFSET
+		xmath TEMP_OFFSET "TEMP_OFFSET + 39"
+		goto TEMP_OFFSET
+		SavePos FILE_OFFSET_AGAIN
+		
+		getarray TYPE_ID 0 j
+        getarray FILE_OFFSET 1 j
+        getarray COMPRESSED_FILE_SIZE 2 j
+		getarray INDEX_OFFSET 3 j
+		
+		xmath FILE_OFFSET "FILE_OFFSET + 80"
+		
+		string OUTPUT_FILE_NAME p "file%d_%dx%d_type%d_%s.data" j IMAGE_X IMAGE_Y TYPE_ID FILE_NAME
+		
+		if TYPE_ID == 4
+			xmath UNCOMPRESSED_FILE_SIZE "COMPRESSED_FILE_SIZE * 20"
+			clog OUTPUT_FILE_NAME FILE_OFFSET COMPRESSED_FILE_SIZE UNCOMPRESSED_FILE_SIZE
+		elif TYPE_ID == 6
+			log OUTPUT_FILE_NAME FILE_OFFSET COMPRESSED_FILE_SIZE
+		endif
+		
+		xmath NEXT_ENTRY_INDEX "j+1"
+		getarray NEXT_FILE_OFFSET 1 NEXT_ENTRY_INDEX
+		getarray NEXT_COMPRESSED_FILE_SIZE 2 NEXT_ENTRY_INDEX
+		
+		if NEXT_FILE_OFFSET >= ARCHIVE_SIZE
+			break
+		endif
+		
+		xmath NEXT_FILE_END_OFFSET "NEXT_FILE_OFFSET + NEXT_COMPRESSED_FILE_SIZE"
+		if NEXT_FILE_END_OFFSET >= ARCHIVE_SIZE
+			break
+		endif
+		
+		goto NEXT_FILE_OFFSET
+		
+	next j
+endif
+
+
+if SIGNATURE != "TEX"
+	print "This format is not supported!"
+	cleanexit
+endif

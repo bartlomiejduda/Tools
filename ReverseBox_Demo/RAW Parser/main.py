@@ -53,8 +53,6 @@ def main():
     # decode_raw(os.path.join(path_base, "RGB\\bgr888_256x128.bin"), "generic", 256, 128, ImageFormats.BGR888)
     # decode_raw(os.path.join(path_base, "RGB\\PIX_FMT_RGB8.bin"), "generic", 256, 128, ImageFormats.RGB332)
     # decode_raw(os.path.join(path_base, "PIX_FMT_BGR8.bin"), "generic", 256, 128, ImageFormats.BGR332)
-    # decode_raw(os.path.join(path_base, "PIX_FMT_RGB4_BYTE.bin"), "generic", 256, 128, ImageFormats.RGB121_BYTE)
-    # decode_raw(os.path.join(path_base, "PIX_FMT_RGB4.bin"), "generic", 256, 128, ImageFormats.RGB121)
     # decode_raw(os.path.join(path_base, "PIX_FMT_RGBA.bin"), "generic", 256, 128, ImageFormats.RGBA8888)
     # decode_raw(os.path.join(path_base, "PIX_FMT_BGRA.bin"), "generic", 256, 128, ImageFormats.BGRA8888)
     # decode_raw(os.path.join(path_base, "RGB\\PIX_FMT_ARGB.bin"), "generic", 256, 128, ImageFormats.ARGB8888)
@@ -75,7 +73,13 @@ def main():
     # decode_raw(os.path.join(path_base, "PIX_FMT_YUVA420P.bin"), "yuv", 256, 128, ImageFormats.YUVA420P)
     # decode_raw(os.path.join(path_base, "PIX_FMT_GRAY8A.bin"), "generic", 256, 128, ImageFormats.GRAY8A)
     # decode_raw(os.path.join(path_base, "PIX_FMT_GRAY16LE.bin"), "generic", 256, 128, ImageFormats.GRAY16, "little")
-    decode_raw(os.path.join(path_base, "PIX_FMT_GRAY16BE.bin"), "generic", 256, 128, ImageFormats.GRAY16, "big")
+    # decode_raw(os.path.join(path_base, "PIX_FMT_GRAY16BE.bin"), "generic", 256, 128, ImageFormats.GRAY16, "big")
+    # decode_raw(os.path.join(path_base, "PIX_FMT_0RGB.bin"), "generic", 256, 128, ImageFormats.XRGB8888, "big")
+    # decode_raw(os.path.join(path_base, "PIX_FMT_RGB0.bin"), "generic", 256, 128, ImageFormats.RGBX8888, "big")
+    # decode_raw(os.path.join(path_base, "PIX_FMT_0BGR.bin"), "generic", 256, 128, ImageFormats.XBGR8888, "big")
+    # decode_raw(os.path.join(path_base, "PIX_FMT_BGR0.bin"), "generic", 256, 128, ImageFormats.BGRX8888, "big")
+    # decode_raw(os.path.join(path_base, "PIX_FMT_RGB4_BYTE.bin"), "generic", 256, 128, ImageFormats.RGB121_BYTE)
+    # decode_raw(os.path.join(path_base, "PIX_FMT_RGB4_BYTE.bin"), "generic", 256, 128, ImageFormats.RGB121_BYTE, "little")
 
 
     logger.info("End of main... Program has been executed successfully!")
