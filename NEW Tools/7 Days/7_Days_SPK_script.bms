@@ -1,0 +1,32 @@
+# Script by Bartlomiej Duda (Ikskoks)
+# 7 Days (Symbian) SPK script
+
+
+# Ver    Date        Author               Comment
+# v1.0   24.08.2024  Bartlomiej Duda      -
+
+
+get NUMBER_OF_FILES short
+
+
+for i = 0 < NUMBER_OF_FILES
+	GetDString FILE_NAME 64
+	get FILE_OFFSET long
+	putarray 0 i FILE_NAME
+	putarray 1 i FILE_OFFSET
+next i
+
+get ARCHIVE_SIZE asize
+putarray 0 i "archive_end"
+putarray 1 i ARCHIVE_SIZE
+
+
+for j = 0 < NUMBER_OF_FILES
+	getarray FILE_NAME 0 j
+	getarray FILE_OFFSET 1 j
+	xmath NEXT_INDEX "j+1"
+	getarray NEXT_FILE_OFFSET 1 NEXT_INDEX
+	xmath FILE_SIZE "NEXT_FILE_OFFSET - FILE_OFFSET"
+	
+	log FILE_NAME FILE_OFFSET FILE_SIZE
+next j
