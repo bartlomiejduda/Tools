@@ -94,7 +94,24 @@ def main():
     # decode_raw(os.path.join(path_base, "PIX_FMT_BGR444BE.bin"), "generic", 256, 128, ImageFormats.BGRX4444, "big")
     # decode_raw(os.path.join(path_base, "PIX_FMT_RGB48LE.bin"), "generic", 256, 128, ImageFormats.RGB48, "little")
     # decode_raw(os.path.join(path_base, "PIX_FMT_RGB48BE.bin"), "generic", 256, 128, ImageFormats.RGB48, "big")
-    decode_raw(os.path.join(path_base, "PIX_FMT_BGR48LE.bin"), "generic", 256, 128, ImageFormats.BGR48, "little")
+    # decode_raw(os.path.join(path_base, "PIX_FMT_BGR48LE.bin"), "generic", 256, 128, ImageFormats.BGR48, "little")
+
+    # pal8
+    # image_decoder = ImageDecoder()
+    # wrapper = PillowWrapper()
+    # raw_file = FileHandler(os.path.join(path_base, "PIX_FMT_PAL8.bin"), "rb", "little")
+    # raw_file_data: bytes = raw_file.read_whole_file_content()
+    #
+    # img_data = raw_file_data[:32768]
+    # palette_data = raw_file_data[32768:]
+    # decoded_image_data: bytes = image_decoder.decode_indexed_image(
+    #     raw_file_data, palette_data, 256, 128, ImageFormats.PAL8_BGRA8888, "little",
+    # )
+    # pil_image = wrapper.get_pillow_image_from_rgba8888_data(decoded_image_data, 256, 128)
+    # pil_image.show()
+
+    decode_raw(os.path.join(path_base, "Lena_512x512_L8.bin"), "generic", 512, 512, ImageFormats.GRAY8, "little")
+
 
 
     logger.info("End of main... Program has been executed successfully!")

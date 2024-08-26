@@ -37,23 +37,39 @@ def parse_dtex(dtex_file_path: str) -> bool:
     decoded_image_data: bytes = b''
 
     if pixel_format == 0:  # ARGB1555
-        pass  # TODO
+        decoded_image_data: bytes = image_decoder.decode_image(
+            unswizzled_image_data, image_width, image_height, ImageFormats.ARGB1555, "little"
+        )
     elif pixel_format == 1:  # RGB565
         decoded_image_data: bytes = image_decoder.decode_image(
             unswizzled_image_data, image_width, image_height, ImageFormats.RGB565, "little"
         )
     elif pixel_format == 2:  # ARGB4444
-        pass  # TODO
-    elif pixel_format == 3:  # YUV422
+        decoded_image_data: bytes = image_decoder.decode_image(
+            unswizzled_image_data, image_width, image_height, ImageFormats.ARGB4444, "little"
+        )
+    elif pixel_format == 3:  # YUV422 (UYVY)
         decoded_image_data: bytes = image_decoder.decode_yuv_image(
-            unswizzled_image_data, image_width, image_height, ImageFormats.YUY2  # TODO
+            unswizzled_image_data, image_width, image_height, ImageFormats.YUV422_UYVY
         )
     elif pixel_format == 4:  # BUMPMAP
-        pass  # TODO
+        decoded_image_data: bytes = image_decoder.decode_bumpmap_image(
+            unswizzled_image_data, image_width, image_height, ImageFormats.BUMPMAP_SR
+        )
     elif pixel_format == 5:  # PAL4BPP
-        pass  # TODO
+        palette_file = FileHandler(dtex_file_path + ".pal", "rb", "little")
+        palette_data = palette_file.read_whole_file_content()
+        palette_data = palette_data[8:]
+        decoded_image_data: bytes = image_decoder.decode_indexed_image(
+            unswizzled_image_data, palette_data, image_width, image_height, ImageFormats.PAL4_RGB565  # TODO - not working
+        )
     elif pixel_format == 6:  # PAL8BPP
-        pass  # TODO
+        palette_file = FileHandler(dtex_file_path + ".pal", "rb", "little")
+        palette_data = palette_file.read_whole_file_content()
+        palette_data = palette_data[8:]
+        decoded_image_data: bytes = image_decoder.decode_indexed_image(
+            unswizzled_image_data, palette_data, image_width, image_height, ImageFormats.PAL8_RGB565  # TODO - not working
+        )
     else:
         raise Exception(f"Pixel format not supported! Pixel_format: {pixel_format}")
 
@@ -64,19 +80,25 @@ def parse_dtex(dtex_file_path: str) -> bool:
     return True
 
 
+def get_final_path(img_rel_path: str) -> str:
+    path_base: str = os.environ["IMG_PATH_BASE"]
+    return os.path.join(path_base, img_rel_path)
+
+
 def main():
     """
     Main function of this program.
     """
     logger.info("Starting main...")
-    path_base: str = os.environ["IMG_PATH_BASE"]
 
-    img_rel_path: str = "dtex_rgb565.tex"
-    # img_rel_path: str = "dtex_yuv422.tex"
+    # parse_dtex(get_final_path("monkey_sample_RGB565.tex"))
+    # parse_dtex(get_final_path("monkey_sample_ARGB1555.tex"))
+    # parse_dtex(get_final_path("monkey_sample_ARGB4444.tex"))
+    # parse_dtex(get_final_path("monkey_sample_YUV422_UYVY.tex"))
+    # parse_dtex(get_final_path("monkey_sample_BUMPMAP.tex"))
+    # parse_dtex(get_final_path("monkey_sample_PAL4BPP.tex"))
+    # parse_dtex(get_final_path("monkey_sample_PAL8BPP.tex"))
 
-
-    final_path: str = os.path.join(path_base, img_rel_path)
-    parse_dtex(final_path)
     logger.info("End of main... Program has been executed successfully!")
     sys.exit(0)
 
