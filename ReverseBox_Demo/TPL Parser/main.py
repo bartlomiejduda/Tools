@@ -83,7 +83,8 @@ def parse_tpl(tpl_file_path: str) -> bool:
         image_data = tpl_file.read_bytes(image_data_size)
 
         # unswizzle data
-        image_data = unswizzle_bc(image_data, image_width, image_height, block_width, block_height, bpp)
+        if image_format not in (6, 14):
+            image_data = unswizzle_bc(image_data, image_width, image_height, block_width, block_height, bpp)
 
         if image_format == 0:  # I4
             decoded_image_data: bytes = image_decoder.decode_image(
@@ -101,9 +102,17 @@ def parse_tpl(tpl_file_path: str) -> bool:
             decoded_image_data: bytes = image_decoder.decode_image(
                 image_data, image_width, image_height, ImageFormats.N64_IA8, "big"
             )
+        elif image_format == 4:  # RGB565
+            decoded_image_data: bytes = image_decoder.decode_image(
+                image_data, image_width, image_height, ImageFormats.RGB565, "big"
+            )
         elif image_format == 5:  # RGB5A3
             decoded_image_data: bytes = image_decoder.decode_image(
                 image_data, image_width, image_height, ImageFormats.N64_RGB5A3, "big"
+            )
+        elif image_format == 6:  # RGBA32
+            decoded_image_data: bytes = image_decoder.decode_n64_image(
+                image_data, image_width, image_height, ImageFormats.N64_RGBA32
             )
         elif image_format == 8:  # C4
             if palette_format == 0:  # IA8
@@ -151,6 +160,11 @@ def parse_tpl(tpl_file_path: str) -> bool:
                 )
             else:
                 raise Exception(f"Not supported palette format! Palette format: {palette_format}")
+
+        elif image_format == 14:  # CMPR
+            decoded_image_data: bytes = image_decoder.decode_n64_image(
+                image_data, image_width, image_height, ImageFormats.N64_CMPR
+            )
         else:
             raise Exception(f"Unsupported image format! Format: {image_format}")
 
@@ -168,7 +182,7 @@ def main():
     logger.info("Starting main...")
     path_base: str = os.environ["IMG_PATH_BASE"]
 
-    img_rel_path: str = "RGB5A3\\gold_coin_16bits_128x128.tpl"
+    # img_rel_path: str = "RGB5A3\\gold_coin_16bits_128x128.tpl"
     # img_rel_path: str = "RGB5A3\\baby_luigi_16bits_64x64.tpl"
     # img_rel_path: str = "RGB5A3\\home_icon_56x56.tpl"
     # img_rel_path: str = "RGB5A3\\yoshi_16bits_64x64.tpl"
@@ -181,6 +195,17 @@ def main():
     # img_rel_path: str = "C4\\japan_flag_4bits_60x40.tpl"
     # img_rel_path: str = "C8\\korea_flag_8bits_60x40.tpl"
     # img_rel_path: str = "C14X2\\cayman_islands_blue_flag_14bits_60x40.tpl"
+    # img_rel_path: str = "monkey_sample4_I4.tpl"
+    # img_rel_path: str = "monkey_sample4_I8.tpl"
+    # img_rel_path: str = "monkey_sample4_IA4.tpl"
+    # img_rel_path: str = "monkey_sample4_IA8.tpl"
+    # img_rel_path: str = "monkey_sample4_RGB565.tpl"
+    # img_rel_path: str = "monkey_sample4_RGB5A3.tpl"
+    # img_rel_path: str = "monkey_sample4_RGBA32.tpl"
+    # img_rel_path: str = "monkey_sample4_C4.tpl"
+    # img_rel_path: str = "monkey_sample4_C8.tpl"
+    # img_rel_path: str = "monkey_sample4_C14X2.tpl"
+    img_rel_path: str = "monkey_sample4_CMPR.tpl"
 
     final_path: str = os.path.join(path_base, img_rel_path)
     parse_tpl(final_path)

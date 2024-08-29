@@ -181,8 +181,6 @@ CUSTOM_FILENAMES: List[str] = [
     "fs_key012.tga",
     "fs_key008.tga",
     "fs_gun.tga",
-    "digi_he6by.tga",
-    "digi_he6cp.tga",
     "digi_e004b.bmp",
     "digi_e100b.bmp",
     "clue_002.bmp",
