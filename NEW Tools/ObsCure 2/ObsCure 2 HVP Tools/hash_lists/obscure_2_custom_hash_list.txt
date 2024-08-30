@@ -743,7 +743,6 @@
 0x321EEABD|||19|||34C00007_gir3_0.ogg
 0x322EF061|||14|||syringe_ps.zwo
 0x32350880|||25|||boss_kenny_whoosh_2_4.wav
-0x324D6DA3|||14|||digi_he6cp.tga
 0x32545DF9|||18|||lucida_console.xmc
 0x32692775|||16|||position_psp.zwo
 0x3269AB29|||19|||1CC00011_boy2_0.ogg
@@ -3492,7 +3491,6 @@
 0xF39AC1C1|||11|||npc5_ps.zwo
 0xF39BBC74|||19|||34C00017_Boy2_1.ogg
 0xF3CC44AD|||8|||icon.png
-0xF401DC77|||14|||digi_he6by.tga
 0xF429D772|||15|||theheart_ps.zwo
 0xF4355442|||19|||34C00027_gir2_0.ogg
 0xF43B2B0C|||7|||lvl.zwo
