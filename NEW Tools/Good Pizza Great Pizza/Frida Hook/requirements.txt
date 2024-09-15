@@ -1,0 +1,2 @@
+frida==16.2.4
+frida-tools
