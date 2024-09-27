@@ -1,0 +1,20 @@
+# Script by Bartlomiej Duda (Ikskoks)
+# Monsters vs Aliens (PS2) DAT script
+
+
+# Ver    Date        Author               Comment
+# v1.0   27.09.2024  Bartlomiej Duda      -
+
+
+get VERSION long  # 1
+get NUMBER_OF_FILES long
+
+for i = 0 < NUMBER_OF_FILES
+	SavePos ENTRY_OFFSET
+	get FILE_PATH string
+	xmath TEMP_OFFSET "ENTRY_OFFSET + 256"
+	goto TEMP_OFFSET
+	get FILE_OFFSET long
+	get FILE_SIZE long
+	log FILE_PATH FILE_OFFSET FILE_SIZE
+next i
