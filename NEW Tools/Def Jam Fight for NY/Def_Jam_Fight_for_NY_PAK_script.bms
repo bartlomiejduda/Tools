@@ -4,18 +4,20 @@
 
 # Ver    Date        Author               Comment
 # v1.0   06.10.2024  Bartlomiej Duda      -
+# v1.1   06.10.2024  Bartlomiej Duda      -
 
 
 idstring "PAKN"
 get NUMBER_OF_FILES long
 get ENTIRES_ARRAY_SIZE long
 
-xmath FILE_OFFSET "12 + ENTIRES_ARRAY_SIZE + 24"
+xmath BASE_OFFSET "12 + ENTIRES_ARRAY_SIZE"
 
 
 for i = 0 < NUMBER_OF_FILES
-	GetDString FILE_NAME 60
+	GetDString FILE_NAME 56
+	get FILE_OFFSET long
 	get FILE_SIZE long
+	xmath FILE_OFFSET "FILE_OFFSET + BASE_OFFSET"
 	log FILE_NAME FILE_OFFSET FILE_SIZE
-	xmath FILE_OFFSET "FILE_OFFSET + FILE_SIZE"
 next i
