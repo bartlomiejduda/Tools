@@ -1,0 +1,32 @@
+# Script by Bartlomiej Duda (Ikskoks)
+# Urban Chaos Riot Response (XBOX) SAF script
+
+
+# Ver    Date        Author               Comment
+# v1.0   13.10.2024  Bartlomiej Duda      -
+
+
+for i = 0
+	FindLoc SIGN_OFFSET string "RIFF" ""
+	if SIGN_OFFSET == ""
+		cleanexit
+	endif
+	
+	goto SIGN_OFFSET
+	get SIGN long
+	get FILE_SIZE long
+	xmath FILE_SIZE "FILE_SIZE + 8"
+	
+	FindLoc NAME_OFFSET string "name" ""
+	if NAME_OFFSET == ""
+		cleanexit
+	endif
+	
+	goto NAME_OFFSET
+	get NAME_STR long
+	get NAME_LENGTH long
+	GetDString FILE_NAME NAME_LENGTH
+	string FILE_NAME p "%d_%s" i FILE_NAME
+	log FILE_NAME SIGN_OFFSET FILE_SIZE
+
+next i
