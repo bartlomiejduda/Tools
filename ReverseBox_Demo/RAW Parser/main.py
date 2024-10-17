@@ -4,23 +4,38 @@ License: GPL-3.0 License
 """
 import os
 import sys
+from typing import Optional
 
 from reversebox.common.logger import get_logger
 from reversebox.image.image_decoder import ImageDecoder
+from reversebox.image.image_encoder import ImageEncoder
 from reversebox.image.image_formats import ImageFormats
 from reversebox.image.pillow_wrapper import PillowWrapper
+from reversebox.image.swizzling.swizzle_psp import unswizzle_psp, swizzle_psp
 from reversebox.io_files.file_handler import FileHandler
 
 logger = get_logger(__name__)
 
 
-def decode_raw(raw_file_path: str, decoder_type: str, image_width: int, image_height: int, image_format: ImageFormats, image_endianess: str = "little") -> bool:
-    logger.info(f"Get image start, file_name={raw_file_path}")
+def get_file_data(raw_file_path: str) -> bytes:
+    logger.info(f"get_file_data start, file_name={raw_file_path}")
+    raw_file = FileHandler(raw_file_path, "rb", "little")
+    raw_file_data: bytes = raw_file.read_whole_file_content()
+    return raw_file_data
+
+
+def decode_raw(raw_file_path: str, decoder_type: str, image_width: int, image_height: int, image_format: ImageFormats, image_endianess: str = "little", swizzle_type: Optional[str] = None, image_bpp: Optional[int] = None, show_preview: bool = True) -> bytes:
+    logger.info(f"decode_raw start, file_name={raw_file_path}")
 
     image_decoder = ImageDecoder()
     wrapper = PillowWrapper()
     raw_file = FileHandler(raw_file_path, "rb", "little")
     raw_file_data: bytes = raw_file.read_whole_file_content()
+
+    if swizzle_type == "PSP":
+        raw_file_data = unswizzle_psp(
+                        raw_file_data, image_width, image_height, image_bpp
+                    )
 
     if decoder_type == "generic":
         decoded_image_data: bytes = image_decoder.decode_image(
@@ -34,10 +49,32 @@ def decode_raw(raw_file_path: str, decoder_type: str, image_width: int, image_he
         raise Exception(f"Decoder type not supported! Decoder_type: {decoder_type}")
 
     pil_image = wrapper.get_pillow_image_from_rgba8888_data(decoded_image_data, image_width, image_height)
-    pil_image.show()
+    if show_preview:
+        pil_image.show()
 
-    logger.info("Get image end")
-    return True
+    logger.info("decode_raw end")
+    return decoded_image_data
+
+
+def encode_raw(raw_file_data: bytes, encoder_type: str, image_width: int, image_height: int, image_format: ImageFormats, image_endianess: str = "little", swizzle_type: Optional[str] = None, image_bpp: Optional[int] = None) -> bytes:
+    logger.info(f"encode_raw start")
+
+    image_encoder = ImageEncoder()
+
+    if swizzle_type == "PSP":
+        raw_file_data = swizzle_psp(
+                        raw_file_data, image_width, image_height
+                    )
+
+    if encoder_type == "generic":
+        encoded_image_data: bytes = image_encoder.encode_image(
+            raw_file_data, image_width, image_height, image_format, image_endianess
+        )
+    else:
+        raise Exception(f"Encoder type not supported! Encoder_type: {encoder_type}")
+
+    logger.info("encode_raw end")
+    return encoded_image_data
 
 
 def main():
@@ -110,8 +147,16 @@ def main():
     # pil_image = wrapper.get_pillow_image_from_rgba8888_data(decoded_image_data, 256, 128)
     # pil_image.show()
 
-    decode_raw(os.path.join(path_base, "Lena_512x512_L8.bin"), "generic", 512, 512, ImageFormats.GRAY8, "little")
+    # decode_raw(os.path.join(path_base, "Lena_512x512_L8.bin"), "generic", 512, 512, ImageFormats.GRAY8, "little")
 
+    f_name = "PIX_FMT_RGBA.bin"
+    raw_data: bytes = get_file_data(os.path.join(path_base, f_name))
+    decoded_data: bytes = decode_raw(os.path.join(path_base, f_name), "generic", 256, 128, ImageFormats.RGBA8888, "little", None, 32, False)
+    encoded_data: bytes = encode_raw(decoded_data, "generic", 256, 128, ImageFormats.RGBA8888, "little", None, 32)
+    if raw_data == encoded_data:
+        logger.info("Successful conversion!")
+    else:
+        logger.error("Images don't match!")
 
 
     logger.info("End of main... Program has been executed successfully!")
