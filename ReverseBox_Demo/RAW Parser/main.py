@@ -24,13 +24,11 @@ def get_file_data(raw_file_path: str) -> bytes:
     return raw_file_data
 
 
-def decode_raw(raw_file_path: str, decoder_type: str, image_width: int, image_height: int, image_format: ImageFormats, image_endianess: str = "little", swizzle_type: Optional[str] = None, image_bpp: Optional[int] = None, show_preview: bool = True) -> bytes:
-    logger.info(f"decode_raw start, file_name={raw_file_path}")
+def decode_raw(raw_file_data: bytes, decoder_type: str, image_width: int, image_height: int, image_format: ImageFormats, image_endianess: str = "little", swizzle_type: Optional[str] = None, image_bpp: Optional[int] = None, show_preview: bool = True) -> bytes:
+    logger.info(f"decode_raw start")
 
     image_decoder = ImageDecoder()
     wrapper = PillowWrapper()
-    raw_file = FileHandler(raw_file_path, "rb", "little")
-    raw_file_data: bytes = raw_file.read_whole_file_content()
 
     if swizzle_type == "PSP":
         raw_file_data = unswizzle_psp(
@@ -61,17 +59,15 @@ def encode_raw(raw_file_data: bytes, encoder_type: str, image_width: int, image_
 
     image_encoder = ImageEncoder()
 
-    if swizzle_type == "PSP":
-        raw_file_data = swizzle_psp(
-                        raw_file_data, image_width, image_height
-                    )
-
     if encoder_type == "generic":
         encoded_image_data: bytes = image_encoder.encode_image(
             raw_file_data, image_width, image_height, image_format, image_endianess
         )
     else:
         raise Exception(f"Encoder type not supported! Encoder_type: {encoder_type}")
+
+    if swizzle_type == "PSP":
+        encoded_image_data = swizzle_psp(encoded_image_data, image_width, image_height, image_bpp)
 
     logger.info("encode_raw end")
     return encoded_image_data
@@ -149,10 +145,36 @@ def main():
 
     # decode_raw(os.path.join(path_base, "Lena_512x512_L8.bin"), "generic", 512, 512, ImageFormats.GRAY8, "little")
 
-    f_name = "PIX_FMT_RGBA.bin"
+    # f_name = "PIX_FMT_RGBA.bin"
+    # raw_data: bytes = get_file_data(os.path.join(path_base, f_name))
+    # decoded_data: bytes = decode_raw(raw_data, "generic", 256, 128, ImageFormats.RGBA8888, "little", None, 32, False)
+    # encoded_data: bytes = encode_raw(decoded_data, "generic", 256, 128, ImageFormats.RGBA8888, "little", None, 32)
+    # if raw_data == encoded_data:
+    #     logger.info("Successful conversion!")
+    # else:
+    #     logger.error("Images don't match!")
+
+    # f = open(os.path.join(path_base, f_name + "_test.bin"), "wb")
+    # f.write(encoded_data)
+    # f.close()
+
+
+    # f_name = "PIX_FMT_RGB565LE.bin"
+    # raw_data: bytes = get_file_data(os.path.join(path_base, f_name))
+    # decoded_data: bytes = decode_raw(os.path.join(path_base, f_name), "generic", 256, 128, ImageFormats.RGB565, "little", None, 32, False)
+    # encoded_data: bytes = encode_raw(decoded_data, "generic", 256, 128, ImageFormats.RGB565, "little", None, 16)
+    #
+    # if raw_data == encoded_data:
+    #     logger.info("Successful conversion!")
+    # else:
+    #     logger.error("Images don't match!")
+
+
+    f_name = "RGBA8888_PSP_SWIZZLED.bin"
     raw_data: bytes = get_file_data(os.path.join(path_base, f_name))
-    decoded_data: bytes = decode_raw(os.path.join(path_base, f_name), "generic", 256, 128, ImageFormats.RGBA8888, "little", None, 32, False)
-    encoded_data: bytes = encode_raw(decoded_data, "generic", 256, 128, ImageFormats.RGBA8888, "little", None, 32)
+    decoded_data: bytes = decode_raw(raw_data, "generic", 512, 256, ImageFormats.RGBA8888, "little", "PSP", 32, False)
+    encoded_data: bytes = encode_raw(decoded_data, "generic", 512, 256, ImageFormats.RGBA8888, "little", "PSP", 32)
+    
     if raw_data == encoded_data:
         logger.info("Successful conversion!")
     else:
