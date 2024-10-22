@@ -18,4 +18,12 @@ Tested games:<br>
 
 ## Usage
 
-// TODO
+Converting TEX to DDS:<br>
+```
+python mt_framework_tex_converter.py -e input_file.tex output_file.dds
+```
+
+Converting DDS to TEX:
+```
+python mt_framework_tex_converter.py -i input_file.tex output_file.dds new_file.tex
+```
