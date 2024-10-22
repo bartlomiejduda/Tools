@@ -41,7 +41,7 @@ def convert_tex_to_dds(tex_file_path: str, dds_file_path: str) -> bool:
     img_height = get_bits(value2, 12, 19)
 
     texture_count = tex_file.read_uint8()
-    color_type = tex_file.read_uint8()  # 24 - DXT5 (PS4 Swizzled?)
+    color_type = tex_file.read_uint8()  # 24 - DXT5 (PS4 Swizzled)
     unknown2 = tex_file.read_uint16()
     unk2_1 = get_bits(unknown2, 12, 0)
     padding_flag = get_bits(unknown2, 3, 13)
@@ -54,11 +54,11 @@ def convert_tex_to_dds(tex_file_path: str, dds_file_path: str) -> bool:
         tex_file.seek(header_size)
         image_size = tex_file.get_file_size() - header_size
         image_data = tex_file.read_bytes(image_size)
-        unswizzled_image_data = unswizzle_ps4(
-            image_data, img_width, img_height, 4, 4, 16
-        )
 
         if color_type == 24:
+            unswizzled_image_data = unswizzle_ps4(
+                image_data, img_width, img_height, 4, 4, 16
+            )
             decoded_image_data: bytes = image_decoder.decode_compressed_image(
                 unswizzled_image_data, img_width, img_height, ImageFormats.DXT5
             )
@@ -88,7 +88,7 @@ def convert_dds_to_tex(old_tex_file_path: str, dds_file_path: str, new_tex_file_
         raise Exception("Wrong MT Framework texture file signature!")
 
     old_tex_file.seek(13)
-    color_type = old_tex_file.read_uint8()  # 24 - DXT5 (PS4 Swizzled?)
+    color_type = old_tex_file.read_uint8()  # 24 - DXT5 (PS4 Swizzled)
     if color_type != 24:
         raise Exception(f"Unsupported color_type: {color_type}!")
 
