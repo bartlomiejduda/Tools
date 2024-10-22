@@ -1,0 +1,3 @@
+ReverseBox>=0.17.0
+pillow
+rawutil
