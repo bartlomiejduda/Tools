@@ -1,0 +1,40 @@
+# Script by Bartlomiej Duda (Ikskoks)
+# SimCity 3000 Unlimited (PC) IXF script
+
+
+# Ver    Date        Author               Comment
+# v1.0   09.11.2024  Bartlomiej Duda      -
+
+
+get SIGN long
+set STRINGS_FILE string "strings.txt"
+
+for i = 0
+	get TYPE_ID long
+	if TYPE_ID == 0
+		break
+	endif
+	
+	get GROUP_ID long
+	get INSTANCE_ID long
+	get FILE_OFFSET long
+	get FILE_SIZE long
+	SavePos BACK_OFFSET
+	
+	goto FILE_OFFSET
+	get LINE_LENGTH long
+	SavePos LINE_OFFSET
+	
+	if FILE_SIZE == 0
+		goto BACK_OFFSET
+		continue
+	endif
+	
+	if LINE_LENGTH == 0
+		goto BACK_OFFSET
+		continue
+	endif
+	
+	slog STRINGS_FILE LINE_OFFSET LINE_LENGTH string
+	goto BACK_OFFSET
+next i
