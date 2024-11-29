@@ -1,0 +1,13 @@
+# Script by Bartlomiej Duda (Ikskoks)
+# <GAME_NAME> (PC) <EXTENSION> script
+
+
+# Ver    Date        Author               Comment
+# v1.0   29.11.2024  Bartlomiej Duda      -
+
+
+filexor 0x66
+get FILE_SIZE asize
+get FILE_NAME basename
+string OUTPUT_FILE_NAME p "%s.decrypted.lua" FILE_NAME
+log OUTPUT_FILE_NAME 0 FILE_SIZE

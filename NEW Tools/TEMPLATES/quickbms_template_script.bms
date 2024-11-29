@@ -27,6 +27,9 @@
 # combining output path
 # string OUTPUT_FILE_PATH p "%s/%s/%s" ARCHIVE_NAME DIRECTORY_NAME FILE_NAME
 
+# get archive size
+get ARCHIVE_SIZE asize
+
 # reversing string 
 # string DIRECTORY_NAME r DIRECTORY_NAME
 # string FILE_NAME r FILE_NAME
