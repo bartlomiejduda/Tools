@@ -10,7 +10,7 @@ from reversebox.common.logger import get_logger
 from reversebox.image.image_decoder import ImageDecoder
 from reversebox.image.image_formats import ImageFormats
 from reversebox.image.pillow_wrapper import PillowWrapper
-from reversebox.image.swizzling.swizzle_psvita import unswizzle_psvita
+from reversebox.image.swizzling.swizzle_psvita_dreamcast import unswizzle_psvita_dreamcast
 from reversebox.io_files.file_handler import FileHandler
 
 logger = get_logger(__name__)
@@ -51,7 +51,7 @@ def parse_gxt(gxt_file_path: str) -> bool:
 
         if tex_type == 0:  # swizzled
             pass
-            tex_data = unswizzle_psvita(tex_data, tex_width, tex_height, 32)
+            tex_data = unswizzle_psvita_dreamcast(tex_data, tex_width, tex_height, 32)
 
         if tex_base_format == '0x87000000':  # DXT5
             decoded_image_data = image_decoder.decode_compressed_image(
