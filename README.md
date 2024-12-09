@@ -22,3 +22,5 @@ or ask on **[ResHax forum](https://reshax.com/)**.
 ![GitHub all releases](https://img.shields.io/github/downloads/bartlomiejduda/Tools/total)
 ![GitHub last commit](https://img.shields.io/github/last-commit/bartlomiejduda/Tools?style=plastic)
 ![GitHub commit activity](https://img.shields.io/github/commit-activity/y/bartlomiejduda/Tools?style=plastic)
+![GitHub Repo stars](https://img.shields.io/github/stars/bartlomiejduda/Tools?style=plastic)
+![GitHub forks](https://img.shields.io/github/forks/bartlomiejduda/Tools?style=plastic)
