@@ -1,0 +1,105 @@
+# Script  for Cocos2d encrypted assets 
+# with "CCZp" signature (e.g. PNG files)
+
+# memory file include implementation for "ZipUtils::decodeEncodedPvr" function
+# https://github.com/cocos2d/cocos2d-x/blob/v3/cocos/base/ZipUtils.cpp
+
+
+# Ver    Date        Author               Comment
+# v1.0   ----------  chrrox               -
+# v1.1   16.12.2024  Bartlomiej Duda      -
+
+
+# List of working keys:
+# 0xF68C6273, 0x07C32116, 0x4AF4F1AC, 0xBF0988A6  --> jp.okakichi.chanran
+
+
+
+set MEMORY_FILE10 string "
+typedef unsigned int u32;
+unsigned int s_uEncryptedPvrKeyParts[4] = {0xF68C6273, 0x07C32116, 0x4AF4F1AC, 0xBF0988A6};
+unsigned int s_uEncryptionKey[1024];
+
+u32 MX(u32 z, u32 y, u32 p, u32 e, u32 sum) {
+    return (((z >> 5 ^ y << 2) + (y >> 3 ^ z << 4)) ^ ((sum ^ y) + (s_uEncryptedPvrKeyParts[(p & 3) ^ e] ^ z)));
+}
+
+void decodeEncodedPvr(unsigned int *data, unsigned int len)
+{
+    const int enclen = 1024;
+    const int securelen = 512;
+    const int distance = 64;
+    
+    // create long key
+    unsigned int y, p, e;
+    unsigned int rounds = 6;
+    unsigned int sum = 0;
+    unsigned int z = s_uEncryptionKey[enclen-1];
+        
+
+
+    do
+    {
+        unsigned int DELTA = 0x9e3779b9;
+
+        sum += DELTA;
+        e = (sum >> 2) & 3;
+
+        for (p = 0; p < enclen - 1; p++)
+        {
+            y = s_uEncryptionKey[p + 1];
+        z = s_uEncryptionKey[p] += MX(z, y, p, e, sum);
+        }
+
+        y = s_uEncryptionKey[0];
+        z = s_uEncryptionKey[enclen - 1] += MX(z, y, p, e, sum);
+
+        } while (--rounds > 0);
+    
+    int b = 0;
+    int i = 0;
+    
+    // decrypt first part completely
+    for(; i < len && i < securelen; i++)
+    {
+        data[i] ^= s_uEncryptionKey[b++];
+        
+        if(b >= enclen)
+        {
+            b = 0;
+        }
+    }
+    
+    // decrypt second section partially
+    for(; i < len; i += distance)
+    {
+        data[i] ^= s_uEncryptionKey[b++];
+        
+        if(b >= enclen)
+        {
+            b = 0;
+        }
+    }
+}
+
+void DecryptCCZ(unsigned char *lpBuffer, int dwSize)
+{
+   unsigned int* lpData = (unsigned int*)(lpBuffer + 12);
+   unsigned int dwEncryptedSize = (dwSize - 12) / 4;
+
+   decodeEncodedPvr(lpData, dwEncryptedSize);
+}
+"
+
+comtype zlib
+get SIZE asize
+get F_NAME basename
+get F_EXT extension
+string OUTPUT_FILE_PATH p "%s_decrypted.%s" F_NAME F_EXT
+log MEMORY_FILE 0 SIZE
+calldll MEMORY_FILE10 DecryptCCZ tcc RET MEMORY_FILE SIZE
+
+
+xmath SIZE "SIZE - 16"
+xmath UNCOMP_SIZE "SIZE * 5"
+clog OUTPUT_FILE_PATH 16 SIZE UNCOMP_SIZE -1
