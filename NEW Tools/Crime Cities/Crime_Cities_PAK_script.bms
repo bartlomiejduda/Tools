@@ -1,0 +1,32 @@
+# Script by Bartlomiej Duda (Ikskoks)
+# Crime Cities (PC) PAK script
+
+
+# Ver    Date        Author               Comment
+# v1.0   22.12.2024  Bartlomiej Duda      -
+
+
+
+get ARCHIVE_SIZE asize
+xmath TEMP_OFFSET "ARCHIVE_SIZE - 4"
+goto TEMP_OFFSET
+get INDEX_OFFSET long
+goto INDEX_OFFSET
+
+get NUMBER_OF_FILES long
+for i = 0 < NUMBER_OF_FILES
+	get FILE_OFFSET long
+	get UNCOMPRESSED_FILE_SIZE long
+	get COMPRESSED_FILE_SIZE long
+	get FILEPATH_LENGTH long
+	GetDString FILE_PATH FILEPATH_LENGTH
+	
+	if COMPRESSED_FILE_SIZE == 0  # not compressed
+		log FILE_PATH FILE_OFFSET UNCOMPRESSED_FILE_SIZE
+	else # compressed
+		xmath FILE_OFFSET "FILE_OFFSET + 8"
+		xmath COMPRESSED_FILE_SIZE "COMPRESSED_FILE_SIZE - 8"
+		string FILE_PATH p "%s_compressed" FILE_PATH
+		log FILE_PATH FILE_OFFSET COMPRESSED_FILE_SIZE
+	endif
+next i
