@@ -1,0 +1,36 @@
+# Script by Bartlomiej Duda (Ikskoks)
+# Hatch Engine HATCH script
+
+
+# Tested on "Data.hatch" from "Sonic Galactic" (Demo 2)
+
+# Ver    Date        Author               Comment
+# v1.0   30.01.2025  Bartlomiej Duda      -
+
+
+idstring "HATCH"
+comtype zlib
+get VERSION threebyte
+get NUMBER_OF_FILES short
+
+
+for i = 0 < NUMBER_OF_FILES
+	get FILENAME_CRC long
+	get FILE_OFFSET longlong
+	get FILE_UNCOMPRESSED_SIZE longlong
+	get DATA_FLAG long
+	get FILE_COMPRESSED_SIZE longlong
+	
+	if DATA_FLAG == 2
+		string FILE_PATH p "file%d_encrypted.bin" i
+	else
+		string FILE_PATH p "file%d.bin" i
+	endif
+	
+	if FILE_UNCOMPRESSED_SIZE != FILE_COMPRESSED_SIZE
+		clog FILE_PATH FILE_OFFSET FILE_COMPRESSED_SIZE FILE_UNCOMPRESSED_SIZE
+	else
+		log FILE_PATH FILE_OFFSET FILE_UNCOMPRESSED_SIZE
+	endif
+	
+next i
