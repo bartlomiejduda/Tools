@@ -1,0 +1,998 @@
+GameConfig.xml
+Objects/Objects.hcm
+Objects/834349B5.ibc
+Objects/2ACFD86F.ibc
+Objects/AF66293A.ibc
+Objects/79FAAFFF.ibc
+Objects/ABAD243D.ibc
+Objects/6554C8B4.ibc
+Objects/39AEEF30.ibc
+Objects/1878246F.ibc
+Objects/11957686.ibc
+Objects/F316CCDE.ibc
+Objects/EF8E5B29.ibc
+Objects/8FB76B8C.ibc
+Objects/07FAB4F0.ibc
+Objects/F833BDE8.ibc
+Objects/FBEC11D7.ibc
+Objects/C07B5061.ibc
+Objects/4E952F84.ibc
+Objects/5EDBA0AF.ibc
+Objects/125368AC.ibc
+Objects/EED05A7E.ibc
+Objects/CCF49C57.ibc
+Objects/A5750675.ibc
+Objects/440028D5.ibc
+Objects/EFF85621.ibc
+Objects/58E57332.ibc
+Objects/BE2C012D.ibc
+Objects/DCB1F36C.ibc
+Objects/6DD830F4.ibc
+Objects/B4C84B8D.ibc
+Scenes/SEGA.tmx
+Objects/C8169F94.ibc
+Objects/A12CC549.ibc
+Strings/StringsEN.json
+Sprites/UI/SmallFontGAL.bin
+Sprites/UI/SmallFont1.gif
+Sprites/UI/SmallFontOrangeGAL.bin
+Sprites/UI/SmallFont1Orange.gif
+SoundFX/Global/RingLeft.wav
+SoundFX/Global/RingRight.wav
+SoundFX/Global/Twinkle.wav
+SoundFX/Special/Event.wav
+SoundFX/Global/BlueShield.wav
+SoundFX/Global/FireShield.wav
+SoundFX/Global/LightningShield.wav
+SoundFX/Global/BubbleShield.wav
+SoundFX/Global/LeafShield.wav
+SoundFX/Global/PoisonShield.wav
+Sprites/Startup/SEGA.png
+SoundFX/Global/SegaReverb.wav
+SoundFX/Global/Twinkle2.wav
+Objects/41D48B03.ibc
+Sprites/Startup/RingSparkle.bin
+Sprites/Startup/RingSparkle.png
+Scenes/PleaseSupportSEGA.tmx
+Objects/3D642BB5.ibc
+SoundFX/Global/Notification.wav
+Scenes/Starteam.tmx
+Objects/91A501A4.ibc
+Sprites/Startup/StarteamLogo.bin
+Sprites/Startup/StarteamLogo.png
+Scenes/TitleScreen.tmx
+Objects/FFED5D75.ibc
+Sprites/TitleScreen/Background.png
+Sprites/TitleScreen/IllusionIsland.png
+Sprites/TitleScreen/IllusionIslandReflection.png
+Sprites/TitleScreen/VerdantIsle.png
+Sprites/TitleScreen/VerdantIsleReflection.png
+Sprites/TitleScreen/Waterwaves.png
+Sprites/TitleScreen/StartButton.png
+Sprites/TitleScreen/Sonic.bin
+Sprites/TitleScreen/TitleScreen0.png
+Sprites/TitleScreen/TitleScreen1.png
+Sprites/TitleScreen/TitleScreen2.png
+SoundFX/Title/HeyBuddy.wav
+Objects/F06BD483.ibc
+Sprites/TitleScreen/GalacticTitleRing.bin
+Sprites/TitleScreen/GalacticTitleRing.png
+Music/Title.ogg
+Scenes/Menus/MainMenu.tmx
+Objects/36ED1AD0.ibc
+Sprites/Menu/MainMenu/MainMenu.bin
+Sprites/Menu/MainMenu/MainMenu.png
+Sprites/Menu/MainMenu/Interface.bin
+Sprites/Menu/MainMenu/Interface0.png
+Sprites/Menu/MainMenu/Interface1.png
+Sprites/Menu/MainMenu/Background.bin
+Sprites/Menu/MainMenu/Background.png
+Sprites/VIZ/VIZ2bg/Background2.bin
+Sprites/VIZ/VIZ2bg/[Layer 0] Sky.png
+Sprites/VIZ/VIZ2bg/[Layer 1] Mt1.png
+Sprites/VIZ/VIZ2bg/[Layer 2] Mt2.png
+Sprites/VIZ/VIZ2bg/[Layer 3] Wt1.png
+Sprites/VIZ/VIZ2bg/[Layer 4] Wt2.png
+Sprites/VIZ/VIZ2bg/[Layer 5] Wt3.png
+Sprites/VIZ/VIZ2bg/[Layer 6] WtShine.png
+Sprites/VIZ/VIZ2bg/[Layer 7] BGGround1.png
+Sprites/VIZ/VIZ2bg/[Layer 8] BGGround2.png
+Sprites/VIZ/VIZ2bg/[Layer 8] FG1.png
+Sprites/VIZ/VIZ2bg/[Layer 9] FG2-Trees1.png
+Sprites/VIZ/VIZ2bg/[Layer 10] FG3-Komerebi1.png
+Sprites/VIZ/VIZ2bg/[Layer 11] FG4-Woodvines.png
+Sprites/VIZ/VIZ2bg/[Layer 12] FG5-Trees2.png
+Sprites/VIZ/VIZ2bg/[Layer 13] FG6-LeafT.png
+Sprites/VIZ/VIZ2bg/[Layer 14] FG7-Komorebi2.png
+Sprites/VIZ/VIZ2bg/[Layer 15] FG8-LeafB.png
+Sprites/VIZ/VIZ2bg/[Layer 16] FG9-Leaf.png
+Sounds/General/MenuAccept.wav
+Sounds/General/MenuBleep.wav
+Sounds/General/MenuWoosh.wav
+Sounds/General/snd_sfx_error.wav
+Music/MainMenu.ogg
+Scenes/Menus/Extras.tmx
+Objects/7375642A.ibc
+Objects/B8202F42.ibc
+Sprites/Global/HUD.bin
+Sprites/Global/HUD.png
+Music/DataSelect.ogg
+Objects/D2E7274D.ibc
+Scenes/Menus/Battle.tmx
+Objects/16982D32.ibc
+Sprites/Menu/Battle/Title.bin
+Sprites/Menu/Battle/BattleTitle.png
+Sprites/Menu/Battle/battletitlescreen.bin
+Sprites/Menu/Battle/battletitlescreen0.png
+Sprites/Menu/Battle/battletitlescreen1.png
+SoundFX/Global/SpecialWarp.wav
+SoundFX/Global/RaySwoop.wav
+Scenes/Menus/CompetitionModeSelect.tmx
+Objects/032AD820.ibc
+Sprites/Menu/Competition/CompetitionOptions.bin
+Sprites/Menu/Competition/CompetitionOptions.png
+Sprites/Menu/Competition/CompetitionOptionsBG.png
+Music/Competition.ogg
+Objects/FA13C929.ibc
+Sprites/Menu/Competition/Competition.bin
+Sprites/Menu/Competition/Background.png
+Sprites/Menu/Competition/Circle.png
+Sprites/Menu/Competition/Cards.png
+Sprites/Menu/Competition/Players.png
+Sprites/Menu/Competition/Names.png
+Sprites/Menu/Competition/UI.png
+Sprites/Menu/Competition/StageSelect.png
+Sprites/Menu/Competition/StageSelectMask.png
+Sprites/Menu/Competition/Characters.png
+Sprites/Global/CharacterPortraits.bin
+Sprites/Global/CharacterPortraits.png
+Objects/EBF079B5.ibc
+Sprites/HPZ/bg.bin
+Sprites/HPZ/bg.png
+Scenes/Menus/Options.tmx
+Objects/284816CD.ibc
+Sprites/Menu/Options/Options.bin
+Sprites/Menu/Options/Elements1.png
+Sprites/Menu/Options/Elements2.png
+Sprites/Menu/Options/Buttons.png
+Sprites/Menu/Options/Font.png
+Sprites/Menu/Options/Cog.png
+Sprites/Menu/Options/Foreground.png
+Sprites/Menu/Options/Sliders.png
+Sprites/Menu/Options/Background1.png
+Sprites/Menu/Options/Background2.png
+Sprites/Menu/Options/Background3.png
+Sprites/Menu/Options/Background4.png
+Sprites/Menu/Options/Background5.png
+Sprites/Menu/Pause/PauseMenu.png
+Sprites/Menu/DataSelect/Misc.png
+Sprites/Menu/Options/Occluder.png
+Music/Options.ogg
+Objects/18063E0B.ibc
+Sprites/Menu/Options/ConfigText.bin
+Sprites/Menu/Options/ConfigText.png
+Sprites/Menu/Options/Keys.bin
+Sprites/Menu/Options/Keys.png
+Sprites/Menu/Options/ConfigBackground.png
+Scenes/Menus/DataSelect.tmx
+Objects/C9589DDF.ibc
+Sprites/Menu/DataSelect/DataSelect.bin
+Sprites/Menu/DataSelect/Background.png
+Sprites/Menu/DataSelect/Occluder.png
+Sprites/Menu/DataSelect/Characters.png
+Sprites/Menu/DataSelect/Slots.png
+Sprites/Menu/DataSelect/Guide.png
+Sprites/Menu/DataSelect/Interact.png
+Sprites/Menu/DataSelect/Font.png
+Sprites/Menu/DataSelect/FileNumbers.png
+Sprites/Menu/DataSelect/LifeNumbers.png
+Sprites/Menu/DataSelect/Prompt.png
+Objects/401C47E6.ibc
+Sprites/Tutorial/bg/bg.bin
+Sprites/Tutorial/bg/bg1.png
+Sprites/Tutorial/bg/bg2.png
+Sprites/Tutorial/bg/bg3.png
+Sprites/Tutorial/bg/bg4.png
+Sprites/Tutorial/bg/bg5.png
+Sprites/Tutorial/bg/bg6.png
+Sprites/Tutorial/bg/bg7.png
+Sprites/Tutorial/bg/bg8.png
+Sprites/Tutorial/bg/bg9.png
+Sprites/Tutorial/bg/bg10.png
+Scenes/BTZ/btzact1.tmx
+Scenes/BTZ/BTZTiles16x16.png
+../Tiled Object Templates/Images/Ring.tsx
+../Tiled Object Templates/Images/Platform (Clackers [Right-side]).tsx
+../Tiled Object Templates/Images/Platform (Clackers [Left-side]).tsx
+../Tiled Object Templates/Images/Spring (Yellow Diagonal).tsx
+../Tiled Object Templates/Images/Platform (Stationary).tsx
+../Tiled Object Templates/Images/ItemBox (Rings).tsx
+../Tiled Object Templates/Images/Spring (Yellow Horizontal).tsx
+../Tiled Object Templates/Images/Spring (Yellow Vertical).tsx
+../Tiled Object Templates/Images/Spring (Red Horizontal).tsx
+../Tiled Object Templates/Images/ItemBox (Fire Shield).tsx
+../Tiled Object Templates/Images/PlaneSwitch (Plane B to A (High to Low)).tsx
+../Tiled Object Templates/Images/PlaneSwitch (Plane A to A (High to Low)).tsx
+../Tiled Object Templates/Images/PlaneSwitch (Plane B to B (High to High)).tsx
+../Tiled Object Templates/Images/Spring (Red Vertical).tsx
+../Tiled Object Templates/Images/ItemBox (Electric Shield).tsx
+../Tiled Object Templates/Images/ItemBox (Basic Shield).tsx
+Objects/68BA37F1.ibc
+Objects/B7F23054.ibc
+Objects/45C9DD6D.ibc
+Objects/E3AF9976.ibc
+Objects/C1EBB4C4.ibc
+Objects/9F5F3764.ibc
+Objects/91130FFC.ibc
+Objects/8285E277.ibc
+Objects/BFFA449E.ibc
+Objects/1F3E8360.ibc
+Objects/6E28E802.ibc
+Objects/3E9673F6.ibc
+Objects/539C97DA.ibc
+Objects/D15B732C.ibc
+Objects/FA4036BB.ibc
+Objects/B013EE16.ibc
+Objects/D5CA4777.ibc
+Objects/5AE787AE.ibc
+Sprites/Menu/Pause/PauseMenu.bin
+Sprites/Menu/Pause/NoiseOverlay.png
+Sprites/Menu/Pause/Font.bin
+Sprites/Menu/Pause/Font.png
+Scenes/BTZ/TileConfig.bin
+Music/FaithfulPremonition.ogg
+Sprites/Global/ItemBox.bin
+Sprites/Global/Items.png
+Sprites/Global/Mobile Buttons.bin
+Sprites/Global/Mobile Buttons.gif
+Sprites/Global/Dust.bin
+Sprites/Global/Explosions.gif
+Objects/3063EAA8.ibc
+Sprites/Players/TailSprite.bin
+Sprites/Players/TailSprite.gif
+Objects/F9339168.ibc
+Objects/3A4A773A.ibc
+Sprites/Global/Invincible.bin
+Sprites/Global/Shields.gif
+Sprites/CGZ/Wake.bin
+Sprites/CGZ/Objects.gif
+Objects/67B30FE9.ibc
+Sprites/Global/Shields.bin
+Sprites/Global/Shields.png
+Sprites/Global/LeafShieldBack.bin
+Sprites/Global/LeafShieldBack.png
+Sprites/Global/LeafShieldFront.bin
+Sprites/Global/LeafShieldFront.png
+SoundFX/Global/Hurt.wav
+SoundFX/Global/Jump.wav
+SoundFX/Global/Roll.wav
+SoundFX/Global/Grab.wav
+SoundFX/Global/Skidding.wav
+SoundFX/Stage/Drown.wav
+SoundFX/Global/Spike.wav
+SoundFX/Global/Flying.wav
+SoundFX/Global/Tired.wav
+SoundFX/Global/Land.wav
+SoundFX/Global/Slide.wav
+SoundFX/Stage/Transform2.wav
+SoundFX/Global/Charge.wav
+SoundFX/Global/Release.wav
+SoundFX/Global/PeelRelease.wav
+SoundFX/Global/FireDash.wav
+SoundFX/Global/LightningJump.wav
+SoundFX/Global/BubbleBounce.wav
+SoundFX/Global/InstaShield.wav
+SoundFX/Global/LeafBurst.wav
+SoundFX/Global/LeafBurstEnd.wav
+SoundFX/Global/PoisonShot.wav
+SoundFX/Stage/Splash.wav
+SoundFX/Stage/Warning.wav
+SoundFX/Stage/DrownAlert.wav
+SoundFX/HCZ/Skim.wav
+SoundFX/Stage/WaterSlap.wav
+SoundFX/Global/DropDashStart.wav
+SoundFX/Global/DropDash.wav
+SoundFX/Global/RP_Start.wav
+SoundFX/Global/RP_Swing.wav
+SoundFX/Global/RP_Rotate.wav
+SoundFX/Global/RP_FloorImpact.wav
+SoundFX/Global/RP_WallImpact.wav
+SoundFX/CGZ/SideJump.wav
+SoundFX/Global/MightyDeflect.wav
+SoundFX/Global/MightyUnspin.wav
+SoundFX/Global/MightyDrill.wav
+SoundFX/Global/TunnelDrill.wav
+SoundFX/Global/MightyLand.wav
+SoundFX/Stage/PimPom.wav
+SoundFX/Global/LoseRings.wav
+SoundFX/Global/ShieldDeflect.wav
+SoundFX/Stage/Pon.wav
+SoundFX/Global/Recurl.wav
+SoundFX/Stage/Clapperboard.wav
+SoundFX/Stage/Click2.wav
+SoundFX/Global/FangCharging2.wav
+SoundFX/Global/FangInterrupt.wav
+SoundFX/Global/FangCharged.wav
+SoundFX/Stage/Explosion2.wav
+SoundFX/Stage/RocketJet.wav
+Sprites/Players/Sonic.bin
+Sprites/Players/Sonic0.png
+Sprites/Players/Sonic1.png
+Palettes/PalSonic.col
+Sprites/Global/Ring.bin
+Sprites/Global/Springs.bin
+Sprites/Global/ObjectsGAL.png
+SoundFX/Global/Spring.wav
+SoundFX/Global/Push.wav
+SoundFX/Stage/Clang.wav
+SoundFX/Stage/Clack2.wav
+SoundFX/Stage/Clacker.wav
+Sprites/Global/Platform.bin
+Sprites/Global/Platform.png
+Sprites/Global/Water.bin
+Sprites/Global/Water.png
+Sprites/Global/Display.png
+Sprites/Global/PlaneSwitch.bin
+Sprites/Global/Display.gif
+SoundFX/Stage/LedgeBreak.wav
+SoundFX/CGZ/ButtonPress.wav
+SoundFX/CGZ/ButtonRelease.wav
+SoundFX/Stage/RumbleSustainShort.wav
+Sprites/Tutorial/BTZSwitch.bin
+Sprites/Tutorial/BTZSwitch.png
+SoundFX/Stage/HullClose.wav
+SoundFX/CGZ/ButtonRevSmall.wav
+Sprites/Tutorial/BTZDoors.bin
+Sprites/Tutorial/BTZDoors.png
+SoundFX/Global/Destroy.wav
+SoundFX/Global/Teleport.wav
+SoundFX/Global/HyperRing.wav
+SoundFX/Stage/PowerDown.wav
+SoundFX/Global/Recovery.wav
+SoundFX/Global/MenuWoosh.wav
+SoundFX/Global/Land2.wav
+SoundFX/Global/MenuWooshRev.wav
+SoundFX/Global/MenuClose.wav
+Sprites/UI/TutorialTextbox.bin
+Sprites/UI/TutorialTextbox.png
+Sprites/UI/SmallFontGreenGAL.bin
+Sprites/UI/SmallFont1Green.png
+Sprites/Enemies/EggDummy.bin
+Sprites/Enemies/EggDummy.png
+SoundFX/Stage/Bumper3.wav
+SoundFX/Stage/BossHit.wav
+SoundFX/Stage/Explosion.wav
+SoundFX/Stage/Launch.wav
+SoundFX/Stage/SpewBall.wav
+SoundFX/Stage/Clack.wav
+SoundFX/Stage/Impact3.wav
+SoundFX/CGZ/LoberWalk.wav
+SoundFX/Stage/Bumper.wav
+Objects/2DA3D4D8.ibc
+Objects/8482A2C2.ibc
+Objects/6461A79C.ibc
+Objects/898F1E35.ibc
+Sprites/Global/Explosions.bin
+Sprites/Global/Explosions.png
+Objects/1C3A062B.ibc
+Music/Options2.ogg
+Objects/404CA281.ibc
+Sprites/VIZ/Background.bin
+Sprites/VIZ/Background.gif
+Palettes/VIZ/VIZ1_BG_Evening.act
+Scenes/VIZ/intro.tmx
+Scenes/VIZ/VIZTiles16x16.tsx
+Scenes/VIZ/VIZTiles16x16.gif
+../Tiled Object Templates/Images/Spring (Red Diagonal).tsx
+../Tiled Object Templates/Images/Bridge (Length 12).tsx
+../Tiled Object Templates/Images/Spikes (Vertical).tsx
+../Tiled Object Templates/Images/Monitor (Speed Shoes).tsx
+../Tiled Object Templates/Images/Monitor (Rings).tsx
+../Tiled Object Templates/Images/Monitor (Eggman).tsx
+../Tiled Object Templates/Images/Monitor (S-Monitor).tsx
+../Tiled Object Templates/Images/Monitor (Bubble Shield).tsx
+../Tiled Object Templates/Images/Monitor (Electric Shield).tsx
+../Tiled Object Templates/Images/Monitor (Fire Shield).tsx
+../Tiled Object Templates/Images/Monitor (Basic Shield).tsx
+../Tiled Object Templates/Images/Monitor (Hyper Ring).tsx
+../Tiled Object Templates/Images/Monitor (Invincibility).tsx
+../Tiled Object Templates/Images/Starpost.tsx
+../Tiled Object Templates/Images/PlaneSwitch (Plane A to A (Low to Low)).tsx
+../Tiled Object Templates/Images/SpecialRing.tsx
+../Tiled Object Templates/Images/Spikes (Horizontal).tsx
+../Tiled Object Templates/Images/PlaneSwitch (Plane A to B (Low to Low)).tsx
+../Tiled Object Templates/Images/PlaneSwitch (Plane B to A (Low to Low)).tsx
+../Tiled Object Templates/Images/ItemBox (Hyper Ring).tsx
+../Tiled Object Templates/Images/Monitor (1-up).tsx
+../Tiled Object Templates/Images/Bridge (Length 8).tsx
+../Tiled Object Templates/Images/Platform (Moving).tsx
+../Tiled Object Templates/Images/Platform (Elevator Stationary).tsx
+../Tiled Object Templates/Images/ItemBox (Speed Shoes).tsx
+../Tiled Object Templates/Images/StarPost.tsx
+../Tiled Object Templates/Images/ItemBox (1-up).tsx
+../Tiled Object Templates/Images/Catercrawler.tsx
+../Tiled Object Templates/Images/Pinzen.tsx
+../Tiled Object Templates/Images/ItemBox (Bubble Shield).tsx
+../Tiled Object Templates/Images/Platform (Timed Falling).tsx
+../Tiled Object Templates/Images/ItemBox (Invincibility).tsx
+../Tiled Object Templates/Images/Mosquito.tsx
+../Tiled Object Templates/Images/BoundsMarker (Max Y When Player Above).tsx
+../Tiled Object Templates/Images/PlaneSwitch (Plane A to A (Low to High)).tsx
+../Tiled Object Templates/Images/Shellmer.tsx
+../Tiled Object Templates/Images/BoundsMarker (Max Y).tsx
+../Tiled Object Templates/Images/SignPost.tsx
+../Tiled Object Templates/Images/SandwormBoss.tsx
+../Tiled Object Templates/Images/PlaneSwitch (Plane A to B (Low to High)).tsx
+Scenes/VIZ/VIZ1Background.tsx
+Scenes/VIZ/Background.gif
+../../0 - Hatch Game Engine/Tiled Object Templates/Images/Spikes (Horizontal).tsx
+../../0 - Hatch Game Engine/Tiled Object Templates/Images/ItemBox (Speed Shoes).tsx
+../../0 - Hatch Game Engine/Tiled Object Templates/Images/ItemBox (Basic Shield).tsx
+../../0 - Hatch Game Engine/Tiled Object Templates/Images/SignPost.tsx
+../../0 - Hatch Game Engine/Tiled Object Templates/Images/StarPost.tsx
+../../0 - Hatch Game Engine/Tiled Object Templates/Images/ItemBox (Rings).tsx
+../../0 - Hatch Game Engine/Tiled Object Templates/Images/SandwormBoss.tsx
+../../0 - Hatch Game Engine/Tiled Object Templates/Images/ItemBox (Fire Shield).tsx
+../../0 - Hatch Game Engine/Tiled Object Templates/Images/ItemBox (Bubble Shield).tsx
+../../0 - Hatch Game Engine/Tiled Object Templates/Images/ItemBox (Electric Shield).tsx
+Scenes/VIZ/BackgroundIntro.png
+Objects/25FD5506.ibc
+Objects/8C622BF4.ibc
+Objects/9D25520D.ibc
+Objects/474B3891.ibc
+Objects/5D291ED6.ibc
+Scenes/VIZ/TileConfig.bin
+Sprites/VIZ/AniTiles/Flowers.bin
+Sprites/VIZ/AniTiles/Flowers.png
+Sprites/VIZ/AniTiles/Bush1.bin
+Sprites/VIZ/AniTiles/Bush1.png
+Sprites/VIZ/AniTiles/ShrubsAndTrees.bin
+Sprites/VIZ/AniTiles/ShrubsAndTrees.gif
+Music/VIZ1.ogg
+Music/VIZ1_speed.ogg
+Palettes/VIZ/VIZ1_Morning.act
+Palettes/VIZ/VIZ1_Evening.act
+Palettes/VIZ/VIZ1_BG_Morning.act
+Objects/6E36E8C0.ibc
+Sprites/VIZ/Intro/VIZIntroSonic.bin
+Sprites/VIZ/Intro/VIZIntroSonic.png
+SoundFX/VIZ/FingerSnap.ogg
+Sprites/VIZ/Intro/VIZIntroTornado.bin
+Sprites/VIZ/Intro/VIZIntroTornado.png
+SoundFX/Stage/DustShort.wav
+Sprites/Global/TornadoTails.bin
+Sprites/Global/TornadoTails.png
+Sprites/VIZ/Intro/VIZIntroKnuckles.bin
+Sprites/VIZ/Intro/VIZIntroKnuckles.png
+Sprites/Players/Knuckles.bin
+Sprites/Players/Knuckles0.png
+Sprites/Players/Knuckles1.png
+Sprites/VIZ/Intro/VIZIntroFang.bin
+Sprites/VIZ/Intro/VIZIntroFang.png
+Sprites/Global/VehicleFang.bin
+Sprites/Global/VehicleFang.png
+SoundFX/Stage/Bumper2.wav
+Sprites/Global/MarvelousQueenFlame.bin
+Sprites/Global/MarvelousQueenFlame.png
+Sprites/VIZ/Intro/VIZIntroMosquito.bin
+Sprites/VIZ/Intro/VIZIntroMosquito.png
+Sprites/Enemies/Mosquito.bin
+Sprites/Enemies/Mosquito.png
+Sprites/VIZ/Intro/VIZIntroPinzen.bin
+Sprites/VIZ/Intro/VIZIntroPinzen.png
+Sprites/VIZ/Intro/VIZIntroEggrobo.bin
+Sprites/VIZ/Intro/VIZIntroEggrobo.png
+Sprites/Players/Tails.bin
+Sprites/Players/Tails.gif
+Sprites/VIZ/Intro/VIZIntroTails.bin
+Sprites/VIZ/Intro/VIZIntroTails.png
+Sprites/Players/Fang.bin
+Sprites/Players/Fang0.png
+Sprites/Players/Fang1.png
+Sprites/Players/Tunnel.bin
+Sprites/Players/Tunnel0.png
+Sprites/Players/Tunnel1.png
+Sprites/VIZ/Intro/VIZIntroTunnel.bin
+Sprites/VIZ/Intro/VIZIntroTunnel.png
+SoundFX/Stage/Impact7.wav
+Objects/EF55945B.ibc
+Sprites/Global/TinyPuff.bin
+Sprites/Global/TinyPuff.png
+Objects/F504CC84.ibc
+Sprites/Global/Animals.bin
+Sprites/Global/Animals.png
+Sprites/VIZ/GrassParticles.bin
+Sprites/VIZ/GrassParticles.png
+Objects/75C89301.ibc
+Music/Tunnel.ogg
+Scenes/VIZ/act1.tmx
+Objects/359F23AC.ibc
+Objects/8D75023B.ibc
+Objects/9DD79146.ibc
+Objects/ACAA1FC3.ibc
+Objects/275F3B33.ibc
+Objects/1E60CE64.ibc
+Objects/839B9753.ibc
+Objects/40451750.ibc
+Objects/CECC794B.ibc
+Objects/525D83B7.ibc
+Objects/EFAE50CA.ibc
+Objects/93BA7909.ibc
+Objects/B273B2B3.ibc
+Objects/DDB02D0C.ibc
+Sprites/Global/VIZSling.png
+SoundFX/Stage/RockemSockem.wav
+SoundFX/Stage/Shoot1.wav
+Sprites/Enemies/Catercrawler.bin
+Sprites/Enemies/Catercrawler.png
+SoundFX/VIZ/BackItUp.wav
+Sprites/Global/SpecialRing.bin
+Sprites/Global/SpecialRing0.png
+Sprites/Global/SpecialRing1.png
+Sprites/Global/SpecialRingFlash.bin
+Sprites/Global/Objects3.png
+SoundFX/Global/SpecialRing.wav
+Sprites/Global/TitleCardAltered.bin
+Sprites/Global/Galactic.png
+Sprites/Enemies/Pinzen.bin
+Sprites/Enemies/Pinzen.png
+Sounds/Player/snd_player_roll.wav
+Sounds/General/snd_sfx_collapse.wav
+Sprites/VIZ/Bridge.bin
+Sprites/VIZ/Bridge.png
+Sprites/VIZ/Platform.bin
+Sprites/VIZ/Platform.png
+Sprites/Global/Spikes.bin
+Sprites/Global/Objects.gif
+Sprites/Global/Spikes.png
+SoundFX/Global/SpikesDestroy.wav
+SoundFX/Global/SpikesMove.wav
+Sprites/Global/StarPost.bin
+SoundFX/Global/StarPost.wav
+SoundFX/VIZ/Mosquito.wav
+SoundFX/VIZ/MosquitoRev.wav
+SoundFX/VIZ/MosquitoAttack.wav
+SoundFX/Stage/Whack.wav
+Sprites/Global/SignPost.bin
+Sprites/Global/SignPost.png
+SoundFX/Global/SignPost.wav
+SoundFX/Global/SignPost2p.wav
+Sprites/VIZ/Sandworm.bin
+Sprites/VIZ/SandwormNew.png
+Sprites/VIZ/SandPuff.bin
+Sprites/VIZ/SandPuff.png
+SoundFX/Stage/Explosion5.wav
+SoundFX/VIZ/SandSwim.wav
+SoundFX/Stage/CannonFire.wav
+SoundFX/Stage/Magnet.wav
+Objects/9BC71A42.ibc
+Sprites/Global/GroundParticle.bin
+Sprites/Global/GroundParticle.png
+Objects/E0419342.ibc
+Objects/29BFFC5B.ibc
+Sprites/Global/ScoreBonus.bin
+Sprites/Global/ScoreBonus.png
+### MANUALLY ADDED BELOW THIS LINE ######################################################
+Scenes/VIZ/act1.tmx
+Scenes/SEGA.tmx
+Scenes/CGZ/AniTileConfig.bin
+Scenes/VIZ/intro.tmx
+Scenes/VIZ/act2.tmx
+Scenes/CGZ/cgza2.tmx
+Scenes/LCZ/lcza1.tmx
+Scenes/LCZ/lcza2.tmx
+Scenes/Credits.tmx
+Scenes/CGZ/cgza1.tmx
+Scenes/BonusStage/4.tmx
+Music/LCZ1.ogg
+Music/LCZ2.ogg
+Music/BossMini.ogg
+Music/BRZ1.ogg
+Music/ActClearLCZ1.ogg
+Music/CGZ1.ogg
+Music/CGZ2.ogg
+Music/smoggyswamp.ogg
+Music/bonus.ogg
+Music/HPZ.ogg
+Music/CGZ2.ogg
+Music/CGZShrine.ogg
+Music/CGZ2.ogg
+Music/MissionFailed.ogg
+Music/CGZ1.ogg
+Palettes/PalSonic.col
+Palettes/VIZ/VIZ1_BG_Evening.act
+Palettes/VIZ/VIZ1_Morning.act
+Palettes/VIZ/VIZ1_Evening.act
+Palettes/VIZ/VIZ1_BG_Morning.act
+SoundFX/Global/RingLeft.wav
+SoundFX/Global/RingRight.wav
+SoundFX/Global/Twinkle.wav
+SoundFX/Special/Event.wav
+SoundFX/Global/BlueShield.wav
+SoundFX/Global/FireShield.wav
+SoundFX/Global/LightningShield.wav
+SoundFX/Global/BubbleShield.wav
+SoundFX/Global/LeafShield.wav
+SoundFX/Global/PoisonShield.wav
+SoundFX/Global/SegaReverb.wav
+SoundFX/Global/Twinkle2.wav
+SoundFX/Global/Notification.wav
+SoundFX/Title/HeyBuddy.wav
+SoundFX/Global/SpecialWarp.wav
+SoundFX/Global/RaySwoop.wav
+SoundFX/Global/Hurt.wav
+SoundFX/Global/Jump.wav
+SoundFX/Global/Roll.wav
+SoundFX/Global/Grab.wav
+SoundFX/Global/Skidding.wav
+SoundFX/Stage/Drown.wav
+SoundFX/Global/Spike.wav
+SoundFX/Global/Flying.wav
+SoundFX/Global/Tired.wav
+SoundFX/Global/Land.wav
+SoundFX/Global/Slide.wav
+SoundFX/Stage/Transform2.wav
+SoundFX/Global/Charge.wav
+SoundFX/Global/Release.wav
+SoundFX/Global/PeelRelease.wav
+SoundFX/Global/FireDash.wav
+SoundFX/Global/LightningJump.wav
+SoundFX/Global/BubbleBounce.wav
+SoundFX/Global/InstaShield.wav
+SoundFX/Global/LeafBurst.wav
+SoundFX/Global/LeafBurstEnd.wav
+SoundFX/Global/PoisonShot.wav
+SoundFX/Stage/Splash.wav
+SoundFX/Stage/Warning.wav
+SoundFX/Stage/DrownAlert.wav
+SoundFX/HCZ/Skim.wav
+SoundFX/Stage/WaterSlap.wav
+SoundFX/Global/DropDashStart.wav
+SoundFX/Global/DropDash.wav
+SoundFX/Global/RP_Start.wav
+SoundFX/Global/RP_Swing.wav
+SoundFX/Global/RP_Rotate.wav
+SoundFX/Global/RP_FloorImpact.wav
+SoundFX/Global/RP_WallImpact.wav
+SoundFX/CGZ/SideJump.wav
+SoundFX/Global/MightyDeflect.wav
+SoundFX/Global/MightyUnspin.wav
+SoundFX/Global/MightyDrill.wav
+SoundFX/Global/TunnelDrill.wav
+SoundFX/Global/MightyLand.wav
+SoundFX/Stage/PimPom.wav
+SoundFX/Global/LoseRings.wav
+SoundFX/Global/ShieldDeflect.wav
+SoundFX/Stage/Pon.wav
+SoundFX/Global/Recurl.wav
+SoundFX/Stage/Clapperboard.wav
+SoundFX/Stage/Click2.wav
+SoundFX/Global/FangCharging2.wav
+SoundFX/Global/FangInterrupt.wav
+SoundFX/Global/FangCharged.wav
+SoundFX/Stage/Explosion2.wav
+SoundFX/Stage/RocketJet.wav
+SoundFX/Global/Spring.wav
+SoundFX/Global/Push.wav
+SoundFX/Stage/Clang.wav
+SoundFX/Stage/Clack2.wav
+SoundFX/Stage/Clacker.wav
+SoundFX/Stage/LedgeBreak.wav
+SoundFX/CGZ/ButtonPress.wav
+SoundFX/CGZ/ButtonRelease.wav
+SoundFX/Stage/RumbleSustainShort.wav
+SoundFX/Stage/HullClose.wav
+SoundFX/CGZ/ButtonRevSmall.wav
+SoundFX/Global/Destroy.wav
+SoundFX/Global/Teleport.wav
+SoundFX/Global/HyperRing.wav
+SoundFX/Stage/PowerDown.wav
+SoundFX/Global/Recovery.wav
+SoundFX/Global/MenuWoosh.wav
+SoundFX/Global/Land2.wav
+SoundFX/Global/MenuWooshRev.wav
+SoundFX/Global/MenuClose.wav
+SoundFX/Stage/Bumper3.wav
+SoundFX/Stage/BossHit.wav
+SoundFX/Stage/Explosion.wav
+SoundFX/Stage/Launch.wav
+SoundFX/Stage/SpewBall.wav
+SoundFX/Stage/Clack.wav
+SoundFX/Stage/Impact3.wav
+SoundFX/CGZ/LoberWalk.wav
+SoundFX/Stage/Bumper.wav
+SoundFX/VIZ/FingerSnap.ogg
+SoundFX/Stage/DustShort.wav
+SoundFX/Stage/Bumper2.wav
+SoundFX/Stage/Impact7.wav
+SoundFX/Stage/RockemSockem.wav
+SoundFX/Stage/Shoot1.wav
+SoundFX/VIZ/BackItUp.wav
+SoundFX/Global/SpecialRing.wav
+SoundFX/Global/SpikesDestroy.wav
+SoundFX/Global/SpikesMove.wav
+SoundFX/Global/StarPost.wav
+SoundFX/VIZ/Mosquito.wav
+SoundFX/VIZ/MosquitoRev.wav
+SoundFX/VIZ/MosquitoAttack.wav
+SoundFX/Stage/Whack.wav
+SoundFX/Global/SignPost.wav
+SoundFX/Global/SignPost2p.wav
+SoundFX/Stage/Explosion5.wav
+SoundFX/VIZ/SandSwim.wav
+SoundFX/Stage/CannonFire.wav
+SoundFX/Stage/Magnet.wav
+Sounds/General/MenuBleep.wav
+Sounds/Player/Impact3.wav
+Sounds/General/snd_sfx_error.wav
+Sounds/General/ScoreAdd.wav
+Sounds/General/ScoreTotal.wav
+Sounds/General/ScoreTotal.wav
+Sounds/General/ScoreAdd.wav
+Sounds/General/ScoreTotal.wav
+Sounds/General/snd_sfx_teleport_start.wav
+Sounds/General/snd_sfx_fireball.wav
+Sounds/General/snd_sfx_teleport_start.wav
+Sounds/General/snd_sfx_teleport_start.wav
+Sounds/General/snd_shrink.wav
+Sprites/UI/SmallFontGAL.bin
+Sprites/UI/SmallFont1.gif
+Sprites/UI/SmallFontOrangeGAL.bin
+Sprites/UI/SmallFont1Orange.gif
+Sprites/Startup/SEGA.png
+Sprites/Startup/RingSparkle.bin
+Sprites/Startup/RingSparkle.png
+Sprites/Startup/StarteamLogo.bin
+Sprites/Startup/StarteamLogo.png
+Sprites/TitleScreen/Background.png
+Sprites/TitleScreen/IllusionIsland.png
+Sprites/TitleScreen/IllusionIslandReflection.png
+Sprites/TitleScreen/VerdantIsle.png
+Sprites/TitleScreen/VerdantIsleReflection.png
+Sprites/TitleScreen/Waterwaves.png
+Sprites/TitleScreen/StartButton.png
+Sprites/TitleScreen/Sonic.bin
+Sprites/TitleScreen/TitleScreen0.png
+Sprites/TitleScreen/TitleScreen1.png
+Sprites/TitleScreen/TitleScreen2.png
+Sprites/TitleScreen/GalacticTitleRing.bin
+Sprites/TitleScreen/GalacticTitleRing.png
+Sprites/Menu/MainMenu/MainMenu.bin
+Sprites/Menu/MainMenu/MainMenu.png
+Sprites/Menu/MainMenu/Interface.bin
+Sprites/Menu/MainMenu/Interface0.png
+Sprites/Menu/MainMenu/Interface1.png
+Sprites/Menu/MainMenu/Background.bin
+Sprites/Menu/MainMenu/Background.png
+Sprites/VIZ/VIZ2bg/Background2.bin
+Sprites/VIZ/VIZ2bg/[Layer 0] Sky.png
+Sprites/VIZ/VIZ2bg/[Layer 1] Mt1.png
+Sprites/VIZ/VIZ2bg/[Layer 2] Mt2.png
+Sprites/VIZ/VIZ2bg/[Layer 3] Wt1.png
+Sprites/VIZ/VIZ2bg/[Layer 4] Wt2.png
+Sprites/VIZ/VIZ2bg/[Layer 5] Wt3.png
+Sprites/VIZ/VIZ2bg/[Layer 6] WtShine.png
+Sprites/VIZ/VIZ2bg/[Layer 7] BGGround1.png
+Sprites/VIZ/VIZ2bg/[Layer 8] BGGround2.png
+Sprites/VIZ/VIZ2bg/[Layer 8] FG1.png
+Sprites/VIZ/VIZ2bg/[Layer 9] FG2-Trees1.png
+Sprites/VIZ/VIZ2bg/[Layer 10] FG3-Komerebi1.png
+Sprites/VIZ/VIZ2bg/[Layer 11] FG4-Woodvines.png
+Sprites/VIZ/VIZ2bg/[Layer 12] FG5-Trees2.png
+Sprites/VIZ/VIZ2bg/[Layer 13] FG6-LeafT.png
+Sprites/VIZ/VIZ2bg/[Layer 14] FG7-Komorebi2.png
+Sprites/VIZ/VIZ2bg/[Layer 15] FG8-LeafB.png
+Sprites/VIZ/VIZ2bg/[Layer 16] FG9-Leaf.png
+Sprites/Global/HUD.bin
+Sprites/Global/HUD.png
+Sprites/Menu/Battle/Title.bin
+Sprites/Menu/Battle/BattleTitle.png
+Sprites/Menu/Battle/battletitlescreen.bin
+Sprites/Menu/Battle/battletitlescreen0.png
+Sprites/Menu/Battle/battletitlescreen1.png
+Sprites/Menu/Competition/CompetitionOptions.bin
+Sprites/Menu/Competition/CompetitionOptions.png
+Sprites/Menu/Competition/CompetitionOptionsBG.png
+Sprites/Menu/Competition/Competition.bin
+Sprites/Menu/Competition/Background.png
+Sprites/Menu/Competition/Circle.png
+Sprites/Menu/Competition/Cards.png
+Sprites/Menu/Competition/Players.png
+Sprites/Menu/Competition/Names.png
+Sprites/Menu/Competition/UI.png
+Sprites/Menu/Competition/StageSelect.png
+Sprites/Menu/Competition/StageSelectMask.png
+Sprites/Menu/Competition/Characters.png
+Sprites/Global/CharacterPortraits.bin
+Sprites/Global/CharacterPortraits.png
+Sprites/HPZ/bg.bin
+Sprites/HPZ/bg.png
+Sprites/Menu/Options/Options.bin
+Sprites/Menu/Options/Elements1.png
+Sprites/Menu/Options/Elements2.png
+Sprites/Menu/Options/Buttons.png
+Sprites/Menu/Options/Font.png
+Sprites/Menu/Options/Cog.png
+Sprites/Menu/Options/Foreground.png
+Sprites/Menu/Options/Sliders.png
+Sprites/Menu/Options/Background1.png
+Sprites/Menu/Options/Background2.png
+Sprites/Menu/Options/Background3.png
+Sprites/Menu/Options/Background4.png
+Sprites/Menu/Options/Background5.png
+Sprites/Menu/Pause/PauseMenu.png
+Sprites/Menu/DataSelect/Misc.png
+Sprites/Menu/Options/Occluder.png
+Sprites/Menu/Options/ConfigText.bin
+Sprites/Menu/Options/ConfigText.png
+Sprites/Menu/Options/Keys.bin
+Sprites/Menu/Options/Keys.png
+Sprites/Menu/Options/ConfigBackground.png
+Sprites/Menu/DataSelect/DataSelect.bin
+Sprites/Menu/DataSelect/Background.png
+Sprites/Menu/DataSelect/Occluder.png
+Sprites/Menu/DataSelect/Characters.png
+Sprites/Menu/DataSelect/Slots.png
+Sprites/Menu/DataSelect/Guide.png
+Sprites/Menu/DataSelect/Interact.png
+Sprites/Menu/DataSelect/Font.png
+Sprites/Menu/DataSelect/FileNumbers.png
+Sprites/Menu/DataSelect/LifeNumbers.png
+Sprites/Menu/DataSelect/Prompt.png
+Sprites/Tutorial/bg/bg.bin
+Sprites/Tutorial/bg/bg1.png
+Sprites/Tutorial/bg/bg2.png
+Sprites/Tutorial/bg/bg3.png
+Sprites/Tutorial/bg/bg4.png
+Sprites/Tutorial/bg/bg5.png
+Sprites/Tutorial/bg/bg6.png
+Sprites/Tutorial/bg/bg7.png
+Sprites/Tutorial/bg/bg8.png
+Sprites/Tutorial/bg/bg9.png
+Sprites/Tutorial/bg/bg10.png
+Sprites/Menu/Pause/PauseMenu.bin
+Sprites/Menu/Pause/NoiseOverlay.png
+Sprites/Menu/Pause/Font.bin
+Sprites/Menu/Pause/Font.png
+Sprites/Global/ItemBox.bin
+Sprites/Global/Items.png
+Sprites/Global/Mobile Buttons.bin
+Sprites/Global/Mobile Buttons.gif
+Sprites/Global/Dust.bin
+Sprites/Global/Explosions.gif
+Sprites/Players/TailSprite.bin
+Sprites/Players/TailSprite.gif
+Sprites/Global/Invincible.bin
+Sprites/Global/Shields.gif
+Sprites/CGZ/Wake.bin
+Sprites/CGZ/Objects.gif
+Sprites/Global/Shields.bin
+Sprites/Global/Shields.png
+Sprites/Global/LeafShieldBack.bin
+Sprites/Global/LeafShieldBack.png
+Sprites/Global/LeafShieldFront.bin
+Sprites/Global/LeafShieldFront.png
+Sprites/Players/Sonic.bin
+Sprites/Players/Sonic0.png
+Sprites/Players/Sonic1.png
+Sprites/Global/Ring.bin
+Sprites/Global/Springs.bin
+Sprites/Global/ObjectsGAL.png
+Sprites/Global/Platform.bin
+Sprites/Global/Platform.png
+Sprites/Global/Water.bin
+Sprites/Global/Water.png
+Sprites/Global/Display.png
+Sprites/Global/PlaneSwitch.bin
+Sprites/Global/Display.gif
+Sprites/Tutorial/BTZSwitch.bin
+Sprites/Tutorial/BTZSwitch.png
+Sprites/Tutorial/BTZDoors.bin
+Sprites/Tutorial/BTZDoors.png
+Sprites/UI/TutorialTextbox.bin
+Sprites/UI/TutorialTextbox.png
+Sprites/UI/SmallFontGreenGAL.bin
+Sprites/UI/SmallFont1Green.png
+Sprites/Enemies/EggDummy.bin
+Sprites/Enemies/EggDummy.png
+Sprites/Global/Explosions.bin
+Sprites/Global/Explosions.png
+Sprites/VIZ/Background.bin
+Sprites/VIZ/Background.gif
+Sprites/VIZ/AniTiles/Flowers.bin
+Sprites/VIZ/AniTiles/Flowers.png
+Sprites/VIZ/AniTiles/Bush1.bin
+Sprites/VIZ/AniTiles/Bush1.png
+Sprites/VIZ/AniTiles/ShrubsAndTrees.bin
+Sprites/VIZ/AniTiles/ShrubsAndTrees.gif
+Sprites/VIZ/Intro/VIZIntroSonic.bin
+Sprites/VIZ/Intro/VIZIntroSonic.png
+Sprites/VIZ/Intro/VIZIntroTornado.bin
+Sprites/VIZ/Intro/VIZIntroTornado.png
+Sprites/Global/TornadoTails.bin
+Sprites/Global/TornadoTails.png
+Sprites/VIZ/Intro/VIZIntroKnuckles.bin
+Sprites/VIZ/Intro/VIZIntroKnuckles.png
+Sprites/Players/Knuckles.bin
+Sprites/Players/Knuckles0.png
+Sprites/Players/Knuckles1.png
+Sprites/VIZ/Intro/VIZIntroFang.bin
+Sprites/VIZ/Intro/VIZIntroFang.png
+Sprites/Global/VehicleFang.bin
+Sprites/Global/VehicleFang.png
+Sprites/Global/MarvelousQueenFlame.bin
+Sprites/Global/MarvelousQueenFlame.png
+Sprites/VIZ/Intro/VIZIntroMosquito.bin
+Sprites/VIZ/Intro/VIZIntroMosquito.png
+Sprites/Enemies/Mosquito.bin
+Sprites/Enemies/Mosquito.png
+Sprites/VIZ/Intro/VIZIntroPinzen.bin
+Sprites/VIZ/Intro/VIZIntroPinzen.png
+Sprites/VIZ/Intro/VIZIntroEggrobo.bin
+Sprites/VIZ/Intro/VIZIntroEggrobo.png
+Sprites/Players/Tails.bin
+Sprites/Players/Tails.gif
+Sprites/VIZ/Intro/VIZIntroTails.bin
+Sprites/VIZ/Intro/VIZIntroTails.png
+Sprites/Players/Fang.bin
+Sprites/Players/Fang0.png
+Sprites/Players/Fang1.png
+Sprites/Players/Tunnel.bin
+Sprites/Players/Tunnel0.png
+Sprites/Players/Tunnel1.png
+Sprites/VIZ/Intro/VIZIntroTunnel.bin
+Sprites/VIZ/Intro/VIZIntroTunnel.png
+Sprites/Global/TinyPuff.bin
+Sprites/Global/TinyPuff.png
+Sprites/Global/Animals.bin
+Sprites/Global/Animals.png
+Sprites/VIZ/GrassParticles.bin
+Sprites/VIZ/GrassParticles.png
+Sprites/Global/VIZSling.png
+Sprites/Enemies/Catercrawler.bin
+Sprites/Enemies/Catercrawler.png
+Sprites/Global/SpecialRing.bin
+Sprites/Global/SpecialRing0.png
+Sprites/Global/SpecialRing1.png
+Sprites/Global/SpecialRingFlash.bin
+Sprites/Global/Objects3.png
+Sprites/Global/TitleCardAltered.bin
+Sprites/Global/Galactic.png
+Sprites/Enemies/Pinzen.bin
+Sprites/Enemies/Pinzen.png
+Sprites/VIZ/Bridge.bin
+Sprites/VIZ/Bridge.png
+Sprites/VIZ/Platform.bin
+Sprites/VIZ/Platform.png
+Sprites/Global/Spikes.bin
+Sprites/Global/Objects.gif
+Sprites/Global/Spikes.png
+Sprites/Global/StarPost.bin
+Sprites/Global/SignPost.bin
+Sprites/Global/SignPost.png
+Sprites/VIZ/Sandworm.bin
+Sprites/VIZ/SandwormNew.png
+Sprites/VIZ/SandPuff.bin
+Sprites/VIZ/SandPuff.png
+Sprites/Global/GroundParticle.bin
+Sprites/Global/GroundParticle.png
+Sprites/Global/ScoreBonus.bin
+Sprites/Global/ScoreBonus.png
+Strings/Credits.json
+Resources/Models/SpecialStage/UFO2.png
+Resources/Models/SpecialStage/UFO2.png
+Models/SpecialStage/UFO2.png
+Models/SpecialStage/UFO2.png
+Sprites/AIZ/Objects.gif
+Sprites/AIZ/Objects2.gif
+Sprites/AIZ/Portal1.gif
+Sprites/AIZ/Portal2.gif
+Bonus/bg0.png
+Bonus/bg1.png
+Bonus/bg2.png
+Bonus/bg3.png
+Bonus/bubbleitems.png
+Bonus/DropShadow.png
+Bonus/fence.png
+Bonus/FenceShadow.png
+Bonus/hud.png

@@ -31,6 +31,7 @@ def export_data(hatch_file_path: str, filenames_list_file_path: str, output_dire
     Function for exporting data
     """
     logger.info("Starting export data...")
+    known_filenames_counter: int = 0
 
     # Reading names from TXT file
     filenames_file = open(filenames_list_file_path, "rt")
@@ -63,13 +64,12 @@ def export_data(hatch_file_path: str, filenames_list_file_path: str, output_dire
         f_data_flag: int = hatch_file.read_uint32()
         f_compressed_size: int = hatch_file.read_uint64()
         f_filename: Optional[str] = f"Unknown_Files/file{i}.bin"
-        f_filename_known_flag: bool = False
         back_offset: int = hatch_file.get_position()
 
         for known_crc_entry in known_crc_entries_list:
             if known_crc_entry.crc32 == f_crc:
                 f_filename = known_crc_entry.file_name
-                f_filename_known_flag = True
+                known_filenames_counter += 1
 
         logger.info(f'{i}) {f_filename}')
 
@@ -83,9 +83,8 @@ def export_data(hatch_file_path: str, filenames_list_file_path: str, output_dire
             f_data: bytes = hatch_file.read_bytes(f_uncompressed_size)
 
         # Decryption logic
-        if f_data_flag == 2 and f_filename_known_flag:
-            f_data = decrypt_hatch_data(f_data, f_filename, f_uncompressed_size)
-            pass
+        if f_data_flag == 2:
+            f_data = decrypt_hatch_data(f_data, f_crc, f_uncompressed_size)
 
         # Save data logic
         absolute_file_path: str = os.path.join(output_directory_path, f_filename.replace("/", "\\"))
@@ -105,6 +104,9 @@ def export_data(hatch_file_path: str, filenames_list_file_path: str, output_dire
         hatch_file.seek(back_offset)
 
     hatch_file.close()
+    logger.info(f"Known filenames: {known_filenames_counter}")
+    logger.info(f"Unknown filenames: {file_count - known_filenames_counter}")
+    logger.info(f"All filenames: {file_count}")
     logger.info("Ending export data...")
     return True
 
