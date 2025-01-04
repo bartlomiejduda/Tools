@@ -6,6 +6,7 @@ License: GPL-3.0 License
 import os
 import zlib
 from dataclasses import dataclass
+from pathlib import Path
 from typing import Optional
 
 from reversebox.common.logger import get_logger
@@ -116,7 +117,8 @@ def main():
     Main function of this program.
     """
     hatch_file_path: str = os.environ['HATCH_FILE_PATH']
-    filenames_list_file_path: str = os.environ['FILENAMES_LIST_FILE_PATH']
+    filenames_list_file_path: str = os.path.join(Path(__file__).parents[0].resolve(), "filelists", "sonic_galactic_demo2_filenames.txt")
+
     output_directory_path: str = os.environ['OUTPUT_DIRECTORY_PATH']
     export_data(hatch_file_path, filenames_list_file_path, output_directory_path)
 

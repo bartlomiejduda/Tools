@@ -987,12 +987,192 @@ Sprites/AIZ/Objects.gif
 Sprites/AIZ/Objects2.gif
 Sprites/AIZ/Portal1.gif
 Sprites/AIZ/Portal2.gif
-Bonus/bg0.png
-Bonus/bg1.png
-Bonus/bg2.png
-Bonus/bg3.png
-Bonus/bubbleitems.png
-Bonus/DropShadow.png
-Bonus/fence.png
-Bonus/FenceShadow.png
-Bonus/hud.png
+Sprites/Bonus/bg0.png
+Sprites/Bonus/bg1.png
+Sprites/Bonus/bg2.png
+Sprites/Bonus/bg3.png
+Sprites/Bonus/bubbleitems.png
+Sprites/Bonus/DropShadow.png
+Sprites/Bonus/fence.png
+Sprites/Bonus/FenceShadow.png
+Sprites/Bonus/hud.png
+Sprites/Bonus/landfx.png
+Sprites/BRZ/BeeShido.png
+Sprites/BRZ/act1bg/1.png
+Sprites/BRZ/act1bg/2.png
+Sprites/BRZ/act1bg/3.png
+Sprites/BRZ/act1bg/4.png
+Sprites/BRZ/act1bg/5.png
+Sprites/BRZ/act1bg/6.png
+Sprites/BRZ/act1bg/7.png
+Sprites/BRZ/act1bg/8.png
+Sprites/BRZ/act1bg/9.png
+Sprites/BRZ/act1bg/10.png
+Sprites/BRZ/act1bg/11.png
+Sprites/BRZ/act1bg/12.png
+Sprites/BRZ/act1bg/13.png
+Sprites/BRZ/act1bg/14.png
+Sprites/BRZ/act1bg/15.png
+Sprites/BRZ/act1bg/16.png
+Sprites/BRZ/act1bg/17.png
+Sprites/BRZ/act1bg/18.png
+Sprites/BRZ/act1bg/19.png
+Sprites/BRZ/act1bg/20.png
+Sprites/BRZ/act1bg/21.png
+Sprites/BRZ/act1bg/Rocks.png
+Sprites/BRZ/act1bg/Reflection.png
+Sprites/CGZ/AniTiles.png
+Sprites/CGZ/AniTiles5.png
+Sprites/CGZ/BigCrab.png
+Sprites/CGZ/CGZ2Bolt.png
+Sprites/CGZ/Boss0.png
+Sprites/CGZ/Boss1.png
+Sprites/CGZ/DragonProjectile.png
+Sprites/CGZ/BubbleFlower.gif
+Sprites/CGZ/CGZAnchor.png
+Sprites/CGZ/CGZBomb.png
+Sprites/CGZ/CGZButton.png
+Sprites/CGZ/CGZDoor.png
+Sprites/CGZ/CGZHang.png
+Sprites/CGZ/CGZSwing.png
+Sprites/CGZ/CGZTorpedo.png
+Sprites/CGZ/CGZTorpPiece.png
+Sprites/CGZ/CGZWaterSlide.png
+Sprites/CGZ/CGZWindow2.png
+Sprites/CGZ/CoralCannon.png
+Sprites/CGZ/CoralLauncher.png
+Sprites/CGZ/CrabMissile.png
+Sprites/CGZ/CrabBomb.png
+Sprites/CGZ/CrabShockwave.png
+Sprites/CGZ/DualClawzter.png
+Sprites/CGZ/HangDrop.png
+Sprites/CGZ/HangDrop1.png
+Sprites/CGZ/HangDrop2.png
+Sprites/CGZ/HangDrop3.png
+Sprites/CGZ/HangDrop4.png
+Sprites/CGZ/HangDrop5.png
+Sprites/CGZ/HangDrop6.png
+Sprites/CGZ/HangDrop7.png
+Sprites/CGZ/HangDrop8.png
+Sprites/CGZ/HookGimmick.png
+Sprites/CGZ/LCZWelcome.png
+Sprites/CGZ/LoberDebris.png
+Sprites/CGZ/LoberSpike.png
+Sprites/CGZ/Platform.png
+Sprites/CGZ/Star.png
+Sprites/CGZ/Stella.gif
+Sprites/CGZ/StellaOrb.png
+Sprites/CGZ/Teleporter0.png
+Sprites/CGZ/Teleporter1.png
+Sprites/CGZ/TinyBubble.png
+Sprites/CGZ/TubeLid.png
+Sprites/CGZ/WallBooster.png
+Sprites/CGZ/Waterfall.png
+Sprites/CGZ/WishCannon.png
+Sprites/CGZ/WishCannonParticles.png
+Sprites/CGZ/act1bg/l00_BG Layer1.png
+Sprites/CGZ/act1bg/l01_BG Layer1.png
+Sprites/CGZ/act1bg/l02_BG Layer1.png
+Sprites/CGZ/act1bg/l03_BG Layer1.png
+Sprites/CGZ/act1bg/l04_BG Layer1.png
+Sprites/CGZ/act1bg/l05_BG Layer1.png
+Sprites/CGZ/act1bg/l06_BG Layer1.png
+Sprites/CGZ/act1bg/l07_BG Layer1.png
+Sprites/CGZ/act1bg/l08_BG Layer1.png
+Sprites/CGZ/act1bg/l09_BG Layer1.png
+Sprites/CGZ/act1bg/l10_BG Layer1.png
+Sprites/CGZ/act1bg/l11_BG Layer1.png
+Sprites/CGZ/act1bg/l12_BG Layer1.png
+Sprites/CGZ/act1bg/l13_BG Layer1.png
+Sprites/CGZ/act1bg/l14_BG Layer1.png
+Sprites/CGZ/act1bg/l15_BG Layer1.png
+Sprites/CGZ/act1bg/l16_BG Layer1.png
+Sprites/CGZ/act1bg/l17_BG Layer1.png
+Sprites/CGZ/act1bg/l18_BG Layer1.png
+Sprites/CGZ/act1bg/l19_BG Layer1.png
+Sprites/CGZ/act1bg/l20_BG Layer1.png
+Sprites/CGZ/act1bg/l21_BG Layer1.png
+Sprites/CGZ/act1bg/l22_BG Layer1.png
+Sprites/CGZ/act1bg/l23_BG Layer1.png
+Sprites/CGZ/act1bg/l24_BG Layer1.png
+Sprites/CGZ/act1bg/l25_BG Layer1.png
+Sprites/CGZ/act2bg/above/0.png
+Sprites/CGZ/act2bg/above/1.png
+Sprites/CGZ/act2bg/above/2.png
+Sprites/CGZ/act2bg/above/3.png
+Sprites/CGZ/act2bg/above/4.png
+Sprites/CGZ/act2bg/above/5.png
+Sprites/CGZ/act2bg/above/6.png
+Sprites/CGZ/act2bg/above/7.png
+Sprites/CGZ/act2bg/above/8.png
+Sprites/CGZ/act2bg/above/9.png
+Sprites/CGZ/act2bg/above/10.png
+Sprites/CGZ/act2bg/below/0.png
+Sprites/CGZ/act2bg/below/1.png
+Sprites/CGZ/act2bg/below/2.png
+Sprites/CGZ/act2bg/below/3.png
+Sprites/CGZ/act2bg/below/4.png
+Sprites/CGZ/act2bg/below/5.png
+Sprites/CGZ/act2bg/below/6.png
+Sprites/CGZ/act2bg/below/7.png
+Sprites/CGZ/act2bg/below/8.png
+Sprites/CGZ/act2bg/below/9.png
+Sprites/CGZ/act2bg/below/10.png
+Sprites/CGZ/act2bg/below/11.png
+Sprites/CGZ/act2bg/below/12.png
+Sprites/CGZ/act2bg/below/13.png
+Sprites/CGZ/act2bg/below/14.png
+Sprites/CGZ/act2bg/below/15.png
+Sprites/CGZ/act2bg/below/16.png
+Sprites/CGZ/act2bg/below/17.png
+Sprites/CGZ/act2bg/below/18.png
+Sprites/CGZ/act2bg/below/19.png
+Sprites/CGZ/act2bg/below/20.png
+Sprites/CGZ/cutscene2/Eggman.png
+Sprites/CGZ/cutscene2/Knuckles.png
+Sprites/CGZ/cutscene2/KnucklesFlabbergasted.png
+Sprites/CGZ/knuxbg/back.png
+Sprites/CGZ/knuxbg/pillars.png
+Sprites/CGZ/robocutscene/EggRoboCommander.png
+Sprites/CGZ/robocutscene/EggRoboDriller.gif
+Sprites/CGZ/robocutscene/Mural.png
+Sprites/CGZ/robocutscene/SwordFishClose.png
+Sprites/CGZ/robocutscene/SwordFishFar.png
+Sprites/CGZ/robocutscene/WhaleClose.png
+Sprites/CGZ/robocutscene/WhaleFar1.png
+Sprites/CGZ/robocutscene/WhaleFar2.png
+Sprites/CGZ/robocutscene/WhaleFar3.png
+Sprites/CGZ/robocutscene/WhaleWaterDrip.png
+Sprites/CGZ/shrinebg/Layers.png
+Sprites/CGZ/shrinebg/Beams.png
+Sprites/Enemies/BeeShido.png
+Sprites/Enemies/BugBumper.png
+Sprites/Enemies/BumperFish.png
+Sprites/Enemies/Clawcraw.png
+Sprites/Enemies/Eel.png
+Sprites/Enemies/HeadSaur.png
+Sprites/Enemies/Hoppa.png
+Sprites/Enemies/Lober.png
+Sprites/Enemies/Nautilance.png
+Sprites/Enemies/Pigedrone.png
+Sprites/Enemies/Roadblock.png
+Sprites/Enemies/Shellmer.png
+Sprites/Enemies/ShellmerFire.png
+Sprites/Enemies/Snapneck.png
+Sprites/Enemies/Splitzap.png
+Sprites/Enemies/Stickshift.png
+Sprites/Enemies/Wheelie.png
+Sprites/GHZ/Objects.gif
+Sprites/GHZ/Ball.gif
+Sprites/GHZ/DDWrecker.gif
+Sprites/GHZ/DERobot.gif
+Sprites/GHZ/Objects2.gif
+Sprites/Global/ActNumbers.png
+Sprites/Global/Display.png
+Sprites/Global/Cork.png
+Sprites/Global/Decoration.png
+Sprites/Global/DrillerEggrobo.png
+Sprites/Global/Eggman.png
+Sprites/Global/Objects2GAL.png
+Sprites/Global/GalacticCore.png
+Sprites/Global/Display.png
