@@ -10,7 +10,7 @@ from typing import Optional
 
 from reversebox.common.logger import get_logger
 from reversebox.crc.crc32_iso_hdlc import CRC32Handler
-from reversebox.io_files.bytes_helper_functions import set_uint32
+from reversebox.io_files.bytes_helper_functions import set_uint32, set_uint64
 from reversebox.io_files.file_handler import FileHandler
 
 
@@ -33,18 +33,15 @@ def decrypt_hatch_data(f_data: bytes, filename: str, f_size: int) -> bytes:
 
     filename_hash: int = crc_handler.calculate_crc32(filename.encode("ascii"))
     encoded_filename_hash: bytes = set_uint32(filename_hash, "<")
-    size_hash: int = crc_handler.calculate_crc32(f_data)
+    encoded_size_value: bytes = set_uint64(f_size, "<")
+    size_hash: int = crc_handler.calculate_crc32(encoded_size_value)
     encoded_size_hash: bytes = set_uint32(size_hash, "<")
 
-    keyA[0:4] = encoded_filename_hash
-    keyA[4:8] = encoded_filename_hash
-    keyA[8:12] = encoded_filename_hash
-    keyA[12:16] = encoded_filename_hash
+    for i in range(4):
+        keyA[i * 4:(i + 1) * 4] = encoded_filename_hash
 
-    keyB[0:4] = encoded_size_hash
-    keyB[4:8] = encoded_size_hash
-    keyB[8:12] = encoded_size_hash
-    keyB[12:16] = encoded_size_hash
+    for i in range(4):
+        keyB[i * 4:(i + 1) * 4] = encoded_size_hash
 
     swap_nibbles: int = 0
     index_keyA: int = 0
@@ -76,15 +73,15 @@ def decrypt_hatch_data(f_data: bytes, filename: str, f_size: int) -> bytes:
         else:
             xor_value = (xor_value + 2) & 0x7F
             if swap_nibbles:
-                swap_nibbles = False
+                swap_nibbles = 0
                 index_keyA = xor_value % 7
                 index_keyB = (xor_value % 12) + 2
             else:
-                swap_nibbles = True
+                swap_nibbles = 1
                 index_keyA = (xor_value % 12) + 3
                 index_keyB = xor_value % 7
 
-    return f_data
+    return decrypted_data
 
 
 def export_data(hatch_file_path: str, filenames_list_file_path: str, output_directory_path: str) -> bool:
