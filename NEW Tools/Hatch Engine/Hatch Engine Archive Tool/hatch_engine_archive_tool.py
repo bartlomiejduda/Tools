@@ -2,11 +2,11 @@
 Copyright © 2025  Bartłomiej Duda
 License: GPL-3.0 License
 """
-
+import argparse
 import os
+import sys
 import zlib
 from dataclasses import dataclass
-from pathlib import Path
 from typing import Optional
 
 from reversebox.common.logger import get_logger
@@ -116,15 +116,29 @@ def export_data(hatch_file_path: str, filenames_list_file_path: str, output_dire
     return True
 
 
+VERSION_NUM = "v1.0"
+EXE_FILE_NAME = f"hatch_engine_archive_tool_{VERSION_NUM}.exe"
+PROGRAM_NAME = f'Hatch Engine Archive Tool {VERSION_NUM}'
+
+
 def main():
     """
     Main function of this program.
     """
-    hatch_file_path: str = os.environ['HATCH_FILE_PATH']
-    filenames_list_file_path: str = os.path.join(Path(__file__).parents[0].resolve(), "filelists", "sonic_galactic_demo2_filenames.txt")
 
-    output_directory_path: str = os.environ['OUTPUT_DIRECTORY_PATH']
-    export_data(hatch_file_path, filenames_list_file_path, output_directory_path)
+    parser = argparse.ArgumentParser(prog=EXE_FILE_NAME,
+                                     description=PROGRAM_NAME)
+    parser.add_argument('-e', metavar='<hatch_file_path> <filenames_list_path> <output_directory>',
+                        type=str, nargs=3, required=False, help='Extract data from HATCH archives')
+
+    if len(sys.argv) == 1:
+        parser.print_help()
+        sys.exit(1)
+
+    args = parser.parse_args()
+
+    if args.e is not None:
+        export_data(args.e[0], args.e[1], args.e[2])
 
 
 if __name__ == "__main__":
