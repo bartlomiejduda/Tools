@@ -18,9 +18,11 @@ def remove_duplicates_in_txt_file(input_file_path: str, output_file_path: str) -
 
         if line not in filenames_list:
             filenames_list.append(line)
-            print(line)
+
+    filenames_list.sort()
 
     for filename in filenames_list:
+        print(filename)
         output_file.write(filename + "\n")
 
     input_file.close()
