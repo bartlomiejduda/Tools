@@ -71,6 +71,7 @@ def export_data(hatch_file_path: str, filenames_list_file_path: str, output_dire
             if known_crc_entry.crc32 == f_crc:
                 f_filename = known_crc_entry.file_name
                 known_filenames_counter += 1
+                break
 
         logger.info(f'{i}) {f_filename}')
 
@@ -105,8 +106,11 @@ def export_data(hatch_file_path: str, filenames_list_file_path: str, output_dire
         hatch_file.seek(back_offset)
 
     hatch_file.close()
-    logger.info(f"Known filenames: {known_filenames_counter}")
-    logger.info(f"Unknown filenames: {file_count - known_filenames_counter}")
+    logger.info("####### SUMMARY #######")
+    known_percent: float = round((known_filenames_counter / file_count) * 100, 2)
+    unknown_percent: float = round(((file_count - known_filenames_counter) / file_count) * 100, 2)
+    logger.info(f"Known filenames: {known_filenames_counter} ({known_percent}%)")
+    logger.info(f"Unknown filenames: {file_count - known_filenames_counter} ({unknown_percent}%)")
     logger.info(f"All filenames: {file_count}")
     logger.info("Ending export data...")
     return True
