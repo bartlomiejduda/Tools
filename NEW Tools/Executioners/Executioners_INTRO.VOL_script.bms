@@ -14,7 +14,7 @@ for i = 0 < NUMBER_OF_FILES
 	GetDString FILE_NAME 8
 	get FILE_OFFSET long
 	get FILE_SIZE long
-	string FILE_NAME p "%d_%s.VOL" i FILE_NAME
 	string FILE_NAME R " " ""   # remove spaces (trim)
+	string FILE_NAME p "%s_%d.VOL" FILE_NAME i
 	log FILE_NAME FILE_OFFSET FILE_SIZE
 next i
