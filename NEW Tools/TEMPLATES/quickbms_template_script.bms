@@ -48,6 +48,9 @@ get ARCHIVE_SIZE asize
 # go to 0 offset in memory file1 (absolute offset)
 # goto 0 -1 SEEK_SET
 
+# remove spaces (trim)
+# string FILE_NAME R " " ""   
+
 # string append
 # set FILE_COUNT long 0
 # set FILE_PATH string "file"
