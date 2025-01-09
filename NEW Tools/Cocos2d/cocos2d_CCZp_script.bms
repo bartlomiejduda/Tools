@@ -7,12 +7,13 @@
 
 # Ver    Date        Author               Comment
 # v1.0   ----------  chrrox               -
-# v1.1   16.12.2024  Bartlomiej Duda      -
+# v1.1   16.12.2024  Bartlomiej Duda      Added support for jp.okakichi.chanran (Android)
+# v1.2   10.01.2025  Bartlomiej Duda      Added support for "Good Pizza, Great Pizza" (PC)
 
 
 # List of working keys:
-# 0xF68C6273, 0x07C32116, 0x4AF4F1AC, 0xBF0988A6  --> jp.okakichi.chanran
-
+# 0xF68C6273, 0x07C32116, 0x4AF4F1AC, 0xBF0988A6  --> jp.okakichi.chanran (Android)
+# 0x2331EAB9, 0x5680461B, 0x41987862, 0x50788180  --> Good Pizza, Great Pizza (PC)
 
 
 set MEMORY_FILE10 string "
@@ -103,3 +104,5 @@ calldll MEMORY_FILE10 DecryptCCZ tcc RET MEMORY_FILE SIZE
 xmath SIZE "SIZE - 16"
 xmath UNCOMP_SIZE "SIZE * 5"
 clog OUTPUT_FILE_PATH 16 SIZE UNCOMP_SIZE -1
+
+# log OUTPUT_FILE_PATH 0 SIZE MEMORY_FILE

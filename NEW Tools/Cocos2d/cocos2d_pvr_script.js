@@ -1,16 +1,15 @@
 
 // Cocos2d PVR Script
-// It should be used with Frida and any Android games 
-// that are protected by PVR encryption
-// this should be used to hook "cocos2d::ZipUtils::setPvrEncryptionKeyPart(int,uint)" function
+// It should be used with Frida and any Cocos2d game that is protected by PVR encryption
+// This should be used to hook "cocos2d::ZipUtils::setPvrEncryptionKeyPart(int,uint)" function
 
-// works fine with "jp.okakichi.chanran" package
 
 // It should be executed like this:
 // frida -U -l cocos2d_pvr_script.js -f jp.okakichi.chanran
+// or
+// frida -l cocos2d_pvr_script.js -f PizzaBusiness.exe
 
 // Example output: 
-// [PVR FUNC ADDRESS]->  0x71891f9340
 // [key]-> 0xf68c6273
 // [key]-> 0x7c32116
 // [key]-> 0x4af4f1ac
@@ -18,7 +17,8 @@
 
 
 //  Version   Name               Date          Comment
-//  v1.0      Bartlomiej Duda    16.12.2024    -
+//  v1.0      Bartlomiej Duda    16.12.2024    Initial version. Support for "jp.okakichi.chanran" (Android)
+//  v1.1      Bartlomiej Duda    10.01.2025    Added support for "Good Pizza, Great Pizza" (PC)
 
 
 function get_current_datetime() {
@@ -30,9 +30,19 @@ function get_current_datetime() {
 }
 
 
+// jp.okakichi.chanran (Android)
+var module_name = 'libcgk.so';  
+var export_name = '_ZN7cocos2d8ZipUtils23setPvrEncryptionKeyPartEij'; 
+
+
+// "Good Pizza, Great Pizza" (PC)
+var module_name = 'libcocos2d.dll';
+var export_name = '?setPvrEncryptionKeyPart@ZipUtils@cocos2d@@SAXHI@Z'
+
+
  var awaitForCondition = function (callback) {
      var int = setInterval(function () {
-         var addr = Module.findBaseAddress('libcgk.so');  // libcocos2djs.so
+         var addr = Module.findBaseAddress(module_name);
          if (addr) {
              console.log("SO Address found:", addr);
              clearInterval(int);
@@ -45,8 +55,8 @@ function get_current_datetime() {
 awaitForCondition((baseAddr)=>{
 	console.log("STARTING HOOK ", get_current_datetime());
 	
-	let pvr_decryptaddr = Module.findExportByName('libcgk.so', '_ZN7cocos2d8ZipUtils23setPvrEncryptionKeyPartEij');  // libcocos2djs.so     _ZN7cocos2d8ZipUtils19setPvrEncryptionKeyEjjjj
-	console.log("[PVR FUNC ADDRESS]-> ", pvr_decryptaddr);
+	let pvr_decryptaddr = Module.findExportByName(module_name, export_name);
+	console.log("[PVR FUNCTION ADDRESS]-> ", pvr_decryptaddr);
 	
 	Interceptor.attach(pvr_decryptaddr, {
 		
