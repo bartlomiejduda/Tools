@@ -1,13 +1,13 @@
 
 // Cocos2d PVR Script
 // It should be used with Frida and any Cocos2d game that is protected by PVR encryption
-// This should be used to hook "cocos2d::ZipUtils::setPvrEncryptionKeyPart(int,uint)" function
+// Designed to hook "cocos2d::ZipUtils::setPvrEncryptionKeyPart(int,uint)" function
 
 
-// It should be executed like this:
+// It should be executed like this (one of the following):
 // frida -U -l cocos2d_pvr_script.js -f jp.okakichi.chanran
-// or
 // frida -l cocos2d_pvr_script.js -f PizzaBusiness.exe
+// frida -U -l cocos2d_pvr_script.js -f com.tapblaze.pizzabusiness
 
 // Example output: 
 // [key]-> 0xf68c6273
@@ -19,6 +19,7 @@
 //  Version   Name               Date          Comment
 //  v1.0      Bartlomiej Duda    16.12.2024    Initial version. Support for "jp.okakichi.chanran" (Android)
 //  v1.1      Bartlomiej Duda    10.01.2025    Added support for "Good Pizza, Great Pizza" (PC)
+//  v1.2      Bartlomiej Duda    14.01.2025    Added support for "Good Pizza, Great Pizza" v5.21.0 (Android)
 
 
 function get_current_datetime() {
@@ -38,6 +39,11 @@ var export_name = '_ZN7cocos2d8ZipUtils23setPvrEncryptionKeyPartEij';
 // "Good Pizza, Great Pizza" (PC)
 var module_name = 'libcocos2d.dll';
 var export_name = '?setPvrEncryptionKeyPart@ZipUtils@cocos2d@@SAXHI@Z'
+
+
+// "Good Pizza, Great Pizza" v5.21.0 (Android) (com.tapblaze.pizzabusiness)
+var module_name = 'libcocos2dcpp.so';
+var export_name = '_ZN7cocos2d8ZipUtils23setPvrEncryptionKeyPartEij'
 
 
  var awaitForCondition = function (callback) {
