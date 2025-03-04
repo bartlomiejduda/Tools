@@ -1,5 +1,5 @@
 """
-Copyright © 2024  Bartłomiej Duda
+Copyright © 2024-2025  Bartłomiej Duda
 License: GPL-3.0 License
 """
 import argparse
@@ -10,7 +10,7 @@ from reversebox.common.logger import get_logger
 from reversebox.image.image_decoder import ImageDecoder
 from reversebox.image.image_formats import ImageFormats
 from reversebox.image.pillow_wrapper import PillowWrapper
-from reversebox.image.swizzling.swizzle_ps4 import unswizzle_ps4
+from reversebox.image.swizzling.swizzle_morton_ps4 import unswizzle_ps4
 from reversebox.io_files.bytes_helper_functions import get_bits
 from reversebox.io_files.file_handler import FileHandler
 from PIL import Image
@@ -26,8 +26,16 @@ def convert_tex_to_dds(tex_file_path: str, dds_file_path: str) -> bool:
     tex_file = FileHandler(tex_file_path, "rb", "little")
 
     signature = tex_file.read_bytes(4)
-    if signature != b'TEX\x00':
+    if signature not in (b'TEX\x00', b'\x00XET'):
         raise Exception("Wrong MT Framework texture file signature!")
+
+    if signature == b'TEX\x00':
+        tex_file.change_endianess("little")
+    elif signature == b'\x00XET':
+        tex_file.change_endianess("big")
+    else:
+        raise Exception("Wrong signature! Can't set endianess properly!")
+
     value1 = tex_file.read_uint32()
     value2 = tex_file.read_uint32()
 
@@ -60,7 +68,7 @@ def convert_tex_to_dds(tex_file_path: str, dds_file_path: str) -> bool:
                 image_data, img_width, img_height, 4, 4, 16
             )
             decoded_image_data: bytes = image_decoder.decode_compressed_image(
-                unswizzled_image_data, img_width, img_height, ImageFormats.DXT5
+                unswizzled_image_data, img_width, img_height, ImageFormats.BC3_DXT5
             )
         else:
             raise Exception(f"Unsupported color_type: {color_type}!")
