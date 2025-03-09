@@ -93,3 +93,20 @@ Java.perform(function () {
         return result;
     };
 });
+
+
+
+// hook for getting ZIP password from "jp.co.cybird.android.conanescape02" v1.0.0
+// Password --> waU8uqL1V30IwRgLdIAfemlrpbvVh2v3
+Java.perform(function() {
+    var targetClass = "a.a.a.e.f";
+    var targetMethod = "a";
+
+    var clazz = Java.use(targetClass);
+    
+    clazz[targetMethod].overload("[C").implementation = function(charArray) {
+        console.log("Original input: " + JSON.stringify(charArray));
+        
+        this[targetMethod](charArray);
+    };
+});
