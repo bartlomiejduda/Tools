@@ -1,0 +1,41 @@
+# Script by Bartlomiej Duda (Ikskoks)
+# Genso Manege (PC) QPI/QPK script
+
+
+# Ver    Date        Author               Comment
+# v1.0   11.03.2025  Bartlomiej Duda      -
+
+
+open FDDE QPI 0
+open FDDE QPK 1
+
+idstring "QPI\x00"
+get NUMBER_OF_FILES long
+goto 28
+
+for i = 0 < NUMBER_OF_FILES
+	get FILE_OFFSET long
+	get FILE_SIZE long
+	
+	if FILE_SIZE == 0 || FILE_SIZE == -2147483648
+		continue
+	endif
+	
+	set EXTENSION string "bin"
+	goto FILE_OFFSET 1
+	get SIGN long 1
+	if SIGN == 1953066581  # UnityFS
+		set EXTENSION string "unityfs"
+	elif SIGN == 2202829602  # binary CSV?
+		set EXTENSION string "bincsv"
+	elif SIGN == 4344641  # AKB
+		set EXTENSION string "akb"
+	elif SIGN == 1886352426  # *top / KS
+		set EXTENSION string "ks"
+	elif SIGN == 1635017060  # data
+		set EXTENSION string "txt"
+	endif
+	
+	string FILE_NAME p "file_%d.%s" i EXTENSION
+	log FILE_NAME FILE_OFFSET FILE_SIZE 1
+next i
