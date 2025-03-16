@@ -1,0 +1,22 @@
+# Script by Bartlomiej Duda (Ikskoks)
+# Cars 2: The Video Game (PSP) PACK script
+
+
+# Ver    Date        Author               Comment
+# v1.0   17.03.2025  Bartlomiej Duda      -
+
+
+idstring "PTRP"
+get UNKNOWN long
+get NUMBER_OF_FILES long
+goto 24
+
+for i = 0 < NUMBER_OF_FILES
+	get FILEPATH_LENGTH long
+	GetDString FILE_PATH FILEPATH_LENGTH
+	get FILE_SIZE long
+	SavePos FILE_OFFSET
+	log FILE_PATH FILE_OFFSET FILE_SIZE
+	xmath NEXT_ENTRY_OFFSET "FILE_OFFSET + FILE_SIZE"
+	goto NEXT_ENTRY_OFFSET
+next i
