@@ -1,0 +1,165 @@
+//------------------------------------------------
+//--- 010 Editor v15.0 Binary Template
+//
+//      File: NSBTX from "Mario Kart DS"
+//   Authors: Bartlomiej Duda (Ikskoks)
+//   Version: 1.0
+//   Purpose: File Formats Reverse Engineering
+//  Category: Image/Texture
+// File Mask: *.nsbtx
+//  ID Bytes: 42 54 58 30 (BTX0)
+//   History: v1.0  01.04.2025  Initial version
+//------------------------------------------------
+
+LittleEndian();
+
+
+uint32 get_offset(uint32 p) {
+    return (p & 0xFFFF) << 3;
+}
+
+uint32 get_width(uint32 p) {
+    return 8 << (((p) >> 20) & 7);
+}
+
+uint32 get_height(uint32 p) {
+    return 8 << (((p) >> 23) & 7);
+}
+
+uint32 get_format(uint32 p) {
+    return ((p) >> 26) & 7;
+}
+
+int get_image_size(int width, int height, int image_format) {
+	local int number_of_pixels = width * height;
+	local int bits[8] = { 0, 8, 2, 4, 8, 2, 8, 16 };
+	local int b = bits[image_format];
+	return (number_of_pixels * b) >> 3;
+}
+
+typedef enum <int>
+{
+    CT_A3I5 = 1,
+    CT_4COLOR = 2,
+    CT_16COLOR = 3,  // PAL4, RGBX5551
+    CT_256COLOR = 4,
+    CT_4x4 = 5,
+    CT_A5I3 = 6,
+    CT_DIRECT = 7
+} TEX_FORMAT;
+
+struct FILE {
+    struct HEADER {
+        char signature[4];  // BTX0
+        uint16 endianess;
+        uint16 version;
+        uint32 total_file_size;
+        uint16 header_size;
+        uint16 number_of_blocks;
+    } header <bgcolor=cLtGreen>;
+
+    struct BLOCK_OFFSET_ENTRY {
+        uint32 block_offset;
+    } block_offset_entries[ file.header.number_of_blocks ] <bgcolor=cLtYellow>;
+
+    struct BLOCK_DATA {
+        local uint32 tex0_start_offset = FTell();
+        char block_signature[4];  // TEX0
+        uint32 block_size;
+
+        struct TEXTURE_HEADER {
+            uint32 padding;
+            uint16 texture_data_size;  // 0xC, block1 len
+            local uint16 texture_data_size_SHIFTED = texture_data_size << 3;
+            uint16 texture_info_relative_offset;  // 0xE, dictionary offset
+            uint32 padding;
+            uint32 texture_data_relative_offset;  // 0x14, block1 off
+            uint32 padding;
+            uint16 texture_compressed_data_size;  // 0x1C
+            local uint16 texture_compressed_data_size_SHIFTED = texture_compressed_data_size << 3;
+            uint16 compressed_texture_info_offset;  // 0x1E
+            uint32 padding;
+            uint32 compressed_texture_data_offset;  // 0x24
+            uint32 compressed_texture_info_data_offset;  // 0x28
+            uint32 padding;
+            uint32 palette_data_size;  // 0x30
+            local uint32 palette_data_size_SHIFTED = palette_data_size << 3;
+            uint32 palette_info_offset;  // plettes off
+            uint32 palette_data_offset;  // block4 offset
+
+            local uint32 tex_info_offset = tex0_start_offset + texture_info_relative_offset;
+            local uint32 pal_info_offset = tex0_start_offset + palette_info_offset;
+        } texture_header <bgcolor=cLtRed>; 
+
+
+           struct DICTIONARY_INFO {
+                ubyte unknown;
+                ubyte number_of_entries;
+                uint16 unknown;
+                uint16 dict_size;
+                uint16 ofs_entry; 
+            };
+
+
+
+        struct TEXTURE_INFO {
+
+            local uint32 tex_info_start_offset = FTell();
+            DICTIONARY_INFO texture_dictionary_info;
+            
+            local uint32 skip_offset = tex_info_start_offset + texture_dictionary_info.ofs_entry;
+            FSeek(skip_offset);
+            
+            uint16 size_unit;
+            uint16 offset_name;
+            
+            struct TEXTURE_DICTIONARY_ENTRY {
+                uint32 tex_image_param;
+                local uint32 param_offset = get_offset(tex_image_param);
+                local uint32 tex_w = get_width(tex_image_param);
+                local uint32 tex_h = get_height(tex_image_param);
+                local uint32 format = get_format(tex_image_param);
+                local uint32 image_size = get_image_size(tex_w, tex_h, format);
+                local uint32 FINAL_tex_data_offset = tex0_start_offset + param_offset + texture_header.compressed_texture_data_offset;
+                local uint32 FINAL_cmp_offset = tex0_start_offset + texture_header.compressed_texture_info_data_offset + param_offset / 2;
+                local uint32 FINAL_cmp_size = image_size >> 1;
+                uint32 extra_param;
+            } texture_dictionary[texture_dictionary_info.number_of_entries] <optimize=false>;
+            
+            struct TEX_NAMES {
+                char tex_name[16];
+            } tex_names[texture_dictionary_info.number_of_entries];
+            
+            FSeek(texture_header.pal_info_offset);
+            local uint32 temp = FTell();
+
+            
+        } texture_info <bgcolor=cLtPurple>; 
+        
+        
+        struct PALETTE_INFO {
+            local uint32 pal_info_start_offset = FTell();
+            DICTIONARY_INFO palette_dictionary_info;
+            
+            local uint32 skip_offset = pal_info_start_offset + palette_dictionary_info.ofs_entry;
+            FSeek(skip_offset);
+            
+            uint16 size_unit;
+            uint16 offset_name;
+            
+            struct PALETTE_DICTIONARY_ENTRY {
+                uint16 offset;
+                uint16 flag;
+                local uint32 FINAL_pal_data_offset = tex0_start_offset + texture_header.palette_data_offset + (offset << 3);
+            } palette_dictionary[palette_dictionary_info.number_of_entries] <optimize=false>;
+
+            struct PAL_NAMES {
+                char pal_name[16];
+            } pal_names[palette_dictionary_info.number_of_entries];
+            
+        } palette_info <bgcolor=cLtYellow>; 
+        
+
+    } block_data; 
+
+} file;
