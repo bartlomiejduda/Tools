@@ -3,12 +3,13 @@
 //
 //      File: NSBTX from "Mario Kart DS"
 //   Authors: Bartlomiej Duda (Ikskoks)
-//   Version: 1.0
+//   Version: 1.1
 //   Purpose: File Formats Reverse Engineering
 //  Category: Image/Texture
 // File Mask: *.nsbtx
 //  ID Bytes: 42 54 58 30 (BTX0)
 //   History: v1.0  01.04.2025  Initial version
+//            v1.1  01.04.2025  tex/pal blocks
 //------------------------------------------------
 
 LittleEndian();
@@ -40,7 +41,7 @@ int get_image_size(int width, int height, int image_format) {
 typedef enum <int>
 {
     CT_A3I5 = 1,
-    CT_4COLOR = 2,
+    CT_4COLOR = 2,  // PAL2 ???
     CT_16COLOR = 3,  // PAL4, RGBX5551
     CT_256COLOR = 4,
     CT_4x4 = 5,
@@ -120,11 +121,16 @@ struct FILE {
                 local uint32 tex_h = get_height(tex_image_param);
                 local uint32 format = get_format(tex_image_param);
                 local uint32 image_size = get_image_size(tex_w, tex_h, format);
-                local uint32 FINAL_tex_data_offset = tex0_start_offset + param_offset + texture_header.compressed_texture_data_offset;
-                local uint32 FINAL_cmp_offset = tex0_start_offset + texture_header.compressed_texture_info_data_offset + param_offset / 2;
-                local uint32 FINAL_cmp_size = image_size >> 1;
+                local uint32 FINAL_tex_data_offset = tex0_start_offset + param_offset + texture_header.texture_data_relative_offset;
+                
+                if (format == 5)
+                {
+                    local uint32 FINAL_cmp_offset = tex0_start_offset + texture_header.compressed_texture_info_data_offset + param_offset / 2;
+                    local uint32 FINAL_cmp_size = image_size >> 1;
+                }
+
                 uint32 extra_param;
-            } texture_dictionary[texture_dictionary_info.number_of_entries] <optimize=false>;
+            } texture_dictionaries[texture_dictionary_info.number_of_entries] <optimize=false>;
             
             struct TEX_NAMES {
                 char tex_name[16];
@@ -151,13 +157,71 @@ struct FILE {
                 uint16 offset;
                 uint16 flag;
                 local uint32 FINAL_pal_data_offset = tex0_start_offset + texture_header.palette_data_offset + (offset << 3);
-            } palette_dictionary[palette_dictionary_info.number_of_entries] <optimize=false>;
+            } palette_dictionaries[palette_dictionary_info.number_of_entries] <optimize=false>;
 
             struct PAL_NAMES {
                 char pal_name[16];
             } pal_names[palette_dictionary_info.number_of_entries];
             
         } palette_info <bgcolor=cLtYellow>; 
+        
+        struct FILE_DATA {
+            char file_byte;
+        };
+        
+        local int i <hidden=true>;
+        local uint32 tex_offset <hidden=true>;
+        local uint32 tex_size <hidden=true>;
+        for(i = 0; i < texture_info.texture_dictionary_info.number_of_entries; i++ )
+         {
+             tex_offset = texture_info.texture_dictionaries[i].FINAL_tex_data_offset;
+             
+             if ( i+1 == texture_info.texture_dictionary_info.number_of_entries)
+             {
+                 tex_size = palette_info.palette_dictionaries[0].FINAL_pal_data_offset - tex_offset;
+             }
+             else
+             {
+                 tex_size = texture_info.texture_dictionaries[i+1].FINAL_tex_data_offset - texture_info.texture_dictionaries[i].FINAL_tex_data_offset;
+             }
+             
+             //Printf( "tex_offset='%d' tex_size='%d'\n", tex_offset, tex_size ); 
+             
+             FSeek(tex_offset);
+             struct TEX_DATA {
+                local uint32 tex_format = texture_info.texture_dictionaries[i].format;
+                local uint32 tex_width = texture_info.texture_dictionaries[i].tex_w;
+                local uint32 tex_height = texture_info.texture_dictionaries[i].tex_h;
+                FILE_DATA tex_data[tex_size];
+            } texture_data <bgcolor=cLtBlue>;
+             
+         } 
+         
+         
+        local int j <hidden=true>;
+        local uint32 pal_offset <hidden=true>;
+        local uint32 pal_size <hidden=true>;
+        for(j = 0; j < palette_info.palette_dictionary_info.number_of_entries; j++ )
+         {
+             pal_offset = palette_info.palette_dictionaries[j].FINAL_pal_data_offset;
+             
+             if ( j+1 == palette_info.palette_dictionary_info.number_of_entries)
+             {
+                 pal_size = header.total_file_size - pal_offset;
+             }
+             else
+             {
+                 pal_size = palette_info.palette_dictionaries[j+1].FINAL_pal_data_offset - palette_info.palette_dictionaries[j].FINAL_pal_data_offset;
+             }
+             
+             //Printf( "pal_offset='%d' pal_size='%d'\n", pal_offset, pal_size ); 
+             
+             FSeek(pal_offset);
+             struct PAL_DATA {
+                FILE_DATA paldata[pal_size];
+            } palette_data <bgcolor=cLtBlue>;
+             
+         } 
         
 
     } block_data; 
