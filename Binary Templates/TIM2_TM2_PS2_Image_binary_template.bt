@@ -1,0 +1,71 @@
+//------------------------------------------------
+//--- 010 Editor v15.0.1 Binary Template
+//
+//      File: TIM2/TM2 PS2 Graphics file
+//   Authors: Bartłomiej Duda (Ikskoks)
+//   Version: 1.0
+//   Purpose: File Formats Reverse Engineering
+//  Category: Image/Texture
+// File Mask: *.tim2 / *.tm2
+//  ID Bytes: 54 49 4D 32 (TIM2)
+//   History: v1.0  02.05.2025  Initial version
+//------------------------------------------------
+
+LittleEndian();
+
+typedef enum <int>
+{
+    BPP_16 = 1,
+    BPP_24 = 2,
+    BPP_32 = 3,
+    BPP_4 = 4,
+    BPP_8 = 5
+} BPP_TYPE;
+
+struct FILE {
+    struct HEADER {
+        char signature[4];  // TIM2
+        uint8 version;
+        uint8 allignment;
+        uint16 number_of_images;
+        uint8 nulls[8];
+        
+        if (allignment > 0)
+        {
+            uint8 padding[112];
+        }
+        
+    } header <bgcolor=cLtGreen>;
+    
+    local int i <hidden=true>';
+    for( i = 0; i < header.number_of_images; i++ )
+    {
+    
+        struct IMAGE_HEADER {
+            uint32 total_image_size;
+            uint32 palette_size;
+            uint32 image_data_size;
+            uint16 image_header_size;
+            uint16 number_of_colors;
+            uint8 image_format;
+            uint8 number_of_mipmpas;
+            uint8 palette_format;
+            uint8 image_bpp;
+            local BPP_TYPE image_bpp_str = image_bpp;
+            uint16 image_width;
+            uint16 image_height;
+            uint8 GsTEX0[8];
+            uint8 GsTEX1[8];
+            uint32 GsRegs;
+            uint32 GsTexClut;
+            if ( (image_header_size - 48) > 0)
+                uint8 user_data[image_header_size - 48];
+        } image_header <bgcolor=cLtBlue>;
+        
+        
+        uint8 image_data[image_header.image_data_size] <bgcolor=cLtRed>;
+        uint8 palette_data[image_header.palette_size] <bgcolor=cLtYellow>;
+    
+    }
+
+} file;
