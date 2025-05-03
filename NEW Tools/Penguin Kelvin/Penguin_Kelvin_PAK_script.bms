@@ -1,0 +1,28 @@
+# Script by Bartlomiej Duda (Ikskoks)
+# Penguin Kelvin (PC) PAK script
+
+
+# Ver    Date        Author               Comment
+# v1.0   03.05.2025  Bartlomiej Duda      -
+
+
+goto -4
+GetDString SIGNATURE 4
+
+if SIGNATURE != "T8FM"
+	print "Not a valid Penguin Kelvin PAK file!"
+	cleanexit
+endif
+
+goto -12
+get NUMBER_OF_FILES long
+get INDEX_OFFSET long
+goto INDEX_OFFSET
+
+
+for i = 0 < NUMBER_OF_FILES
+	GetDString FILE_PATH 80
+	get FILE_OFFSET long
+	get FILE_SIZE long
+	log FILE_PATH FILE_OFFSET FILE_SIZE
+next i
