@@ -1,0 +1,112 @@
+//------------------------------------------------
+//--- 010 Editor v15.0.1 Binary Template
+//
+//      File: GTX (WII U GX2 Texture)
+//   Authors: Bartlomiej Duda (Ikskoks)
+//   Version: 1.0
+//   Purpose: File Formats Reverse Engineering
+//  Category: Image/Texture
+// File Mask: *.gtx
+//  ID Bytes: 47 66 78 32 (Gfx2)
+//   History: v1.0  04.05.2025  Initial version
+//------------------------------------------------
+
+
+BigEndian();
+
+
+// Block types:
+// v7.x
+// DEC / HEX
+// 1  / 01 = end of file block
+// 11 / 0B = Gx2 surface header
+// 12 / 0C = swizzled image data
+
+
+// Swizzle types:
+// Value   /  Value-conv  / type
+// 851968  /  3328        / 0
+// 852224  /  3329        / 1
+// 852480  /  3330        / 2
+// 852736  /  3331        / 3
+// 852992  /  3332        / 4
+// 853248  /  3333        / 5
+// 853504  /  3334        / 6
+// 853760  /  3335        / 7
+
+
+struct FILE {
+    
+    struct HEADER {  // always 32 bytes
+        char signature[4];  // Gfx2
+        uint32 header_size;
+        uint32 version_major;
+        uint32 version_minor;
+        uint32 gpu_version;
+        uint32 align_mode;
+        uint32 reserved1;
+        uint32 reserved2;
+    } header <bgcolor=cLtGreen>;
+    
+    
+    struct BLOCK {
+        char block_signature[4];  // BLK{
+        uint32 block_size;
+        uint32 block_major_version;
+        uint32 block_minor_version;
+        uint32 block_type;
+        local uint32 block_type_HEX <format=hex> = block_type;
+        uint32 block_data_size;
+        local uint32 block_data_size_HEX <format=hex> = block_data_size;
+        uint32 block_id;
+        uint32 block_index;
+        
+        if ( block_data_size > 0)
+        {
+            
+            if (block_type == 11)  // GX2 surface header
+            {
+                struct GX2_SURFACE_HEADER {
+                    uint32 dimension;
+                    uint32 image_width;
+                    uint32 image_height;
+                    uint32 image_bpp;
+                    uint32 number_of_mipmaps;
+                    uint32 texture_format;
+                    uint32 aa_mode;
+                    uint32 usage;
+                    uint32 texture_data_size;
+                    uint32 data_pointer;
+                    uint32 mipmaps_data_size;
+                    uint32 mipmaps_pointer;
+                    uint32 tile_mode;
+                    uint32 swizzle_value;
+                    local uint32 swizzle_value_conv = swizzle_value >> 8;
+                    uint32 alignment;
+                    uint32 pitch;
+                    uint32 mipmap_offset[13];
+                    uint32 first_mipmap_id;
+                    uint32 number_of_available_mipmaps;
+                    uint32 first_slice_id;
+                    uint32 number_of_available_slices;
+                    uint8 component_selector[4];
+                    uint32 texture_registers[5];
+                } gx2_surface_header <bgcolor=cLtBlue>;
+            }
+            else
+            {
+                uint8 block_data[block_data_size] <bgcolor=cLtYellow>;
+            }
+        }
+
+    };
+        
+    
+    while( !FEof() )
+    {
+        BLOCK block;
+    }
+        
+    
+
+} file;
