@@ -30,14 +30,18 @@ struct FILE {
         uint32 filename_index_size;
     } filename_index_info <bgcolor=cLtYellow>;
     
-    local int i <hidden=true>';
-    for( i = 0; i < header.number_of_files; i++ )
-    {
-        FSeek(index[i].file_offset);
-        struct FILE_DATA {
-            uint8 file_data[index[i].file_size];
-        } file_data;
-    }
+    struct FILES {
+    
+        local int i <hidden=true>';
+        for( i = 0; i < header.number_of_files; i++ )
+        {
+            FSeek(index[i].file_offset);
+            struct FILE_DATA {
+                uint8 file_data[index[i].file_size];
+            } file_data;
+        }
+        
+    } files;
     
     FSeek(filename_index_info.filename_index_offset);
     
