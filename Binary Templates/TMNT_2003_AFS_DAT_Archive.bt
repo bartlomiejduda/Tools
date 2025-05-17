@@ -1,0 +1,55 @@
+//------------------------------------------------
+//--- 010 Editor v15.0.1 Binary Template
+//
+//      File: AFS/DAT Archive File
+//   Authors: Bartłomiej Duda (Ikskoks)
+//   Version: 1.0
+//   Purpose: File Formats Reverse Engineering
+//  Category: Archive
+// File Mask: *.afs / *.dat
+//  ID Bytes: 41 46 53 00 (AFS)
+//   History: v1.0  17.05.2025  Initial version
+//------------------------------------------------
+
+LittleEndian();
+
+struct FILE {
+    
+    struct HEADER {
+        char signature[4];  // AFS
+        uint32 number_of_files;
+    } header <bgcolor=cLtGreen>;
+    
+    struct INDEX {
+        uint32 file_offset;
+        uint32 file_size;
+        } index[header.number_of_files] <bgcolor=cLtRed>;
+        
+    struct FILENAME_INDEX_INFO {
+        uint32 filename_index_offset;
+        uint32 filename_index_size;
+    } filename_index_info <bgcolor=cLtYellow>;
+    
+    local int i <hidden=true>';
+    for( i = 0; i < header.number_of_files; i++ )
+    {
+        FSeek(index[i].file_offset);
+        struct FILE_DATA {
+            uint8 file_data[index[i].file_size];
+        } file_data;
+    }
+    
+    FSeek(filename_index_info.filename_index_offset);
+    
+    struct FILENAME_INDEX {
+        char filename[32];
+        uint16 year;
+        uint16 month;
+        uint16 day;
+        uint16 hour;
+        uint16 minute;
+        uint16 second;
+        uint32 file_size2;
+    } filename_index[header.number_of_files] <bgcolor=cLtBlue>;
+    
+} file;
