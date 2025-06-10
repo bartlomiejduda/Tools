@@ -1,0 +1,46 @@
+//------------------------------------------------
+//--- 010 Editor v15.0.1 Binary Template
+//
+//      File: LKF Archive File
+//   Authors: Bartłomiej Duda (Ikskoks)
+//   Version: 1.0
+//   Purpose: File Formats Reverse Engineering
+//  Category: Archive
+// File Mask: *.lkf
+//  ID Bytes: 2B 4C 4B 46 (+LKF)
+//   History: v1.0  10.06.2025  Initial version
+//------------------------------------------------
+
+
+
+LittleEndian();
+
+struct FILE {
+    
+    struct HEADER {
+        char signature[4];  // +LKF
+        uint32 number_of_files;
+        uint32 data_start_offset;
+        uint32 unknown;
+        uint8 reserved[16];
+    } header <bgcolor=cLtGreen>;
+    
+    struct INDEX {
+        char filename[16];
+        uint8 unknown[8];
+        uint32 file_offset;
+        uint32 file_size;
+    } index[header.number_of_files] <bgcolor=cLtBlue>;
+    
+    struct FILES {
+        local int i <hidden=true>';
+        for( i = 0; i < header.number_of_files; i++ )
+        {
+            FSeek(index[i].file_offset);
+            struct FILE_DATA {
+                uint8 file_data[index[i].file_size];
+            } file_data;
+        }
+    } files;
+    
+} file;

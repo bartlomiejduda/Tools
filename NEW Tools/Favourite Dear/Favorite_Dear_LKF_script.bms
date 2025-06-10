@@ -1,0 +1,21 @@
+# Script by Bartlomiej Duda (Ikskoks)
+# Favorite Dear - Junpaku no Yogensha Project (PS1) <LKF> script
+
+
+# Ver    Date        Author               Comment
+# v1.0   10.06.2025  Bartlomiej Duda      -
+
+
+idstring "+LKF"
+get NUMBER_OF_FILES long
+goto 32
+
+
+for i = 0 < NUMBER_OF_FILES
+	GetDString FILE_NAME 16
+	get UNKNOWN longlong
+	get FILE_OFFSET long
+	get FILE_SIZE long
+	
+	log FILE_NAME FILE_OFFSET FILE_SIZE
+next i
