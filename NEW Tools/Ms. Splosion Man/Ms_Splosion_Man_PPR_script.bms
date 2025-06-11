@@ -1,0 +1,31 @@
+# Script by Bartlomiej Duda (Ikskoks)
+# Ms. Splosion Man (PC) PPR script
+
+
+# Ver    Date        Author               Comment
+# v1.0   12.06.2025  Bartlomiej Duda      -
+
+
+idstring "2RPX"
+set INDEX_OFFSET long 2048
+goto INDEX_OFFSET
+get NUMBER_OF_FILES long
+
+
+for i = 0 < NUMBER_OF_FILES
+	GetDString FILE_TAG 4
+	get FILE_OFFSET long
+	xmath FILE_OFFSET "FILE_OFFSET + INDEX_OFFSET"
+	get FILE_SIZE long
+	
+	get NAME_OFFSET long
+	xmath NAME_OFFSET "NAME_OFFSET + INDEX_OFFSET"
+	
+	SavePos BACK_OFFSET
+	goto NAME_OFFSET
+	get FILE_PATH string
+	goto BACK_OFFSET
+	string OUTPUT_FILE_PATH p "%s/%s" FILE_TAG FILE_PATH
+	
+	log OUTPUT_FILE_PATH FILE_OFFSET FILE_SIZE
+next i
