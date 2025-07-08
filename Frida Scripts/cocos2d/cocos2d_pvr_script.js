@@ -8,6 +8,7 @@
 // frida -U -l cocos2d_pvr_script.js -f jp.okakichi.chanran
 // frida -l cocos2d_pvr_script.js -f PizzaBusiness.exe
 // frida -U -l cocos2d_pvr_script.js -f com.tapblaze.pizzabusiness
+// frida -U -l cocos2d_pvr_script.js -f com.gamevil.dragonblaze1.android.google.global.normal
 
 // Example output: 
 // [key]-> 0xf68c6273
@@ -20,6 +21,7 @@
 //  v1.0      Bartlomiej Duda    16.12.2024    Initial version. Support for "jp.okakichi.chanran" (Android)
 //  v1.1      Bartlomiej Duda    10.01.2025    Added support for "Good Pizza, Great Pizza" (PC)
 //  v1.2      Bartlomiej Duda    14.01.2025    Added support for "Good Pizza, Great Pizza" v5.21.0 (Android)
+//  v1.3      Bartlomiej Duda    08.07.2025    Added support for com.gamevil.dragonblaze1.android.google.global.normal (Android)
 
 
 function get_current_datetime() {
@@ -44,6 +46,12 @@ var export_name = '?setPvrEncryptionKeyPart@ZipUtils@cocos2d@@SAXHI@Z'
 // "Good Pizza, Great Pizza" v5.21.0 (Android) (com.tapblaze.pizzabusiness)
 var module_name = 'libcocos2dcpp.so';
 var export_name = '_ZN7cocos2d8ZipUtils23setPvrEncryptionKeyPartEij'
+
+
+// com.gamevil.dragonblaze1.android.google.global.normal (Android)
+var module_name = 'libMyGame.so';
+var export_name = '_ZN7cocos2d8ZipUtils23setPvrEncryptionKeyPartEij'
+
 
 
  var awaitForCondition = function (callback) {

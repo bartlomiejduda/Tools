@@ -10,11 +10,13 @@
 # v1.1   16.12.2024  Bartlomiej Duda      Added support for jp.okakichi.chanran (Android)
 # v1.2   10.01.2025  Bartlomiej Duda      Added research info for "Good Pizza, Great Pizza" (PC)
 # v1.3   14.01.2025  Bartlomiej Duda      Added research info for "Good Pizza, Great Pizza" (Android)
+# v1.4   08.07.2025  Bartlomiej Duda      Added research info for com.gamevil.dragonblaze1.android.google.global.normal (Android)
 
 
 # List of working keys:
 # 0xF68C6273, 0x07C32116, 0x4AF4F1AC, 0xBF0988A6  --> jp.okakichi.chanran (Android)
 # 0x2331eab9, 0x5680461b, 0x41987862, 0x5078818  --> Good Pizza, Great Pizza (PC/Android)
+# 0xd868512f, 0x58558d4f, 0xd455ae80, 0xef13c269 --> com.gamevil.dragonblaze1.android.google.global.normal (Android)
 
 
 idstring "CCZp"
@@ -26,7 +28,7 @@ goto 0
 
 set MEMORY_FILE10 string "
 typedef unsigned int u32;
-unsigned int s_uEncryptedPvrKeyParts[4] = {0xF68C6273, 0x07C32116, 0x4AF4F1AC, 0xBF0988A6};
+unsigned int s_uEncryptedPvrKeyParts[4] = {0xd868512f, 0x58558d4f, 0xd455ae80, 0xef13c269};
 unsigned int s_uEncryptionKey[1024];
 
 u32 MX(u32 z, u32 y, u32 p, u32 e, u32 sum) {
