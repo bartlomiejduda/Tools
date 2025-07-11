@@ -1,0 +1,22 @@
+# Script by Bartlomiej Duda (Ikskoks)
+# The Sims 2 (GameCube) ARC script
+
+
+# Ver    Date        Author               Comment
+# v1.0   11.07.2025  Bartlomiej Duda      -
+
+
+get INDEX_OFFSET long
+endian big
+goto INDEX_OFFSET
+get NUMBER_OF_FILES long
+
+
+for i = 0 < NUMBER_OF_FILES
+    get UNKNOWN_1 long
+    get FILE_OFFSET long
+    get FILE_SIZE long
+    get FILE_NAME string
+    getdstring UNKNOWN_2 8
+	log FILE_NAME FILE_OFFSET FILE_SIZE
+next i
