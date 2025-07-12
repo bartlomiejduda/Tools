@@ -7,7 +7,7 @@ Extractor for TXFL textures from The Sims 2 (GameCube).
 ## How to use
 
 1. Install Python 3.11
-2. Download all dependencies from requirements file.
+2. Download all dependencies from requirements file
 ```
 pip install -r requirements.txt
 ```
