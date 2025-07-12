@@ -42,7 +42,7 @@ def parse_txfl(input_txfl_file_path: str, output_file_path: str) -> None:
     txfl_file.read_uint32()  # data size
     txfl_file.read_bytes(16)  # unknown
     image_width = txfl_file.read_uint16()
-    image_height = txfl_file.read_uint16() // 2
+    image_height = txfl_file.read_uint16()
     txfl_file.read_bytes(12)  # unknown
     image_size = image_width * image_height
     image_data = txfl_file.read_bytes(image_size)
@@ -54,6 +54,7 @@ def parse_txfl(input_txfl_file_path: str, output_file_path: str) -> None:
         )
 
     pillow_image: Image = wrapper.get_pillow_image_from_rgba8888_data(decoded_image_data, image_width, image_height)
+    pillow_image = pillow_image.transpose(Image.Transpose.FLIP_TOP_BOTTOM)
     pillow_image.save(output_file_path)
     logger.info(f"Texture {texture_name} processed successfully.")
     return
