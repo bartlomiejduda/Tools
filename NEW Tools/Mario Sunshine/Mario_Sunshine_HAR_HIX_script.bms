@@ -1,0 +1,34 @@
+# Script by Bartlomiej Duda (Ikskoks)
+# Mario Sunshine (GameCube/Switch) HAR/HIX script
+
+
+# Ver    Date        Author               Comment
+# v1.0   14.07.2025  Bartlomiej Duda      -
+
+
+open FDDE HIX 0
+open FDDE HAR 1
+
+idstring 0 "HIDX"
+idstring 1 "HARC"
+
+get NUMBER_OF_FILES long
+set BASE_OFFSET long 12
+
+for i = 0 < NUMBER_OF_FILES
+	get UNKNOWN1 longlong
+	get UNKNOWN2 byte
+	get FILE_OFFSET long
+	get FILE_SIZE long
+	xmath FILE_OFFSET "BASE_OFFSET + FILE_OFFSET"
+	
+	set EXTENSION string "bin"
+	goto FILE_OFFSET 1
+	get SIGN long 1
+	if SIGN == 1196314761  # PNG
+		set EXTENSION string "png"
+	endif
+	
+	string FILE_NAME p "file_%d.%s" i EXTENSION
+	log FILE_NAME FILE_OFFSET FILE_SIZE 1
+next i
