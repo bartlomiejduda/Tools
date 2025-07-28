@@ -34,6 +34,20 @@ def export_data(hatch_file_path: str, filenames_list_file_path: str, output_dire
     logger.info("Starting export data...")
     known_filenames_counter: int = 0
 
+    # Input parameters checks
+    logger.info("Checking input parameters...")
+    if not os.path.isfile(hatch_file_path) or os.path.getsize(hatch_file_path) <= 0:
+        logger.error("Invalid HATCH file path provided! Exiting!")
+        return False
+
+    if not os.path.isfile(filenames_list_file_path) or os.path.getsize(filenames_list_file_path) <= 0:
+        logger.error("Invalid FILENAME file path provided! Exiting!")
+        return False
+
+    if not os.path.isdir(output_directory_path):
+        logger.error(f"Invalid output directory path! Exiting!")
+        return False
+
     # Reading names from TXT file
     filenames_file = open(filenames_list_file_path, "rt")
     known_crc_entries_list: list[KnownCRCEntry] = []
@@ -116,7 +130,7 @@ def export_data(hatch_file_path: str, filenames_list_file_path: str, output_dire
     return True
 
 
-VERSION_NUM = "v1.0"
+VERSION_NUM = "v1.1"
 EXE_FILE_NAME = f"hatch_engine_archive_tool_{VERSION_NUM}.exe"
 PROGRAM_NAME = f'Hatch Engine Archive Tool {VERSION_NUM}'
 
