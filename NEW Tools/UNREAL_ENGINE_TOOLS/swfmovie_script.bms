@@ -1,0 +1,25 @@
+# Script by Bartlomiej Duda (Ikskoks)
+# Unreal Engine SWFMOVIE script
+
+# Info: Script for dumping SWF files from SWFMOVIE containers
+
+
+# Ver    Date        Author               Comment
+# v1.0   07.08.2025  Bartlomiej Duda      -
+
+
+
+get FILE_NAME basename
+FindLoc SIGN_OFFSET STRING "GFX" 0 ""
+
+if SIGN_OFFSET == ""
+	print "Invalid SWFMOVIE file! No GFX found!"
+	cleanexit
+endif
+
+goto SIGN_OFFSET
+GetDString SIGN 4
+get FILE_SIZE long
+string FILE_NAME p "%s.%s" FILE_NAME ".swf"
+
+log FILE_NAME SIGN_OFFSET FILE_SIZE
