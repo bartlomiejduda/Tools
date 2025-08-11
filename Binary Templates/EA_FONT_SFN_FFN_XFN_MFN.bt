@@ -10,6 +10,7 @@
 //  ID Bytes:  FNTS / FntS / FntX / FNTF / FntF / FNTI / FNTP / FntM 
 //   History: v1.0  01.06.2025  Initial version
 //            v1.1  05.08.2025  Format Update
+//            v1.2  11.08.2025  Change char table data types
 //------------------------------------------------
 
 LittleEndian();
@@ -49,9 +50,9 @@ struct FILE {
         uint8 char_height;
         uint16 u;
         uint16 v;
-        uint8 advance_y;
-        uint8 x_offset;
-        uint8 y_offset;
+        int8 advance_y;
+        int8 x_offset;
+        int8 y_offset;
         
         if (header.version >=200)
         {
@@ -61,7 +62,7 @@ struct FILE {
         if (header.format_flag == 1)
         {
             uint16 kernindex;
-            uint16 advance_x;
+            int16 advance_x;
         }
     } char_info_table[header.number_of_characters] <optimize=false, bgcolor=cLtBlue>;
     
