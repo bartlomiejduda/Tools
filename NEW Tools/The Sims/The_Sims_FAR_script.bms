@@ -1,0 +1,30 @@
+# Script by Bartlomiej Duda (Ikskoks)
+# The Sims: Complete Collection (PC) FAR script
+
+
+# Ver    Date        Author               Comment
+# v1.0   15.08.2025  Bartlomiej Duda      -
+
+
+idstring "FAR!byAZ"
+get ARCHIVE_VERSION long
+get INDEX_OFFSET long
+
+goto INDEX_OFFSET
+get NUMBER_OF_FILES long
+
+
+for i = 0 < NUMBER_OF_FILES
+	get RAW_FILE_SIZE long
+	get COMPRESSED_FILE_SIZE long
+	get FILE_OFFSET long
+	get FILENAME_LENGTH long
+	GetDString FILENAME FILENAME_LENGTH
+	
+	if RAW_FILE_SIZE != COMPRESSED_FILE_SIZE
+		print "Compression not supported! Exiting!"
+		cleanexit
+	endif
+	
+	log FILENAME FILE_OFFSET COMPRESSED_FILE_SIZE
+next i
