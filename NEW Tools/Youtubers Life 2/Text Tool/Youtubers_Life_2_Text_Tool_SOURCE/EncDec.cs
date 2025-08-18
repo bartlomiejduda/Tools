@@ -4,7 +4,6 @@ using System.Text.RegularExpressions;
 
 namespace ConsoleApp2
 {
-
     public class EncDec
     {
         private static byte[] Encrypt(byte[] clearText, byte[] Key, byte[] IV)
@@ -24,8 +23,7 @@ namespace ConsoleApp2
             byte[] bytes = Encoding.Unicode.GetBytes(clearText);
             PasswordDeriveBytes passwordDeriveBytes = new PasswordDeriveBytes(Password, new byte[13]
             {
-            73, 118, 97, 110, 32, 77, 101, 100, 118, 101,
-            100, 101, 118
+            73, 118, 97, 110, 32, 77, 101, 100, 118, 101, 100, 101, 118
             });
             return Encrypt(bytes, passwordDeriveBytes.GetBytes(32), passwordDeriveBytes.GetBytes(16));
         }
