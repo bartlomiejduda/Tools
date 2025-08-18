@@ -35,17 +35,6 @@ namespace ConsoleApp2
             return Convert.ToBase64String(Encrypt(clearText, Password));
         }
 
-        public static string CleanEncrypt(string clearText, string Password)
-        {
-            string input = EncryptString(clearText, Password).ToLower();
-            input = new Regex("[^a-z]").Replace(input, "");
-            if (input.Length > 20)
-            {
-                input = input.Substring(0, 20);
-            }
-            return input;
-        }
-
         private static byte[] Decrypt(byte[] cipherData, byte[] Key, byte[] IV)
         {
             if (cipherData.Length == 0)
