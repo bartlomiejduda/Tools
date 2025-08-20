@@ -1,0 +1,33 @@
+# Script by Bartlomiej Duda (Ikskoks)
+# Cause of Death (iOS) EXP script
+
+
+# Ver    Date        Author               Comment
+# v1.0   20.08.2025  Bartlomiej Duda      -
+
+
+idstring "CSPUD"
+endian big
+get NUMBER_OF_FILES long
+comtype lzma_86head
+
+
+for i = 0 < NUMBER_OF_FILES
+	get FILE_ID short
+	get FILE_OFFSET long
+	SavePos BACK_OFFSET
+	goto FILE_OFFSET
+	xmath FILE_OFFSET "FILE_OFFSET + 12"
+	get FILE_COMPRESSED_SIZE long
+	get FILE_RAW_SIZE long
+	get FILE_COMPRESSION_FLAG long
+	string FILE_PATH p "%s%s%s" "file" i ".*"
+	
+	if FILE_COMPRESSED_SIZE != FILE_RAW_SIZE
+		clog FILE_PATH FILE_OFFSET FILE_COMPRESSED_SIZE FILE_RAW_SIZE
+	else
+		log FILE_PATH FILE_OFFSET FILE_COMPRESSED_SIZE
+	endif
+	
+	goto BACK_OFFSET
+next i
