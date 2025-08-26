@@ -1,5 +1,5 @@
 # Script by Bartlomiej Duda (Ikskoks)
-# NERD Engine (PC) NPK script
+# NERD Engine (PC) NPK/VPK script
 
 # Should work with following games:
 # - Gunmetal Arcadia
@@ -10,10 +10,20 @@
 
 # Ver    Date        Author               Comment
 # v1.0   26.08.2025  Bartlomiej Duda      -
+# v1.1   27.08.2025  Bartlomiej Duda      Support for other signature
 
 
-idstring "\x2Enpk"
-get FORMAT_VERSION long
+GetDString SIGNATURE 4
+if SIGNATURE != ".npk" && SIGNATURE != "npk."
+	print "Not valid NERD engine archive! Exiting!"
+	cleanexit
+endif
+
+if SIGNATURE == ".npk"
+	get FORMAT_VERSION long
+endif
+
+
 get INDEX_OFFSET long
 get INDEX_SIZE long
 xmath NUMBER_OF_FILES "INDEX_SIZE / 256"
