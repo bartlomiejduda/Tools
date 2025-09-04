@@ -24,7 +24,7 @@ namespace ConsoleApp1
                 {
                     byte[] fileBytes = File.ReadAllBytes(inputFile);
                     string cipherText = Encoding.UTF8.GetString(fileBytes);
-                    string decrypted = StringEncrypt.DecryptData(cipherText);
+                    string decrypted = TxtEncryption.DecryptTxtData(cipherText);
 
                     File.WriteAllText(outputFile, decrypted, Encoding.UTF8);
                     Console.WriteLine("File decrypted and saved as " + outputFile);
@@ -32,7 +32,7 @@ namespace ConsoleApp1
                 else if (mode == "-e")
                 {
                     string plainText = File.ReadAllText(inputFile, Encoding.UTF8);
-                    string encrypted = StringEncrypt.EncryptData(plainText);
+                    string encrypted = TxtEncryption.EncryptTxtData(plainText);
 
                     File.WriteAllText(outputFile, encrypted, Encoding.UTF8);
                     Console.WriteLine("File encrypted and saved as " + outputFile);
