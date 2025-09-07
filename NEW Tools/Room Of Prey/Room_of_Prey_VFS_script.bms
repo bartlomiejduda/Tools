@@ -1,0 +1,24 @@
+# Script by Bartlomiej Duda (Ikskoks)
+# Room of Prey series (Android) VFS/MP3 script
+
+
+# Ver    Date        Author               Comment
+# v1.0   06.09.2025  Bartlomiej Duda      -
+
+
+get ARCHIVE_SIZE asize
+
+for i = 0
+	get FILE_HASH long
+	get FILE_SIZE long
+	SavePos FILE_OFFSET
+	string FILE_PATH p "%s_%d%s" "file" i ".*"
+	log FILE_PATH FILE_OFFSET FILE_SIZE
+	
+	xmath NEXT_OFFSET "FILE_OFFSET + FILE_SIZE"
+	if NEXT_OFFSET == ARCHIVE_SIZE
+		cleanexit
+	endif
+	
+	goto NEXT_OFFSET
+next i
