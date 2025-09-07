@@ -57,6 +57,9 @@ def export_data(vfs_file_path: str, output_directory_path: str) -> None:
                         file_path=path_value
                     ))
 
+    # remove duplicates
+    all_hashes_list = list({obj.crc: obj for obj in all_hashes_list}.values())
+
     # extract data
     counter: int = 0
     archive_size: int = vfs_handler.get_file_size()
@@ -129,6 +132,7 @@ def main():
             logger.error(f"[ERROR] Directory does not exist: {input_directory_path}")
             sys.exit(1)
         # TODO - import function
+        raise Exception("Not supported yet!")
     else:
         parser.print_help()
         sys.exit(1)

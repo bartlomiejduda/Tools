@@ -16,10 +16,8 @@ from/to VFS archives from "Room Of Prey" Android game series.
    - ```.\my_env\Scripts\activate.bat```
 5. Install all libraries from requirements.txt file
    - ```pip install -r requirements.txt```
-6. Add project's directory to PYTHONPATH environment variable
-   - ```set PYTHONPATH=C:\Users\user\Desktop\ImageHeat-master```
-7. Run the main script file
-   - ```python Room_Of_Prey_VFS_Tool.py```
+6. Run the main script file
+   - ```python Room_Of_Prey_VFS_Tool.py <arguments>```
    
    
 # Usage
