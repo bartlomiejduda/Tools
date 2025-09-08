@@ -6,6 +6,7 @@
 
 // It should be executed like this:
 // frida -U -l room_of_prey_frida_script.js -f co.kr.eamobile.roomofprey3
+// frida -U -l room_of_prey_frida_script.js -f co.kr.eamobile.roomofprey4
 
 // Example output: 
 // snd/S_EFF_31.ogg ||| 0xc7a248a
@@ -16,6 +17,7 @@
 
 //  Version   Name               Date          Comment
 //  v1.0      Bartlomiej Duda    07.09.2025    Initial version
+//  v1.1      Bartlomiej Duda    08.09.2025    Add Room of Prey 4 support
 
 
 
@@ -30,7 +32,11 @@ function get_current_datetime() {
 
 
 // Room Of Pray 3 (Android) (co.kr.eamobile.roomofprey3)
-var module_name = 'libroomofprey3.so';
+// var module_name = 'libroomofprey3.so';
+// var export_name = '_ZN18MIDASKernelManager4hashEPh'
+
+// Room Of Pray 4 (Android) (co.kr.eamobile.roomofprey4)
+var module_name = 'libroomofprey4.so';
 var export_name = '_ZN18MIDASKernelManager4hashEPh'
 
 
@@ -62,6 +68,14 @@ awaitForCondition((baseAddr)=>{
 	 onLeave: function ( retval ) {  
 		var output_str = this.hash_string + " ||| " + retval;  // e.g. snd/S_EFF_31.ogg ||| 0xc7a248a
 		console.log(output_str);
+		
+		
+		// dump strings to TXT file
+		var out_file = new File("/sdcard/room_of_prey_hash_dump.txt","at");
+		out_file.write(this.hash_string + "\n");
+		out_file.flush();
+		out_file.close();
+		
  		}
    })
 	
