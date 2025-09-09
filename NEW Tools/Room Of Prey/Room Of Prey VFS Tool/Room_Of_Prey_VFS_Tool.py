@@ -7,6 +7,7 @@ License: GPL-3.0 License
 
 # Ver    Date        Author               Comment
 # v1.0   07.09.2025  Bartlomiej Duda      -
+# v1.1   09.09.2025  Bartlomiej Duda      Add import support
 
 
 import argparse
@@ -28,19 +29,8 @@ class HashEntryObject:
     file_path: str
 
 
-def export_data(vfs_file_path: str, output_directory_path: str) -> None:
-    """
-    Function for exporting data
-    """
-    logger.info("Starting export_data...")
-
-    vfs_handler = FileHandler(vfs_file_path, "rb")
-    vfs_handler.open()
-
-    all_hashes_list: List[HashEntryObject] = []
+def read_hash_lists(all_hashes_list: List[HashEntryObject]) -> List[HashEntryObject]:
     djb2_handler: DJB2Handler = DJB2Handler()
-
-    # read hash lists
     for r, d, f in os.walk("hash_lists"):
         for file in f:
             if file.endswith(".txt"):
@@ -56,9 +46,25 @@ def export_data(vfs_file_path: str, output_directory_path: str) -> None:
                         crc=crc_value,
                         file_path=path_value
                     ))
+    return all_hashes_list
 
-    # remove duplicates
-    all_hashes_list = list({obj.crc: obj for obj in all_hashes_list}.values())
+
+def sort_hash_lists(all_hashes_list: List[HashEntryObject]) -> List[HashEntryObject]:
+    return list({obj.crc: obj for obj in all_hashes_list}.values())
+
+
+def export_data(vfs_file_path: str, output_directory_path: str) -> None:
+    """
+    Function for exporting data
+    """
+    logger.info("Starting export_data...")
+
+    vfs_handler = FileHandler(vfs_file_path, "rb")
+    vfs_handler.open()
+
+    all_hashes_list: List[HashEntryObject] = []
+    all_hashes_list = read_hash_lists(all_hashes_list)
+    all_hashes_list = sort_hash_lists(all_hashes_list)
 
     # extract data
     counter: int = 0
@@ -87,10 +93,62 @@ def export_data(vfs_file_path: str, output_directory_path: str) -> None:
         if vfs_handler.get_position() == archive_size:
             break
 
+    vfs_handler.close()
     logger.info("All files extracted successfully!")
 
 
-VERSION_NUM = "v1.0"
+def import_data(old_vfs_file_path: str, input_directory_path: str, new_vfs_file_path: str) -> None:
+    """
+    Function for importing data
+    """
+    logger.info("Starting import_data...")
+
+    old_vfs_handler = FileHandler(old_vfs_file_path, "rb")
+    old_vfs_handler.open()
+
+    new_vfs_handler = FileHandler(new_vfs_file_path, "wb")
+    new_vfs_handler.open()
+
+    all_hashes_list: List[HashEntryObject] = []
+    all_hashes_list = read_hash_lists(all_hashes_list)
+    all_hashes_list = sort_hash_lists(all_hashes_list)
+
+    # import data
+    counter: int = 0
+    archive_size: int = old_vfs_handler.get_file_size()
+    while 1:
+        counter += 1
+        file_hash: int = old_vfs_handler.read_uint32()
+        old_file_size: int = old_vfs_handler.read_uint32()
+        old_vfs_handler.read_bytes(old_file_size)
+        file_path: str = "file_" + str(counter) + ".bin"
+
+        # try to get real file path
+        for hash_entry in all_hashes_list:
+            if hash_entry.crc == file_hash:
+                file_path = hash_entry.file_path
+                break
+
+        logger.info(f"Importing {file_path}...")
+
+        file_path = os.path.join(input_directory_path, file_path)
+        import_file = open(file_path, "rb")
+        import_file_data: bytes = import_file.read()
+        import_file.close()
+        new_file_size: int = len(import_file_data)
+
+        new_vfs_handler.write_uint32(file_hash)
+        new_vfs_handler.write_uint32(new_file_size)
+        new_vfs_handler.write_bytes(import_file_data)
+        if old_vfs_handler.get_position() == archive_size:
+            break
+
+    old_vfs_handler.close()
+    new_vfs_handler.close()
+    logger.info("All files imported successfully!")
+
+
+VERSION_NUM = "v1.1"
 EXE_FILE_NAME = f"room_of_prey_vfs_tool_{VERSION_NUM}.exe"
 PROGRAM_NAME = f'Room Of Prey VFS Tool {VERSION_NUM}'
 
@@ -103,7 +161,7 @@ def main():
     parser = argparse.ArgumentParser(prog=EXE_FILE_NAME, description=PROGRAM_NAME)
     group = parser.add_mutually_exclusive_group(required=True)
     group.add_argument("-e", "--export", nargs=2, metavar=("vfs_file_path", "output_directory_path"), help="Export from VFS file")
-    group.add_argument("-i", "--import", nargs=2, metavar=("input_directory_path", "vfs_file_path"), help="Import to VFS file")
+    group.add_argument("-i", "--import", nargs=3, metavar=("old_vfs_file_path", "input_directory_path", "new_vfs_file_path"), help="Import to VFS file")
 
     if len(sys.argv) == 1:
         parser.print_help()
@@ -124,15 +182,14 @@ def main():
         export_data(vfs_file_path, output_directory_path)
 
     elif getattr(args, "import"):
-        input_directory_path, vfs_file_path = getattr(args, "import")
-        if not os.path.isfile(vfs_file_path):
-            logger.error(f"[ERROR] File does not exist: {vfs_file_path}")
+        old_vfs_file_path, input_directory_path, new_vfs_file_path = getattr(args, "import")
+        if not os.path.isfile(old_vfs_file_path):
+            logger.error(f"[ERROR] File does not exist: {old_vfs_file_path}")
             sys.exit(1)
         if not os.path.isdir(input_directory_path):
             logger.error(f"[ERROR] Directory does not exist: {input_directory_path}")
             sys.exit(1)
-        # TODO - import function
-        raise Exception("Not supported yet!")
+        import_data(old_vfs_file_path, input_directory_path, new_vfs_file_path)
     else:
         parser.print_help()
         sys.exit(1)

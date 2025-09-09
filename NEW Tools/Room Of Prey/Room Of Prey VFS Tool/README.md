@@ -23,12 +23,12 @@ from/to VFS archives from "Room Of Prey" Android game series.
 # Usage
 
 <pre>
-Room Of Prey VFS Tool v1.0
+Room Of Prey VFS Tool v1.1
 
 options:
   -h, --help            show this help message and exit
   -e vfs_file_path output_directory_path, --export vfs_file_path output_directory_path
                         Export from VFS file
-  -i input_directory_path vfs_file_path, --import input_directory_path vfs_file_path
+  -i old_vfs_file_path input_directory_path new_vfs_file_path, --import old_vfs_file_path input_directory_path new_vfs_file_path
                         Import to VFS file
 </pre>
