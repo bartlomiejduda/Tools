@@ -1,0 +1,57 @@
+//------------------------------------------------
+//--- 010 Editor v15.0.1 Binary Template
+//
+//      File: Monsters, Inc. Scream Team Training WAD
+//   Authors: Bartłomiej Duda (Ikskoks)
+//   Version: 1.0
+//   Purpose: File Formats Reverse Engineering
+//  Category: Archive
+// File Mask: *.WAD
+//  ID Bytes: None
+//   History: v1.0  24.09.2025  Initial version
+//------------------------------------------------
+
+LittleEndian();
+
+struct ARCHIVE_FILE {
+    
+    local uint32 next_block_offset = 0;
+    local uint32 file_count = 0;
+    
+    struct FILE_BLOCK {
+        local uint32 block_offset = FTell();
+        uint32 block_size;
+        char file_name[40];
+        char file_type[40];
+        Printf("File_Type[%d] = %s\n", file_count, file_type);
+        
+        if (file_type == "Sprite Image")
+        {
+            uint32 unknown1;  // 1
+            uint64 nulls;
+            uint32 unknown2;  // 50
+            uint32 image_width;
+            uint32 image_height;
+            uint32 unknown3;  // 1
+            uint32 unknown4;  // 32
+            uint32 unknown5;  // 2
+            uint64 nulls;
+            uint32 unknown6; // 152
+            uint8 unknown7[20];
+            uint32 image_data_size;
+            uint8 image_data[image_data_size];
+        }
+        
+        next_block_offset = block_offset + block_size;
+        file_count = file_count + 1;
+    };
+    
+    while( !FEof() )
+    {
+        FSeek(next_block_offset);
+        if( FEof() )
+            break;
+        FILE_BLOCK block;
+    }
+        
+} archive_file;

@@ -1,0 +1,27 @@
+# Script by Bartlomiej Duda (Ikskoks)
+# Monsters, Inc. Scream Team Training (PC) <WAD> script
+
+
+# Ver    Date        Author               Comment
+# v1.0   24.09.2025  Bartlomiej Duda      -
+
+
+get ARCHIVE_SIZE asize
+
+for i = 0
+	SavePos BLOCK_OFFSET
+	get BLOCK_SIZE long
+	GetDString FILE_NAME 40
+	GetDString FILE_TYPE 40
+	
+	string FILE_PATH p "%s/%s" FILE_TYPE FILE_NAME
+	xmath NEXT_BLOCK_OFFSET "BLOCK_OFFSET + BLOCK_SIZE"
+	goto NEXT_BLOCK_OFFSET
+		
+	log FILE_PATH BLOCK_OFFSET BLOCK_SIZE
+	
+	SavePos CURR_OFFSET
+	if CURR_OFFSET == ARCHIVE_SIZE
+		cleanexit
+	endif
+next i
