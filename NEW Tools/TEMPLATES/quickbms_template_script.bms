@@ -3,7 +3,7 @@
 
 
 # Ver    Date        Author               Comment
-# v1.0   03.03.2024  Bartlomiej Duda      -
+# v1.0   28.09.2025  Bartlomiej Duda      -
 
 
 # idstring "\xCE\x0A\x89\x51"
@@ -25,7 +25,11 @@
 # get NAME string MEMORY_FILE
 
 # combining output path
-# string OUTPUT_FILE_PATH p "%s/%s/%s" ARCHIVE_NAME DIRECTORY_NAME FILE_NAME
+# string FILE_PATH p "%s/%s/%s" ARCHIVE_NAME DIRECTORY_NAME FILE_NAME
+
+# open multiple files
+# open FDDE RFH 0
+# open FDDE RFD 1
 
 # get archive size
 get ARCHIVE_SIZE asize
@@ -39,8 +43,8 @@ get ARCHIVE_SIZE asize
 # get FILE_PATH string
 
 # file log
-# clog FULL_OUTPUT_FILE_PATH FILE_OFFSET COMPRESSED_FILE_SIZE UNCOMPRESSED_FILE_SIZE
-# log FULL_OUTPUT_FILE_PATH FILE_OFFSET UNCOMPRESSED_FILE_SIZE
+# clog FULL_OUTPUT_FILE_PATH FILE_OFFSET COMPRESSED_FILE_SIZE RAW_FILE_SIZE
+# log FULL_OUTPUT_FILE_PATH FILE_OFFSET RAW_FILE_SIZE
 
 # go to -1 offset from current position
 # goto -1 0 SEEK_CUR

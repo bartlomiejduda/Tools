@@ -1,0 +1,33 @@
+# Script by Bartlomiej Duda (Ikskoks)
+# LEGO Loco (PC) RFH/RFD script
+
+
+# Ver    Date        Author               Comment
+# v1.0   28.09.2025  Bartlomiej Duda      -
+
+
+open FDDE RFH 0
+open FDDE RFD 1
+set FILE_OFFSET long 0
+get ARCHIVE_SIZE asize
+
+for i = 0
+	get FILE_NAME_LENGTH long
+	GetDString FILE_NAME FILE_NAME_LENGTH
+	get FILE_SIZE long
+	get COMPRESSION_FLAG long
+	
+	if COMPRESSION_FLAG == 1
+		string FILE_NAME p "%s/%s" "compressed" FILE_NAME
+	else
+		string FILE_NAME p "%s/%s" "raw" FILE_NAME
+	endif
+	
+	log FILE_NAME FILE_OFFSET FILE_SIZE 1
+	xmath FILE_OFFSET "FILE_OFFSET + FILE_SIZE"
+	SavePos CURR_OFFSET
+	
+	if CURR_OFFSET == ARCHIVE_SIZE
+		cleanexit
+	endif
+next i
