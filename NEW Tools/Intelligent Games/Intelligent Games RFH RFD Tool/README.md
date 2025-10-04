@@ -22,7 +22,7 @@ RFH/RFD file format description can be found on [RE Wiki](https://rewiki.mirahez
    - ```python rfh_rfd_tool.py <arguments>```
    
    
-# Usage
+## Usage
 
 <pre>
 Intelligent Games RFH/RFD Tool v1.0
