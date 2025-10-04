@@ -1,5 +1,5 @@
 # KEX Engine TARC Tool
-Tool for extracting/importing data from/to TARC archives.
+Tool for extracting data from TARC archives.
 TARC file format description can be found on [RE Wiki](https://rewiki.miraheze.org/wiki/KEX_Engine_TARC).
 
 ## Dependencies
@@ -22,7 +22,7 @@ TARC file format description can be found on [RE Wiki](https://rewiki.miraheze.o
    - ```python kex_engine_tarc_tool.py <arguments>```
    
    
-# Usage
+## Usage
 
 <pre>
 KEX Engine TARC Tool v1.0
@@ -31,6 +31,4 @@ options:
   -h, --help            show this help message and exit
   -e tarc_file_path output_directory, --export tarc_file_path output_directory
                         Export from TARC file
-  -i input_directory tarc_file_path, --import input_directory tarc_file_path
-                        Import to TARC file
 </pre>

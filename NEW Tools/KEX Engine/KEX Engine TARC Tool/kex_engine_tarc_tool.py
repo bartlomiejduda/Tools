@@ -100,7 +100,7 @@ def main():
     parser = argparse.ArgumentParser(prog=EXE_FILE_NAME, description=PROGRAM_NAME)
     group = parser.add_mutually_exclusive_group(required=True)
     group.add_argument("-e", "--export", nargs=2, metavar=("tarc_file_path", "output_directory"), help="Export from TARC file")
-    group.add_argument("-i", "--import", nargs=2, metavar=("input_directory", "tarc_file_path"), help="Import to TARC file")
+    # group.add_argument("-i", "--import", nargs=2, metavar=("input_directory", "tarc_file_path"), help="Import to TARC file")
 
     if len(sys.argv) == 1:
         parser.print_help()
