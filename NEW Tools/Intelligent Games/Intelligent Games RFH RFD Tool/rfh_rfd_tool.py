@@ -14,7 +14,7 @@ from reversebox.io_files.file_handler import FileHandler
 logger = get_logger(__name__)
 
 
-def export_data(rfh_file_path: str, rfd_file_path: str, output_directory_path: str) -> None:
+def export_data(rfh_file_path: str, rfd_file_path: str, output_directory_path: str, archive_type: int) -> None:
     """
     Function for exporting data
     """
@@ -25,10 +25,21 @@ def export_data(rfh_file_path: str, rfd_file_path: str, output_directory_path: s
     rfh_total_size: int = rfh_file.get_file_size()
 
     while 1:
-        filename_length: int = rfh_file.read_uint32()
-        filename: str = rfh_file.read_bytes(filename_length).decode("utf8").rstrip("\x00")
-        file_size = rfh_file.read_uint32()
-        compression_flag: int = rfh_file.read_uint32()
+        if archive_type == 1:  # e.g. Lego Loco
+            filename_length: int = rfh_file.read_uint32()
+            filename: str = rfh_file.read_bytes(filename_length).decode("utf8").rstrip("\x00")
+            file_size = rfh_file.read_uint32()
+            compression_flag: int = rfh_file.read_uint32()
+        elif archive_type == 2:  # e.g. The Powerpuff Girls - Mojo Jojo's Pet Project
+            filename_length: int = rfh_file.read_uint32()
+            rfh_file.skip_bytes(4)
+            compression_flag: int = rfh_file.read_uint32()
+            file_size: int = rfh_file.read_uint32()
+            rfh_file.skip_bytes(8)
+            filename: str = rfh_file.read_bytes(filename_length).decode("utf8").rstrip("\x00")
+        else:
+            raise Exception(f"Not supported archive type = {archive_type}!")
+
         file_data: bytes = rfd_file.read_bytes(file_size)
         file_path: str = os.path.join(output_directory_path, filename)
         os.makedirs(os.path.dirname(file_path), exist_ok=True)
@@ -64,6 +75,12 @@ def main():
     group.add_argument("-e", "--export", nargs=3, metavar=("rfh_file_path", "rfd_file_path", "output_directory"), help="Export from RFH/RFD file")
     # group.add_argument("-i", "--import", nargs=2, metavar=("input_directory", "rfh_file_path", "rfd_file_path"), help="Import to RFH/RFD file")
 
+    parser.add_argument("-t", "--type",
+                        type=int,
+                        default=1,
+                        choices=[1, 2],
+                        help="Archive type to use (default: 1)")
+
     if len(sys.argv) == 1:
         parser.print_help()
         sys.exit(1)
@@ -74,6 +91,7 @@ def main():
 
     if getattr(args, "export"):
         rfh_path, rfd_path, output_path = getattr(args, "export")
+        archive_type: int = getattr(args, "type")
 
         if not os.path.isfile(rfh_path):
             logger.error(f"[ERROR] File does not exist: {rfh_path}")
@@ -84,7 +102,7 @@ def main():
         if not os.path.isdir(output_path):
             logger.error(f"[ERROR] Directory does not exist: {output_path}")
             sys.exit(1)
-        export_data(rfh_path, rfd_path, output_path)
+        export_data(rfh_path, rfd_path, output_path, archive_type)
 
     elif getattr(args, "import"):
         input_path, rfh_path = getattr(args, "import")
