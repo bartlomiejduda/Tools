@@ -29,8 +29,6 @@ Intelligent Games RFH/RFD Tool v1.0
 
 options:
   -h, --help            show this help message and exit
-  -e rfh_file_path output_directory, --export rfh_file_path output_directory
+  -e rfh_file_path rfd_file_path output_directory, --export rfh_file_path rfd_file_path output_directory
                         Export from RFH/RFD file
-  -i input_directory rfh_file_path, --import input_directory rfh_file_path
-                        Import to RFH/RFD file
 </pre>

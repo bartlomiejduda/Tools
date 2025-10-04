@@ -8,9 +8,7 @@ import os
 import sys
 
 from reversebox.common.logger import get_logger
-from reversebox.image.image_decoder import ImageDecoder
-from reversebox.image.image_formats import ImageFormats
-from reversebox.image.pillow_wrapper import PillowWrapper
+from reversebox.compression.compression_huffman_intelligent import huffman_decompress_data
 from reversebox.io_files.file_handler import FileHandler
 
 logger = get_logger(__name__)
@@ -23,7 +21,29 @@ def export_data(rfh_file_path: str, rfd_file_path: str, output_directory_path: s
     logger.info(f"Starting export data from \"{os.path.basename(rfh_file_path)}\" file...")
 
     rfh_file = FileHandler(rfh_file_path, "rb")
-    # TODO
+    rfd_file = FileHandler(rfd_file_path, "rb")
+    rfh_total_size: int = rfh_file.get_file_size()
+
+    while 1:
+        filename_length: int = rfh_file.read_uint32()
+        filename: str = rfh_file.read_bytes(filename_length).decode("utf8").rstrip("\x00")
+        file_size = rfh_file.read_uint32()
+        compression_flag: int = rfh_file.read_uint32()
+        file_data: bytes = rfd_file.read_bytes(file_size)
+        file_path: str = os.path.join(output_directory_path, filename)
+        os.makedirs(os.path.dirname(file_path), exist_ok=True)
+
+        if compression_flag == 1:
+            file_data = huffman_decompress_data(file_data)
+
+        logger.info(f"Saving {filename}...")
+        out_file = open(file_path, "wb")
+        out_file.write(file_data)
+        out_file.close()
+
+        current_offset: int = rfh_file.get_position()
+        if current_offset >= rfh_total_size:
+            break
 
     logger.info(f"Data from file \"{os.path.basename(rfh_file_path)}\" exported successfully...")
     return
@@ -41,8 +61,8 @@ def main():
 
     parser = argparse.ArgumentParser(prog=EXE_FILE_NAME, description=PROGRAM_NAME)
     group = parser.add_mutually_exclusive_group(required=True)
-    group.add_argument("-e", "--export", nargs=2, metavar=("rfh_file_path", "output_directory"), help="Export from RFH/RFD file")
-    group.add_argument("-i", "--import", nargs=2, metavar=("input_directory", "rfh_file_path"), help="Import to RFH/RFD file")
+    group.add_argument("-e", "--export", nargs=3, metavar=("rfh_file_path", "rfd_file_path", "output_directory"), help="Export from RFH/RFD file")
+    # group.add_argument("-i", "--import", nargs=2, metavar=("input_directory", "rfh_file_path", "rfd_file_path"), help="Import to RFH/RFD file")
 
     if len(sys.argv) == 1:
         parser.print_help()
@@ -53,8 +73,7 @@ def main():
     logger.info(f"Running {PROGRAM_NAME}...")
 
     if getattr(args, "export"):
-        rfh_path, output_path = getattr(args, "export")
-        rfd_path: str = rfh_path.replace("rfh", "rfd")
+        rfh_path, rfd_path, output_path = getattr(args, "export")
 
         if not os.path.isfile(rfh_path):
             logger.error(f"[ERROR] File does not exist: {rfh_path}")
