@@ -1,6 +1,6 @@
 # Room Of Prey VFS Tool
 
-# Info
+## Info
 
 This tool was designed to extract and import data 
 from/to VFS archives from "Room Of Prey" Android game series.
@@ -20,7 +20,7 @@ from/to VFS archives from "Room Of Prey" Android game series.
    - ```python Room_Of_Prey_VFS_Tool.py <arguments>```
    
    
-# Usage
+## Usage
 
 <pre>
 Room Of Prey VFS Tool v1.1
