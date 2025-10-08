@@ -41,7 +41,10 @@ Table below isn't complete. It contains only some example games that I was able 
 If you know any other game that is supported by my tool, please let me know on GitHub's
 "Issues" tab.
 
-| Game Title                                    | Archive Type | Export support      | Import support     |
-|-----------------------------------------------|--------------|---------------------|--------------------|
-| Lego Loco (PC)                                | 1            | <center>✔️</center> | <center>❌</center> |
-| The Powerpuff Girls - Mojo Jojo's Pet Project | 2            | <center>✔️</center> | <center>❌</center> |
+| Game Title                                        | Archive Type | Export support      | Import support     |
+|---------------------------------------------------|--------------|---------------------|--------------------|
+| Emperor: Battle For Dune (PC)                     | 2            | <center>✔️</center> | <center>❌</center> |
+| LEGO Loco (PC)                                    | 1            | <center>✔️</center> | <center>❌</center> |
+| LEGO Stunt Rally (PC)                             | ?            | <center>?</center>  | <center>❌</center> |
+| The Powerpuff Girls: Gamesville (PC)              | 2            | <center>✔️</center> | <center>❌</center> |
+| The Powerpuff Girls: Mojo Jojo's Pet Project (PC) | 2            | <center>✔️</center> | <center>❌</center> |

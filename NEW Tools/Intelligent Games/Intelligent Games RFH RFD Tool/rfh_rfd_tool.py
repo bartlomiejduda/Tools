@@ -9,6 +9,7 @@ import sys
 
 from reversebox.common.logger import get_logger
 from reversebox.compression.compression_huffman_intelligent import huffman_decompress_data
+from reversebox.compression.compression_zlib import ZLIBHandler
 from reversebox.io_files.file_handler import FileHandler
 
 logger = get_logger(__name__)
@@ -46,6 +47,8 @@ def export_data(rfh_file_path: str, rfd_file_path: str, output_directory_path: s
 
         if compression_flag == 1:
             file_data = huffman_decompress_data(file_data)
+        if compression_flag == 2:
+            file_data = ZLIBHandler().decompress_data(file_data[4:])
 
         logger.info(f"Saving {filename}...")
         out_file = open(file_path, "wb")
