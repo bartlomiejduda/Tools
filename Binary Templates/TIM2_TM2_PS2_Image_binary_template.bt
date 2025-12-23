@@ -3,12 +3,13 @@
 //
 //      File: TIM2/TM2 PS2 Graphics file
 //   Authors: Bartłomiej Duda (Ikskoks)
-//   Version: 1.0
+//   Version: 1.1
 //   Purpose: File Formats Reverse Engineering
 //  Category: Image/Texture
 // File Mask: *.tim2 / *.tm2
 //  ID Bytes: 54 49 4D 32 (TIM2)
 //   History: v1.0  02.05.2025  Initial version
+//            v1.1  23.12.2025  Minor fixes
 //------------------------------------------------
 
 LittleEndian();
@@ -18,8 +19,8 @@ typedef enum <int>
     BPP_16 = 1,
     BPP_24 = 2,
     BPP_32 = 3,
-    BPP_4 = 4,
-    BPP_8 = 5
+    BPP_4_INDEXED = 4,
+    BPP_8_INDEXED = 5
 } BPP_TYPE;
 
 struct FILE {
@@ -64,7 +65,8 @@ struct FILE {
         
         
         uint8 image_data[image_header.image_data_size] <bgcolor=cLtRed>;
-        uint8 palette_data[image_header.palette_size] <bgcolor=cLtYellow>;
+        if (image_header.palette_size > 0)
+            uint8 palette_data[image_header.palette_size] <bgcolor=cLtYellow>;
     
     }
 
