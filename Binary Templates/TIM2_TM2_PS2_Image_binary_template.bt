@@ -3,30 +3,38 @@
 //
 //      File: TIM2/TM2 PS2 Graphics file
 //   Authors: Bartłomiej Duda (Ikskoks)
-//   Version: 1.1
+//   Version: 1.2
 //   Purpose: File Formats Reverse Engineering
 //  Category: Image/Texture
 // File Mask: *.tim2 / *.tm2
 //  ID Bytes: 54 49 4D 32 (TIM2)
 //   History: v1.0  02.05.2025  Initial version
 //            v1.1  23.12.2025  Minor fixes
+//            v1.2  31.12.2025  Add new findings
 //------------------------------------------------
 
 LittleEndian();
 
 typedef enum <int>
 {
-    BPP_16 = 1,
-    BPP_24 = 2,
-    BPP_32 = 3,
-    BPP_4_INDEXED = 4,
-    BPP_8_INDEXED = 5
-} BPP_TYPE;
+    TIM2_RGB16 = 1,
+    TIM2_RGB24 = 2,
+    TIM2_RGB32 = 3,
+    TIM2_IDTEX4 = 4,
+    TIM2_IDTEX8 = 5
+} IMAGE_TYPE;
+
+typedef enum <int>
+{
+    PAL_NONE = 0,
+    PAL_RGB16 = 1,
+    PAL_RGB32 = 3,
+} PALETTE_TYPE;
 
 struct FILE {
     struct HEADER {
         char signature[4];  // TIM2
-        uint8 version;
+        uint8 version;  // always 4?
         uint8 allignment;
         uint16 number_of_images;
         uint8 nulls[8];
@@ -47,12 +55,13 @@ struct FILE {
             uint32 palette_size;
             uint32 image_data_size;
             uint16 image_header_size;
-            uint16 number_of_colors;
-            uint8 image_format;
-            uint8 number_of_mipmpas;
-            uint8 palette_format;
-            uint8 image_bpp;
-            local BPP_TYPE image_bpp_str = image_bpp;
+            uint16 number_of_colors_in_palette;
+            uint8 picture_format;  // always 0
+            uint8 number_of_mipmpas;  // 1 for only main image, >1 for mipmaps
+            uint8 palette_type;
+            local PALETTE_TYPE palette_type_str = palette_type;
+            uint8 image_type;
+            local IMAGE_TYPE image_type_str = image_type;
             uint16 image_width;
             uint16 image_height;
             uint8 GsTEX0[8];
