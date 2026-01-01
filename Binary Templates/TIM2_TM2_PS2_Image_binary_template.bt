@@ -3,7 +3,7 @@
 //
 //      File: TIM2/TM2 PS2 Graphics file
 //   Authors: Bartłomiej Duda (Ikskoks)
-//   Version: 1.2
+//   Version: 1.3
 //   Purpose: File Formats Reverse Engineering
 //  Category: Image/Texture
 // File Mask: *.tim2 / *.tm2
@@ -11,6 +11,7 @@
 //   History: v1.0  02.05.2025  Initial version
 //            v1.1  23.12.2025  Minor fixes
 //            v1.2  31.12.2025  Add new findings
+//            v1.3  02.01.2026  Add new findings
 //------------------------------------------------
 
 LittleEndian();
@@ -27,8 +28,10 @@ typedef enum <int>
 typedef enum <int>
 {
     PAL_NONE = 0,
-    PAL_RGB16 = 1,
-    PAL_RGB32 = 3,
+    PAL_RGB16_CSM1 = 1,
+    PAL_RGB32_CSM1 = 3,
+    PAL_RGB16_CSM2 = 129,
+    PAL_RGB32_CSM2 = 131,
 } PALETTE_TYPE;
 
 struct FILE {
@@ -69,7 +72,7 @@ struct FILE {
             uint32 GsRegs;
             uint32 GsTexClut;
             if ( (image_header_size - 48) > 0)
-                uint8 user_data[image_header_size - 48];
+                uint8 user_data[image_header_size - 48];  // "eXt" + "swiz"
         } image_header <bgcolor=cLtBlue>;
         
         
