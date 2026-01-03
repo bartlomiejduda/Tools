@@ -3,7 +3,7 @@
 //
 //      File: TIM2/TM2 PS2 Graphics file
 //   Authors: Bartłomiej Duda (Ikskoks)
-//   Version: 1.3
+//   Version: 1.4
 //   Purpose: File Formats Reverse Engineering
 //  Category: Image/Texture
 // File Mask: *.tim2 / *.tm2
@@ -12,6 +12,7 @@
 //            v1.1  23.12.2025  Minor fixes
 //            v1.2  31.12.2025  Add new findings
 //            v1.3  02.01.2026  Add new findings
+//            v1.4  03.01.2026  Add support for user data
 //------------------------------------------------
 
 LittleEndian();
@@ -33,6 +34,26 @@ typedef enum <int>
     PAL_RGB16_CSM2 = 129,
     PAL_RGB32_CSM2 = 131,
 } PALETTE_TYPE;
+
+
+typedef enum <int>
+{
+    SCE_GS_PSMCT32 = 0,
+    SCE_GS_PSMT8 = 19,
+    SCE_GS_PSMT4 = 20,
+    SCE_GS_PSMT8H = 27,
+    SCE_GS_PSMT4HL = 36,
+    SCE_GS_PSMT4HH = 44,
+    NOT_SWIZZLED = 100
+} SWIZZLE_MODE;
+
+typedef enum <int>
+{
+    IDX_NONE = 0,
+    IDX_SCE_GS_PSMT8H = 27,
+    IDX_SCE_GS_PSMT4HL = 36,
+    IDX_SCE_GS_PSMT4HH = 44,
+} TEXEL_MODE;
 
 struct FILE {
     struct HEADER {
@@ -60,10 +81,10 @@ struct FILE {
             uint16 image_header_size;
             uint16 number_of_colors_in_palette;
             uint8 picture_format;  // always 0
-            uint8 number_of_mipmpas;  // 1 for only main image, >1 for mipmaps
-            uint8 palette_type;
+            uint8 number_of_mipmpas;  // 1 for only main image, >1 for main+mipmaps
+            uint8 palette_type <hidden=true>;
             local PALETTE_TYPE palette_type_str = palette_type;
-            uint8 image_type;
+            uint8 image_type <hidden=true>;
             local IMAGE_TYPE image_type_str = image_type;
             uint16 image_width;
             uint16 image_height;
@@ -71,15 +92,37 @@ struct FILE {
             uint8 GsTEX1[8];
             uint32 GsRegs;
             uint32 GsTexClut;
-            if ( (image_header_size - 48) > 0)
-                uint8 user_data[image_header_size - 48];  // "eXt" + "swiz"
+            if ( (image_header_size - 48) > 0) {
+
+                struct EXT_HEADER {    
+                    char ext_signature[4];  // "eXt\x00"
+                    uint32 user_space_size;
+                    uint32 user_data_size;
+                    uint32 reserved;
+                } ext_header <bgcolor=cRed>;
+                
+                struct SWIZ_HEADER {
+                    char swiz_signature[4];  // "swiz" or nulls
+                    uint16 width;
+                    uint16 height;
+                    uint8 swizzle_mode <hidden=true>;  // e.g. 0 -> SCE_GS_PSMCT32
+                    local SWIZZLE_MODE swizzle_mode_str = swizzle_mode;
+                    uint8 texel_mode <hidden=true>;  // e.g. 27 - SCE_GS_PSMT8H
+                    local TEXEL_MODE texel_mode_str = texel_mode;
+                } swiz_header <bgcolor=cBlue>;
+                
+                local uint32 total_user_data_size = image_header_size - 48;
+                local uint32 user_data_padding_size = total_user_data_size - sizeof(ext_header) - sizeof(swiz_header);
+                if (user_data_padding_size > 0) {
+                    uint8 user_data_padding[user_data_padding_size];
+                }
+            }
+                
         } image_header <bgcolor=cLtBlue>;
-        
         
         uint8 image_data[image_header.image_data_size] <bgcolor=cLtRed>;
         if (image_header.palette_size > 0)
             uint8 palette_data[image_header.palette_size] <bgcolor=cLtYellow>;
-    
     }
 
 } file;
