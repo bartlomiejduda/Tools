@@ -3,7 +3,7 @@
 //
 //      File: TIM2/TM2 PS2 Graphics file
 //   Authors: Bartłomiej Duda (Ikskoks)
-//   Version: 1.4
+//   Version: 1.5
 //   Purpose: File Formats Reverse Engineering
 //  Category: Image/Texture
 // File Mask: *.tim2 / *.tm2
@@ -13,12 +13,12 @@
 //            v1.2  31.12.2025  Add new findings
 //            v1.3  02.01.2026  Add new findings
 //            v1.4  03.01.2026  Add support for user data
+//            v1.5  04.01.2026  Add support for mipmaps
 //------------------------------------------------
 
 LittleEndian();
 
-typedef enum <int>
-{
+typedef enum <int> {
     TIM2_RGB16 = 1,
     TIM2_RGB24 = 2,
     TIM2_RGB32 = 3,
@@ -26,8 +26,7 @@ typedef enum <int>
     TIM2_IDTEX8 = 5
 } IMAGE_TYPE;
 
-typedef enum <int>
-{
+typedef enum <int> {
     PAL_NONE = 0,
     PAL_RGB16_CSM1 = 1,
     PAL_RGB32_CSM1 = 3,
@@ -36,8 +35,7 @@ typedef enum <int>
 } PALETTE_TYPE;
 
 
-typedef enum <int>
-{
+typedef enum <int> {
     SCE_GS_PSMCT32 = 0,
     SCE_GS_PSMT8 = 19,
     SCE_GS_PSMT4 = 20,
@@ -47,8 +45,7 @@ typedef enum <int>
     NOT_SWIZZLED = 100
 } SWIZZLE_MODE;
 
-typedef enum <int>
-{
+typedef enum <int> {
     IDX_NONE = 0,
     IDX_SCE_GS_PSMT8H = 27,
     IDX_SCE_GS_PSMT4HL = 36,
@@ -63,16 +60,14 @@ struct FILE {
         uint16 number_of_images;
         uint8 nulls[8];
         
-        if (allignment > 0)
-        {
+        if (allignment > 0) {
             uint8 padding[112];
         }
         
     } header <bgcolor=cLtGreen>;
     
     local int i <hidden=true>';
-    for( i = 0; i < header.number_of_images; i++ )
-    {
+    for( i = 0; i < header.number_of_images; i++ ) {
     
         struct IMAGE_HEADER {
             uint32 total_image_size;
@@ -81,7 +76,7 @@ struct FILE {
             uint16 image_header_size;
             uint16 number_of_colors_in_palette;
             uint8 picture_format;  // always 0
-            uint8 number_of_mipmpas;  // 1 for only main image, >1 for main+mipmaps
+            uint8 number_of_mipmaps;  // 1 for only main image, >1 for main+mipmaps
             uint8 palette_type <hidden=true>;
             local PALETTE_TYPE palette_type_str = palette_type;
             uint8 image_type <hidden=true>;
@@ -92,7 +87,30 @@ struct FILE {
             uint8 GsTEX1[8];
             uint32 GsRegs;
             uint32 GsTexClut;
+            
             if ( (image_header_size - 48) > 0) {
+                
+            if (number_of_mipmaps > 1) {
+                struct MIPMAPS_HEADER {
+                    uint64 gsMiptbp1;
+                    uint64 gsMiptbp2;
+                    for( i = 0; i < number_of_mipmaps; i++ ) {
+                        uint32 mipmap_image_size;
+                    }
+                    local uint32 current_offset <hidden=true> = FTell();
+                    if (header.allignment == 0) {
+                        local uint32 mipmaps_header_align_offset <hidden=true> = (current_offset + 16 - 1) & ~(16 - 1);
+                        local uint32 mipmaps_header_align_size <hidden=true> = mipmaps_header_align_offset - current_offset;
+                    } else {
+                       local uint32 mipmaps_header_align_offset <hidden=true> = (current_offset + 128 - 1) & ~(128 - 1);
+                       local uint32 mipmaps_header_align_size <hidden=true> = mipmaps_header_align_offset - current_offset;
+                    }
+                    if (mipmaps_header_align_size > 0) {
+                        uint8 mipmaps_padding[mipmaps_header_align_size];
+                    }
+                } mipmaps_header <bgcolor=cYellow>;
+            }
+
 
                 struct EXT_HEADER {    
                     char ext_signature[4];  // "eXt\x00"
@@ -113,6 +131,9 @@ struct FILE {
                 
                 local uint32 total_user_data_size = image_header_size - 48;
                 local uint32 user_data_padding_size = total_user_data_size - sizeof(ext_header) - sizeof(swiz_header);
+                if (number_of_mipmaps > 1) {
+                    user_data_padding_size -=  sizeof(mipmaps_header);
+                }
                 if (user_data_padding_size > 0) {
                     uint8 user_data_padding[user_data_padding_size];
                 }
