@@ -1,0 +1,20 @@
+# Script by Bartlomiej Duda (Ikskoks)
+# Doom WAD/IWAD script
+
+
+# Ver    Date        Author               Comment
+# v1.0   06.04.2026  Bartlomiej Duda      -
+
+
+idstring "IWAD"
+get NUMBER_OF_FILES long
+get DIRECTORY_OFFSET long
+
+goto DIRECTORY_OFFSET
+
+for i = 0 < NUMBER_OF_FILES
+	get FILE_OFFSET long
+	get FILE_SIZE long
+	GetDString FILE_NAME 8
+	log FILE_NAME FILE_OFFSET FILE_SIZE
+next i
