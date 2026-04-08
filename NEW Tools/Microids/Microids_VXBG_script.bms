@@ -1,0 +1,31 @@
+# Script by Bartlomiej Duda (Ikskoks)
+# Microids VXGB script
+# Should work with:
+#  - Syberia (PS2) (*.PS2)
+#  - Syberia 2
+#  - Still Life (*.SL)
+
+
+# Ver    Date        Author               Comment
+# v1.0   09.04.2025  Bartlomiej Duda      -
+
+
+idstring "VXBG"
+get DIRECTORY_SIZE long
+xmath BASE_OFFSET "DIRECTORY_SIZE + 8"
+set FILE_OFFSET long BASE_OFFSET
+
+for i = 0
+	get FILE_NAME string
+	get FILE_SIZE long
+
+	log FILE_NAME FILE_OFFSET FILE_SIZE
+	
+	xmath FILE_OFFSET "FILE_OFFSET + FILE_SIZE"
+	
+	SavePos CURRENT_OFFSET
+	if CURRENT_OFFSET >=  BASE_OFFSET
+		break
+	endif
+	
+next i
