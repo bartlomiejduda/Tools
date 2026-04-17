@@ -1,0 +1,28 @@
+# Script by Bartlomiej Duda (Ikskoks)
+# No Man's Land (PC) RDA script
+
+
+# Ver    Date        Author               Comment
+# v1.0   18.04.2026  Bartlomiej Duda      -
+
+
+comtype zlib_noerror
+idstring "Resource File V1.0\x00"
+goto 256
+get NUMBER_OF_FILES long
+
+
+for i = 0 < NUMBER_OF_FILES
+	GetDString FILE_PATH 256
+	get FILE_OFFSET long
+	get FILE_COMPRESSED_SIZE long
+	get FILE_UNCOMPRESSED_SIZE long
+	get COMPRESSION_FLAG long
+	
+	if COMPRESSION_FLAG == 1
+		clog FILE_PATH FILE_OFFSET FILE_COMPRESSED_SIZE FILE_COMPRESSED_SIZE
+	else
+		log FILE_PATH FILE_OFFSET FILE_COMPRESSED_SIZE
+	endif
+	
+next i
