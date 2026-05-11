@@ -1,0 +1,26 @@
+# Script by Bartlomiej Duda (Ikskoks)
+# Calaris Studios HAL script
+
+
+# Should work with games like:
+# - Monkey's Adventures (Tytus Romek i A'Tomek) 
+# - Mysterious Island (Tajemnicza Wyspa)
+
+
+# Ver    Date        Author               Comment
+# v1.0   11.05.2026  Bartlomiej Duda      -
+
+
+idstring "APUK"
+get NUMBER_OF_FILES long
+goto 32
+
+
+for i = 0 < NUMBER_OF_FILES
+	get FILE_SIZE long
+	get FILE_OFFSET long
+	get UNKNOWN_1 long
+	get UNKWNOWN_2 long
+	GetDString FILE_NAME 48
+	log FILE_NAME FILE_OFFSET FILE_SIZE
+next i
