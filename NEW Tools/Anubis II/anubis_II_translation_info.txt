@@ -1,0 +1,8 @@
+
+Tools needed for translation:
+- GIMP
+- Notepad++
+- TODO
+
+
+Info by Ikskoks
