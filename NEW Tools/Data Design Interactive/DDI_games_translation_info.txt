@@ -1,8 +1,9 @@
 
 Tools needed for translation:
 - GIMP
-- Notepad++
-- TODO
+  - for font editing
+- DDI Translation Tools
+  - TODO
 
 
 Info by Ikskoks

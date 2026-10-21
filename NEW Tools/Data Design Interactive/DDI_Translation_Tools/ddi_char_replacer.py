@@ -33,20 +33,22 @@ def replace_chars_recursive_for_single_file_type(extension: str, replace_folder)
         temp_file = open(temp_path, 'wb+')
         txt_file = open(txt_path, 'rb')
 
-        # https://www.ascii-code.com/CP1250
+        # All files should be in latin-1 for DDI games
         for line in txt_file:
             line = (
                 line
 
+                # TODO
                 # big chars
-                .replace(b'\xAF', b'\xC1')  # Ż
-                .replace(b'\xA3', b'\xC2')  # Ł
-                .replace(b'\xC6', b'\xC4')  # Ć
-                .replace(b'\xCA', b'\xC7')  # Ę
-                .replace(b'\x8C', b'\xC9')  # Ś
-                .replace(b'\xA5', b'\xCB')  # Ą
-                .replace(b'\x8F', b'\xD4')  # Ź
-                .replace(b'\xD1', b'\xD6')  # Ń
+                .replace(b'\xAF', b'\xC1')  # Ż -> a
+                .replace(b'\xAE', b'\xC1')  # Ó -> b
+                .replace(b'\xA3', b'\xC2')  # Ł -> c
+                .replace(b'\xC6', b'\xC4')  # Ć -> d
+                .replace(b'\xCA', b'\xC7')  # Ę -> f
+                .replace(b'\x8C', b'\xC9')  # Ś -> g
+                .replace(b'\xA5', b'\xCB')  # Ą -> h
+                .replace(b'\x8F', b'\xD4')  # Ź -> i
+                .replace(b'\xD1', b'\xD6')  # Ń -> j
 
             )
             temp_file.write(line)

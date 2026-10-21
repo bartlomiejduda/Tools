@@ -9,13 +9,10 @@ from typing import List
 
 from reversebox.common.logger import get_logger
 
-from anubis_II_char_replacer import replace_chars_in_multiple_folders
+from ddi_char_replacer import replace_chars_in_multiple_folders
 
 # Program tested on Python 3.11.6
-# Tool was made for Polish translation of "Anubis II" PC game
-
-# Ver    Date        Author               Comment
-# v1.0   18.10.2026  Bartlomiej Duda      Initial version (char replacer only)
+# Tool was made for Polish translations of Data Design Interactive games
 
 
 logger = get_logger(__name__)
