@@ -12,6 +12,10 @@ from reversebox.common.logger import get_logger
 logger = get_logger(__name__)
 
 
+def wad_extract():
+    pass  # TODO
+
+
 def main() -> None:
     parser = argparse.ArgumentParser(description="WAD archive extraction and import tool")
     mode_group = parser.add_mutually_exclusive_group(required=True)
@@ -48,12 +52,13 @@ def main() -> None:
 
 
 if __name__ == "__main__":
-    # TODO
+
+    # TODO - handle it as debug feature
     sys.argv = [
         "wad_tool.py",
         "--extract",
-        "file.WAD",
-        "output_directory",
+        "TEMP\\DataPC.wad",
+        "TEMP\\WAD_OUT",
     ]
 
     main()

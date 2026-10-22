@@ -7,6 +7,7 @@ import json
 import os
 import glob
 import shutil
+import sys
 from typing import List
 
 from reversebox.common.logger import get_logger
@@ -16,7 +17,7 @@ logger = get_logger(__name__)
 # fmt: off
 
 
-def replace_chars_recursive_for_single_file_type(extension: str, replace_folder) -> None:
+def replace_chars_recursive_for_single_file_type(extension: str, replace_folder: str) -> None:
     logger.info("Starting replacing chars for extension=" + extension + " and folder=" + replace_folder)
     os.chdir(replace_folder)
     file_set = glob.glob(r'*.' + extension)
@@ -62,15 +63,15 @@ def replace_chars_recursive_for_single_file_type(extension: str, replace_folder)
         logger.info("Success! All chars replaced in " + txt_path)
 
 
-def replace_chars_in_multiple_folders(tab_extensions: List[str], tab_folders: List[str]) -> None:
-    for ext in tab_extensions:
-        for fold in tab_folders:
+def replace_chars_in_multiple_folders(replace_extensions: List[str], replace_folders: List[str]) -> None:
+    for ext in replace_extensions:
+        for fold in replace_folders:
             replace_chars_recursive_for_single_file_type(ext, fold)
 
 
-if __name__ == '__main__':
+def main():
+    # TODO
     logger.info("Starting main...")
-
     replace_extensions: List[str] = json.loads(os.environ["REPLACE_EXTENSIONS"])  # e.g. ["txt"]
     replace_folders: List[str] = json.loads(os.environ["REPLACE_FOLDERS"])
     replace_chars_in_multiple_folders(replace_extensions, replace_folders)
@@ -78,3 +79,12 @@ if __name__ == '__main__':
     logger.info("Exiting main...")
 
 
+if __name__ == '__main__':
+
+    # TODO - handle it as debug feature
+    sys.argv = [
+        "char_replacer.py",
+        "TEMP\\chars_replace",
+    ]
+
+    main()

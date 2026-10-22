@@ -13,11 +13,18 @@ wad_tool.py --extract file.WAD output_directory
 wad_tool --import output_directory file.WAD
 
 
-### CFB Tool
-Tool for handling translation text from binary config files. 
+### CFB/CFG Converter
+Tool for converting from CFB to CFG and from CFG to CFB
 
-cfb_tool.py --extract input_directory output.INI
-cfb_tool --import output.INI input_directory
+cfb_cfg_converter.py --to-binary file.CFG file.CFB
+cfb_cfg_converter.py --to-text file.CFB file.CFG
+
+
+### CFG Tool
+Tool for handling translation text from CFG config files. 
+
+cfg_tool.py --extract input_directory output.INI
+cfg_tool --import output.INI input_directory
 
 
 ### Character replacer

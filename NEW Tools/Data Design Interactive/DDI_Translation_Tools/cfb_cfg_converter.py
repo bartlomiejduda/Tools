@@ -4,10 +4,11 @@ License: GPL-3.0 License
 """
 
 import struct
+import sys
 from dataclasses import dataclass
 from pathlib import Path
 
-MAX_DEPTH: int = 100
+MAX_CONFIG_DEPTH: int = 100
 
 
 @dataclass(frozen=True)
@@ -134,8 +135,8 @@ def parse_cfg_text(text: str) -> list[ConfigRecord]:
         records.append(ConfigRecord(token, None, value, depth))
         if value == '{':
             depth += 1
-            if depth > MAX_DEPTH:
-                raise ValueError(f"Max depth = {MAX_DEPTH} has been exceeded")
+            if depth > MAX_CONFIG_DEPTH:
+                raise ValueError(f"Max depth = {MAX_CONFIG_DEPTH} has been exceeded")
         i += 2
     if depth != 0:
         raise ValueError(f"Missing {depth} closing brackets in CFG")
@@ -233,17 +234,30 @@ def _write_stream_string(out: bytearray, value: str) -> None:
     out.extend(b'\0' * (target - len(out)))
 
 
-# TODO - use it in main pipeline
 def convert_cfb_to_cfg(input_path: Path, output_path: Path) -> int:
     records = parse_cfb_file(input_path)
     write_cfg(records, output_path)
     return len(records)
 
 
-# TODO - use it in main pipeline
 def convert_cfg_to_cfb(input_path: Path, output_path: Path) -> int:
     text = _decode_text(input_path)
     records = parse_cfg_text(text)
     raw = build_cfb(records)
     output_path.write_bytes(raw)
     return len(records)
+
+
+def main():
+    pass  # TODO
+
+
+if __name__ == '__main__':
+
+    # TODO - handle it as debug feature
+    sys.argv = [
+        "cfb_cfg_converter.py",
+        "TEMP\\aaaa",
+    ]
+
+    main()
